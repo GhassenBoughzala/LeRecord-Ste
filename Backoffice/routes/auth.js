@@ -34,19 +34,25 @@ router.post("/login", async (req, res) => {
         user.password,
         "SEC"
       );
-      console.log("Decrypt...");
       
       const OriginalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
-      console.log("Matching Pass...");
       OriginalPassword !== req.body.password && 
         res.status(401).json("Wrong Password !");
+
+      const accessToken = jwt.sign(
+            {
+              id: user._id,
+              isAdmin: user.isAdmin,
+            },"JWT",
+            {expiresIn:"3d"}
+          );
   
       const { password, ...others } = user._doc;
-      res.status(200).json(others);
-      console.log("Done");
+      res.status(200).json({...others, accessToken});
+      console.log("Login Done");
 
     } catch (err) {
-        console.error("NOP");
+        console.error("Sorry !");
     }
   });
 
