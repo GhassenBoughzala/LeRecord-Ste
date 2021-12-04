@@ -49,39 +49,11 @@ router.post("/login", async (req, res) => {
   
       const { password, ...others } = user._doc;
       res.status(200).json({...others, accessToken});
-      console.log("Login Done");
+      console.log("Login +1 ");
 
     } catch (err) {
         console.error("Sorry !");
     }
   });
 
-/*
-//LOGIN V2
-router.post("/login", async (req, res) => {
-
-    User.findOne({username: req.body.username},
-    function (err, user) {
-        if (err) throw err
-        if (!user) {
-            console.log("User not found")
-            res.status(403).send({
-                    success: false,
-                    msg: 'Authentication Failed, User not found'})
-        } 
-        else {
-            user.comparePassword(req.body.password, function (err, isMatch) {
-                if (isMatch && !err) {
-                    console.log("Matching Pass...")
-                    var token = jwtt.encode(user, config.secret)
-                    res.json({success: true, token: token})
-                }
-                else {
-                    return res.status(403).send({success: false, msg: 'Authentication failed, wrong password'})
-                }
-            })
-        }
-    })  
-}); 
-*/
 module.exports = router;
