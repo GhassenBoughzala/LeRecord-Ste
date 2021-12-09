@@ -1,50 +1,33 @@
 {
-  "name": "soft-ui-dashboard-react",
-  "version": "3.0.0",
+  "name": "lamaadmin",
+  "version": "0.1.0",
   "private": true,
-  "author": "Creative Tim",
-  "license": "See license in https://www.creative-tim.com/license",
-  "description": "Material UI version of Soft UI Dashboard by Creative Tim",
-  "homepage": "https://demos.creative-tim.com/soft-ui-dashboard-react/#/dashboard",
-  "bugs": {
-    "url": "https://github.com/creativetimofficial/soft-ui-dashboard-react/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/creativetimofficial/soft-ui-dashboard-react.git"
-  },
   "dependencies": {
-    "@emotion/cache": "11.4.0",
-    "@emotion/react": "11.4.1",
-    "@emotion/styled": "11.3.0",
-    "@mui/icons-material": "5.1.1",
-    "@mui/material": "5.1.1",
-    "@mui/styled-engine": "5.1.1",
-    "@testing-library/jest-dom": "5.11.4",
-    "@testing-library/react": "11.1.0",
-    "@testing-library/user-event": "12.1.10",
-    "chart.js": "3.4.1",
-    "chroma-js": "2.1.2",
-    "prop-types": "15.7.2",
-    "react": "17.0.2",
-    "react-chartjs-2": "3.0.4",
-    "react-countup": "5.2.0",
-    "react-dom": "17.0.2",
-    "react-flatpickr": "3.10.7",
-    "react-github-btn": "1.2.1",
-    "react-router-dom": "5.2.0",
+    "@material-ui/core": "^4.11.4",
+    "@material-ui/data-grid": "^4.0.0-alpha.29",
+    "@material-ui/icons": "^4.11.2",
+    "@reduxjs/toolkit": "^1.6.1",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "axios": "^0.21.4",
+    "babel-preset-react": "^6.24.1",
+    "firebase": "^9.1.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-redux": "^7.2.5",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.3",
-    "stylis": "4.0.10",
-    "stylis-plugin-rtl": "2.1.0",
-    "uuid": "8.3.2",
-    "web-vitals": "1.0.1"
+    "recharts": "^2.0.9",
+    "redux-persist": "^6.0.0",
+    "timeago.js": "^4.0.2",
+    "web-vitals": "^1.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
@@ -63,16 +46,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "eslint": "7.30.0",
-    "eslint-config-airbnb": "18.2.1",
-    "eslint-config-prettier": "8.3.0",
-    "eslint-plugin-import": "2.23.4",
-    "eslint-plugin-jsx-a11y": "6.4.1",
-    "eslint-plugin-prettier": "3.4.0",
-    "eslint-plugin-react": "7.24.0",
-    "eslint-plugin-react-hooks": "4.2.0",
-    "prettier": "2.3.2"
   }
 }

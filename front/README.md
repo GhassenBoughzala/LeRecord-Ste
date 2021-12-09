@@ -1,70 +1,85 @@
-# Getting Started with Create React App
+<p align="center">
+  <a href="http://atomizecode.com">
+    <img width="110px" style="margin-right: 20px" src="https://firebasestorage.googleapis.com/v0/b/pawan-dev.appspot.com/o/logo.svg?alt=media">
+  </a>
+</p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h1 align="center">Atomize Code</h1>
 
-## Available Scripts
+<div align="center">
 
-In the project directory, you can run:
+UI Design System for React JS
 
-### `yarn start`
+[![npm package](https://img.shields.io/npm/v/atomize.svg?style=flat-square)](https://www.npmjs.org/package/atomize) [![NPM downloads](http://img.shields.io/npm/dm/atomize.svg?style=flat-square)](http://npmjs.com/atomize) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+</div>
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+[![](https://firebasestorage.googleapis.com/v0/b/pawan-dev.appspot.com/o/Screenshot%202019-07-19%20at%2011.16.03%20AM.png?alt=media)](http://atomizecode.com)
 
-### `yarn test`
+## Features
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- UI design system for web apps.
+- Elegant and beautiful React components
 
-### `yarn build`
+## Environment Support
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Modern browsers and Internet Explorer 9+
+- Server-side Rendering
+- [Electron](http://electron.atom.io/)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Opera | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/electron/electron_48x48.png" alt="Electron" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Electron |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| IE9, IE10, IE11, Edge                                                                                                                                                                                           | last 2 versions                                                                                                                                                                                                   | last 2 versions                                                                                                                                                                                               | last 2 versions                                                                                                                                                                                               | last 2 versions                                                                                                                                                                                           | last 2 versions                                                                                                                                                                                                       |
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Install
 
-### `yarn eject`
+```bash
+npm install atomize react-transition-group
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```bash
+yarn add atomize react-transition-group
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Usage
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```jsx
+import { Button } from "atomize";
+ReactDOM.render(<Button />, mountNode);
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Links
 
-## Learn More
+- [Home page](http://atomizecode.com/)
+- [Getting Started](https://atomizecode.com/docs/react/setup)
+- [Showcase](https://atomizecode.com/docs/react/showcase)
+- [Contributing](https://atomizecode.com/docs/react/contributing)
+- [Theme Setup](https://atomizecode.com/docs/react/theme)
+- [Atoms](https://atomizecode.com/docs/react/atoms)
+- [Molecules](https://atomizecode.com/docs/react/molecules)
+- [Functions](https://atomizecode.com/docs/react/functions)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Examples
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- [Search Box](https://codesandbox.io/s/search-box-0fc6c)
+- [Star Rating](https://codesandbox.io/s/star-rating-64ex1)
+- [Login Form](https://codesandbox.io/s/login-form-atomize-ezs4u)
+- [Payment Card](https://codesandbox.io/s/payment-card-42b3c)
+- [Pokedex](https://warpokex.ri7nz.now.sh/) | [Repository](https://github.com/ri7nz/Warpokex)
 
-### Code Splitting
+## Development
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+To clone locally:
 
-### Analyzing the Bundle Size
+```bash
+$ git clone git@github.com:Proksh/atomize.git
+$ cd atomize
+$ npm install // or yarn
+$ npm start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Open your browser and visit http://localhost:8080
 
-### Making a Progressive Web App
+## Contributing [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Read our [contributing guide](https://atomizecode.com/docs/react/contributing) and let's build a better atomize together.
