@@ -54,6 +54,16 @@ router.post("/login", async (req, res) => {
     } catch (err) {
         console.error("Sorry !");
     }
+
+//LOGOUT
+router.get("/logout", async (req, res) => {
+
+  res.status(200).send({ auth: false, accessToken:null, msg: 'Logout'});
+  console.log("USER OUT !");
+
+});
+
+
   });
 
 module.exports = router;
