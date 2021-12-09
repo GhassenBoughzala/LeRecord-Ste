@@ -36,7 +36,7 @@ export const logout = async (dispatch, user) => {
 
 */
 
-
+//CRUD PRODUCT
 export const getProducts = async (dispatch) => {
   dispatch(getProductStart());
   try {
@@ -50,7 +50,7 @@ export const getProducts = async (dispatch) => {
 export const deleteProduct = async (id, dispatch) => {
   dispatch(deleteProductStart());
   try {
-    // const res = await userRequest.delete(`/products/${id}`);
+    const res = await userRequest.delete(`/products/${id}`);
     dispatch(deleteProductSuccess(id));
   } catch (err) {
     dispatch(deleteProductFailure());
@@ -60,8 +60,8 @@ export const deleteProduct = async (id, dispatch) => {
 export const updateProduct = async (id, product, dispatch) => {
   dispatch(updateProductStart());
   try {
-    // update
-    dispatch(updateProductSuccess({ id, product }));
+    const res = await userRequest.put(`/products/${id}`);
+    dispatch(updateProductSuccess(id, product));
   } catch (err) {
     dispatch(updateProductFailure());
   }
@@ -75,3 +75,46 @@ export const addProduct = async (product, dispatch) => {
     dispatch(addProductFailure());
   }
 };
+
+/*
+//CRUD FOURNISSEURS
+export const getfou = async (dispatch) => {
+  dispatch(getProductStart());
+  try {
+    const res = await publicRequest.get("/fournisseurs");
+    dispatch(getProductSuccess(res.data));
+  } catch (err) {
+    dispatch(getProductFailure());
+  }
+};
+
+export const deletefou = async (id, dispatch) => {
+  dispatch(deleteProductStart());
+  try {
+    //const res = await userRequest.delete(`/products/${id}`);
+    dispatch(deleteProductSuccess(id));
+  } catch (err) {
+    dispatch(deleteProductFailure());
+  }
+};
+
+export const updatefou = async (id, product, dispatch) => {
+  dispatch(updateProductStart());
+  try {
+    // update
+    dispatch(updateProductSuccess({ id, product }));
+  } catch (err) {
+    dispatch(updateProductFailure());
+  }
+};
+export const addfou = async (product, dispatch) => {
+  dispatch(addProductStart());
+  try {
+    const res = await userRequest.post(`/products`, product);
+    dispatch(addProductSuccess(res.data));
+  } catch (err) {
+    dispatch(addProductFailure());
+  }
+};
+
+*/

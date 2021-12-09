@@ -1,7 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import "./product.css";
 import Chart from "../../components/chart/Chart";
-import { productData } from "../../dummyData";
 import { Publish } from "@material-ui/icons";
 import { useSelector } from "react-redux";
 import { useEffect, useMemo, useState } from "react";
@@ -77,10 +76,6 @@ export default function Product() {
               <span className="productInfoValue">{product._id}</span>
             </div>
             <div className="productInfoItem">
-              <span className="productInfoKey">sales:</span>
-              <span className="productInfoValue">5123</span>
-            </div>
-            <div className="productInfoItem">
               <span className="productInfoKey">in stock:</span>
               <span className="productInfoValue">{product.inStock}</span>
             </div>
@@ -97,7 +92,7 @@ export default function Product() {
             <label>Price</label>
             <input type="text" placeholder={product.price} />
             <label>In Stock</label>
-            <select name="inStock" id="idStock">
+            <select name="inStock" id="inStock">
               <option value="true">Yes</option>
               <option value="false">No</option>
             </select>
