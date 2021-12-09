@@ -9,30 +9,11 @@ import {
 import app from "../../firebase";
 import { addProduct } from "../../redux/apiCalls";
 import { useDispatch } from "react-redux";
-import {NotificationContainer, NotificationManager} from 'react-notifications';
+//import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 export default function NewProduct() {
 
-  createNotification = (type) => {
-    return () => {
-      switch (type) {
-        case 'info':
-          NotificationManager.info('Uploading image...');
-          break;
-        case 'success':
-          NotificationManager.success('Success message', 'Done');
-          break;
-        case 'warning':
-          NotificationManager.warning('Warning message', 'Close after 3000ms', 3000);
-          break;
-        case 'error':
-          NotificationManager.error('Error message', 'Click me!', 5000, () => {
-            alert('callback');
-          });
-          break;
-      }
-    };
-  };
+
   
   const [inputs, setInputs] = useState({});
   const [file, setFile] = useState(null);
@@ -66,7 +47,7 @@ export default function NewProduct() {
         // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
         const progress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        this.createNotification('info')
+        //this.createNotification('info')
         console.log("Upload is " + progress + "% done");
         switch (snapshot.state) {
           case "paused":
@@ -87,7 +68,7 @@ export default function NewProduct() {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           const product = { ...inputs, img: downloadURL, categories: cat };
           addProduct(product, dispatch);
-          this.createNotification('success');
+          //this.createNotification('success');
         });
       }
     );
@@ -102,7 +83,7 @@ export default function NewProduct() {
           <input
             type="file"
             id="file"
-            onChange={(e) => setFile(e.target.files[0]), this.createNotification('info')}
+            onChange={(e) => setFile(e.target.files[0])}
           />
         </div>
         <div className="addProductItem">
@@ -134,7 +115,11 @@ export default function NewProduct() {
         </div>
         <div className="addProductItem">
           <label>Categories</label>
-          <input type="text" placeholder="jeans,skirts" onChange={handleCat} />
+          <select name="inStock" onChange={handleCat}>
+            <option value="Cat-1"></option>
+            <option value="Cat-1">Cat 1</option>
+            <option value="Cat-2">Cat 2</option>
+          </select>
         </div>
         <div className="addProductItem">
           <label>Stock</label>
@@ -148,5 +133,7 @@ export default function NewProduct() {
         </button>
       </form>
     </div>
+    
   );
+  // <NotificationContainer/>
 }
