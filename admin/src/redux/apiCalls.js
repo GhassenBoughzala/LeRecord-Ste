@@ -1,4 +1,4 @@
-import { loginFailure, loginStart, loginSuccess } from "./userRedux";
+import { loginFailure, loginStart, loginSuccess, logout} from "./userRedux";
 import { publicRequest, userRequest } from "../requestMethods";
 import {
   getProductFailure,
@@ -24,6 +24,18 @@ export const login = async (dispatch, user) => {
     dispatch(loginFailure());
   }
 };
+/*
+export const logout = async (dispatch, user) => {
+  dispatch(logout());
+  try {
+    const res = await publicRequest.get("/auth/logout", user);
+  } catch (err) {
+    console.log("Error in log out !")
+  }
+};
+
+*/
+
 
 export const getProducts = async (dispatch) => {
   dispatch(getProductStart());
