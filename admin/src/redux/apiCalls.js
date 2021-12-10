@@ -1,5 +1,6 @@
-import { loginFailure, loginStart, loginSuccess, logout} from "./userRedux";
+import { loginFailure, loginStart, loginSuccess, logoutSuccess} from "./userRedux";
 import { publicRequest, userRequest } from "../requestMethods";
+import { Link } from "react-router-dom";
 import {
   getProductFailure,
   getProductStart,
@@ -20,13 +21,14 @@ export const login = async (dispatch, user) => {
   try {
     const res = await publicRequest.post("/auth/login", user);
     dispatch(loginSuccess(res.data));
+    <Link to="/home" className="link"></Link>
   } catch (err) {
     dispatch(loginFailure());
   }
 };
-/*
+
 export const logout = async (dispatch, user) => {
-  dispatch(logout());
+  dispatch(logoutSuccess());
   try {
     const res = await publicRequest.get("/auth/logout", user);
   } catch (err) {
@@ -34,7 +36,7 @@ export const logout = async (dispatch, user) => {
   }
 };
 
-*/
+
 
 //CRUD PRODUCT
 export const getProducts = async (dispatch) => {

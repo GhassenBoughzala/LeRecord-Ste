@@ -1,8 +1,26 @@
 import React from "react";
 import "./topbar.css";
 import { NotificationsNone, Language, Settings } from "@material-ui/icons";
+import { Button } from "@material-ui/core";
+import { logout } from "../../redux/apiCalls";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+
+
+
+
 
 export default function Topbar() {
+
+const [username, setUsername] = useState("");
+const [password, setPassword] = useState("");
+const dispatch = useDispatch();
+
+const handleClick = (e) => {
+  e.preventDefault();
+  logout(dispatch, { username, password });
+};
+
   return (
     <div className="topbar">
       <div className="topbarWrapper">
@@ -11,17 +29,9 @@ export default function Topbar() {
         </div>
         <div className="topRight">
           <div className="topbarIconContainer">
-            <NotificationsNone />
-            <span className="topIconBadge">2</span>
+
+          <button onClick={handleClick}  className="widgetSmButton"> Logout </button>
           </div>
-          <div className="topbarIconContainer">
-            <Language />
-            <span className="topIconBadge">2</span>
-          </div>
-          <div className="topbarIconContainer">
-            <Settings />
-          </div>
-          <img src="https://images.pexels.com/photos/1526814/pexels-photo-1526814.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" alt="" className="topAvatar" />
         </div>
       </div>
     </div>
