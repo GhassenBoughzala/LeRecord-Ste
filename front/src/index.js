@@ -1,33 +1,31 @@
-export { default as StyleReset } from "./atoms/StyleReset";
-export { default as Container } from "./atoms/grid/Container";
-export { default as Row } from "./atoms/grid/Row";
-export { default as Col } from "./atoms/grid/Col";
-export { default as Div } from "./atoms/div/Div";
-export { iconPaths } from "./atoms/icon/iconPaths";
-export { default as Icon } from "./atoms/icon/Icon";
-export { default as Text } from "./atoms/text/Text";
-export { default as Button } from "./atoms/button/Button";
-export { default as Input } from "./atoms/input/Input";
-export { default as Textarea } from "./atoms/input/Textarea";
-export { default as Label } from "./atoms/label/Label";
-export { default as Checkbox } from "./atoms/checkbox/Checkbox";
-export { default as Radiobox } from "./atoms/radiobox/Radiobox";
-export { default as Switch } from "./atoms/checkbox/Switch";
-export { default as Image } from "./atoms/image/Image";
-export { default as Tag } from "./atoms/tag/Tag";
-export { default as Anchor } from "./atoms/anchor/Anchor";
-export { default as Collapse } from "./atoms/collapse/Collapse";
-export { default as Modal } from "./atoms/modal/Modal";
-export { default as SideDrawer } from "./atoms/sidedrawer/SideDrawer";
-export { default as Notification } from "./atoms/notification/Notification";
-export { default as Dropdown } from "./atoms/dropdown/Dropdown";
-// export { default as Avatar } from "./atoms/Avatar";
-// export { default as ButtonGroup } from "./atoms/ButtonGroup";
-// export { default as DropdownMenu } from "./atoms/DropdownMenu";
-// export { default as InputGroup } from "./atoms/InputGroup";
-// export { default as Tab } from "./atoms/Tab";
-export { default as scrollTo } from "./functions/scrollTo";
-export { default as currentDevice } from "./functions/currentDevice";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
+import App from './App.jsx';
+import Login from './screens/Login.jsx';
+import Register from './screens/Register.jsx';
+import Activate from './screens/Activate.jsx';
+import Private from './screens/Private.jsx';
+import Admin from './screens/Admin.jsx';
+import ForgetPassword from './screens/ForgetPassword.jsx';
+import ResetPassword from './screens/ResetPassword.jsx';
 
-export { ThemeProvider } from "./core/ThemeContext";
-// export { default as DefaultTheme } from "./styles/DefaultTheme";
+import PrivateRoute from './Routes/PrivateRoute';
+import AdminRoute from './Routes/AdminRoute';
+import 'react-toastify/dist/ReactToastify.css';
+ReactDOM.render(
+  <BrowserRouter>
+    <Switch>
+      <Route path='/' exact render={props => <App {...props} />} />
+      <Route path='/login' exact render={props => <Login {...props} />} />
+      <Route path='/register' exact render={props => <Register {...props} />} />
+      <Route path='/users/password/forget' exact render={props => <ForgetPassword {...props} />} />
+      <Route path='/users/password/reset/:token' exact render={props => <ResetPassword {...props} />} />
+      <Route path='/users/activate/:token' exact render={props => <Activate {...props} />} />
+      <PrivateRoute path="/private" exact component={Private} />
+       <AdminRoute path="/admin" exact component={Admin} />
+      <Redirect to='/' />
+    </Switch>
+  </BrowserRouter>,
+  document.getElementById('root')
+);
