@@ -1,15 +1,15 @@
-const User = require('../models/auth.model');
+const User = require('../models/User');
 const expressJwt = require('express-jwt');
 const _ = require('lodash');
-const { OAuth2Client } = require('google-auth-library');
-const fetch = require('node-fetch');
 
 const { validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
 const expressJWT = require('express-jwt');
 const { errorHandler } = require('../helpers/dbErrorHandling');
+
 const sgMail = require('@sendgrid/mail');
-sgMail.setApiKey(process.env.MAIL_KEY);
+//sgMail.setApiKey(process.env.MAIL_KEY);
+sgMail.setApiKey('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');
 
 
 
@@ -166,9 +166,11 @@ exports.signinController = (req, res) => {
   }
 };
 
+
 exports.requireSignin = expressJwt({
-  secret: process.env.JWT_SECRET // req.user._id
+  secret: 'Secret',  algorithms: ['RS256']// req.user._id
 });
+
 
 exports.adminMiddleware = (req, res, next) => {
   User.findById({

@@ -1,4 +1,41 @@
-const router = require("express").Router();
+const express = require('express')
+const router = express.Router()
+
+// Load Controllers
+const {
+    registerController,
+    activationController,
+    signinController,
+    forgotPasswordController,
+    resetPasswordController,
+    googleController,
+    facebookController
+} = require('../controllers/authcontroller')
+
+
+const {
+    validSign,
+    validLogin,
+    forgotPasswordValidator,
+    resetPasswordValidator
+} = require('../helpers/valid')
+
+router.post('/register',
+    validSign,
+    registerController)
+
+router.post('/login',
+    validLogin, signinController)
+
+router.post('/activation', activationController)
+
+// forgot reset password
+router.put('/forgotpassword', forgotPasswordValidator, forgotPasswordController);
+router.put('/resetpassword', resetPasswordValidator, resetPasswordController);
+
+module.exports = router
+
+/*const router = require("express").Router();
 const User = require("../models/User");
 const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
@@ -67,3 +104,5 @@ router.get("/logout", async (req, res) => {
   });
 
 module.exports = router;
+
+*/
