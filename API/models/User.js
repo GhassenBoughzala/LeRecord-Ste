@@ -3,6 +3,12 @@ const crypto = require('crypto');
 // user schema
 const userScheama = new mongoose.Schema(
   {
+
+    name: {
+      type: String,
+      trim: true,
+      required: true
+    },
     email: {
       type: String,
       trim: true,
@@ -10,12 +16,7 @@ const userScheama = new mongoose.Schema(
       unique: true,
       lowercase: true
     },
-    name: {
-      type: String,
-      trim: true,
-      required: true
-    },
-    hashed_password: {
+    password: {
       type: String,
       required: true
     },
@@ -36,7 +37,7 @@ const userScheama = new mongoose.Schema(
     timestamps: true
   }
 );
-
+/*
 // virtual
 userScheama
   .virtual('password')
@@ -71,5 +72,5 @@ userScheama.methods = {
     return Math.round(new Date().valueOf() * Math.random()) + '';
   }
 };
-
+*/
 module.exports = mongoose.model('User', userScheama);
