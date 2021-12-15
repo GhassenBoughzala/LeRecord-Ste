@@ -1,3 +1,4 @@
+/*
 const express = require('express');
 const router = express.Router();
 
@@ -10,14 +11,14 @@ router.put('/user/update', requireSignin, updateController);
 router.put('/admin/update', requireSignin, adminMiddleware, updateController);
 
 module.exports = router;
+*/
 
-/*
 const User = require("../models/User");
 const {
   verifyToken,
   verifyTokenAndAuthorization,
   verifyTokenAndAdmin,
-} = require("./verifyToken");
+} = require("../helpers/verifyToken");
 
 const router = require("express").Router();
 
@@ -79,7 +80,6 @@ router.get("/", verifyTokenAndAdmin, async (req, res) => {
 });
 
 //GET USER STATS
-
 router.get("/stats", verifyTokenAndAdmin, async (req, res) => {
   const date = new Date();
   const lastYear = new Date(date.setFullYear(date.getFullYear() - 1));
@@ -106,4 +106,3 @@ router.get("/stats", verifyTokenAndAdmin, async (req, res) => {
 });
 
 module.exports = router;
-*/

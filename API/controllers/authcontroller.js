@@ -1,3 +1,4 @@
+/*
 const User = require('../models/User');
 const expressJwt = require('express-jwt');
 const _ = require('lodash');
@@ -16,7 +17,6 @@ const sgMail = require('@sendgrid/mail');
 exports.registerController = (req, res) => {
   const { name, email, password } = req.body;
   const errors = validationResult(req);
-  const { token } = req.body;
 
   if (!errors.isEmpty()) {
     const firstError = errors.array().map(error => error.msg)[0];
@@ -73,7 +73,9 @@ exports.registerController = (req, res) => {
               return res.json({
                 success: true,
                 message: user,
-                message: 'Signup success'
+                message: 'Signup success',
+                message: token
+                
               });
             }
           });
@@ -94,7 +96,7 @@ exports.registerController = (req, res) => {
 exports.signinController = (req, res) => {
   const { email, password } = req.body;
   const errors = validationResult(req);
-  
+
   if (!errors.isEmpty()) {
     const firstError = errors.array().map(error => error.msg)[0];
     return res.status(422).json({
@@ -303,3 +305,5 @@ exports.resetPasswordController = (req, res) => {
   }
 };
 
+
+*/

@@ -1,3 +1,4 @@
+/*
 const User = require('../models/User');
 const expressJwt = require('express-jwt');
 
@@ -57,3 +58,5 @@ exports.updateController = (req, res) => {
         });
     });
 };
+
+*/
