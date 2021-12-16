@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { signout } from './helpers/auth';
 import { ToastContainer, toast } from 'react-toastify';
+import { Provider } from 'react-redux';
+import { loadUser } from './redux/actions/authActions';
+import store from './redux/store';
 
 function App({ history }) {
+
+  useEffect(() => {
+    store.dispatch(loadUser());
+  }, [] );
   return (
+<Provider store={store}>
     <div className='min-h-screen bg-gray-100 text-gray-900 flex justify-center'>
             <ToastContainer />
       <div className='max-w-screen-xl m-0 sm:m-20 bg-white shadow sm:rounded-lg flex justify-center flex-1'>
@@ -67,6 +75,7 @@ function App({ history }) {
       </div>
       ;
     </div>
+    </Provider>
   );
 }
 

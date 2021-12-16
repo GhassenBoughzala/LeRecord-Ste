@@ -1,14 +1,14 @@
 import { E_ERROR } from './enum';
 
 // REACT
-/*
+
 export interface ITarget {
   target: {
     value: React.SetStateAction<string>;
   };
   preventDefault(): void;
 }
-*/
+
 // ERRORS
 export interface IMsg {
   msg: string | any;

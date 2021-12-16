@@ -24,7 +24,7 @@ const Register = () => {
       if (password1 === password2) {
         setFormData({ ...formData, textChange: 'Submitting' });
         axios
-          .post(`${process.env.REACT_APP_API_URL}/register`, {
+          .post(`${process.env.REACT_APP_API_URL}/auth/register`, {
             name,
             email,
             password: password1
@@ -63,7 +63,7 @@ const Register = () => {
 
   return (
     <div className='min-h-screen bg-gray-100 text-gray-900 flex justify-center'>
-      {isAuth() ? <Redirect to='/' /> : null}
+      {isAuth() ? <Redirect to='/home' /> : null}
       <ToastContainer />
       <div className='max-w-screen-xl m-0 sm:m-20 bg-white shadow sm:rounded-lg flex justify-center flex-1'>
         <div className='lg:w-1/2 xl:w-5/12 p-6 sm:p-12'>

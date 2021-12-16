@@ -28,10 +28,7 @@ const userScheama = new mongoose.Schema(
     resetPasswordLink: {
       data: String,
       default: ''
-    },
-    isAdmin: {
-      type: Boolean,
-      default: false}
+    }
   },
   {
     timestamps: true

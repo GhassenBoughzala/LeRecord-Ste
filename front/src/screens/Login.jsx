@@ -18,19 +18,6 @@ const Login = ({ history }) => {
     setFormData({ ...formData, [text]: e.target.value });
   };
 
-  const sendGoogleToken = tokenId => {
-    axios
-      .post(`${process.env.REACT_APP_API_URL}/googlelogin`, {
-        idToken: tokenId
-      })
-      .then(res => {
-        console.log(res.data);
-        informParent(res);
-      })
-      .catch(error => {
-        console.log('GOOGLE SIGNIN ERROR', error.response);
-      });
-  };
   const informParent = response => {
     authenticate(response, () => {
       isAuth() && isAuth().role === 'admin'
@@ -39,29 +26,6 @@ const Login = ({ history }) => {
     });
   };
 
-  const sendFacebookToken = (userID, accessToken) => {
-    axios
-      .post(`${process.env.REACT_APP_API_URL}/facebooklogin`, {
-        userID,
-        accessToken
-      })
-      .then(res => {
-        console.log(res.data);
-        informParent(res);
-      })
-      .catch(error => {
-        console.log('GOOGLE SIGNIN ERROR', error.response);
-      });
-  };
-  const responseGoogle = response => {
-    console.log(response);
-    sendGoogleToken(response.tokenId);
-  };
-
-  const responseFacebook = response => {
-    console.log(response);
-    sendFacebookToken(response.userID, response.accessToken)
-  };
 
   const handleSubmit = e => {
     console.log(process.env.REACT_APP_API_URL);
@@ -69,7 +33,7 @@ const Login = ({ history }) => {
     if (email && password1) {
       setFormData({ ...formData, textChange: 'Submitting' });
       axios
-        .post(`${process.env.REACT_APP_API_URL}/login`, {
+        .post(`${process.env.REACT_APP_API_URL}/auth/login`, {
           email,
           password: password1
         })

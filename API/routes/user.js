@@ -66,6 +66,16 @@ router.get("/find/:id", verifyTokenAndAdmin, async (req, res) => {
   }
 });
 
+router.get('/user', verifyToken ,async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select('-password');
+    if (!user) throw Error('User does not exist');
+    res.json(user);
+  } catch (e) {
+    res.status(400).json({ msg: e.message });
+  }
+});
+
 //GET ALL USER
 router.get("/", verifyTokenAndAdmin, async (req, res) => {
   const query = req.query.new;

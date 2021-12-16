@@ -42,6 +42,7 @@ router.post("/register", validSign, async (req, res) => {
     });
 
     console.log("User +1 ");
+    
   } catch (err) {
     res.status(500).json(err);
     console.error(Error);
@@ -78,9 +79,12 @@ router.post("/login", validLogin, async (req, res) => {
       console.log("Login +1 ");
 
     } catch (err) {
+        res.status(500).json(err);
         console.error("Sorry !");
     }
 
   });
+
+
 
 module.exports = router;
