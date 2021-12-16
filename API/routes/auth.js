@@ -15,7 +15,7 @@ const User = require('../models/User');
 // @route   POST api/user
 // @desc    User Information
 // @access  Private 
-router.get('/', auth, async (req, res) => {
+router.get('/getuser', auth, async (req, res) => {
   try {
     // get user information by id 
     const user = await User.findById(req.user.id).select('-password')
@@ -58,18 +58,13 @@ router.post('/register',
 
     try {
       // Check if user already exist
-      let user = await User.findOne({
-        email
-      });
+      let user = await User.findOne({email});
 
       // If user exist
       if (user) {
         return res.status(400).json({
-          errors: [{
-            msg: 'User already exists',
-          }, ],
-        });
-      }
+          errors: [{ msg: 'User already exists',}, ],
+        }); }
 
       // If not exists
       // get image from gravatar
@@ -78,7 +73,6 @@ router.post('/register',
         r: 'pg', // Rate,
         d: 'mm',
       });
-
       // create user object
       user = new User({
         name,
@@ -94,11 +88,7 @@ router.post('/register',
       console.log("User +");
 
       // payload to generate token
-      const payload = {
-        user: {
-          id: user.id,
-        },
-      };
+      const payload = { user: {id: user.id,} ,};
 
       jwt.sign(
         payload,
@@ -107,8 +97,8 @@ router.post('/register',
         },
         (err, token) => {
           if (err) throw err;
-          res.json({
-            token
+          res.status(200).json({
+            token, user
           });
         }
       );
@@ -132,8 +122,7 @@ router.post('/login', [
   if (!errors.isEmpty()) {
     return res.status(400).json({
       errors: errors.array()
-    })
-  }
+    }) }
   // if everything is good
   // get email and password from request body
   const {email, password} = req.body;
@@ -141,17 +130,14 @@ router.post('/login', [
   try {
     // find user
     let user = await User.findOne({email});
-
     // If user not found in database
     if (!user) {
       return res.status(400).json({
         errors: [{ msg: 'Invalid credentials'}]
       })
     }
-
     // Know user founded by email let's compare passwords
     const isMatch = await bcrypt.compare(password, user.password);
-
     // passwords don't match
     if (!isMatch) {
       return res.status(400).json({
@@ -173,6 +159,7 @@ router.post('/login', [
         })
       }
     )
+    console.log("Login ++");
   } catch (error) {
     console.log(err.message);
     res.status(500).send('Server error');
