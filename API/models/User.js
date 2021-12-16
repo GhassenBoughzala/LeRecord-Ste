@@ -1,39 +1,33 @@
 const mongoose = require('mongoose');
-const crypto = require('crypto');
-// user schema
-const userScheama = new mongoose.Schema(
-  {
 
-    name: {
-      type: String,
-      trim: true,
-      required: true
-    },
-    email: {
-      type: String,
-      trim: true,
-      required: true,
-      unique: true,
-      lowercase: true
-    },
-    password: {
-      type: String,
-      required: true
-    },
-    salt: String,
-    role: {
-      type: String,
-      default: 'subscriber'
-    },
-    resetPasswordLink: {
-      data: String,
-      default: ''
-    }
+const UserSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
   },
-  {
-    timestamps: true
-  }
-);
+  email: {
+    type: String,
+    required: true,
+    unique: true, // Unique email for each user
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  avatar: {
+    // User Image
+    type: String,
+  },
+  role: {
+    // Role of user it will be (normal or admin )
+    type: Number,
+    default: 0,
+  },
+  history: {
+    // order history
+    type: Array,
+    default: [],
+  },
+});
 
-
-module.exports = mongoose.model('User', userScheama);
+module.exports = User = mongoose.model('User', UserSchema )
