@@ -1,7 +1,4 @@
 import React, { useEffect } from 'react';
-import { Link, Redirect } from 'react-router-dom';
-import { signout } from './helpers/auth';
-import { ToastContainer, toast } from 'react-toastify';
 import { Provider } from 'react-redux';
 import setAuthToken from './helpers/authToken';
 import store from './redux/store';

@@ -29,7 +29,7 @@ const NavbarList = ({ history, logout, isAuth }) => {
       />
       {isAuth && (
         <Button
-          title='Signout'
+          title='Logout'
           moreStyle='hover:text-primary'
           action={ () => {
             logout();

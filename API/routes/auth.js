@@ -7,7 +7,6 @@ const {
   check,
   validationResult
 } = require('express-validator');
-const gravatar = require('gravatar'); // get user image by email
 const auth = require('../middleware/auth')
 // Models
 const User = require('../models/User');
@@ -29,6 +28,7 @@ router.get('/getuser', auth, async (req, res) => {
 // @route   POST api/user/register
 // @desc    Register user
 // @access  Public
+
 router.post('/register',
   [
     // validation
@@ -59,32 +59,20 @@ router.post('/register',
     try {
       // Check if user already exist
       let user = await User.findOne({email});
-
-      // If user exist
       if (user) {
         return res.status(400).json({
           errors: [{ msg: 'User already exists',}, ],
         }); }
 
-      // If not exists
-      // get image from gravatar
-      const avatar = gravatar.url(email, {
-        s: '200', // Size
-        r: 'pg', // Rate,
-        d: 'mm',
-      });
       // create user object
-      user = new User({
-        name,
-        email,
-        avatar,
-        password,
-      });
+      user = new User({ name, email, password, });
 
       // encrypt password
       const salt = await bcrypt.genSalt(10); 
       user.password = await bcrypt.hash(password, salt); // use user password and salt to hash password
-      await user.save();
+      
+      const savedUser = await user.save();
+      if (!savedUser) throw Error('Something went wrong saving the user');
       console.log("User +");
 
       // payload to generate token
@@ -98,7 +86,7 @@ router.post('/register',
         (err, token) => {
           if (err) throw err;
           res.status(200).json({
-            token, user
+            token, savedUser
           });
         }
       );

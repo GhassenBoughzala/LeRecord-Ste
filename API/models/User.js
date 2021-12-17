@@ -14,10 +14,6 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  avatar: {
-    // User Image
-    type: String,
-  },
   role: {
     // Role of user it will be (normal or admin )
     type: Number,
@@ -30,4 +26,4 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
-module.exports = User = mongoose.model('User', UserSchema )
+module.exports = mongoose.model('User', UserSchema )
