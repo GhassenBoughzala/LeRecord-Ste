@@ -1,70 +1,45 @@
 import React, { useState } from 'react';
 import authSvg from '../assests/login.svg';
 import { ToastContainer, toast } from 'react-toastify';
-import axios from 'axios';
-import { authenticate, isAuth } from '../helpers/auth';
 import { Link, Redirect } from 'react-router-dom';
+import { login } from '../redux/reducers/authReducer';
+import { connect } from 'react-redux';
 
-const Login = ({ history }) => {
-  const [formData, setFormData] = useState({
+const Login = ({ login, isAuth, isLoading, user }) => {
+  const [data, setData] = useState({
     email: '',
-    password1: '',
-    textChange: 'Sign In'
+    password: '',
   });
-  const { email, password1 } = formData;
-  const handleChange = text => e => {
-    setFormData({ ...formData, [text]: e.target.value });
+
+  const { email, password } = data;
+
+  const handleChange = (name) => (event) => {
+    setData({ ...data, [name]: event.target.value });
   };
 
-  const handleSubmit = e => {
-    console.log(process.env.REACT_APP_API_URL);
+  const onSubmit = async (e) => {
     e.preventDefault();
-    if (email && password1) {
-      setFormData({ ...formData, textChange: 'Submitting' });
-      axios
-        .post(`${process.env.REACT_APP_API_URL}/auth/login`, {
-          email,
-          password: password1
-        })
-        .then(res => {
-          authenticate(res, () => {
-            setFormData({
-              ...formData,
-              email: '',
-              password1: '',
-              textChange: 'Submitted'
-            });
-            isAuth() && isAuth().role === 'admin'
-              ? history.push('/admin')
-              : history.push('/private');
-            toast.success(`Hey ${res.data.user.name}, Welcome back!`);
-          });
-        })
-        .catch(err => {
-          setFormData({
-            ...formData,
-            email: '',
-            password1: '',
-            textChange: 'Sign In'
-          });
-          console.log(err.response);
-          toast.error(err.response.data.errors);
-        });
-    } else {
-      toast.error('Please fill all fields');
-    }
+    console.log("Login +");
+    login({email,password});
   };
+
+  if (isAuth && user) {
+    const { name, role } = user;
+    toast.success(`Welcome ${name}`);
+    if (role === 0) return <Redirect to='/dashboard/user' />;
+    if (role === 1) return <Redirect to='/dashboard/admin' />;
+  }
   return (
     <div className='min-h-screen bg-gray-100 text-gray-900 flex justify-center'>
-      {isAuth() ? <Redirect to='/' /> : null}
       <ToastContainer />
       <div className='max-w-screen-xl m-0 sm:m-20 bg-white shadow sm:rounded-lg flex justify-center flex-1'>
+        
         <div className='lg:w-1/2 xl:w-5/12 p-6 sm:p-12'>
           <div className='mt-12 flex flex-col items-center'>
             <h1 className='text-2xl xl:text-3xl font-extrabold'>
               Sign In
             </h1>
-            <div className='w-full flex-1 mt-8 text-indigo-500'>
+            <div className='w-full flex-1 mt-8 text-black'>
               <div className='flex flex-col items-center'>
                 <a
                   className='w-full max-w-xs font-bold shadow-sm rounded-lg py-3
@@ -72,7 +47,7 @@ const Login = ({ history }) => {
                   href='/register'
                   target='_self'
                 >
-                  <i className='fas fa-user-plus fa 1x w-6  -ml-2 text-indigo-500' />
+                  <i className='fas fa-user-plus fa 1x w-6  -ml-2 text-' />
                   <span className='ml-4'>Sign Up</span>
                 </a>
               </div>
@@ -83,7 +58,7 @@ const Login = ({ history }) => {
               </div>
               <form
                 className='mx-auto max-w-xs relative '
-                onSubmit={handleSubmit}
+                onSubmit={onSubmit}
               >
                 <input
                   className='w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white'
@@ -96,22 +71,16 @@ const Login = ({ history }) => {
                   className='w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5'
                   type='password'
                   placeholder='Password'
-                  onChange={handleChange('password1')}
-                  value={password1}
+                  onChange={handleChange('password')}
+                  value={password}
                 />
                 <button
                   type='submit'
-                  className='mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none'
+                  className='mt-5 tracking-wide font-semibold bg-blue-500 text-gray-100 w-full py-4 rounded-lg hover:bg-blue-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none'
                 >
                   <i className='fas fa-sign-in-alt  w-6  -ml-2' />
                   <span className='ml-3'>Sign In</span>
                 </button>
-                <Link
-                  to='/users/password/forget'
-                  className='no-underline hover:underline text-indigo-500 text-md text-right absolute right-0  mt-2'
-                >
-                  Forget password?
-                </Link>
               </form>
             </div>
           </div>
@@ -123,9 +92,14 @@ const Login = ({ history }) => {
           ></div>
         </div>
       </div>
-      ;
+      
     </div>
   );
 };
 
-export default Login;
+const mapToStateProps = (state) => ({
+  isAuth: state.auth.isAuthenticated,
+  isLoading: state.auth.loading,
+  user: state.auth.user,
+});
+export default connect(mapToStateProps, { login })(Login);

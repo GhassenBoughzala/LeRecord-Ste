@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import Button from '../components/buttons/button.component';
 import Container from '../components/container/container.component';
 import { register } from '../redux/reducers/authReducer';
 import authSvg from '../assests/auth.svg';
@@ -33,7 +32,7 @@ const Register = ({ register, isAuth, isLoading, user }) => {
 
   if (isAuth && user) {
     const { name, role } = user
-    toast.success(`welcome ${name}`)
+    toast.success(`Welcome ${name}`)
     if(role === 0) return <Redirect to='/dashboard/user'/>
     if(role === 1) return <Redirect to='../../admin/src/pages/home'/>
   }
@@ -50,7 +49,7 @@ const Register = ({ register, isAuth, isLoading, user }) => {
             </h1>
 
             <form
-              className='w-full flex-1 mt-8 text-indigo-500'
+              className='w-full flex-1 mt-8 text-black'
               onSubmit={onSubmit}
             >
               <div className='mx-auto max-w-xs relative '>
@@ -83,11 +82,11 @@ const Register = ({ register, isAuth, isLoading, user }) => {
                   value={confirmPasswrod}
                 />
               <div className='flex flex-col items-center'>
-              {isLoading && <div id='loading' className='self-center mb-6' />}
+              {isLoading && <div id='loading' className='my-12 border-b text-center' />}
                 {!isLoading && (
                   <button className='w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline mt-5'
                   target='_self' >
-                   <i className='fas fa-user-plus fa 1x w-6  -ml-2 text-indigo-500' />
+                   <i className='fas fa-user-plus fa 1x w-6  -ml-2 text-blue-500' />
                    <span className='ml-4'>Sign Up</span>
                   </button>
                 )}
@@ -100,6 +99,8 @@ const Register = ({ register, isAuth, isLoading, user }) => {
                   Or sign with email
                 </div>
               </div>
+
+              
               <div className='flex flex-col items-center'>
                 <a
                   className='w-full max-w-xs font-bold shadow-sm rounded-lg py-3
@@ -107,7 +108,7 @@ const Register = ({ register, isAuth, isLoading, user }) => {
                   href='/login'
                   target='_self'
                 >
-                  <i className='fas fa-sign-in-alt fa 1x w-6  -ml-2 text-indigo-500' />
+                  <i className='fas fa-sign-in-alt fa 1x w-6  -ml-2 text-blue-500' />
                   <span className='ml-4'>Sign In</span>
                 </a>
               </div>

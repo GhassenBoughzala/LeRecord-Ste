@@ -4,7 +4,7 @@
     height: 50px;
     border: 3px solid rgba(134, 130, 136, 0.3);
     border-radius: 50%;
-    border-top-color: #6F64F8;
+    border-top-color: #4C5AA2;
     animation: spin 1s ease-in-out infinite;
     -webkit-animation: spin 1s ease-in-out infinite;
 }
