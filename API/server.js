@@ -3,12 +3,18 @@ const morgan = require('morgan')
 const cors = require('cors')
 const connectDB = require('./config/db')
 const bodyParser = require('body-parser')
-const routes = require('./routes/index')
+
 const userRoute = require("./routes/user");
 const authRoute = require("./routes/auth");
 const productRoute = require("./routes/product");
 const cartRoute = require("./routes/cart");
 const orderRoute = require("./routes/order");
+const fournisseurRoute = require("./routes/fournisseur");
+
+require('dotenv').config({
+    path: './config/config.env'
+})
+
 connectDB()
 
 const app = express()
@@ -25,9 +31,14 @@ app.use("/api/users", userRoute);
 app.use("/api/products", productRoute);
 app.use("/api/carts", cartRoute);
 app.use("/api/orders", orderRoute);
+app.use("/api/fournisseurs", fournisseurRoute);
 
-
-
+app.use((req, res) => {
+    res.status(404).json({
+        success: false,
+        msg: "Page not founded"
+    })
+})
 
 const PORT = process.env.PORT || 5500 
 

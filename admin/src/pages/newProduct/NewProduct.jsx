@@ -9,8 +9,12 @@ import {
 import app from "../../firebase";
 import { addProduct } from "../../redux/apiCalls";
 import { useDispatch } from "react-redux";
+//import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 export default function NewProduct() {
+
+
+  
   const [inputs, setInputs] = useState({});
   const [file, setFile] = useState(null);
   const [cat, setCat] = useState([]);
@@ -43,6 +47,7 @@ export default function NewProduct() {
         // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
         const progress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        //this.createNotification('info')
         console.log("Upload is " + progress + "% done");
         switch (snapshot.state) {
           case "paused":
@@ -63,6 +68,7 @@ export default function NewProduct() {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           const product = { ...inputs, img: downloadURL, categories: cat };
           addProduct(product, dispatch);
+          //this.createNotification('success');
         });
       }
     );
@@ -85,7 +91,7 @@ export default function NewProduct() {
           <input
             name="title"
             type="text"
-            placeholder="Apple Airpods"
+            placeholder=""
             onChange={handleChange}
           />
         </div>
@@ -109,7 +115,11 @@ export default function NewProduct() {
         </div>
         <div className="addProductItem">
           <label>Categories</label>
-          <input type="text" placeholder="jeans,skirts" onChange={handleCat} />
+          <select name="inStock" onChange={handleCat}>
+            <option value="Cat-1"></option>
+            <option value="Cat-1">Cat 1</option>
+            <option value="Cat-2">Cat 2</option>
+          </select>
         </div>
         <div className="addProductItem">
           <label>Stock</label>
@@ -123,5 +133,7 @@ export default function NewProduct() {
         </button>
       </form>
     </div>
+    
   );
+  // <NotificationContainer/>
 }

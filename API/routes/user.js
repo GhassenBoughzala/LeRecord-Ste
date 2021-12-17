@@ -1,9 +1,24 @@
+/*
+const express = require('express');
+const router = express.Router();
+
+// import controller
+const { requireSignin, adminMiddleware } = require('../controllers/authcontroller');
+const { readController, updateController } = require('../controllers/usercontroller');
+
+router.get('/user/:id', requireSignin, readController);
+router.put('/user/update', requireSignin, updateController);
+router.put('/admin/update', requireSignin, adminMiddleware, updateController);
+
+module.exports = router;
+*/
+
 const User = require("../models/User");
 const {
   verifyToken,
   verifyTokenAndAuthorization,
   verifyTokenAndAdmin,
-} = require("./verifyToken");
+} = require("../helpers/verifyToken");
 
 const router = require("express").Router();
 
@@ -51,6 +66,16 @@ router.get("/find/:id", verifyTokenAndAdmin, async (req, res) => {
   }
 });
 
+router.get('/user', verifyToken ,async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select('-password');
+    if (!user) throw Error('User does not exist');
+    res.json(user);
+  } catch (e) {
+    res.status(400).json({ msg: e.message });
+  }
+});
+
 //GET ALL USER
 router.get("/", verifyTokenAndAdmin, async (req, res) => {
   const query = req.query.new;
@@ -65,7 +90,6 @@ router.get("/", verifyTokenAndAdmin, async (req, res) => {
 });
 
 //GET USER STATS
-
 router.get("/stats", verifyTokenAndAdmin, async (req, res) => {
   const date = new Date();
   const lastYear = new Date(date.setFullYear(date.getFullYear() - 1));
