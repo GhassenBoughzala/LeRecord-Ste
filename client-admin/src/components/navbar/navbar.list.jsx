@@ -42,14 +42,14 @@ const NavbarList = ({ history, logout, isAuth }) => {
             title='Connect'
             moreStyle='hover:text-blue-500'
             isButton={false}
-            href='/auth'
+            href='/login'
           />
         </>
       )}
       <Button
         isButton={false}
         href='/cart'
-        moreStyle='fas fa-shopping-cart fa'
+        moreStyle='fas fa-shopping-cart fa hover:text-blue-500'
       />
     </ul>
   );

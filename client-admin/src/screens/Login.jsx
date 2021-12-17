@@ -37,7 +37,7 @@ const Login = ({ login, isAuth, isLoading, user }) => {
         <div className='lg:w-1/2 xl:w-5/12 p-6 sm:p-12'>
           <div className='mt-12 flex flex-col items-center'>
             <h1 className='text-2xl xl:text-3xl font-extrabold'>
-              Sign In
+              Welcome to Le Record
             </h1>
             <div className='w-full flex-1 mt-8 text-black'>
               <div className='flex flex-col items-center'>
