@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import Button from '../buttons/button.component';
 import NavItem from './navbar.item';
 import { connect } from 'react-redux';
-import { logout } from '../../data/reducers/auth';
+import { logout } from '../../redux/reducers/authReducer';
 
 const NavbarList = ({ history, logout, isAuth }) => {
   // make active nav item with text primary
@@ -39,16 +39,10 @@ const NavbarList = ({ history, logout, isAuth }) => {
       {!isAuth && (
         <>
           <Button
-            title='Login'
+            title='Connect'
             moreStyle='hover:text-primary'
             isButton={false}
-            href='/login'
-          />
-          <Button
-            title='Register'
-            moreStyle='hover:text-primary'
-            isButton={false}
-            href='/register'
+            href='/auth'
           />
         </>
       )}

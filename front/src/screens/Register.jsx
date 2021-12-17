@@ -1,68 +1,47 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import Button from '../components/buttons/button.component';
+import Container from '../components/container/container.component';
+import FormInput from '../components/inputs/form.input.component';
+import { register } from '../redux/reducers/authReducer';
 import authSvg from '../assests/auth.svg';
 import { ToastContainer, toast } from 'react-toastify';
-import axios from 'axios';
-import { authenticate, isAuth } from '../helpers/auth';
-import { Link, Redirect } from 'react-router-dom';
+import './loading.css';
+import { Redirect } from 'react-router-dom';
 
-const Register = () => {
-  const [formData, setFormData] = useState({
+const Register = ({ register, isAuth, isLoading, user }) => {
+  const [data, setData] = useState({
     name: '',
     email: '',
-    password1: '',
-    password2: '',
-    textChange: 'Sign Up'
+    password: '',
+    confirmPasswrod: '',
   });
 
-  const { name, email, password1, password2, textChange } = formData;
-  const handleChange = text => e => {
-    setFormData({ ...formData, [text]: e.target.value });
-  };
-  const handleSubmit = e => {
-    e.preventDefault();
-    if (name && email && password1) {
-      if (password1 === password2) {
-        setFormData({ ...formData, textChange: 'Submitting' });
-        axios
-          .post(`${process.env.REACT_APP_API_URL}/auth/register`, {
-            name,
-            email,
-            password: password1
-          })
-          .then(res => {
-            setFormData({
-              ...formData,
-              name: '',
-              email: '',
-              password1: '',
-              password2: '',
-              textChange: 'Submitted'
-            });
+  const { name, email, password, confirmPasswrod, textChange } = data;
 
-            toast.success(res.data.message);
-          })
-          .catch(err => {
-            setFormData({
-              ...formData,
-              name: '',
-              email: '',
-              password1: '',
-              password2: '',
-              textChange: 'Sign Up'
-            });
-            console.log(err.response);
-            toast.error(err.response.data.errors);
-          });
-      } else {
-        toast.error("Passwords don't matches");
-      }
+  const handleChange = (name) => (event) => {
+    setData({ ...data, [name]: event.target.value });
+  };
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    console.log('submit');
+    if (password !== confirmPasswrod) {
+      toast.error('Passwords do not match');
     } else {
-      toast.error('Please fill all fields');
+      register({ name, email, password });
     }
   };
 
+  if (isAuth && user) {
+    const { name, role } = user
+    toast.success(`welcome ${name}`)
+    if(role === 0) return <Redirect to='/dashboard/user'/>
+    if(role === 1) return <Redirect to='../../admin/src/pages/home'/>
+  }
+
   return (
-    <div className='min-h-screen bg-gray-100 text-gray-900 flex justify-center'>
+    <Container>
+          <div className='min-h-screen bg-gray-100 text-gray-900 flex justify-center'>
       {isAuth() ? <Redirect to='/home' /> : null}
       <ToastContainer />
       <div className='max-w-screen-xl m-0 sm:m-20 bg-white shadow sm:rounded-lg flex justify-center flex-1'>
@@ -74,7 +53,7 @@ const Register = () => {
 
             <form
               className='w-full flex-1 mt-8 text-indigo-500'
-              onSubmit={handleSubmit}
+              onSubmit={onSubmit}
             >
               <div className='mx-auto max-w-xs relative '>
                 <input
@@ -95,15 +74,15 @@ const Register = () => {
                   className='w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5'
                   type='password'
                   placeholder='Password'
-                  onChange={handleChange('password1')}
-                  value={password1}
+                  onChange={handleChange('password')}
+                  value={password}
                 />
                 <input
                   className='w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5'
                   type='password'
                   placeholder='Confirm Password'
-                  onChange={handleChange('password2')}
-                  value={password2}
+                  onChange={handleChange('confirmPasswrod')}
+                  value={confirmPasswrod}
                 />
                 <button
                   type='submit'
@@ -112,6 +91,14 @@ const Register = () => {
                   <i className='fas fa-user-plus fa 1x w-6  -ml-2' />
                   <span className='ml-3'>{textChange}</span>
                 </button>
+                {isLoading && <div id='loading' className='self-center mb-3' />}
+                {!isLoading && (
+                  <Button
+                    title='SignUp'
+                    moreStyle='bg-primary text-white w-full mb-3'
+                    type='submit'
+                  />
+                )}
               </div>
               <div className='my-12 border-b text-center'>
                 <div className='leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform translate-y-1/2'>
@@ -141,7 +128,14 @@ const Register = () => {
       </div>
       
     </div>
+
+    </Container>
   );
 };
 
-export default Register;
+const mapToStateProps = (state) => ({
+  isAuth: state.auth.isAuthenticated,
+  isLoading: state.auth.loading,
+  user: state.auth.user,
+});
+export default connect(mapToStateProps, { register })(Register);

@@ -4,8 +4,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
 import { authenticate, isAuth } from '../helpers/auth';
 import { Link, Redirect } from 'react-router-dom';
-import { GoogleLogin } from 'react-google-login';
-import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 
 const Login = ({ history }) => {
   const [formData, setFormData] = useState({
@@ -13,19 +11,10 @@ const Login = ({ history }) => {
     password1: '',
     textChange: 'Sign In'
   });
-  const { email, password1, textChange } = formData;
+  const { email, password1 } = formData;
   const handleChange = text => e => {
     setFormData({ ...formData, [text]: e.target.value });
   };
-
-  const informParent = response => {
-    authenticate(response, () => {
-      isAuth() && isAuth().role === 'admin'
-        ? history.push('/admin')
-        : history.push('/private');
-    });
-  };
-
 
   const handleSubmit = e => {
     console.log(process.env.REACT_APP_API_URL);

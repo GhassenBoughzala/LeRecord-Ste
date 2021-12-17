@@ -17,7 +17,7 @@ const Navbar = () => {
         {/* Left Side */}
         <div className='flex justify-between w-full md:w-32 items-center'>
           <Link to='/' className='logo w-16 animate'>
-            <img src={require('../../assets/LeRecord.png')} alt='Main Logo' />
+           
           </Link>
           <NavbarToggle active={active} menuState={menuState} />
         </div>
