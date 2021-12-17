@@ -17,7 +17,7 @@
 
 .menu-icon__bar {
     position: absolute;
-    background-color: #6F64F8;
+    background-color: #4C5AA2;
     height: var(--bar-height);
     width: var(--menu-width);
     transition: opacity 0s var(--timing-animation), top var(--timing-animation) var(--timing-animation), bottom var(--timing-animation) var(--timing-animation), transform var(--timing-animation);

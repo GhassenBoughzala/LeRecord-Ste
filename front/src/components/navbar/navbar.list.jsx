@@ -9,7 +9,7 @@ const NavbarList = ({ history, logout, isAuth }) => {
   // make active nav item with text primary
   const isActive = (history, path) => {
     if (history.location.pathname === path) {
-      return 'text-primary';
+      return 'text-blue-500';
     } else {
       return '';
     }
@@ -30,7 +30,7 @@ const NavbarList = ({ history, logout, isAuth }) => {
       {isAuth && (
         <Button
           title='Logout'
-          moreStyle='hover:text-primary'
+          moreStyle='hover:text-blue-500'
           action={ () => {
             logout();
           }}
@@ -40,7 +40,7 @@ const NavbarList = ({ history, logout, isAuth }) => {
         <>
           <Button
             title='Connect'
-            moreStyle='hover:text-primary'
+            moreStyle='hover:text-blue-500'
             isButton={false}
             href='/auth'
           />
@@ -49,8 +49,7 @@ const NavbarList = ({ history, logout, isAuth }) => {
       <Button
         isButton={false}
         href='/cart'
-        title='cart'
-        moreStyle='bg-primary text-white uppercase w-24 md:ml-6'
+        moreStyle='fas fa-shopping-cart fa'
       />
     </ul>
   );
