@@ -7,6 +7,7 @@ const bodyParser = require('body-parser')
 const userRoute = require("./routes/user");
 const authRoute = require("./routes/auth");
 const productRoute = require("./routes/product");
+const catRoute = require("./routes/category");
 const cartRoute = require("./routes/cart");
 const orderRoute = require("./routes/order");
 const fournisseurRoute = require("./routes/fournisseur");
@@ -29,6 +30,7 @@ app.use(bodyParser.json())
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/products", productRoute);
+app.use("/api/category", catRoute);
 app.use("/api/carts", cartRoute);
 app.use("/api/orders", orderRoute);
 app.use("/api/fournisseurs", fournisseurRoute);
