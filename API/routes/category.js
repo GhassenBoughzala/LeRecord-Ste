@@ -1,6 +1,6 @@
-texpress = require('express')
+const express = require('express');
 const router = express.Router()
-const Category = require('../models/Category')
+const Category = require('../models/Categories')
 const auth = require('../middleware/auth')
 const adminAuth = require('../middleware/adminAuth')
 const categoryById = require('../middleware/categoryById')

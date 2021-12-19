@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const Category = require('../models/Category')
+const Category = require('../models/Categories')
 
 
 module.exports = async function (req, res, next) {
