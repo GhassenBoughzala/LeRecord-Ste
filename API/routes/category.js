@@ -4,17 +4,13 @@ const Category = require('../models/Categories')
 const auth = require('../middleware/auth')
 const adminAuth = require('../middleware/adminAuth')
 const categoryById = require('../middleware/categoryById')
-const {
-    check,
-    validationResult
-} = require('express-validator')
+const { check, validationResult } = require('express-validator')
 
 // @route   POST api/category
 // @desc    Create Category
 // @access  Private Admin
-router.post('/', [
-    check('name', 'Name is required').trim().not().isEmpty()
-], auth, adminAuth, async (req, res) => {
+router.post('/', [ check('name', 'Name is required').trim().not().isEmpty()]
+, auth, adminAuth, async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({
