@@ -226,20 +226,6 @@ router.get('/:productId', productById, (req, res) => {
     return res.json(req.product);
 });
 
-// @route   Get api/product/photo/productId
-// @desc    Get a Product Image
-// @access  Public
-router.get('/photo/:productId', productById, (req, res) => {
-    if (req.product.photo.data) {
-        res.set('Content-Type', req.product.photo.contentType);
-        return res.send(req.product.photo.data);
-    }
-
-    res.status(400).json({
-        error: 'failed to load image',
-    });
-});
-
 // @route   Delete api/product/productId
 // @desc    Delete a Product
 // @access  Private Admin

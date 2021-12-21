@@ -7,7 +7,7 @@ module.exports = async function(req, res ){
 
     if(!mongoose.Types.ObjectId.isValid(ProductId)){
         return res.status(403).json({
-            error: 'Product 404'
+            error: 'Product 404 invalid ID '
         })
     }
 
