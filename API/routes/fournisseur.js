@@ -84,17 +84,12 @@ router.delete('/:fournisseurId', auth, adminAuth, fournisseurById, async (req, r
   }
 })
 
-// @route   Get api/fournissuer
-// @desc    Get one fournisseur
+// @route   Get api/category/:categoryId
+// @desc    Get Single category
 // @access  Public
-router.get("/find/:fournisseurId", async (req, res) => {
-  try {
-    const product = await Product.findById(req.params.id);
-    res.status(200).json(product);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+router.get('/:fournisseurId', fournisseurById, async (req, res) => {
+  res.json(req.fournisseur)
+})
 
 
 router.param("fournisseurId", fournisseurById);
