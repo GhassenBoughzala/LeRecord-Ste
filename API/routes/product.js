@@ -24,15 +24,6 @@ router.post('/', auth, adminAuth, (req, res) => {
         if (!files.photo) {
             return res.status(400).json({ error: 'Image is required',});}
         
-        if (
-            files.photo.type !== 'image/jpeg' &&
-            files.photo.type !== 'image/jpg' &&
-            files.photo.type !== 'image/png'
-        ) {
-            return res.status(400).json({ error: 'Image type not allowed',});
-        
-        }
-        
         const {
             name,
             description,
@@ -64,6 +55,7 @@ router.post('/', auth, adminAuth, (req, res) => {
 
         console.log("Photo...");
         product.photo.data = fs.readFileSync(files.photo.path);
+        console.log("Read file...");
         product.photo.contentType = files.photo.type;
 
         try {
