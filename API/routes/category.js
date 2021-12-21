@@ -13,14 +13,10 @@ router.post('/', [ check('name', 'Name is required').trim().not().isEmpty()]
 , auth, adminAuth, async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({
-            error: errors.array()[0].msg
-        })
+        return res.status(400).json({ error: errors.array()[0].msg })
     }
 
-    const {
-        name
-    } = req.body
+    const { name } = req.body
     try {
         let category = await Category.findOne({
             name
@@ -32,9 +28,7 @@ router.post('/', [ check('name', 'Name is required').trim().not().isEmpty()]
             })
         }
 
-        const newCategory = new Category({
-            name
-        })
+        const newCategory = new Category({ name })
         category = await newCategory.save()
         res.json(category)
     } catch (error) {

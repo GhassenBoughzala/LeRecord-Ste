@@ -17,12 +17,7 @@ router.post('/', auth, adminAuth, (req, res) => {
     let form = new formidable.IncomingForm();
     form.keepExtensions = true;
 
-    form.parse(req, async (err, fields, files) => {
-        if (err) { 
-            return res.status(400).json({ error: 'Image could not be uploaded',});}
-
-        if (!files.photo) {
-            return res.status(400).json({ error: 'Image is required',});}
+    form.parse(req, async (err, fields) => {
         
         const {
             name,
@@ -31,6 +26,7 @@ router.post('/', auth, adminAuth, (req, res) => {
             category,
             fournisseur,
             quantity,
+            photo,
             shipping
         } = fields;
         if (
@@ -40,23 +36,13 @@ router.post('/', auth, adminAuth, (req, res) => {
             !category ||
             !fournisseur ||
             !quantity ||
-            !shipping
+            !shipping ||
+            !photo
         ) {
             return res.status(400).json({ error: 'All fields are required',});
         }
 
         let product = new Product(fields);
-        // 1MB = 1000000
-        if (files.photo.size > 1000000) {
-            return res.status(400).json({
-                error: 'Image should be less than 1MB in size',
-            });
-        }
-
-        console.log("Photo...");
-        product.photo.data = fs.readFileSync(files.photo.path);
-        console.log("Read file...");
-        product.photo.contentType = files.photo.type;
 
         try {
             await product.save();
@@ -276,29 +262,13 @@ router.delete('/:productId', auth, adminAuth, productById, async (req, res) => {
 router.put('/:productId', auth, adminAuth, productById, (req, res) => {
     let form = new formidable.IncomingForm();
     form.keepExtensions = true;
-    form.parse(req, async (err, fields, files) => {
-        if (err) {
-            return res.status(400).json({
-                error: 'Image could not be uploaded',
-            });
-        }
+    form.parse(req, async (err, fields) => {
 
         let product = req.product;
         product = _.extend(product, fields);
 
-        if (files.photo) {
-            if (files.photo.size > 1000000) {
-                return res.status(400).json({
-                    error: 'Image should be less than 1mb in size',
-                });
-            }
-            product.photo.data = fs.readFileSync(files.photo.path);
-            product.photo.contentType = files.photo.type;
-        }
-
         try {
             let productDetails = await product.save();
-            productDetails.photo = undefined;
             res.json(productDetails);
         } catch (error) {
             console.log(error);
