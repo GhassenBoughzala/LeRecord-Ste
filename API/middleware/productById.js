@@ -1,7 +1,7 @@
 const mongoose  = require ('mongoose');
 const Product = require('../models/Product');
 
-module.exports = async function(req, res ){
+module.exports = async function(req, res, next ){
 
     const { productId } = req.params;
 
@@ -12,15 +12,21 @@ module.exports = async function(req, res ){
     }
 
     try {
-        let product = await Product.findById(productId).populate('category')
+        console.log("IDP")
+        let product = await Product
+                    .findById(productId)
+                    .populate('category')
+                    .populate('fournisseur')
 
-        if(!Product){
+        if(!product){
             return res.status(403).json({
                 error: 'Product 404'
             })
         }
-        req.product = product
 
+
+        req.product = product
+        next()
 
     } catch (error){
         console.log(error);

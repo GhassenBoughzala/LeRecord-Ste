@@ -46,7 +46,48 @@ router.post('/', auth, adminAuth, (req, res) => {
 
         try {
             await product.save();
-            res.json('Product Created Successfully');
+            console.log("+P");
+            res.json({
+                message: `${product.name} IN BD !`,
+            });
+        } catch (error) {
+            console.log(error);
+            res.status(500).send('Server error');
+        }
+    });
+});
+
+
+// @route   Delete api/product/productId
+// @desc    Delete a Product
+// @access  Private Admin
+router.delete('/:productId', auth, adminAuth, productById, async (req, res) => {
+    let product = req.product;
+    try {
+        let deletedProduct = await product.remove();
+        res.json({
+            message: `${deletedProduct.name} deleted successfully`,
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Server error');
+    }
+});
+
+// @route   Put api/product/:productId
+// @desc    Update Single product
+// @access  Private Admin
+router.put('/:productId', auth, adminAuth, productById, (req, res) => {
+    let form = new formidable.IncomingForm();
+    form.keepExtensions = true;
+    form.parse(req, async (err, fields) => {
+
+        let product = req.product;
+        product = _.extend(product, fields);
+
+        try {
+            let productDetails = await product.save();
+            res.json(productDetails);
         } catch (error) {
             console.log(error);
             res.status(500).send('Server error');
@@ -66,16 +107,14 @@ router.get('/list', async (req, res) => {
     let limit = req.query.limit ? parseInt(req.query.limit) : 6;
 
     try {
-        let products = await Product.find({})
+        let pc = await Product.find({})
             .select('-photo')
             .populate('category')
-            .sort([
-                [sortBy, order]
-            ])
+            .populate('fournisseur')
+            .sort([ [sortBy, order] ])
             .limit(limit).exec();
-
-
-        res.json(products);
+        
+        res.json(pc);
     } catch (error) {
         console.log(error);
         res.status(500).send('Invalid querys');
@@ -208,6 +247,7 @@ router.get('/related/:productId', productById, async (req, res) => {
                 [sortBy, order]
             ])
             .populate('category', '_id name')
+            .populate('fournisseur', '_id title')
 
         res.json(products);
 
@@ -222,48 +262,8 @@ router.get('/related/:productId', productById, async (req, res) => {
 // @desc    Get a Product information
 // @access  Public
 router.get('/:productId', productById, (req, res) => {
-    req.product.photo = undefined;
     return res.json(req.product);
 });
-
-// @route   Delete api/product/productId
-// @desc    Delete a Product
-// @access  Private Admin
-router.delete('/:productId', auth, adminAuth, productById, async (req, res) => {
-    let product = req.product;
-    try {
-        let deletedProduct = await product.remove();
-        res.json({
-            message: `${deletedProduct.name} deleted successfully`,
-        });
-    } catch (error) {
-        console.log(error);
-        res.status(500).send('Server error');
-    }
-});
-
-// @route   Put api/product/:productId
-// @desc    Update Single product
-// @access  Private Admin
-router.put('/:productId', auth, adminAuth, productById, (req, res) => {
-    let form = new formidable.IncomingForm();
-    form.keepExtensions = true;
-    form.parse(req, async (err, fields) => {
-
-        let product = req.product;
-        product = _.extend(product, fields);
-
-        try {
-            let productDetails = await product.save();
-            res.json(productDetails);
-        } catch (error) {
-            console.log(error);
-            res.status(500).send('Server error');
-        }
-    });
-});
-
-
 
 router.param("productId", productById);
 

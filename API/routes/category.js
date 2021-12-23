@@ -91,4 +91,6 @@ router.delete('/:categoryId', auth, adminAuth, categoryById, async (req, res) =>
         res.status(500).send('Server error');
     }
 })
+
+
 module.exports = router
