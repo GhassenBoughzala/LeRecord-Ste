@@ -64,7 +64,7 @@ const Home = ({logout, isAuth, user}) => {
   return (
   <>
   <Topbar />
-    <div className="container">
+    <div className="containerr">
         <Sidebar />
       <div className="home">
         
