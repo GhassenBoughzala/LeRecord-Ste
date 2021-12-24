@@ -2,11 +2,13 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import Button from '../buttons/button.component';
 import NavItem from './navbar.item';
+import { toast } from 'react-toastify';
 import { connect } from 'react-redux';
 import { logout } from '../../redux/reducers/authReducer';
+import { Redirect } from 'react-router-dom';
 
-const NavbarList = ({ history, logout, isAuth }) => {
-  // make active nav item with text primary
+const NavbarList = ({ history, logout, isAuth, user }) => {
+
   const isActive = (history, path) => {
     if (history.location.pathname === path) {
       return 'text-blue-500';
@@ -14,6 +16,13 @@ const NavbarList = ({ history, logout, isAuth }) => {
       return '';
     }
   };
+
+  if (isAuth && user) {
+    const { name, role } = user;
+    if (role === 0) return <Redirect to='/login' />;
+    if (role === 1) return <Redirect to='/dashboard/admin' />;
+  }
+
   return (
     <ul className='font-bold flex-wrap flex md:mr-5 flex-col md:flex-row text-center'>
       <NavItem link='/' name='Home' listStyle={isActive(history, '/')} />
@@ -32,6 +41,7 @@ const NavbarList = ({ history, logout, isAuth }) => {
           title='Logout'
           moreStyle='hover:text-blue-500'
           action={ () => {
+            toast.info(`User logged out !`);
             logout();
           }}
         />

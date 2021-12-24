@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { URLDevelopment } from '../../helpers/url';
 import { toast } from 'react-toastify';
 import AuthToken from '../../helpers/authToken';
-import { URLDevelopment } from '../../helpers/url';
+
 
 // Types
 const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
