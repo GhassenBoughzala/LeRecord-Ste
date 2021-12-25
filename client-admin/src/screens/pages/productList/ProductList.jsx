@@ -33,37 +33,42 @@ const ProductList = (props) => {
       <h3 className="widgetLgTitle">Product List</h3>
       <br></br>
       <table className="widgetLgTable">
-        <tr className="widgetLgTr">
-          <th className="widgetLgTh">Name</th>
-          <th className="widgetLgTh">Description</th>
-          <th className="widgetLgTh">Quantity</th>
-          <th className="widgetLgTh">Price</th>
-          <th className="widgetLgTh">Status</th>
-          <th className="widgetLgTh">Photo</th>
-        </tr>
-        {props.List.map((product, index) => {
-                  return (
-                    <Fragment key={index}>
-          
-          <tr className="widgetLgTr" key={product._id}>
-            <td className="widgetLgDate">{product.name}</td>
-            <td className="widgetLgDate">{product.description}</td>
-            <td className="widgetLgDate">{product.quantity}</td>
-            <td className="widgetLgDate">{product.price}</td>           
-            <td className="widgetLgAmount">{product.shipping}</td>
-            <td className="widgetLgAmount">
-                        <div className="productListItem">
-                          <img className="productListImg" src={product.photo} alt="" />
-                        </div>
-            </td>
-            <td className="widgetLgStatus">
-              <Button color="primary" size="sm" rounded onClick={() => setCurrentId(product._id)}>Edit</Button>  
-              <Button color="danger"  size="sm"  rounded onClick={() => onDLP(product._id)}>Delete</Button>                         
-            </td>
+        <thead>
+          <tr className="widgetLgTr">
+            <th className="widgetLgTh">Name</th>
+            <th className="widgetLgTh">Description</th>
+            <th className="widgetLgTh">Quantity</th>
+            <th className="widgetLgTh">Price</th>
+            <th className="widgetLgTh">Status</th>
+            <th className="widgetLgTh">Photo</th>
           </tr>
-            </Fragment>
-          );
-        })}
+        </thead>
+        <tbody>
+          {props.List.map((product, index) => {
+                    return (
+                      <Fragment key={index}>
+            
+            <tr className="widgetLgTr" key={product._id}>
+              <td className="widgetLgDate">{product.name}</td>
+              <td className="widgetLgDate">{product.description}</td>
+              <td className="widgetLgDate">{product.quantity}</td>
+              <td className="widgetLgDate">{product.price}</td>           
+              <td className="widgetLgAmount">{product.shipping}</td>
+              <td className="widgetLgAmount">
+                          <div className="productListItem">
+                            <img className="productListImg" src={product.photo} alt="" />
+                          </div>
+              </td>
+              <td className="widgetLgStatus">
+                <Button color="primary" size="sm" rounded onClick={() => setCurrentId(product._id)}>Edit</Button>  
+                <Button color="danger"  size="sm"  rounded onClick={() => onDLP(product._id)}>Delete</Button>                         
+              </td>
+            </tr>
+              </Fragment>
+            );
+          })}
+        </tbody>
+
       </table>
     </div>
 
