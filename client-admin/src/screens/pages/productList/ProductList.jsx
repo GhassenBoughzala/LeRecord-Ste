@@ -31,6 +31,7 @@ const ProductList = (props) => {
   <div className="productList">
     <div className="widgetLg">
       <h3 className="widgetLgTitle">Product List</h3>
+      <br></br>
       <table className="widgetLgTable">
         <tr className="widgetLgTr">
           <th className="widgetLgTh">Name</th>

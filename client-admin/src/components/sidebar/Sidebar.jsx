@@ -25,18 +25,10 @@ export default function Sidebar() {
           <ul className="sidebarList">
             <Link to="/dashboard/admin" className="link">
             <li className="sidebarListItem">
-              <LineStyle className="sidebarIcon" />
+              <Timeline className="sidebarIcon" />
               Home
             </li>
             </Link>
-            <li className="sidebarListItem">
-              <Timeline className="sidebarIcon" />
-              Analytics
-            </li>
-            <li className="sidebarListItem">
-              <TrendingUp className="sidebarIcon" />
-              Sales
-            </li>
             <Link to="/users" className="link">
               <li className="sidebarListItem">
                 <PermIdentity className="sidebarIcon" />
