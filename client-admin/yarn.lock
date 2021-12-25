@@ -3456,6 +3456,13 @@
   "resolved" "https://registry.npmjs.org/builtin-modules/-/builtin-modules-3.2.0.tgz"
   "version" "3.2.0"
 
+"butter-toast@^3.3.5":
+  "integrity" "sha512-6TZkT5lGcX4jvucK26X156wnw79Lo137yelHPvHUnpVgz7ZiyJGYNCXFY/twE0dLDQpVDlnUWOBhNKLt5gcl2w=="
+  "resolved" "https://registry.npmjs.org/butter-toast/-/butter-toast-3.3.5.tgz"
+  "version" "3.3.5"
+  dependencies:
+    "@babel/runtime" "^7.3.1"
+
 "bytes@3.0.0":
   "integrity" "sha1-0ygVQE1olpn4Wk6k+odV3ROpYEg="
   "resolved" "https://registry.npmjs.org/bytes/-/bytes-3.0.0.tgz"
@@ -3572,6 +3579,11 @@
   "integrity" "sha512-oGu2QekBMXgyQNWPDRQ001bjvDnZe4/zBTz37TMbiKz1NbNiyiH5hRkobe7npRN6GfbGbxMYFck/vQ1r9c1VMA=="
   "resolved" "https://registry.npmjs.org/char-regex/-/char-regex-2.0.0.tgz"
   "version" "2.0.0"
+
+"chart.js@^3.2.1":
+  "integrity" "sha512-31gVuqqKp3lDIFmzpKIrBeum4OpZsQjSIAqlOpgjosHDJZlULtvwLEZKtEhIAZc7JMPaHlYMys40Qy9Mf+1AAg=="
+  "resolved" "https://registry.npmjs.org/chart.js/-/chart.js-3.7.0.tgz"
+  "version" "3.7.0"
 
 "check-types@^11.1.1":
   "integrity" "sha512-tzWzvgePgLORb9/3a0YenggReLKAIb2owL03H2Xdoe5pKcUyWRSEQ8xfCar8t2SIAuEDwtmx2da1YB52YuHQMQ=="
@@ -8248,7 +8260,7 @@
     "kleur" "^3.0.3"
     "sisteransi" "^1.0.5"
 
-"prop-types@^15.0.0", "prop-types@^15.5.8", "prop-types@^15.6.0", "prop-types@^15.6.2", "prop-types@^15.7.2":
+"prop-types@^15.0.0", "prop-types@^15.5.8", "prop-types@^15.5.9", "prop-types@^15.6.0", "prop-types@^15.6.2", "prop-types@^15.7.2":
   "integrity" "sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ=="
   "resolved" "https://registry.npmjs.org/prop-types/-/prop-types-15.7.2.tgz"
   "version" "15.7.2"
@@ -8343,6 +8355,21 @@
     "iconv-lite" "0.4.24"
     "unpipe" "1.0.0"
 
+"react-alice-carousel@^2.4.0":
+  "integrity" "sha512-UeAd+O83TEiCxbDMMd9xAOLRr+xPNFPai9W6cNQgmIfEBgOiKDdntpTnhhwfXKoirXxQcbPlg9eG7FG9D1M4SA=="
+  "resolved" "https://registry.npmjs.org/react-alice-carousel/-/react-alice-carousel-2.5.1.tgz"
+  "version" "2.5.1"
+  dependencies:
+    "vanilla-swipe" "^2.2.0"
+
+"react-animate-on-scroll@^2.1.5":
+  "integrity" "sha1-w1/1sZRSsjJwx6QjKbjcOR8nMCA="
+  "resolved" "https://registry.npmjs.org/react-animate-on-scroll/-/react-animate-on-scroll-2.1.5.tgz"
+  "version" "2.1.5"
+  dependencies:
+    "lodash.throttle" "^4.1.1"
+    "prop-types" "^15.5.9"
+
 "react-app-polyfill@^3.0.0":
   "integrity" "sha512-sZ41cxiU5llIB003yxxQBYrARBqe0repqPTTYBTmMqTz9szeBbE37BehCE891NZsmdZqqP+xWKdT3eo3vOzN8w=="
   "resolved" "https://registry.npmjs.org/react-app-polyfill/-/react-app-polyfill-3.0.0.tgz"
@@ -8385,7 +8412,7 @@
     "strip-ansi" "^6.0.1"
     "text-table" "^0.2.0"
 
-"react-dom@*", "react-dom@^15.0.0 || ^16.0.0 || ^17.0.0", "react-dom@^16.0.0", "react-dom@^16.0.0 || ^17.0.0", "react-dom@^16.13.1", "react-dom@^16.8.0 || ^17.0.0", "react-dom@>=15.0.0", "react-dom@>=16.6.0", "react-dom@>=16.8.0":
+"react-dom@*", "react-dom@^15.0.0 || ^16.0.0 || ^17.0.0", "react-dom@^16.0.0", "react-dom@^16.0.0 || ^17.0.0", "react-dom@^16.13.1", "react-dom@^16.4.1", "react-dom@^16.8.0 || ^17.0.0", "react-dom@>=15.0.0", "react-dom@>=16.6.0", "react-dom@>=16.8.0":
   "integrity" "sha512-81PIMmVLnCNLO/fFOQxdQkvEq/+Hfpv24XNJfpyZhTRfO0QcmQIF/PgCa1zCOj2w1hrn12MFLyaJ/G0+Mxtfag=="
   "resolved" "https://registry.npmjs.org/react-dom/-/react-dom-16.13.1.tgz"
   "version" "16.13.1"
@@ -8596,7 +8623,7 @@
     "prop-types" "^15.6.2"
     "react-lifecycles-compat" "^3.0.4"
 
-"react@*", "react@^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0", "react@^15.0.0 || ^16.0.0 || ^17.0.0", "react@^16.0.0", "react@^16.0.0 || ^17.0.0", "react@^16.13.1", "react@^16.8.0 || ^17", "react@^16.8.0 || ^17.0.0", "react@^16.8.3 || ^17", "react@^16.9.0 || ^17.0.0 || 18.0.0-beta", "react@^17.0.0", "react@^17.0.2", "react@>= 16", "react@>=15", "react@>=15.0.0", "react@>=16.6.0", "react@>=16.8.0":
+"react@*", "react@^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0", "react@^15.0.0 || ^16.0.0 || ^17.0.0", "react@^16.0.0", "react@^16.0.0 || ^17.0.0", "react@^16.13.1", "react@^16.4.1", "react@^16.8.0 || ^17", "react@^16.8.0 || ^17.0.0", "react@^16.8.3 || ^17", "react@^16.9.0 || ^17.0.0 || 18.0.0-beta", "react@^17.0.0", "react@^17.0.2", "react@>= 15.4.1 < 17.0.0-0", "react@>= 16", "react@>=15", "react@>=15.0.0", "react@>=15.4", "react@>=16.6.0", "react@>=16.8.0":
   "integrity" "sha512-YMZQQq32xHLX0bz5Mnibv1/LHb3Sqzngu7xstSM+vrkE5Kzr9xE0yMByK5kMoTK30YVJE61WfbxIFFvfeDKT1w=="
   "resolved" "https://registry.npmjs.org/react/-/react-16.13.1.tgz"
   "version" "16.13.1"
@@ -9969,6 +9996,11 @@
   "integrity" "sha512-NOJ6JZCAWr0zlxZt+xqCHNTEKOsrks2HQd4MqhP1qy4z1SkbEP467eNx6TgDKXMvUOb+OENfJCZwM+16n7fRfw=="
   "resolved" "https://registry.npmjs.org/value-equal/-/value-equal-1.0.1.tgz"
   "version" "1.0.1"
+
+"vanilla-swipe@^2.2.0":
+  "integrity" "sha512-4m8vZ/kckRG7RQUYNg+0lGILMHT08KEgwePlRLzediDSu7aQFBLB0V2n36vUmYqq5CVWASOzZ8zpnQFZXIbHbA=="
+  "resolved" "https://registry.npmjs.org/vanilla-swipe/-/vanilla-swipe-2.3.0.tgz"
+  "version" "2.3.0"
 
 "vary@~1.1.2":
   "integrity" "sha1-IpnwLG3tMNSllhsLn3RSShj2NPw="
