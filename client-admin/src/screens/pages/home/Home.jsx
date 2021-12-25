@@ -1,6 +1,7 @@
 import "./home.css";
 import React from 'react';
 import axios from 'axios';
+import { URLDevelopment } from '../../../helpers/url';
 import { Redirect } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -14,7 +15,7 @@ import WidgetLg from "../../../components/widgetLg/WidgetLg";
 import { useEffect, useMemo, useState } from "react";
 import Sidebar from "../../../components/sidebar/Sidebar";
 import Topbar from "../../../components/topbar/Topbar";
-import { URLDevelopment } from '../../../helpers/url';
+
 
 const Home = ({logout, isAuth, user}) => {
 

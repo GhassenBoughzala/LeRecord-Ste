@@ -6,16 +6,16 @@ import Home from './screens/Home';
 import AuthHome from './screens/AuthHome';
 import Login from './screens/Login';
 import Register from './screens/Register';
-import AdminHome from './screens/pages/home/Home'
+import AdminHome from './screens/pages/home/Home';
 
 
 const Routes = () => {
   return (
     <BrowserRouter>
-      <Navbar />
+      <Navbar/>
       <ToastContainer />
       <Switch>
-        <Route exact path='/' component={Home} />
+        <Route exact path='/home' component={Home} />
         <Route exact path='/auth' component={AuthHome} />
         <Route exact path='/register' component={Register} />
         <Route exact path='/login' component={Login} />

@@ -1,10 +1,11 @@
+/*
 import "./productList.css";
 import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteProduct, getProducts } from "../../redux/apiCalls";
+import React from 'react';
 
 export default function ProductList() {
   const dispatch = useDispatch();
@@ -72,3 +73,5 @@ export default function ProductList() {
     </div>
   );
 }
+
+*/

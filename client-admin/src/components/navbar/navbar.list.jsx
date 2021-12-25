@@ -43,6 +43,7 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
           action={ () => {
             toast.info(`User logged out !`);
             logout();
+            <Redirect to='/login' />;
           }}
         />
       )}

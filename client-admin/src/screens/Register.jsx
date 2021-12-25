@@ -15,7 +15,7 @@ const Register = ({ register, isAuth, isLoading, user }) => {
     confirmPasswrod: '',
   });
 
-  const { name, email, password, confirmPasswrod, textChange } = data;
+  const { name, email, password, confirmPasswrod } = data;
 
   const handleChange = (name) => (event) => {
     setData({ ...data, [name]: event.target.value });
@@ -31,10 +31,9 @@ const Register = ({ register, isAuth, isLoading, user }) => {
   };
 
   if (isAuth && user) {
-    const { name, role } = user
-    toast.success(`Welcome ${name}`)
-    if(role === 0) return <Redirect to='/dashboard/user'/>
-    if(role === 1) return <Redirect to='../../admin/src/pages/home'/>
+    const { role } = user
+    if(role === 0) return <Redirect to='/'/>
+    if(role === 1) return <Redirect to=''/>
   }
 
   return (
