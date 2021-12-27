@@ -8,18 +8,31 @@ const fs = require('fs');
 const productById = require('../middleware/productById');
 const _ = require('lodash');
 const { send } = require('process');
+const { validationResult } = require('express-validator');
 
 
 // @route   Post api/product/
 // @desc    Create a Product
 // @access  Private Admin
-router.post('/', auth, adminAuth, (req, res) => {
-    let form = new formidable.IncomingForm();
-    form.keepExtensions = true;
+router.post('/', auth, adminAuth, async (req, res) => {
 
-    form.parse(req, async (err, fields) => {
-        
-        const {
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+      return res.status(400).json({ error: errors.array()[0].msg })
+    }
+    const {
+        name,
+        description,
+        price,
+        category,
+        fournisseur,
+        quantity,
+        photo,
+        shipping
+    } = req.body;
+
+    try {
+        let pp = await Product.findOne({
             name,
             description,
             price,
@@ -28,33 +41,36 @@ router.post('/', auth, adminAuth, (req, res) => {
             quantity,
             photo,
             shipping
-        } = fields;
-        if (
-            !name ||
-            !description ||
-            !price ||
-            !category ||
-            !fournisseur ||
-            !quantity ||
-            !shipping ||
-            !photo
-        ) {
-            return res.status(400).json({ error: 'All fields are required',});
+        })
+    
+        if(pp){
+          return res.status(403).json({
+            error: 'Already exist'
+          })
         }
-
-        let product = new Product(fields);
-
-        try {
-            await product.save();
-            console.log("+P");
+    
+        const newP = new Product({
+            name,
+            description,
+            price,
+            category,
+            fournisseur,
+            quantity,
+            photo,
+            shipping})
+        pp = await newP.save()
+        
+        console.log("+P");
             res.json({
-                message: `${product.name} IN BD !`,
+                message: `${pp.name} IN BD !`,
             });
-        } catch (error) {
-            console.log(error);
-            res.status(500).send('Server error');
-        }
-    });
+    
+      } catch (error) {
+        console.log(error);
+        res.status(500).send('Server Error')
+      }
+
+
 });
 
 
@@ -77,22 +93,38 @@ router.delete('/:productId', auth, adminAuth, productById, async (req, res) => {
 // @route   Put api/product/:productId
 // @desc    Update Single product
 // @access  Private Admin
-router.put('/:productId', auth, adminAuth, productById, (req, res) => {
-    let form = new formidable.IncomingForm();
-    form.keepExtensions = true;
-    form.parse(req, async (err, fields) => {
-
+router.put('/:productId', auth, adminAuth, productById, async (req, res) => {
         let product = req.product;
-        product = _.extend(product, fields);
+        const {
+            name,
+            description,
+            price,
+            category,
+            fournisseur,
+            quantity,
+            photo,
+            shipping
+        } = req.body;
+
+        if (name) product.name = name.trim();
+        if (description) product.description = description.trim();
+        if (price) product.price = price.toString().trim();
+        if (category) product.category = category.trim();
+        if (fournisseur) product.fournisseur = fournisseur.trim();
+        if (quantity) product.quantity = quantity.toString().trim();
+        if (photo) product.photo = photo.trim();
+        if (shipping) product.shipping = shipping.trim();
 
         try {
-            let productDetails = await product.save();
-            res.json(productDetails);
+            product = await product.save()
+            console.log("Update +")
+            res.json(product)
+
         } catch (error) {
-            console.log(error);
+            console.log(error.message);
             res.status(500).send('Server error');
         }
-    });
+
 });
 
 
