@@ -89,6 +89,13 @@ export const getdetails =  async (id, product ,dispatch) => {
 
 };
 
+export const createSuccess = (data) => {
+  return {
+    type: ADDP_S,
+    payload: data,
+  };
+};
+
 export const addProduct = (product) => {
   const data = {
     name: product.name,
@@ -102,7 +109,9 @@ export const addProduct = (product) => {
   };
 
   return(dispatch) => {
-    AddP(data).then((res) => {
+
+    return axios.post(`${URLDevelopment}/api/products`, data)
+    .then((res) => {
 
       const data = res.data;
       console.log(data);
@@ -114,14 +123,11 @@ export const addProduct = (product) => {
         quantity: data.quantity,
         category: data.category,
         fournisseur: data.fournisseur,
-        shipping: data.shipping,
+        shipping: data.shipping,                 
         photo: data.photo,
       };
+      dispatch(createSuccess(normalizedData));
 
-      dispatch({
-        type : ADDP_S,
-        payload : normalizedData
-      })
     }).catch((err) => 
       console.log(err),
       PRODUCT_ERR
