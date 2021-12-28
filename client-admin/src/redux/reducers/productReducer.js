@@ -110,7 +110,8 @@ export const addProduct = (product) => {
 
   return(dispatch) => {
 
-    return axios.post(`${URLDevelopment}/api/products`, data)
+    return axios
+    .post(`${URLDevelopment}/api/products`, data)
     .then((res) => {
 
       const data = res.data;

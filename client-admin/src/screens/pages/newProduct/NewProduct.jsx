@@ -1,12 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import "./newProduct.css";
-import {
-  getStorage,
-  ref,
-  uploadBytesResumable,
-  getDownloadURL,
-} from "firebase/storage";
-import app from "../../../firebase";
 import { toast } from 'react-toastify';
 import { connect } from "react-redux";
 import useForm from "../useForm";
@@ -58,31 +51,32 @@ const Add = ({ ...props }) => {
     resetForm,
   } = useForm(initialFieldValues, props.setCurrentId);
 
-  const reset = (e) => {
-    resetForm();
-  }
-  const [file, setFile] = useState(null);
   const handleSubmit = (e) => {
-
     e.preventDefault();
     const onSuccess = () => {
-      toast.success('Submitted successfully');
+      window.location.reload();
       resetForm();
     };
     if (validate()) {
       if (props.currentId == 0){
 
           props.createP(values, onSuccess);
+          console.log(props)
           toast.success('Product added successfully');
           resetForm();
        
       } else {
+        toast.info('Product updated successfully');
         props.updateP(props.currentId, values, onSuccess);
-        toast.info('Product updated successfully', window.location.reload());
+        
       }   
 
-    }
+    }else { toast.warn('Warning ! '); }
   };
+
+  const reset = (e) => {
+    resetForm();
+  }
 
   return (
     <>
@@ -144,14 +138,13 @@ const Add = ({ ...props }) => {
                     htmlFor="grid-password">
                     Category
                   </label>
-                  <div className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150">
-                    <select name="inStock" 
-                            value={values.category} 
-                            onChange={handleInputChange}>
-                      <option value="61c20ac5d116a04f9114badb">Yes</option>
-                    </select>
-                  </div>
-                 
+                  <input
+                    type="text"
+                    name="category"
+                    value={values.category}
+                    onChange={handleInputChange}
+                    className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                  />                 
                 </div>
               </div>
               <div className="w-full lg:w-6/12 px-4">
@@ -162,14 +155,14 @@ const Add = ({ ...props }) => {
                     htmlFor="grid-password">
                     Fournisseur
                   </label>
-                  <div className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150">
                     
-                    <select name="inStock" 
-                            value={values.fournisseur} 
-                            onChange={handleInputChange}>
-                      <option value="61c20ac5d116a04f9114badb">Yes</option>
-                    </select>
-                  </div>
+                  <input
+                    type="text"
+                    name="fournisseur"
+                    value={values.fournisseur}
+                    onChange={handleInputChange}
+                    className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                  />
                   
                 </div>
               </div>
@@ -205,14 +198,15 @@ const Add = ({ ...props }) => {
                   >
                     Status
                   </label>
-                  <div className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150">
-                    <select name="inStock" 
-                            value={values.shipping} 
-                            onChange={handleInputChange}>
-                      <option value="In">In Stock</option>
-                      <option value="Off">Off Stock</option>
-                    </select>
-                  </div>
+
+                  <input
+                    type="text"
+                    placeholder="In Stock"
+                    name="shipping"
+                    value={values.shipping}
+                    onChange={handleInputChange}
+                    className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                  />
                 </div>
               </div>
             </div>
