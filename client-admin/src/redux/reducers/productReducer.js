@@ -14,8 +14,7 @@ const PRODUCT_ERR = 'PRODUCT ERROR';
 // Intial State
 const intialState = {
   products: [],
-  isFetching: false,
-  error: false,
+  error: null,
 };
 
 
@@ -28,8 +27,7 @@ export default function (state = intialState, action){
       case GET_PRODUCTS_S: return{...state, products:[...action.payload]}
       case GETP_DETAILS: return{...state, products:[...action.payload]}
 
-      case ADDP_S: return{...state, 
-        products:[...state.products,action.payload]}
+      case ADDP_S: return{...state, products:[...state.products,action.payload ]}
       case ADDP_F:
 
       case PRODUCT_UPDATE: return{...state, 
@@ -41,7 +39,6 @@ export default function (state = intialState, action){
       case PRODUCT_ERR:
         default:
           return state;
-
   }
 
 }
@@ -92,21 +89,45 @@ export const getdetails =  async (id, product ,dispatch) => {
 
 };
 
-export const addProduct = async (product, dispatch) => {
-  try {
-    const res = await axios.post(`${URLDevelopment}/api/products`, product);
-    dispatch({
-      type:  ADDP_S,
-      payload: res.data
-    })
-    
-  } catch (error) {
-    console.log(error.response)
-    dispatch({
-      type: ADDP_F
-    })
-    
-  }
+export const addProduct = (product) => {
+  const data = {
+    name: product.name,
+    description: product.description,
+    price : product.price,
+    quantity: product.quantity,
+    category: product.category,
+    fournisseur: product.fournisseur,
+    shipping: product.shipping,
+    photo: product.photo,
+  };
+
+  return(dispatch) => {
+    AddP(data).then((res) => {
+
+      const data = res.data;
+      console.log(data);
+
+      const normalizedData = {
+        name: data.name,
+        description : data.description,
+        price : data.price,
+        quantity: data.quantity,
+        category: data.category,
+        fournisseur: data.fournisseur,
+        shipping: data.shipping,
+        photo: data.photo,
+      };
+
+      dispatch({
+        type : ADDP_S,
+        payload : normalizedData
+      })
+    }).catch((err) => 
+      console.log(err),
+      PRODUCT_ERR
+    );
+
+  };
 
 };
 
@@ -125,16 +146,16 @@ export const deleteProduct = async(id, dispatch) => {
 
 };
 
-export const updateProduct = async(id, dispatch ) => {
-  try {
-    const res = await axios.put(`${URLDevelopment}/api/products/${id}`)
+export const updateProduct = (id, data) => (dispatch) => {
+  UP(id, data)
+  .then((res) => {
+    console.log(res);
     dispatch({
-      type: PRODUCT_DELETE,
-      payload: res.data(id)
-    })
-    
-  } catch (error) {
-    console.log(error.response)
-    dispatch({ type: PRODUCT_ERR})
-  }
+      type: PRODUCT_UPDATE,
+      payload: res.data,
+    });
+  }).catch((err) => 
+  console.log(err),
+  PRODUCT_ERR
+  );
 };
