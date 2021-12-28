@@ -66,7 +66,7 @@ const ProductList = (props) => {
                 <td className="widgetLgAmount">{product.shipping}</td>
                 <td className="widgetLgAmount">
                     <div className="productListItem">
-                      <img className="productListImg" src={product.photo} alt="" />
+                      <img className="productListImg" src={product.photo} alt="" /> {product.photo}
                     </div>
                 </td>
 
