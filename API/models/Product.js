@@ -26,6 +26,11 @@ const productSchema = new mongoose.Schema({
         ref: 'Category',
         required: true
     },
+    fournisseur: {
+        type: ObjectId,
+        ref: 'Fournisseur',
+        required: true
+    },
     quantity: {
         type: Number
     },
@@ -34,12 +39,12 @@ const productSchema = new mongoose.Schema({
         default: 0
     },
     photo: {
-        data: Buffer,
-        contentType: String
+        type: String, required: true
     },
     shipping: {
+        type: String,
         required: false,
-        type: Boolean
+        
     }
 }, {
     timestamps: true

@@ -1,79 +1,96 @@
+
+const express = require('express');
+const router = express.Router()
 const Fournisseur = require("../models/Fournisseur");
-const {
-  verifyToken,
-  verifyTokenAndAuthorization,
-  verifyTokenAndAdmin,
-} = require("../helpers/verifyToken");
+const auth = require('../middleware/auth');
+const adminAuth = require('../middleware/adminAuth');
+const fournisseurById = require('../middleware/fournisseurById');
+const { validationResult } = require('express-validator');
 
-const router = require("express").Router();
-
-//CREATE
-router.post("/", verifyTokenAndAdmin, async (req, res) => {
-  const newFournisseur = new Fournisseur(req.body);
-    
-  try {
-    const savedFournisseur = await newFournisseur.save();
-    res.status(200).json(savedFournisseur);
-    console.log("Fournisseur +");
-  } catch (err) {
-    res.status(500).json(err);
+// @route   POST api/fournisseurs
+// @desc    Create fournisseur
+// @access  Private Admin
+router.post('/', auth, adminAuth, async(req, res) =>{
+  const errors = validationResult(req);
+  if(!errors.isEmpty()){
+    return res.status(400).json({ error: errors.array()[0].msg })
   }
-});
 
-//UPDATE
-router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
+  const { title, desc, img, active} = req.body
   try {
-    const updatedFournisseur = await Fournisseur.findByIdAndUpdate(
-      req.params.id,
-      {
-        $set: req.body,
-      },
-      { new: true }
-    );
-    res.status(200).json(updatedFournisseur);
-    console.log("Fournisseur Updated");
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+    let fo = await Fournisseur.findOne({
+      title, desc, img, active
+    })
 
-//DELETE
-router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
-  try {
-    await Fournisseur.findByIdAndDelete(req.params.id);
-    res.status(200).json("Fournisseur has been deleted...");
-    console.log("Fournisseur -");
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
-//GET Fournisseur
-router.get("/find/:id", async (req, res) => {
-  try {
-    const Fournisseur = await Fournisseur.findById(req.params.id);
-    res.status(200).json(Fournisseur);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
-//GET ALL Fournisseurs
-router.get("/", async (req, res) => {
-  const qNew = req.query.new;
-  const qCategory = req.query.category;
-  try {
-    let Fournisseurs;
-
-    if (qNew) {
-      Fournisseurs = await Fournisseur.find().sort({ createdAt: -1 }).limit(1);
-    } else {
-      Fournisseurs = await Fournisseur.find();
+    if(fo){
+      return res.status(403).json({
+        error: 'Already exist'
+      })
     }
-    res.status(200).json(Fournisseurs);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
 
+    const newF = new Fournisseur({title, desc, img, active})
+    fo = await newF.save()
+    res.json(fo)
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Server Error')
+  }
+
+})
+
+// @route   Put api/fournisseurs/:fournisseurId
+// @desc    Update Single
+// @access  Private Admin
+router.put('/:fournisseurId', auth, adminAuth, fournisseurById, async (req, res) => {
+  let fournisseur = req.fournisseur;
+  const { title, desc, img, active} = req.body
+
+  if (title) fournisseur.title = title.trim();
+  if (desc) fournisseur.desc = desc.trim();
+  if (img) fournisseur.img = img.trim();
+  if (active) {
+    const to = fournisseur.active;
+    to = active.toString();
+    to.trim();
+  }
+  
+
+
+  try {
+      fournisseur = await fournisseur.save()
+      console.log("Update +")
+      res.json(fournisseur)
+
+  } catch (error) {
+      console.log(error.message)
+      res.status(500).send('Server error');
+  }
+})
+
+// @route   Delete api/category/:categoryId
+// @desc    Delete Single category
+// @access  Private Admin
+router.delete('/:fournisseurId', auth, adminAuth, fournisseurById, async (req, res) => {
+  let fournisseur = req.fournisseur;
+  try {
+      let deletedF = await fournisseur.remove()
+      res.json({
+          message: `${deletedF.title} deleted successfully`
+      })
+  } catch (error) {
+      console.log(error.message)
+      res.status(500).send('Server error');
+  }
+})
+
+// @route   Get api/category/:categoryId
+// @desc    Get Single category
+// @access  Public
+router.get('/:fournisseurId', fournisseurById, async (req, res) => {
+  res.json(req.fournisseur)
+})
+
+
+router.param("fournisseurId", fournisseurById);
 module.exports = router;
