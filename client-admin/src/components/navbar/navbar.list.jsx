@@ -18,7 +18,7 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
   };
 
   if (isAuth && user) {
-    const { name, role } = user;
+    const { role } = user;
     if (role === 0) return <Redirect to='/login' />;
     if (role === 1) return <Redirect to='/dashboard/admin' />;
   }
@@ -43,7 +43,7 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
           action={ () => {
             toast.info(`User logged out !`);
             logout();
-            <Redirect to='/login' />;
+           
           }}
         />
       )}

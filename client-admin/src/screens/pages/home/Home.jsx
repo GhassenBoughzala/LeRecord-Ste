@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 import { logout } from '../../../redux/reducers/authReducer';
 
 import Chart from "../../../components/chart/Chart";
-import FeaturedInfo from "../../../components/featuredInfo/FeaturedInfo";
+//import FeaturedInfo from "../../../components/featuredInfo/FeaturedInfo";
 import WidgetSm from "../../../components/widgetSm/WidgetSm";
 import WidgetLg from "../../../components/widgetLg/WidgetLg";
 import { useEffect, useMemo, useState } from "react";

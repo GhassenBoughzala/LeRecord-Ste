@@ -18,9 +18,9 @@ const initialFieldValues = {
 
 const Add = ({ ...props }) => {
   useEffect(() => {
-    if (props.currentId != 0) {
+    if (props.currentId !== 0) {
       setValues({
-        ...props.List.find((p) => p._id == props.currentId),
+        ...props.List.find((p) => p._id === props.currentId),
       });
       setErrors({});
     }
@@ -39,7 +39,7 @@ const Add = ({ ...props }) => {
     temp.photo = values.photo ? "" : "This field is required.";
    
     setErrors({...temp,});
-    return Object.values(temp).every((p) => p =="");
+    return Object.values(temp).every((p) => p === "");
   };
 
   var {
@@ -58,7 +58,7 @@ const Add = ({ ...props }) => {
       resetForm();
     };
     if (validate()) {
-      if (props.currentId == 0){
+      if (props.currentId === 0){
 
           props.createP(values, onSuccess);
           console.log(props)

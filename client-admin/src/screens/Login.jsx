@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import authSvg from '../assests/login.svg';
 import { ToastContainer, toast } from 'react-toastify';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { login } from '../redux/reducers/authReducer';
 import { connect } from 'react-redux';
 
