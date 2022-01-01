@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { logout } from '../../redux/reducers/authReducer';
 import { Redirect } from 'react-router-dom';
 
-const NavbarList = ({ history, logout, isAuth, user }) => {
+const NavbarList = ({ history, logout, isAuth, user, role }) => {
 
   const isActive = (history, path) => {
     if (history.location.pathname === path) {
@@ -16,36 +16,30 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
       return '';
     }
   };
-
   if (isAuth && user) {
     const { role } = user;
-    if (role === 0) return <Redirect to='/login' />;
+    if (role === 0) return <Redirect to='/' />;
     if (role === 1) return <Redirect to='/dashboard/admin' />;
   }
 
   return (
     <ul className='font-bold flex-wrap flex md:mr-5 flex-col md:flex-row text-center'>
       <NavItem link='/' name='Home' listStyle={isActive(history, '/')} />
-      <NavItem
-        link='/shop'
-        name='Shop'
-        listStyle={isActive(history, '/shop')}
-      />
-      <NavItem
-        link='/dashboard'
-        name='Dashboard'
-        listStyle={isActive(history, '/dashboard')}
-      />
       {isAuth && (
-        <Button
+        <>
+          <Button
           title='Logout'
           moreStyle='hover:text-blue-500'
           action={ () => {
             toast.info(`User logged out !`);
             logout();
-           
-          }}
-        />
+          }}/>
+          <NavItem
+          link='/dashboard/user'
+          name='Dashboard'
+          listStyle={isActive(history, '/dashboard/user')}
+          />
+        </>
       )}
       {!isAuth && (
         <>
