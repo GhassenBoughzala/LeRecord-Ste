@@ -109,6 +109,7 @@ const ProductList = (props) => {
 
 const mapStateToProps = (state) => ({
   List: state.productsReducer.products,
+  isAuth: state.auth.isAuthenticated,
 });
 
 const mapActionToProps = {

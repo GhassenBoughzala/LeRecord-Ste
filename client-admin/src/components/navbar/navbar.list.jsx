@@ -18,26 +18,25 @@ const NavbarList = ({ history, logout, isAuth, user, role }) => {
   };
   if (isAuth && user) {
     const { role } = user;
-    if (role === 0) return <Redirect to='/' />;
+    if (role === 0) return <Redirect to='/home' />;
     if (role === 1) return <Redirect to='/dashboard/admin' />;
   }
 
   return (
+
     <ul className='font-bold flex-wrap flex md:mr-5 flex-col md:flex-row text-center'>
       <NavItem link='/' name='Home' listStyle={isActive(history, '/')} />
       {isAuth && (
         <>
           <Button
-          title='Logout'
-          moreStyle='hover:text-blue-500'
-          action={ () => {
-            toast.info(`User logged out !`);
-            logout();
-          }}/>
-          <NavItem
-          link='/dashboard/user'
-          name='Dashboard'
-          listStyle={isActive(history, '/dashboard/user')}
+            moreStyle='fas fa-sign-out-alt fa hover:text-blue-500'
+            action={ () => {
+              toast.info(`User logged out !`);
+              logout();}}
+            href='/home'/>
+          <Button
+            href='/dashboard/user'
+            moreStyle='fas fa-user-circle fa hover:text-blue-500'
           />
         </>
       )}
@@ -48,15 +47,17 @@ const NavbarList = ({ history, logout, isAuth, user, role }) => {
             moreStyle='hover:text-blue-500'
             isButton={false}
             href='/login'
+            listStyle={isActive(history, '/login')}
           />
         </>
       )}
-      <Button
-        isButton={false}
-        href='/cart'
-        moreStyle='fas fa-shopping-cart fa hover:text-blue-500'
-      />
+          <Button
+            isButton={false}
+            href='/cart'
+            moreStyle='fas fa-shopping-cart fa hover:text-blue-500'
+          />
     </ul>
+ 
   );
 };
 

@@ -26,8 +26,8 @@ const Login = ({ login, isAuth, isLoading, user }) => {
   if (isAuth && user) {
     const { name, role } = user;
     toast.success(`Welcome ${name}`);
-    if (role === 0) return <Redirect to='/login' />;
-    if (role === 1) return <Redirect to='/dashboard/admin' />;
+    if (role === 0) return <Redirect to='/dashboard/user'/>;
+    if (role === 1) return <Redirect to='/dashboard/admin'/>;
   }
   return (
     <div className='min-h-screen bg-gray-100 text-gray-900 flex justify-center'>
