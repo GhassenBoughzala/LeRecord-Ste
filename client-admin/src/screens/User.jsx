@@ -1,13 +1,24 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { ToastContainer, toast } from 'react-toastify';
-import { Redirect } from 'react-router-dom';
+import CardProfile from '../components/Cards/CardsCandidate/CardProfile';
+import CardPageVisits from '../components/Cards/CardsCandidate/CardStats';
+import WidgetLg from '../components/widgetSm/WidgetSm';
 
-const User = (user, isAuth) => {
+const User = () => {
+   
     return (
-        <div>
-            <h1>HELLO {user.name}</h1>
+        <div className='container'>
+            <div className="w-px lg:w-4/12 px-2">
+            
+
+            <CardProfile/>
+            <CardPageVisits/>
+            <WidgetLg/>
+
+            </div>
         </div>
+        
+       
     )
 }
 

@@ -29,12 +29,14 @@ const NavbarList = ({ history, logout, isAuth, user, role }) => {
       {isAuth && (
         <>
           <Button
+            isButton={false}
             moreStyle='fas fa-sign-out-alt fa hover:text-blue-500'
             action={ () => {
               toast.info(`User logged out !`);
               logout();}}
             href='/home'/>
           <Button
+            isButton={false}
             href='/dashboard/user'
             moreStyle='fas fa-user-circle fa hover:text-blue-500'
           />
