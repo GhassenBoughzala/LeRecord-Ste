@@ -25,7 +25,10 @@ const NavbarList = ({ history, logout, isAuth, user, role }) => {
   return (
 
     <ul className='font-bold flex-wrap flex md:mr-5 flex-col md:flex-row text-center'>
-      <NavItem link='/' name='Home' listStyle={isActive(history, '/')} />
+      <NavItem 
+        link='/' 
+        name='Home' 
+        listStyle={isActive(history, '/')} />
       {isAuth && (
         <>
           <Button

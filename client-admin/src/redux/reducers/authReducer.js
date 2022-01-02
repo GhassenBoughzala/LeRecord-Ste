@@ -10,7 +10,6 @@ const REGISTER_FAIL = 'REGISTER_FAIL';
 const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 const LOGIN_FAIL = 'LOGIN_FAIL';
 const USER_LOADED = 'USER_LOADED';
-const ADMIN_LOADED = 'ADMIN_LOADED';
 const AUTH_ERROR = 'AUTH_ERROR';
 const LOGOUT = 'LOGOUT';
 const SET_LOADING = 'SET_LOADING';
@@ -20,7 +19,7 @@ const intialState = {
     isAuthenticated: null,
     loading: true,
     user: null,
-    role: null,
+    role: null
 };
 
 // Reducers
@@ -80,7 +79,6 @@ export const loadUser = () => async (dispatch) => {
 
     try {
         const res = await axios.get(`${URLDevelopment}/api/auth/getuser`);
-
         dispatch({
             type: USER_LOADED,
             payload: res.data
