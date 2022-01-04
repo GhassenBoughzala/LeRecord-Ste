@@ -4,8 +4,9 @@ import {
   Timeline,
   PermIdentity,
   Storefront,
-  AttachMoney,
+  LocalShipping,
   BarChart,
+  Loyalty,
 } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 
@@ -22,7 +23,7 @@ export default function Sidebar() {
               Home
             </li>
             </Link>
-            <Link to="/users" className="link">
+            <Link to="/dashboard/admin/users" className="link">
               <li className="sidebarListItem">
                 <PermIdentity className="sidebarIcon" />
                 Users
@@ -35,12 +36,12 @@ export default function Sidebar() {
               </li>
             </Link>
             <li className="sidebarListItem">
-              <AttachMoney className="sidebarIcon" />
-              Transactions
+              <Loyalty className="sidebarIcon" />
+              Categories
             </li>
             <li className="sidebarListItem">
-              <BarChart className="sidebarIcon" />
-              Reports
+              <LocalShipping className="sidebarIcon" />
+              Fournisseurs
             </li>
           </ul>
         </div>
