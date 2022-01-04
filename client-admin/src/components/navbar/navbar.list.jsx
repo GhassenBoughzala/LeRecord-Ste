@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { logout } from '../../redux/reducers/authReducer';
 import { Redirect } from 'react-router-dom';
 
-const NavbarList = ({ history, logout, isAuth, user, role }) => {
+const NavbarList = ({ history, logout, isAuth, user }) => {
 
   const isActive = (history, path) => {
     if (history.location.pathname === path) {
@@ -32,7 +32,7 @@ const NavbarList = ({ history, logout, isAuth, user, role }) => {
       {isAuth && (
         <>
           <Button
-            isButton={false}
+            isButton={true}
             moreStyle='fas fa-sign-out-alt fa hover:text-blue-500'
             action={ () => {
               toast.info(`User logged out !`);

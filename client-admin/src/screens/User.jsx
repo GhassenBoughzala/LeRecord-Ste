@@ -1,16 +1,19 @@
-import React, {Fragment, useEffect} from 'react'
+import React, {} from 'react'
 import { connect } from 'react-redux';
 import UserSvg from '../assests/userprofil.svg';
-import { ToastContainer, toast } from 'react-toastify';
+import { Redirect } from 'react-router-dom';
 
-import { loadUser } from '../redux/reducers/authReducer';
+const User = ({user, isAuth}) => {
 
+  if (isAuth && user) {
+    const { role } = user;
+    if (role === null) return <Redirect to='/home' />;
 
-const User = ({user}) => {
+  }
    
     return (
         <div className='min-h-screen bg-white-100 text-gray-900 flex justify-center'>
-        <ToastContainer />
+        
         <div className='max-w-screen-xl m-0 sm:m-20 bg-white shadow sm:rounded-lg flex justify-center flex-1'>
           <div className='flex-1 bg-indigo-100 text-center hidden lg:flex'>
             <div
@@ -20,7 +23,7 @@ const User = ({user}) => {
           </div>
           <div className='lg:w-1/2 xl:w-5/12 p-6 sm:p-12'>
             <div className='mt-12 flex flex-col items-center'>
-            <i className='fas fa-user-circle text-3xl'></i>
+            <i className='fas fa-user text-3xl'></i>
               <h1 className='text-2xl xl:text-3xl font-extrabold'>
                 User Details
               </h1>
