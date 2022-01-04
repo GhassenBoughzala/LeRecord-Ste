@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { connect } from "react-redux";
 import { getAll, deleteProduct } from "../../../redux/reducers/productReducer";
 import NewProduct from "../newProduct/NewProduct";
+import Stats from '../../../components/chart/Stats';
 
 const ProductList = (props) => {
 
@@ -92,6 +93,9 @@ const ProductList = (props) => {
 
       </table>
     </div>
+      <div className="widgetLg">
+          
+      </div>
 
     </div>
 
