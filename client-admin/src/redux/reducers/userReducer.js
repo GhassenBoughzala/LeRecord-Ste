@@ -2,7 +2,7 @@ import axios from 'axios';
 import { URLDevelopment } from '../../helpers/url';
 
 //Types
-const GET_ALL_USERS = 'GET_ALL_USERS';
+const GET_ALL_USERS = 'GET ALL USERS';
 const GET_FAIL = 'GET_FAILURE';
 const USER_UP = 'USER_UPDATE';
 const USER_DEL = 'USER_DELETE';
