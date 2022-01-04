@@ -13,13 +13,14 @@ const USER_LOADED = 'USER_LOADED';
 const AUTH_ERROR = 'AUTH_ERROR';
 const LOGOUT = 'LOGOUT';
 const SET_LOADING = 'SET_LOADING';
+
 // Intial State
 const intialState = {
     token: localStorage.getItem('token'),
     isAuthenticated: null,
     loading: true,
     user: null,
-    role: null
+    role: null,
 };
 
 // Reducers
@@ -35,9 +36,7 @@ export default function (state = intialState, action) {
                             isAuthenticated: true,
                             loading: false,
                             role: 0
-                    }
-                    
-
+                    };
                 case REGISTER_SUCCESS:
                 case LOGIN_SUCCESS:
                     // Set Token in localstorage
@@ -52,7 +51,7 @@ export default function (state = intialState, action) {
                     return {
                         ...state,
                         loading: true
-                    }
+                    };
                 case REGISTER_FAIL:
                 case LOGIN_FAIL:
                 case AUTH_ERROR:
