@@ -5,6 +5,7 @@ import { register } from '../redux/reducers/authReducer';
 import authSvg from '../assests/auth.svg';
 import { ToastContainer, toast } from 'react-toastify';
 import { Redirect } from 'react-router-dom';
+import Navbar from '../components/navbar/navbar.component';
 import './loading.css';
 
 const Register = ({ register, isAuth, isLoading, user }) => {
@@ -38,6 +39,7 @@ const Register = ({ register, isAuth, isLoading, user }) => {
 
   return (
     <Container>
+       <Navbar/>
     <div className='min-h-screen bg-gray-100 text-gray-900 flex justify-center'>
       <ToastContainer />
       <div className='max-w-screen-xl m-0 sm:m-20 bg-white shadow sm:rounded-lg flex justify-center flex-1'>

@@ -2,6 +2,7 @@ import React, {} from 'react'
 import { connect } from 'react-redux';
 import UserSvg from '../assests/userprofil.svg';
 import { Redirect } from 'react-router-dom';
+import Navbar from '../components/navbar/navbar.component';
 
 const User = ({user, isAuth}) => {
 
@@ -12,7 +13,9 @@ const User = ({user, isAuth}) => {
   }
    
     return (
-        <div className='min-h-screen bg-white-100 text-gray-900 flex justify-center'>
+      <>
+      <Navbar/>
+      <div className='min-h-screen bg-white-100 text-gray-900 flex justify-center'>
         
         <div className='max-w-screen-xl m-0 sm:m-20 bg-white shadow sm:rounded-lg flex justify-center flex-1'>
           <div className='flex-1 bg-indigo-100 text-center hidden lg:flex'>
@@ -54,6 +57,7 @@ const User = ({user, isAuth}) => {
         </div>
         
       </div>
+      </>
            
    
         

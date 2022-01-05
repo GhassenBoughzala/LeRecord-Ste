@@ -4,6 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { Redirect } from 'react-router-dom';
 import { login } from '../redux/reducers/authReducer';
 import { connect } from 'react-redux';
+import Navbar from '../components/navbar/navbar.component';
 
 const Login = ({ login, isAuth, isLoading, user }) => {
   const [data, setData] = useState({
@@ -30,6 +31,9 @@ const Login = ({ login, isAuth, isLoading, user }) => {
     if (role === 1) return <Redirect to='/dashboard/admin'/>;
   }
   return (
+    <>
+    <Navbar/>
+
     <div className='min-h-screen bg-gray-100 text-gray-900 flex justify-center'>
       <ToastContainer />
       <div className='max-w-screen-xl m-0 sm:m-20 bg-white shadow sm:rounded-lg flex justify-center flex-1'>
@@ -94,6 +98,7 @@ const Login = ({ login, isAuth, isLoading, user }) => {
       </div>
       
     </div>
+    </>
   );
 };
 
