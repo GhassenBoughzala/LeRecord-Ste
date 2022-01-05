@@ -18,7 +18,7 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
   };
 
   return (
-
+    <>
     <ul className='font-bold flex-wrap flex md:mr-5 flex-col md:flex-row text-center'>
       <NavItem 
         link='/home' 
@@ -57,6 +57,8 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
             moreStyle='fas fa-shopping-cart fa hover:text-blue-500'
           />
     </ul>
+    </>
+    
  
   );
 };

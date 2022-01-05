@@ -6,15 +6,9 @@ import Navbar from '../components/navbar/navbar.component';
 
 const User = ({user, isAuth}) => {
 
-  if (isAuth && user) {
-    const { role } = user;
-    if (role === null) return <Redirect to='/home' />;
 
-  }
    
-    return (
-      <>
-      <Navbar/>
+    return (     
       <div className='min-h-screen bg-white-100 text-gray-900 flex justify-center'>
         
         <div className='max-w-screen-xl m-0 sm:m-20 bg-white shadow sm:rounded-lg flex justify-center flex-1'>
@@ -33,7 +27,6 @@ const User = ({user, isAuth}) => {
               <div className='w-full flex-1 mt-8 text-black'>
                             <div className='my-12 border-b text-center'>
                               <div className='leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform translate-y-1/2'>
-                               
                                 ID-{user._id}
                               </div>
                             </div>
@@ -56,12 +49,7 @@ const User = ({user, isAuth}) => {
 
         </div>
         
-      </div>
-      </>
-           
-   
-        
-       
+      </div> 
     )
 }
 

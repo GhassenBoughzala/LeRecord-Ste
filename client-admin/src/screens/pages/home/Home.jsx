@@ -10,7 +10,7 @@ import WidgetSm from "../../../components/widgetSm/WidgetSm";
 import WidgetLg from "../../../components/widgetLg/WidgetLg";
 import { useEffect, useMemo, useState } from "react";
 import Sidebar from "../../../components/sidebar/Sidebar";
-import Topbar from "../../../components/topbar/Topbar";
+
 
 
 const Home = () => {
@@ -53,7 +53,7 @@ const Home = () => {
 
   return (
   <>
-  <Topbar />
+  
     <div className="containerr">
         <Sidebar />
       <div className="home">
