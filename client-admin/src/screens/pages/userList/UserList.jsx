@@ -1,11 +1,10 @@
 import React, { useEffect, useState, Fragment } from "react";
 import "./userList.css";
 import Sidebar from "../../../components/sidebar/Sidebar";
-import Topbar from "../../../components/topbar/Topbar";
 import { toast } from 'react-toastify';
 import { connect } from "react-redux";
 import { getAllUsers, deleteUser } from "../../../redux/reducers/userReducer";
-import NewProduct from "../newProduct/NewProduct";
+import NewUser from "../newUser/NewUser";
 
 const UserList = (props) => {
 
@@ -85,8 +84,12 @@ const UserList = (props) => {
       </table>
     </div>
 
+    <div className="widgetLg">
+            <NewUser {...{ currentId, setCurrentId }} />
     </div>
 
+    </div>
+          
 
   </div>
 
