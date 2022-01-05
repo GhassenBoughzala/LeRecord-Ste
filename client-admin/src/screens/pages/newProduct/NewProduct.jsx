@@ -3,6 +3,7 @@ import "./newProduct.css";
 import { toast } from 'react-toastify';
 import { connect } from "react-redux";
 import useForm from "../useForm";
+import { Publish } from "@material-ui/icons";
 import {addProduct, updateProduct} from "../../../redux/reducers/productReducer";
 
 const initialFieldValues = {
@@ -64,6 +65,7 @@ const Add = ({ ...props }) => {
           console.log(props)
           toast.success('Product added successfully');
           resetForm();
+          window.location.reload();
        
       } else {
         toast.info('Product updated successfully');
@@ -240,13 +242,20 @@ const Add = ({ ...props }) => {
                   >
                     Photo
                   </label>
-                  <input
-                    type="text"
+                  <div className="productUpload">
+                    <img alt="" className="productUploadImg" />
+                    <label for="file">
+                      <Publish />
+                    </label>
+                    <input 
+                    type="file" 
                     name="photo"
-                    value={values.photo}
+                    value={values.photo} 
                     onChange={handleInputChange}
-                    className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
-                  />
+                    id="file" 
+                    style={{ display: "none" }} />
+                  </div>
+
                 </div>
               </div>
             </div>

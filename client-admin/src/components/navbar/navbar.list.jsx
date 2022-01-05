@@ -16,17 +16,12 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
       return '';
     }
   };
-  if (isAuth && user) {
-    const { role } = user;
-    if (role === 0) return <Redirect to='/home' />;
-    if (role === 1) return <Redirect to='/dashboard/admin' />;
-  }
 
   return (
 
     <ul className='font-bold flex-wrap flex md:mr-5 flex-col md:flex-row text-center'>
       <NavItem 
-        link='/' 
+        link='/home' 
         name='Home' 
         listStyle={isActive(history, '/')} />
       {isAuth && (

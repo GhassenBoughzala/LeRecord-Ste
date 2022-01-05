@@ -1,29 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { Line,Bar , Doughnut, Pie } from "react-chartjs-2";
 import axios from "axios";
-import { URLDevelopment } from '../../helpers/url';
 
-const UsersStats = () => {
+const Stats = () => {
   const [chartData, setChartData] = useState({});
-  const [nameP , setnameP] = useState([]);
-  const [qnt, setqnt] = useState([]);
+  const [name , setname] = useState([]);
+  const [quantity, setquantity] = useState([]);
 
   const chart = () => {
-    let nameP = [];
-    let qnt = [];
-    axios.get(`${URLDevelopment}/api/products/search`)
+    let name = [];
+    let quantity = [];
+    axios.get('http://localhost:5500/api/products/search')
       .then(res => {
         console.log(res);
         for (const dataObj of res.data) {
-            nameP.push((dataObj.nameP));
-            qnt.push(parseInt(dataObj.qnt));
+            name.push((dataObj.name));
+            console.log(dataObj.name);
+            quantity.push(parseInt(dataObj.quantity));
         }
         setChartData({
-          labels: nameP ,
+          labels: name ,
           datasets: [
             {
               label: "Quantity",
-              data: qnt,
+              data: quantity,
               backgroundColor: ["rgb(61, 105, 175)"],
               borderWidth: 3
             }
@@ -33,7 +33,7 @@ const UsersStats = () => {
       .catch(err => {
         console.log(err);
       });
-    console.log(nameP, qnt);
+    console.log(name, quantity);
   };
 
   useEffect(() => {
@@ -44,7 +44,7 @@ const UsersStats = () => {
 
 
       <div>
-        <Bar
+        <Pie
           data={chartData}
           options={{
             responsive: true,
@@ -79,4 +79,4 @@ const UsersStats = () => {
   );
 };
 
-export default UsersStats;
+export default Stats;
