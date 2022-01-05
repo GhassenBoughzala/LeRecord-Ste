@@ -28,7 +28,6 @@ const UserList = (props) => {
 
   return (
 <>
-<Topbar />
     <div className="containerr">
         <Sidebar />
   <div className="userList">

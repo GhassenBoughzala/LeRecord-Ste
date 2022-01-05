@@ -29,7 +29,6 @@ const ProductList = (props) => {
 
   return (
 <>
-<Topbar />
     <div className="containerr">
         <Sidebar />
   <div className="productList">
