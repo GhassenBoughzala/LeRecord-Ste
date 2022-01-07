@@ -22,7 +22,7 @@ const User = ({user, isAuth}) => {
             <div className='mt-12 flex flex-col items-center'>
             <i className='fas fa-user text-3xl'></i>
               <h1 className='text-2xl xl:text-3xl font-extrabold'>
-                User Details
+                Détails de l'utilisateur
               </h1>
               <div className='w-full flex-1 mt-8 text-black'>
                             <div className='my-12 border-b text-center'>
@@ -31,13 +31,13 @@ const User = ({user, isAuth}) => {
                               </div>
                             </div>
             <form className='mx-auto max-w-xs relative '>
-                <h4 className='text-2xl xl:text-3xl font-normal'>Username : 
+                <h4 className='text-2xl xl:text-3xl font-normal'>Nom : 
                     <span className='text-2xl xl:text-3xl font-semibold'> {user.name}</span>
                 </h4>
                 <h4 className='text-2xl xl:text-3xl font-normal'>Email : 
                     <span className='text-2xl xl:text-3xl font-semibold'> {user.email}</span>
                 </h4>
-                <h4 className='text-2xl xl:text-3xl font-normal'>Account at : 
+                <h4 className='text-2xl xl:text-3xl font-normal'>Compte depuis : 
                     <span className='text-2xl xl:text-3xl font-semibold'> {user.createdAt.substring(0, 10)}</span>
                 </h4>
 

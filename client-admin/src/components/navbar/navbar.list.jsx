@@ -22,7 +22,7 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
     <ul className='font-bold flex-wrap flex md:mr-5 flex-col md:flex-row text-center'>
       <NavItem 
         link='/home' 
-        name='Home' 
+        name='Accueil' 
         listStyle={isActive(history, '/')} />
       {isAuth && (
         <>
@@ -30,7 +30,7 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
             isButton={true}
             moreStyle='fas fa-sign-out-alt fa hover:text-blue-500'
             action={ () => {
-              toast.info(`User logged out !`);
+              toast.info(`Utilisateur déconnecté !`);
               logout();}}
             href='/home'/>
           <Button
@@ -43,7 +43,7 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
       {!isAuth && (
         <>
           <Button
-            title='Connect'
+            title='Connecter'
             moreStyle='hover:text-blue-500'
             isButton={false}
             href='/login'
