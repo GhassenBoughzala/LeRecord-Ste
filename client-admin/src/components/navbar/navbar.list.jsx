@@ -24,15 +24,21 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
         link='/home' 
         name='Accueil' 
         listStyle={isActive(history, '/')} />
+      <NavItem 
+        link='/' 
+        name='Magasin' 
+        listStyle={isActive(history, '/')} />
       {isAuth && (
         <>
           <Button
             isButton={true}
-            moreStyle='fas fa-sign-out-alt fa hover:text-blue-500'
+            title='Déconnecter'
+            moreStyle='hover:text-blue-500'
             action={ () => {
               toast.info(`Utilisateur déconnecté !`);
               logout();}}
             href='/home'/>
+          
           <Button
             isButton={false}
             href='/dashboard/user'
@@ -40,6 +46,7 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
           />
         </>
       )}
+      
       {!isAuth && (
         <>
           <Button
