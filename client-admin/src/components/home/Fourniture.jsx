@@ -7,7 +7,7 @@ return(
 
 <section class="py-12 sm:py-16 bg-white">
     <div class="max-w-7xl px-10 mx-auto sm:text-center">
-        <h2 class="font-bold text-3xl sm:text-4xl lg:text-5xl mt-3">Nos fournitures de confection</h2>
+        <h2 class="font-bold text-3xl sm:text-4xl lg:text-5xl mt-3 text-blue-700">Nos fournitures de confection</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 my-12 sm:my-16">
             <div class="rounded-lg py-6 flex flex-col items-center justify-center shadow-lg border border-gray-100">
                 <p class="font-bold mt-4">Les coupe-passants</p>

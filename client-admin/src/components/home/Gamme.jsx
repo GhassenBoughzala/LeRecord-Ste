@@ -17,7 +17,7 @@ return(
 
       
         <div class="box-border order-first w-full text-black border-solid md:w-1/2 md:pl-10 md:order-none">
-            <h2 class="m-0 text-xl font-semibold leading-tight border-0 border-gray-300 lg:text-3xl md:text-2xl">
+            <h2 class="m-0 text-xl font-semibold leading-tight border-0 border-gray-300 text-blue-700 lg:text-3xl md:text-2xl">
                 La Gamme
             </h2>
             <p class="pt-4 pb-8 m-0 leading-7 text-gray-700 border-0 border-gray-300 sm:pr-12 xl:pr-32 lg:text-lg">

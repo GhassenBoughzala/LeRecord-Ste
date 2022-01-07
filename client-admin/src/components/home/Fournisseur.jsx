@@ -16,7 +16,7 @@ return(
     <div class="w-1/2 h-full bg-gray-50 md:block hidden absolute transform -translate-x-64 left-0 top-0"></div>
     <div class="w-1/2 h-full bg-gray-50 md:block hidden absolute transform -translate-x-24 -skew-x-[30deg] -skew-x-12 left-0 top-0"></div>
     <div class="max-w-6xl relative mx-auto flex sm:px-0 px-10 flex-col items-start sm:items-center justify-center">
-        <h2 class="text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl md:text-4xl lg:text-5xl xl:text-6xl">Nos fournisseurs</h2>
+        <h2 class="text-4xl font-semibold tracking-tight text-blue-700 sm:text-5xl md:text-4xl lg:text-5xl xl:text-6xl">Nos fournisseurs</h2>
         <p class="text-gray-600 text-lg text-left sm:text-center max-w-lg mt-5">Ces fournisseurs ont été choisis en raison de leur apport en matière de qualité et de garantie des produits ainsi que le bon rapport qualité et prix.
         Nous fournissons les accessoirs de chez de grandes marques à l’échelle internationale, telles que : «Meto», «Argo», «Anker-Tex», «Lyra» de l’Allemagne, «Stiratecnica», «Siliconi Commerciale», «Printex», de l’Italie, «Avery Dennison», de l’Angleterre... 
         </p>
