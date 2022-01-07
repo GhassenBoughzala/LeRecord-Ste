@@ -1,19 +1,35 @@
 import React, { useEffect, useState, Fragment } from "react";
 import "./productList.css";
 import Sidebar from "../../../components/sidebar/Sidebar";
-import Topbar from "../../../components/topbar/Topbar";
 import { toast } from 'react-toastify';
 import { connect } from "react-redux";
+import axios from 'axios';
+import { URLDevelopment } from '../../../helpers/url';
 import { getAll, deleteProduct } from "../../../redux/reducers/productReducer";
 import NewProduct from "../newProduct/NewProduct";
-import Stats from '../../../components/chart/Stats';
+import LineCharts from "../../../components/chart/LineChart";
 
 const ProductList = (props) => {
 
   const [currentId, setCurrentId] = useState(0);
-
+  const [proStats, setProStats] = useState([]);
   useEffect(() => {
     props.AllProducts();
+    
+    const getStats = async () => {
+      try {
+        const res = axios.get(`${URLDevelopment}/api/products/search`);
+        res.data.map((item) =>
+          setProStats((prev) => [
+            ...prev,
+            { name: item.name , "Quantité": item.quantity },
+          ]),
+          console.log(res)
+        );
+      } catch {}
+    };
+    getStats();
+
   }, []);
 
   const onDLP = (id) => {
@@ -92,11 +108,20 @@ const ProductList = (props) => {
 
       </table>
     </div>
-      <div className="widgetLg">
-          
-      </div>
 
+    <div>
+    <LineCharts
+      data={proStats}
+      title="Produits Statistiques"
+      grid
+      dataKey="Quantity"
+    />
     </div>
+
+  </div>
+
+
+
 
     <div className="w-full lg:w-4/12 px-4">
           <NewProduct {...{ currentId, setCurrentId }} />

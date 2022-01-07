@@ -4,7 +4,7 @@ import axios from 'axios';
 import { URLDevelopment } from '../../../helpers/url';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Chart from "../../../components/chart/Chart";
+import Chart from "../../../components/chart/LineChart";
 //import FeaturedInfo from "../../../components/featuredInfo/FeaturedInfo";
 import WidgetSm from "../../../components/widgetSm/WidgetSm";
 import WidgetLg from "../../../components/widgetLg/WidgetLg";
