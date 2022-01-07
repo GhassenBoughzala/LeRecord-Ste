@@ -52,7 +52,7 @@ const ProductList = (props) => {
     <div className="rounded-t bg-white mb-0 px-6 py-6">
           <div className="text-center flex justify-between">
             <h6 className="text-gray-800 text-xl font-bold">
-              Product List 
+              List des produits 
             </h6>
           </div>
         </div>
@@ -60,10 +60,10 @@ const ProductList = (props) => {
       <table className="widgetLgTable">
         <thead>
           <tr className="widgetLgTr">
-            <th className="widgetLgTh">Name</th>
+            <th className="widgetLgTh">Nom</th>
             <th className="widgetLgTh">Description</th>
-            <th className="widgetLgTh">Quantity</th>
-            <th className="widgetLgTh">Price</th>
+            <th className="widgetLgTh">Quantité</th>
+            <th className="widgetLgTh">Prix</th>
             <th className="widgetLgTh">Status</th>
             <th className="widgetLgTh">Photo</th>
             <th className="widgetLgTh text-center"><i className='fas fa-edit w-6 -ml-2' /></th>
@@ -91,14 +91,14 @@ const ProductList = (props) => {
                     type='submit'
                     onClick={() => setCurrentId(product._id)}
                     className='mt-1 tracking-wide font-semibold bg-blue-500 text-gray-100 w-full py-2 rounded-lg hover:bg-blue-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none'
-                  > Edit </button>                                       
+                  > Editer </button>                                       
                 </td>
                 <td className="widgetLgStatus">
                 <button
                     type='submit'
                     onClick={() => onDLP(product._id)}
                     className='mt-1 tracking-wide font-semibold bg-red-500 text-gray-100 w-full py-2 rounded-lg hover:bg-red-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none'
-                  > Delete </button>
+                  > Supprimer </button>
                 </td>
               </tr>
             </Fragment>
@@ -109,14 +109,7 @@ const ProductList = (props) => {
       </table>
     </div>
 
-    <div>
-    <LineCharts
-      data={proStats}
-      title="Produits Statistiques"
-      grid
-      dataKey="Quantity"
-    />
-    </div>
+
 
   </div>
 
@@ -148,4 +141,13 @@ const mapActionToProps = {
 
 export default connect ( mapStateToProps, mapActionToProps )(ProductList);
 
-
+/*
+    <div>
+    <LineCharts
+      data={proStats}
+      title="Produits Statistiques"
+      grid
+      dataKey="Quantity"
+    />
+    </div>
+*/

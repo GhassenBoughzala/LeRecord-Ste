@@ -70,7 +70,7 @@ const UpUser = ({ ...props }) => {
   return (
 <>
     <h6 className="text-gray-800 text-xl font-bold">
-      Update User
+      Editer Utilisateur
     </h6>
 
 
@@ -82,7 +82,7 @@ const UpUser = ({ ...props }) => {
             <label
               className="block uppercase text-gray-700 text-xs font-bold mb-2"
               htmlFor="grid-password">
-              Name
+              Nom
             </label>
             <input
               type="text"
@@ -140,7 +140,7 @@ const UpUser = ({ ...props }) => {
               type="submit"
               className="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-1 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
             >
-              Update
+              Editer
             </button>
           </div>
         </div>

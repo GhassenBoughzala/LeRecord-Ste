@@ -86,7 +86,7 @@ const Add = ({ ...props }) => {
         <div className="rounded-t bg-white mb-0 px-6 py-6">
           <div className="text-center flex justify-between">
             <h6 className="text-gray-800 text-xl font-bold">
-              Add & Edit Products 
+              Ajouter ou Editer  
             </h6>
           </div>
         </div>
@@ -100,7 +100,7 @@ const Add = ({ ...props }) => {
                     className="block uppercase text-gray-700 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                    Name
+                    Nom
                   </label>
                   <input
                     type="text"
@@ -118,7 +118,7 @@ const Add = ({ ...props }) => {
                     className="block uppercase text-gray-700 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                    Quantity
+                    Quantité
                   </label>
                   <input
                     type="number"
@@ -138,7 +138,7 @@ const Add = ({ ...props }) => {
                   <label
                     className="block uppercase text-gray-700 text-xs font-bold mb-2"
                     htmlFor="grid-password">
-                    Category
+                    Catégorie
                   </label>
                   <input
                     type="text"
@@ -180,7 +180,7 @@ const Add = ({ ...props }) => {
                     className="block uppercase text-gray-700 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                    Price
+                    Prix
                   </label>
                   <input
                     type="number"
@@ -203,7 +203,7 @@ const Add = ({ ...props }) => {
 
                   <input
                     type="text"
-                    placeholder="In Stock"
+                    placeholder="En Stock"
                     name="shipping"
                     value={values.shipping}
                     onChange={handleInputChange}
@@ -267,7 +267,7 @@ const Add = ({ ...props }) => {
                     type="submit"
                     className="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-1 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                   >
-                    Confirm
+                    Confirmer
                   </button>
                 </div>
               </div>

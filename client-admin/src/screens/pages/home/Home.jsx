@@ -60,9 +60,9 @@ const Home = () => {
         
         <Chart
           data={userStats}
-          title="User Analytics"
+          title="Analyse des utilisateurs"
           grid
-          dataKey="Active User"
+          dataKey="Utilisateur Active"
         />
         <div className="homeWidgets">
           

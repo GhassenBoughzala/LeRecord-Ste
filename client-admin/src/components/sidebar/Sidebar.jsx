@@ -15,24 +15,25 @@ export default function Sidebar() {
     <div className="sidebar">
       <div className="sidebarWrapper">
         <div className="sidebarMenu">
-          <h3 className="sidebarTitle">Dashboard</h3>
+          <h3 className="sidebarTitle">
+          Tableau de bord Administrateur</h3>
           <ul className="sidebarList">
             <Link to="/dashboard/admin" className="link">
             <li className="sidebarListItem">
               <Timeline className="sidebarIcon" />
-              Home
+              Acceuil
             </li>
             </Link>
             <Link to="/dashboard/admin/users" className="link">
               <li className="sidebarListItem">
                 <PermIdentity className="sidebarIcon" />
-                Users
+                Utilisateurs
               </li>
             </Link>
             <Link to="/dashboard/admin/products" className="link">
               <li className="sidebarListItem">
                 <Storefront className="sidebarIcon" />
-                Products
+                Produits
               </li>
             </Link>
             <li className="sidebarListItem">

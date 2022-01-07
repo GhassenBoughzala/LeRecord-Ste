@@ -297,6 +297,33 @@ router.get('/:productId', productById, (req, res) => {
     return res.json(req.product);
 });
 
+
+// @desc    Get Product Stats
+// @access  Public
+router.get("/stats", async (req, res) => {
+
+  try {
+    const data = await Product.aggregate([
+      {
+        $project: {
+          quantity: { $quantity: "$quantity" },
+        },
+      },
+      {
+        $group: {
+          quantity: "$quantity",
+          total: { $sum: 1 },
+        },
+      },
+    ]);
+    console.log(data)
+    res.status(200).json(data)
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
+
 router.param("productId", productById);
 
 module.exports = router;

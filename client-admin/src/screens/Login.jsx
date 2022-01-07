@@ -27,7 +27,7 @@ const Login = ({ login, isAuth, isLoading, user }) => {
 
   if (isAuth && user) {
     const { name, role } = user;
-    toast.success(`Welcome ${name}`);
+    toast.success(`Bienvenue ${name}`);
     if (role === 0) return <Redirect to='/dashboard/user'/>;
     if (role === 1) return <Redirect to='/dashboard/admin'/>;
   }
