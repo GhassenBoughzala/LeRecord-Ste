@@ -17,52 +17,56 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
     }
   };
 
-  if (isAuth && user) {
-    const { name, role } = user;
-    if (role === 0) return <Redirect to='/login' />;
-    if (role === 1) return <Redirect to='/dashboard/admin' />;
-  }
-
   return (
+    <>
     <ul className='font-bold flex-wrap flex md:mr-5 flex-col md:flex-row text-center'>
-      <NavItem link='/' name='Home' listStyle={isActive(history, '/')} />
-      <NavItem
-        link='/shop'
-        name='Shop'
-        listStyle={isActive(history, '/shop')}
-      />
-      <NavItem
-        link='/dashboard'
-        name='Dashboard'
-        listStyle={isActive(history, '/dashboard')}
-      />
+      <NavItem 
+        link='/home' 
+        name='Accueil' 
+        listStyle={isActive(history, '/')} />
+      <NavItem 
+        link='/' 
+        name='Magasin' 
+        listStyle={isActive(history, '/')} />
       {isAuth && (
-        <Button
-          title='Logout'
-          moreStyle='hover:text-blue-500'
-          action={ () => {
-            toast.info(`User logged out !`);
-            logout();
-            <Redirect to='/login' />;
-          }}
-        />
-      )}
-      {!isAuth && (
         <>
           <Button
-            title='Connect'
+            isButton={true}
+            title='Déconnecter'
             moreStyle='hover:text-blue-500'
+            action={ () => {
+              toast.info(`Utilisateur déconnecté !`);
+              logout();}}
+            href='/home'/>
+          
+          <Button
             isButton={false}
-            href='/login'
+            href='/dashboard/user'
+            moreStyle='fas fa-user-circle fa hover:text-blue-500'
           />
         </>
       )}
-      <Button
-        isButton={false}
-        href='/cart'
-        moreStyle='fas fa-shopping-cart fa hover:text-blue-500'
-      />
+      
+      {!isAuth && (
+        <>
+          <Button
+            title='Connecter'
+            moreStyle='hover:text-blue-500'
+            isButton={false}
+            href='/login'
+            listStyle={isActive(history, '/login')}
+          />
+        </>
+      )}
+          <Button
+            isButton={false}
+            href='/cart'
+            moreStyle='fas fa-shopping-cart fa hover:text-blue-500'
+          />
     </ul>
+    </>
+    
+ 
   );
 };
 

@@ -31,10 +31,10 @@ export default function (state = intialState, action){
       case ADDP_F:
 
       case PRODUCT_UPDATE: return{...state, 
-        products: state.products.map(p => p._id == action.payload._id ? action.payload : p )}
+        products: state.products.map(p => p._id === action.payload._id ? action.payload : p )}
 
       case PRODUCT_DELETE: return{...state, 
-        products: state.products.filter(p => p._id != action.payload )}
+        products: state.products.filter(p => p._id !== action.payload )}
 
       case PRODUCT_ERR:
         default:

@@ -3,6 +3,7 @@ import "./newProduct.css";
 import { toast } from 'react-toastify';
 import { connect } from "react-redux";
 import useForm from "../useForm";
+import { Publish } from "@material-ui/icons";
 import {addProduct, updateProduct} from "../../../redux/reducers/productReducer";
 
 const initialFieldValues = {
@@ -18,9 +19,9 @@ const initialFieldValues = {
 
 const Add = ({ ...props }) => {
   useEffect(() => {
-    if (props.currentId != 0) {
+    if (props.currentId !== 0) {
       setValues({
-        ...props.List.find((p) => p._id == props.currentId),
+        ...props.List.find((p) => p._id === props.currentId),
       });
       setErrors({});
     }
@@ -39,7 +40,7 @@ const Add = ({ ...props }) => {
     temp.photo = values.photo ? "" : "This field is required.";
    
     setErrors({...temp,});
-    return Object.values(temp).every((p) => p =="");
+    return Object.values(temp).every((p) => p === "");
   };
 
   var {
@@ -58,12 +59,13 @@ const Add = ({ ...props }) => {
       resetForm();
     };
     if (validate()) {
-      if (props.currentId == 0){
+      if (props.currentId === 0){
 
           props.createP(values, onSuccess);
           console.log(props)
           toast.success('Product added successfully');
           resetForm();
+          window.location.reload();
        
       } else {
         toast.info('Product updated successfully');
@@ -84,7 +86,7 @@ const Add = ({ ...props }) => {
         <div className="rounded-t bg-white mb-0 px-6 py-6">
           <div className="text-center flex justify-between">
             <h6 className="text-gray-800 text-xl font-bold">
-              Add & Edit Products 
+              Ajouter ou Editer  
             </h6>
           </div>
         </div>
@@ -98,7 +100,7 @@ const Add = ({ ...props }) => {
                     className="block uppercase text-gray-700 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                    Name
+                    Nom
                   </label>
                   <input
                     type="text"
@@ -116,7 +118,7 @@ const Add = ({ ...props }) => {
                     className="block uppercase text-gray-700 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                    Quantity
+                    Quantité
                   </label>
                   <input
                     type="number"
@@ -136,7 +138,7 @@ const Add = ({ ...props }) => {
                   <label
                     className="block uppercase text-gray-700 text-xs font-bold mb-2"
                     htmlFor="grid-password">
-                    Category
+                    Catégorie
                   </label>
                   <input
                     type="text"
@@ -178,7 +180,7 @@ const Add = ({ ...props }) => {
                     className="block uppercase text-gray-700 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                    Price
+                    Prix
                   </label>
                   <input
                     type="number"
@@ -201,7 +203,7 @@ const Add = ({ ...props }) => {
 
                   <input
                     type="text"
-                    placeholder="In Stock"
+                    placeholder="En Stock"
                     name="shipping"
                     value={values.shipping}
                     onChange={handleInputChange}
@@ -240,13 +242,20 @@ const Add = ({ ...props }) => {
                   >
                     Photo
                   </label>
-                  <input
-                    type="text"
+                  <div className="productUpload">
+                    <img alt="" className="productUploadImg" />
+                    <label for="file">
+                      <Publish />
+                    </label>
+                    <input 
+                    type="file" 
                     name="photo"
-                    value={values.photo}
+                    value={values.photo} 
                     onChange={handleInputChange}
-                    className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
-                  />
+                    id="file" 
+                    style={{ display: "none" }} />
+                  </div>
+
                 </div>
               </div>
             </div>
@@ -258,7 +267,7 @@ const Add = ({ ...props }) => {
                     type="submit"
                     className="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-1 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                   >
-                    Confirm
+                    Confirmer
                   </button>
                 </div>
               </div>

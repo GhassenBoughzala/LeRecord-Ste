@@ -9,48 +9,49 @@ const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 const REGISTER_FAIL = 'REGISTER_FAIL';
 const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 const LOGIN_FAIL = 'LOGIN_FAIL';
-const USER_LOADED = 'USER_LOADED'
-const AUTH_ERROR = 'AUTH_ERROR'
-const LOGOUT = 'LOGOUT'
-const SET_LOADING = 'SET_LOADING'
+const USER_LOADED = 'USER_LOADED';
+const AUTH_ERROR = 'AUTH_ERROR';
+const LOGOUT = 'LOGOUT';
+const SET_LOADING = 'SET_LOADING';
+
 // Intial State
 const intialState = {
     token: localStorage.getItem('token'),
     isAuthenticated: null,
     loading: true,
     user: null,
+    role: null,
 };
 
 // Reducers
 export default function (state = intialState, action) {
-    const {
-        type,
-        payload
-    } = action;
+    const { type, payload } = action;
+
     switch (type) {
 
-        case USER_LOADED:
-            return {
-                ...state,
-                user: payload,
-                    isAuthenticated: true,
-                    loading: false
-            }
-            case REGISTER_SUCCESS:
-            case LOGIN_SUCCESS:
-                // Set Token in localstorage
-                localStorage.setItem('token', payload.token);
-                return {
-                    ...state,
-                    ...payload,
-                    isAuthenticated: true,
+                case USER_LOADED:
+                    return {
+                            ...state,
+                            user: payload,
+                            isAuthenticated: true,
+                            loading: false,
+                            role: 0
+                    };
+                case REGISTER_SUCCESS:
+                case LOGIN_SUCCESS:
+                    // Set Token in localstorage
+                    localStorage.setItem('token', payload.token);
+                    return {
+                        ...state,
+                        ...payload,
+                        isAuthenticated: true,
                         loading: false,
-                };
-            case SET_LOADING:
-                return {
-                    ...state,
-                    loading: true
-                }
+                    };
+                case SET_LOADING:
+                    return {
+                        ...state,
+                        loading: true
+                    };
                 case REGISTER_FAIL:
                 case LOGIN_FAIL:
                 case AUTH_ERROR:
@@ -60,9 +61,9 @@ export default function (state = intialState, action) {
                     return {
                         ...state,
                         token: null,
-                            isAuthenticated: false,
-                            loading: false,
-                            user: null
+                        isAuthenticated: false,
+                        loading: false,
+                        user: null
                     };
                 default:
                     return state;
@@ -81,6 +82,18 @@ export const loadUser = () => async (dispatch) => {
             type: USER_LOADED,
             payload: res.data
         })
+        /*
+        if(dispatch({payload: res.data.role === 1}) ){
+            dispatch({
+                type: USER_LOADED,
+                payload: res.data
+            })
+        }else (dispatch({ payload: res.data.role === 0}))
+            dispatch({
+                type: USER_LOADED,
+                payload: res.data
+            })
+        */
     } catch (error) {
         console.log(error.response)
         dispatch({

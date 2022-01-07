@@ -2,22 +2,18 @@ import "./home.css";
 import React from 'react';
 import axios from 'axios';
 import { URLDevelopment } from '../../../helpers/url';
-import { Redirect } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { toast } from 'react-toastify';
-import { logout } from '../../../redux/reducers/authReducer';
-
-import Chart from "../../../components/chart/Chart";
-import FeaturedInfo from "../../../components/featuredInfo/FeaturedInfo";
+import Chart from "../../../components/chart/LineChart";
+//import FeaturedInfo from "../../../components/featuredInfo/FeaturedInfo";
 import WidgetSm from "../../../components/widgetSm/WidgetSm";
 import WidgetLg from "../../../components/widgetLg/WidgetLg";
 import { useEffect, useMemo, useState } from "react";
 import Sidebar from "../../../components/sidebar/Sidebar";
-import Topbar from "../../../components/topbar/Topbar";
 
 
-const Home = ({isAuth, user}) => {
+
+const Home = () => {
 
   const [userStats, setUserStats] = useState([]);
 
@@ -55,28 +51,21 @@ const Home = ({isAuth, user}) => {
     getStats();
   }, [MONTHS]);
 
-  if (isAuth && user) {
-    const { name, role } = user;
-    toast.success(`Welcome ${name}`);
-    if (role === 0) return <Redirect to='/login' />;
-  }
-
-
   return (
   <>
-  <Topbar />
+  
     <div className="containerr">
         <Sidebar />
       <div className="home">
         
         <Chart
           data={userStats}
-          title="User Analytics"
+          title="Analyse des utilisateurs"
           grid
-          dataKey="Active User"
+          dataKey="Utilisateur Active"
         />
         <div className="homeWidgets">
-          <WidgetSm />
+          
           <WidgetLg />
         </div>
       </div>
@@ -91,4 +80,4 @@ const Home = ({isAuth, user}) => {
 const mapStateToProps = (state) => ({
   isAuth: state.auth.isAuthenticated,
 });
-export default connect(mapStateToProps, { logout })(withRouter(Home));
+export default connect(mapStateToProps)(withRouter(Home));

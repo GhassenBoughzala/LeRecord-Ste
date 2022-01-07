@@ -4,8 +4,9 @@ import {
   Timeline,
   PermIdentity,
   Storefront,
-  AttachMoney,
+  LocalShipping,
   BarChart,
+  Loyalty,
 } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 
@@ -14,33 +15,34 @@ export default function Sidebar() {
     <div className="sidebar">
       <div className="sidebarWrapper">
         <div className="sidebarMenu">
-          <h3 className="sidebarTitle">Dashboard</h3>
+          <h3 className="sidebarTitle">
+          Tableau de bord Administrateur</h3>
           <ul className="sidebarList">
             <Link to="/dashboard/admin" className="link">
             <li className="sidebarListItem">
               <Timeline className="sidebarIcon" />
-              Home
+              Acceuil
             </li>
             </Link>
-            <Link to="/users" className="link">
+            <Link to="/dashboard/admin/users" className="link">
               <li className="sidebarListItem">
                 <PermIdentity className="sidebarIcon" />
-                Users
+                Utilisateurs
               </li>
             </Link>
             <Link to="/dashboard/admin/products" className="link">
               <li className="sidebarListItem">
                 <Storefront className="sidebarIcon" />
-                Products
+                Produits
               </li>
             </Link>
             <li className="sidebarListItem">
-              <AttachMoney className="sidebarIcon" />
-              Transactions
+              <Loyalty className="sidebarIcon" />
+              Categories
             </li>
             <li className="sidebarListItem">
-              <BarChart className="sidebarIcon" />
-              Reports
+              <LocalShipping className="sidebarIcon" />
+              Fournisseurs
             </li>
           </ul>
         </div>

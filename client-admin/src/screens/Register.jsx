@@ -5,6 +5,7 @@ import { register } from '../redux/reducers/authReducer';
 import authSvg from '../assests/auth.svg';
 import { ToastContainer, toast } from 'react-toastify';
 import { Redirect } from 'react-router-dom';
+import Navbar from '../components/navbar/navbar.component';
 import './loading.css';
 
 const Register = ({ register, isAuth, isLoading, user }) => {
@@ -38,13 +39,14 @@ const Register = ({ register, isAuth, isLoading, user }) => {
 
   return (
     <Container>
-    <div className='min-h-screen bg-gray-100 text-gray-900 flex justify-center'>
+       
+    <div className='min-h-screen bg-white text-gray-900 flex justify-center'>
       <ToastContainer />
       <div className='max-w-screen-xl m-0 sm:m-20 bg-white shadow sm:rounded-lg flex justify-center flex-1'>
         <div className='lg:w-1/2 xl:w-5/12 p-6 sm:p-12'>
           <div className='mt-12 flex flex-col items-center'>
             <h1 className='text-2xl xl:text-3xl font-extrabold'>
-              Register
+              S'inscrire
             </h1>
 
             <form
@@ -55,7 +57,7 @@ const Register = ({ register, isAuth, isLoading, user }) => {
                 <input
                   className='w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white'
                   type='text'
-                  placeholder='Name'
+                  placeholder='Nom'
                   onChange={handleChange('name')}
                   value={name}
                 />
@@ -69,14 +71,14 @@ const Register = ({ register, isAuth, isLoading, user }) => {
                 <input
                   className='w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5'
                   type='password'
-                  placeholder='Password'
+                  placeholder='Mot de passe'
                   onChange={handleChange('password')}
                   value={password}
                 />
                 <input
                   className='w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5'
                   type='password'
-                  placeholder='Confirm Password'
+                  placeholder='Confirmez mot de passe'
                   onChange={handleChange('confirmPasswrod')}
                   value={confirmPasswrod}
                 />
@@ -86,7 +88,7 @@ const Register = ({ register, isAuth, isLoading, user }) => {
                   <button className='w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline mt-5'
                   target='_self' >
                    <i className='fas fa-user-plus fa 1x w-6  -ml-2 text-blue-500' />
-                   <span className='ml-4'>Sign Up</span>
+                   <span className='ml-4'>S'inscrire</span>
                   </button>
                 )}
                
@@ -95,7 +97,7 @@ const Register = ({ register, isAuth, isLoading, user }) => {
               </div>
               <div className='my-12 border-b text-center'>
                 <div className='leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform translate-y-1/2'>
-                  Or sign with email
+                  Ou connectez-vous par e-mail
                 </div>
               </div>
 
@@ -108,7 +110,7 @@ const Register = ({ register, isAuth, isLoading, user }) => {
                   target='_self'
                 >
                   <i className='fas fa-sign-in-alt fa 1x w-6  -ml-2 text-blue-500' />
-                  <span className='ml-4'>Sign In</span>
+                  <span className='ml-4'>S'identifier</span>
                 </a>
               </div>
             </form>

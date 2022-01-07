@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Container from '../container/container.component';
 import NavbarList from './navbar.list';
 import NavbarToggle from './navbar.toggle';
+import Rimg from '../../assests/r.png'
 
 const Navbar = () => {
   // implent toggle state
@@ -16,8 +17,8 @@ const Navbar = () => {
       <nav className='navbar'>
         {/* Left Side */}
         <div className='flex justify-between w-full md:w-32 items-center'>
-          <Link to='/' className='logo w-16 animate'>
-           
+          <Link to='/home' className='logo w-40 animate'>
+            <img src={Rimg}/>
           </Link>
           <NavbarToggle active={active} menuState={menuState} />
         </div>
