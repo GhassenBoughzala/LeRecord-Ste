@@ -26,8 +26,7 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
         listStyle={isActive(history, '/')} />
       <NavItem 
         link='/' 
-        name='Magasin' 
-        listStyle={isActive(history, '/')} />
+        name='Magasin'/>
       {isAuth && (
         <>
           <Button
