@@ -36,10 +36,12 @@ export default function Sidebar() {
                 Produits
               </li>
             </Link>
+            <Link to="/dashboard/admin/categories" className="link">
             <li className="sidebarListItem">
               <Loyalty className="sidebarIcon" />
               Categories
             </li>
+            </Link>
             <li className="sidebarListItem">
               <LocalShipping className="sidebarIcon" />
               Fournisseurs

@@ -43,6 +43,11 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
             href='/dashboard/user'
             moreStyle='fas fa-user-circle fa hover:text-blue-500'
           />
+          <Button
+            isButton={false}
+            href='/cart'
+            moreStyle='fas fa-shopping-cart fa hover:text-blue-500'
+          />
         </>
       )}
       
@@ -57,11 +62,7 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
           />
         </>
       )}
-          <Button
-            isButton={false}
-            href='/cart'
-            moreStyle='fas fa-shopping-cart fa hover:text-blue-500'
-          />
+          
     </ul>
     </>
     
