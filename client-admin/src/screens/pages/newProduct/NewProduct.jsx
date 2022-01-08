@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import useForm from "../useForm";
 import { Publish } from "@material-ui/icons";
 import {addProduct, updateProduct} from "../../../redux/reducers/productReducer";
+import { Dropdown } from "reactstrap";
 
 const initialFieldValues = {
     name:"",
@@ -110,6 +111,7 @@ const Add = ({ ...props }) => {
                     className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
                   />
                 </div>
+                
               </div>
               <div className="w-full lg:w-6/12 px-4">
                 <br></br>
