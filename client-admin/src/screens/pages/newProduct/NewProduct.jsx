@@ -63,12 +63,12 @@ const Add = ({ ...props }) => {
 
           props.createP(values, onSuccess);
           console.log(props)
-          toast.success('Product added successfully');
+          toast.success('Ajouté avec succès');
           resetForm();
           window.location.reload();
        
       } else {
-        toast.info('Product updated successfully');
+        toast.info('Mis à jour avec succés');
         props.updateP(props.currentId, values, onSuccess);
         
       }   

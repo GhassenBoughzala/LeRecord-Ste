@@ -12,7 +12,7 @@ import PrivateRoute from './routes/PrivateRoute';
 import UserRoute from './routes/UserRoute';
 import UserProfile from './screens/User';
 import UsersList from './screens/pages/userList/UserList';
-
+import CategoriesList from './screens/pages/category/categoryList';
 
 const Routes = () => {
   return (
@@ -31,6 +31,7 @@ const Routes = () => {
         <PrivateRoute exact path='/dashboard/admin' component={AdminHome}/>
         <PrivateRoute exact path='/dashboard/admin/products' component={ProductsAdmin}/>
         <PrivateRoute exact path='/dashboard/admin/users' component={UsersList}/>
+        <PrivateRoute exact path='/dashboard/admin/categories' component={CategoriesList}/>
 
       </Switch>
     </BrowserRouter>
