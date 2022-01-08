@@ -24,7 +24,7 @@ export default function (state = intialState, action){
         case ADD_CAT: return{...state, categories:[...state.categories, action.payload ]}
 
         case UP_CAT: return {...state,
-            categories: state.map(c => c._id === action.payload._id ? action.payload : c)}
+            categories: state.categories.map(c => c._id === action.payload._id ? action.payload : c)}
 
         case DELETE_CAT: return{...state,
             categories: state.categories.filter(c => c._id !== action.payload )}
