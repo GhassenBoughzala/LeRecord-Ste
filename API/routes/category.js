@@ -30,10 +30,11 @@ router.post('/', [ check('name', 'Name is required').trim().not().isEmpty()]
 
         const newCategory = new Category({ name })
         category = await newCategory.save()
+        console.log('CAT +')
         res.json(category)
     } catch (error) {
         console.log(error)
-        res.status(500).send('Server error')
+        
     }
 })
 
