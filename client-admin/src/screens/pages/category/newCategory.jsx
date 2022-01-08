@@ -46,7 +46,7 @@ const Add = ({ ...props }) => {
           console.log(props)
           toast.success('Ajouté avec succès');
           resetForm();
-          window.location.reload();
+         
        
       } else {
         toast.info('Mis à jour avec succés');
@@ -69,6 +69,13 @@ const Add = ({ ...props }) => {
             <h6 className="text-gray-800 text-xl font-bold">
               Ajouter ou Editer  
             </h6>
+            <div><a
+                    
+                    onClick={() => reset()}
+                    className="fas fa-redo-alt fa"
+                  >
+                    
+                  </a></div>
           </div>
         </div>
         <div className="flex-auto px-4 lg:px-10 py-10 pt-0">

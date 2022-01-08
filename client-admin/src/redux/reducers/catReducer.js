@@ -35,7 +35,6 @@ export default function (state = intialState, action){
 }
 
 export const Fetch = () => axios.get(`${URLDevelopment}/api/category/all`);
-export const AddC = () => axios.post(`${URLDevelopment}/api/category`);
 export const UPC = (id, updated) => axios.put(`${URLDevelopment}/api/category/` + id, updated);
 export const DLC = (id) => axios.delete(`${URLDevelopment}/api/category/` + id);
 
@@ -67,7 +66,8 @@ export const addCat = (category) => {
     const data ={ name : category.name }
 
     return(dispatch) => {
-        AddC(data)
+        return axios
+        .post(`${URLDevelopment}/api/category`, data)
         .then((res) => {
             const data = res.data;
             console.log(data);
