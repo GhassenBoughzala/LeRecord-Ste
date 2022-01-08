@@ -147,8 +147,8 @@ export const deleteProduct = async(id, dispatch) => {
       payload: id,
     });
   }).catch((err) => 
-  console.log(err),
-  PRODUCT_ERR
+    console.log(err),
+    PRODUCT_ERR
   );
 
 };
@@ -162,7 +162,7 @@ export const updateProduct = (id, data) => (dispatch) => {
       payload: res.data,
     });
   }).catch((err) => 
-  console.log(err),
-  PRODUCT_ERR
+    console.log(err),
+    PRODUCT_ERR
   );
 };
