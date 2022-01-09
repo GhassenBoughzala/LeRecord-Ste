@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment } from "react";
+import React, { useEffect, useState } from "react";
 import "./newProduct.css";
 import { toast } from 'react-toastify';
 import { connect } from "react-redux";
@@ -6,6 +6,7 @@ import useForm from "../useForm";
 import { Publish } from "@material-ui/icons";
 import {addProduct, updateProduct} from "../../../redux/reducers/productReducer";
 import { getAllCat } from "../../../redux/reducers/catReducer";
+import FileBase64 from 'react-file-base64';
 
 const initialFieldValues = {
     name:"",
@@ -19,6 +20,13 @@ const initialFieldValues = {
 }
 
 const Add = ({ ...props }) => {
+
+
+  const [item, setItem] = useState("");
+
+  const onChangeFile = (e) => {
+    setItem({photo: e.target.files[0]});
+  }
 
   useEffect(() => {
     props.All();
@@ -184,8 +192,6 @@ const Add = ({ ...props }) => {
               </div>
             </div>
 
-
-
             <div className="flex flex-wrap">
               <div className="w-full lg:w-6/12 px-4">
                 <div className="relative w-full mb-3">
@@ -256,20 +262,14 @@ const Add = ({ ...props }) => {
                   >
                     Photo : {values.photo}
                   </label>
-                  <div className="productUpload">
-                    <img alt="" className="productUploadImg" />
-                    <label for="file">
-                      <Publish />
-                    </label>
-                    <input 
-                    type="file" 
-                    name="photo"
-                    value={values.photo} 
-                    onChange={handleInputChange}
-                    id="file" 
-                    style={{ display: "none" }} />
-                  </div>
-
+                  <input 
+                      type="file" 
+                      accept=".png, .jpg, .jpeg"
+                      name="photo"
+                      
+                      onChange={handleInputChange, values.photo}
+                      className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                  />
                 </div>
               </div>
             </div>

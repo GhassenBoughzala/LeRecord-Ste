@@ -50,6 +50,7 @@ const ProductList = (props) => {
             <th className="widgetLgTh">Quantité</th>
             <th className="widgetLgTh">Prix</th>
             <th className="widgetLgTh">Status</th>
+            <th className="widgetLgTh">Image</th>
             <th className="widgetLgTh text-center"><i className='fas fa-edit w-6 -ml-2' /></th>
             <th className="widgetLgTh text-center"><i className='mt-1 fas fa-trash-alt' /></th>
           </tr>
@@ -64,6 +65,11 @@ const ProductList = (props) => {
                 <td className="widgetLgDate">{product.quantity}</td>
                 <td className="widgetLgDate">{product.price}</td>           
                 <td className="widgetLgAmount">{product.shipping}</td>
+                <td className="widgetLgAmount">
+                    <div className="productListItem">
+                      <img className="productListImg" src={product.photo} alt={product.photo} /> 
+                    </div>
+                </td>
                 <td className="widgetLgStatus">
                   <button
                     type='submit'
