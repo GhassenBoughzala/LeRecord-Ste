@@ -7,29 +7,14 @@ import axios from 'axios';
 import { URLDevelopment } from '../../../helpers/url';
 import { getAll, deleteProduct } from "../../../redux/reducers/productReducer";
 import NewProduct from "../newProduct/NewProduct";
-import LineCharts from "../../../components/chart/LineChart";
+import ProductDetails from "../product/Product"
 
 const ProductList = (props) => {
 
   const [currentId, setCurrentId] = useState(0);
-  const [proStats, setProStats] = useState([]);
+
   useEffect(() => {
     props.AllProducts();
-    
-    const getStats = async () => {
-      try {
-        const res = axios.get(`${URLDevelopment}/api/products/search`);
-        res.data.map((item) =>
-          setProStats((prev) => [
-            ...prev,
-            { name: item.name , "Quantité": item.quantity },
-          ]),
-          console.log(res)
-        );
-      } catch {}
-    };
-    getStats();
-
   }, []);
 
   const onDLP = (id) => {
@@ -65,7 +50,6 @@ const ProductList = (props) => {
             <th className="widgetLgTh">Quantité</th>
             <th className="widgetLgTh">Prix</th>
             <th className="widgetLgTh">Status</th>
-            <th className="widgetLgTh">Photo</th>
             <th className="widgetLgTh text-center"><i className='fas fa-edit w-6 -ml-2' /></th>
             <th className="widgetLgTh text-center"><i className='mt-1 fas fa-trash-alt' /></th>
           </tr>
@@ -80,12 +64,6 @@ const ProductList = (props) => {
                 <td className="widgetLgDate">{product.quantity}</td>
                 <td className="widgetLgDate">{product.price}</td>           
                 <td className="widgetLgAmount">{product.shipping}</td>
-                <td className="widgetLgAmount">
-                    <div className="productListItem">
-                      <img className="productListImg" src={product.photo} alt="" /> {product.photo}
-                    </div>
-                </td>
-
                 <td className="widgetLgStatus">
                   <button
                     type='submit'
@@ -108,6 +86,8 @@ const ProductList = (props) => {
 
       </table>
     </div>
+
+          <ProductDetails {...{ currentId, setCurrentId }} />
 
 
 
@@ -150,4 +130,11 @@ export default connect ( mapStateToProps, mapActionToProps )(ProductList);
       dataKey="Quantity"
     />
     </div>
+
+
+                    <td className="widgetLgAmount">
+                    <div className="productListItem">
+                      <img className="productListImg" src={product.photo} alt={product.photo} /> 
+                    </div>
+                </td>
 */

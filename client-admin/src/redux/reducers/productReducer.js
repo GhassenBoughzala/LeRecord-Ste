@@ -4,7 +4,7 @@ import { URLDevelopment } from '../../helpers/url';
 //Types
 const GET_PRODUCTS_S = 'GET ALL PRODUCTS';
 const GET_PRODUCTS_F = 'GET PRODUCTS FAILURE';
-const GETP_DETAILS = 'GET PRODUCT DETAILS';
+const GETP_DETAILS = 'PRODUCT DETAILS';
 const ADDP_S = 'ADD PRODUCT SUCCESS';
 const ADDP_F = 'ADD PRODUCT FAILURE';
 const PRODUCT_UPDATE = 'PRODUCT UPDATED';
@@ -69,23 +69,19 @@ export const getAll =  () => (dispatch) => {
 
 };
 
-export const getdetails =  async (id, product ,dispatch) => {
+export const getdetails =  (id,dispatch) => {
 
-  try{
-    // ID : 61c38a3a9494afc5b4d6a09b
-    const res = await axios.get(`${URLDevelopment}/api/products/related/${id}`);
+  GetDetails(id)
+  .then((res) => {
+    console.log(res);
     dispatch({
       type: GETP_DETAILS,
-      payload: res.data({id,product})
-    })
-    
-  } catch (error) {
-    console.log(error.response)
-    dispatch({
-      type: GET_PRODUCTS_F,
-    })
-    
-  }
+      payload: res.data,
+    });
+  }).catch((err) => 
+    console.log(err),
+    GET_PRODUCTS_F
+  );
 
 };
 

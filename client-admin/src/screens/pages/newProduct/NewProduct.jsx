@@ -254,7 +254,7 @@ const Add = ({ ...props }) => {
                     className="block uppercase text-gray-700 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                    Photo
+                    Photo : {values.photo}
                   </label>
                   <div className="productUpload">
                     <img alt="" className="productUploadImg" />
