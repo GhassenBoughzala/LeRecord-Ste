@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, Fragment } from "react";
 import "./newProduct.css";
 import { toast } from 'react-toastify';
 import { connect } from "react-redux";
 import useForm from "../useForm";
 import { Publish } from "@material-ui/icons";
 import {addProduct, updateProduct} from "../../../redux/reducers/productReducer";
-import { Dropdown } from "reactstrap";
+import { getAllCat } from "../../../redux/reducers/catReducer";
 
 const initialFieldValues = {
     name:"",
@@ -19,6 +19,11 @@ const initialFieldValues = {
 }
 
 const Add = ({ ...props }) => {
+
+  useEffect(() => {
+    props.All();
+  }, []);
+
   useEffect(() => {
     if (props.currentId !== 0) {
       setValues({
@@ -136,19 +141,26 @@ const Add = ({ ...props }) => {
             <div className="flex flex-wrap">
               <div className="w-full lg:w-6/12 px-4">
                 <div className="relative w-full mb-3">
+
                   <br></br>
                   <label
                     className="block uppercase text-gray-700 text-xs font-bold mb-2"
                     htmlFor="grid-password">
                     Catégorie
                   </label>
-                  <input
-                    type="text"
-                    name="category"
-                    value={values.category}
-                    onChange={handleInputChange}
-                    className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
-                  />                 
+
+                  <select name="category" 
+                          onChange={handleInputChange}
+                          value={values.category}
+                          className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150">
+                      <option value="">Choisis une option</option>
+                      {props.ListCat.map((cat) => {
+                        return ( 
+                          <option value={cat._id}>{cat.name}</option>
+                        );
+                      })}
+                  </select>  
+
                 </div>
               </div>
               <div className="w-full lg:w-6/12 px-4">
@@ -298,9 +310,11 @@ const Add = ({ ...props }) => {
 
 const mapStateToProps = (state) => ({
     List: state.productsReducer.products,
+    ListCat: state.catReducer.categories,
 });
 
 const mapActionToProps = {
+  All: getAllCat,
   createP: addProduct,
   updateP: updateProduct,
 };
