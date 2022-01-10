@@ -1,6 +1,6 @@
 import React from 'react'
 import GM from '../../assests/img/info-img.jpg'
-import RBG from '../../assests/img/MoyR.png'
+import RBG from '../../assests/img/contact.png'
 
 
 function Gamme() {
