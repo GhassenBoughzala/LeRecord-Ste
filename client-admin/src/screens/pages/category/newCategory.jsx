@@ -81,16 +81,16 @@ const Add = ({ ...props }) => {
         <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
           <form onSubmit={handleSubmit}>
             <div className="flex flex-wrap">
-              <div className="w-full lg:w-6/12 px-4">
+              <div className="w-full lg:w-12/12 px-4">
                 <div className="relative w-full mb-3">
                   <br></br>
                   <label
                     className="block uppercase text-gray-700 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                    Nom
+                    Titre de categorie
                   </label>
-                  <input
+                  <textarea
                     type="text"
                     name="name"
                     value={values.name}
@@ -99,14 +99,16 @@ const Add = ({ ...props }) => {
                   />
                 </div>
               </div>
-              <div className="w-full lg:w-6/12 px-4">
+           
+            </div>
+            <div className="w-full lg:w-12/12 px-4">
                 <br></br>
                 <div className="relative w-full mb-3">
                   <label
                     className="block uppercase text-gray-700 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                      Action
+                      
                   </label>
                   <button
                     type="submit"
@@ -116,7 +118,6 @@ const Add = ({ ...props }) => {
                   </button>
                 </div>
               </div>
-            </div>
 
           </form>
         </div>
