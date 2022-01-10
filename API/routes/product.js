@@ -7,10 +7,11 @@ const productById = require('../middleware/productById');
 const { validationResult } = require('express-validator');
 const multer = require('multer');
 const { v4: uuidv4 } = require('uuid');
+let path = require('path');
 
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
-      cb(null, 'images');
+      cb(null, 'uploads');
   },
   filename: function(req, file, cb) {   
       cb(null, uuidv4() + '-' + Date.now() + path.extname(file.originalname));
@@ -31,13 +32,12 @@ let upload = multer({ storage, fileFilter });
 // @route   Post api/product/
 // @desc    Create a Product
 // @access  Private Admin
-router.post('/', auth, adminAuth, 
-                upload.single('photo'), 
-                async (req, res) => {
+router.post('/', auth, adminAuth,
+                upload.single('photo'), (req, res) => {
 
     const errors = validationResult(req);
     if(!errors.isEmpty()){
-      return res.status(400).json({ error: errors.array()[0].msg })
+      return res.status(402).json({ error: errors.array()[0].msg })
     }
 
     const newProduct = new Product({
@@ -45,16 +45,20 @@ router.post('/', auth, adminAuth,
       description: req.body.description,
       category: req.body.category,
       fournisseur: req.body.fournisseur,
+      price: req.body.price,
       quantity: req.body.quantity,
       photo: req.file.filename,
       shipping: req.body.shipping
     });
-
-      newProduct
-        .save()
+      try {
+        newProduct.save()
         .then(() => res.json("P ++"))
-        .catch((err) => res.json(400).json(`Error: ${err}`))
-
+        console.log("PRODUCT IN BD !!")
+        
+      } catch (error) {
+        console.log(error)
+        
+      }
 });
 
 
