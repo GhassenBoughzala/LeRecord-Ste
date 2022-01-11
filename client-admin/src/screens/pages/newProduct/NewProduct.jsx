@@ -21,12 +21,25 @@ const initialFieldValues = {
 
 const Add = ({ ...props }) => {
 
+  const [Product, setProduct] = useState({
+    name:"",
+    description: "",
+    price : "",
+    quantity: "",
+    category: "",
+    fournisseur: "",
+    shipping: "",
+    photo: "",
+  })
 
-  const [item, setItem] = useState("");
-
-  const onChangeFile = (e) => {
-    setItem({photo: e.target.files[0]});
-  }
+  var {
+    values,
+    setValues,
+    errors,
+    setErrors,
+    handleInputChange,
+    resetForm,
+  } = useForm(initialFieldValues, props.setCurrentId);
 
   useEffect(() => {
     props.All();
@@ -57,42 +70,54 @@ const Add = ({ ...props }) => {
     return Object.values(temp).every((p) => p === "");
   };
 
-  var {
-    values,
-    setValues,
-    errors,
-    setErrors,
-    handleInputChange,
-    resetForm,
-  } = useForm(initialFieldValues, props.setCurrentId);
-
   const handleSubmit = (e) => {
     e.preventDefault();
+    const formData = new formData();
+    formData.append('name', Product.name);
+    formData.append('description', Product.description);
+    formData.append('quantity', Product.quantity);
+    formData.append('category', Product.category);
+    formData.append('fournisseur', Product.fournisseur);
+    formData.append('shpping', Product.shipping);
+    formData.append('photo', Product.photo);
+
+    setProduct({...Product, 
+      [e.target.name]: e.target.values,
+      [e.target.description]: e.target.values,
+      [e.target.quantity]: e.target.values,
+      [e.target.category]: e.target.values,
+      [e.target.fournisseur]: e.target.values,
+      [e.target.shipping]: e.target.values
+    });
+    setProduct({...Product, photo: e.target.files[0]});
+
+    
     const onSuccess = () => {
       window.location.reload();
       resetForm();
     };
+
     if (validate()) {
       if (props.currentId === 0){
 
-          props.createP(values, onSuccess);
+          props.createP(formData, onSuccess);
           console.log(props)
           toast.success('Ajouté avec succès');
           resetForm();
           window.location.reload();
        
       } else {
-        toast.info('Mis à jour avec succés');
-        props.updateP(props.currentId, values, onSuccess);
+
+          toast.info('Mis à jour avec succés');
+          props.updateP(props.currentId, values, onSuccess);
         
       }   
 
-    }else { toast.warn('Warning ! '); }
+    }else { toast.error('Warning ! '); }
   };
 
-  const reset = (e) => {
-    resetForm();
-  }
+
+  const reset = (e) => { resetForm(); }
 
   return (
     <>
@@ -260,15 +285,27 @@ const Add = ({ ...props }) => {
                     className="block uppercase text-gray-700 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                    Photo : {values.photo}
+                    Photo
                   </label>
                   <input 
+                      id="file"
                       type="file" 
                       accept=".png, .jpg, .jpeg"
                       name="photo"
-                      
-                      onChange={handleInputChange, values.photo}
+                      onChange={handleInputChange}
                       className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                  />
+                  <label
+                    className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                    htmlFor="grid-password">
+                    
+                  </label>
+                  <input
+                    type="text"
+                    name="photo"
+                    value={values.photo}
+                    onChange={handleInputChange}
+                    className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
                   />
                 </div>
               </div>

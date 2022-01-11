@@ -1,3 +1,8 @@
+.containerr{
+    display: flex;
+    margin-top: 10px;
+}
+
 .productList{
     flex: 4;
 }
