@@ -1,4 +1,3 @@
-
 const express = require('express');
 const router = express.Router()
 const Fournisseur = require("../models/Fournisseur");
@@ -31,12 +30,27 @@ router.post('/', auth, adminAuth, async(req, res) =>{
     const newF = new Fournisseur({title, desc, img, active})
     fo = await newF.save()
     res.json(fo)
+    console.log("F++")
 
   } catch (error) {
     console.log(error);
     res.status(500).send('Server Error')
   }
 
+})
+
+
+router.get('/all', async (req, res) => {
+  console.log("HELLO")
+  try {
+      let data = await Fournisseur.find({})
+      res.json(data)
+      console.log("ALL")
+
+  } catch (error) {
+      console.log(error)
+      res.status(500).send('Server error')
+  }
 })
 
 // @route   Put api/fournisseurs/:fournisseurId
@@ -54,8 +68,6 @@ router.put('/:fournisseurId', auth, adminAuth, fournisseurById, async (req, res)
     to = active.toString();
     to.trim();
   }
-  
-
 
   try {
       fournisseur = await fournisseur.save()
@@ -68,9 +80,7 @@ router.put('/:fournisseurId', auth, adminAuth, fournisseurById, async (req, res)
   }
 })
 
-// @route   Delete api/category/:categoryId
-// @desc    Delete Single category
-// @access  Private Admin
+
 router.delete('/:fournisseurId', auth, adminAuth, fournisseurById, async (req, res) => {
   let fournisseur = req.fournisseur;
   try {
@@ -84,13 +94,9 @@ router.delete('/:fournisseurId', auth, adminAuth, fournisseurById, async (req, r
   }
 })
 
-// @route   Get api/category/:categoryId
-// @desc    Get Single category
-// @access  Public
 router.get('/:fournisseurId', fournisseurById, async (req, res) => {
   res.json(req.fournisseur)
 })
 
 
-router.param("fournisseurId", fournisseurById);
 module.exports = router;

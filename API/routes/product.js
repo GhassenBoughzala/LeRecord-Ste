@@ -260,7 +260,7 @@ router.get("/search", async (req, res) => {
         }
     }
     try {
-        let products = await Product.find(query).select('-photo');
+        let products = await Product.find({});
         res.json(products);
 
     } catch (error) {

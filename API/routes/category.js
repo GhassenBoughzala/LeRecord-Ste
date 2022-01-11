@@ -18,9 +18,7 @@ router.post('/', [ check('name', 'Name is required').trim().not().isEmpty()]
 
     const { name } = req.body
     try {
-        let category = await Category.findOne({
-            name
-        })
+        let category = await Category.findOne({ name })
 
         if (category) {
             return res.status(403).json({
