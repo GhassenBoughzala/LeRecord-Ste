@@ -6,6 +6,7 @@ import useForm from "../useForm";
 import { Publish } from "@material-ui/icons";
 import {addProduct, updateProduct} from "../../../redux/reducers/productReducer";
 import { getAllCat } from "../../../redux/reducers/catReducer";
+import { getAllFou  } from "../../../redux/reducers/forReducer";
 import FileBase64 from 'react-file-base64';
 
 const initialFieldValues = {
@@ -20,17 +21,6 @@ const initialFieldValues = {
 }
 
 const Add = ({ ...props }) => {
-
-  const [Product, setProduct] = useState({
-    name:"",
-    description: "",
-    price : "",
-    quantity: "",
-    category: "",
-    fournisseur: "",
-    shipping: "",
-    photo: "",
-  })
 
   var {
     values,
@@ -71,27 +61,7 @@ const Add = ({ ...props }) => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    const formData = new formData();
-    formData.append('name', Product.name);
-    formData.append('description', Product.description);
-    formData.append('quantity', Product.quantity);
-    formData.append('category', Product.category);
-    formData.append('fournisseur', Product.fournisseur);
-    formData.append('shpping', Product.shipping);
-    formData.append('photo', Product.photo);
-
-    setProduct({...Product, 
-      [e.target.name]: e.target.values,
-      [e.target.description]: e.target.values,
-      [e.target.quantity]: e.target.values,
-      [e.target.category]: e.target.values,
-      [e.target.fournisseur]: e.target.values,
-      [e.target.shipping]: e.target.values
-    });
-    setProduct({...Product, photo: e.target.files[0]});
-
-    
+    e.preventDefault();    
     const onSuccess = () => {
       window.location.reload();
       resetForm();
@@ -100,7 +70,7 @@ const Add = ({ ...props }) => {
     if (validate()) {
       if (props.currentId === 0){
 
-          props.createP(formData, onSuccess);
+          props.createP(values, onSuccess);
           console.log(props)
           toast.success('Ajouté avec succès');
           resetForm();
@@ -205,13 +175,17 @@ const Add = ({ ...props }) => {
                     Fournisseur
                   </label>
                     
-                  <input
-                    type="text"
-                    name="fournisseur"
-                    value={values.fournisseur}
-                    onChange={handleInputChange}
-                    className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
-                  />
+                  <select name="fournisseur" 
+                          onChange={handleInputChange}
+                          value={values.fournisseur}
+                          className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150">
+                      <option value="">Choisis une option</option>
+                      {props.ListFou.map((f) => {
+                        return ( 
+                          <option value={f._id}>{f.title}</option>
+                        );
+                      })}
+                  </select>  
                   
                 </div>
               </div>
@@ -291,7 +265,8 @@ const Add = ({ ...props }) => {
                       id="file"
                       type="file" 
                       accept=".png, .jpg, .jpeg"
-                      name="photo"
+                      name="filename"
+                      value={values.photo}
                       onChange={handleInputChange}
                       className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
                   />
@@ -348,10 +323,12 @@ const Add = ({ ...props }) => {
 const mapStateToProps = (state) => ({
     List: state.productsReducer.products,
     ListCat: state.catReducer.categories,
+    ListFou: state.forReducer.fournisseurs,
 });
 
 const mapActionToProps = {
   All: getAllCat,
+  AllF: getAllFou,
   createP: addProduct,
   updateP: updateProduct,
 };
