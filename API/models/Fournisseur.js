@@ -4,7 +4,7 @@ const FournisseurSchema = new mongoose.Schema({
     title: { type: String, required: true, unique: true },
     desc: { type: String, required: true },
     img: { type: String },
-    active: { type: Boolean, default: true },
+    active: { type: Boolean },
   },
   { timestamps: true }
 );

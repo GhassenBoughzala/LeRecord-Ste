@@ -41,12 +41,9 @@ router.post('/', auth, adminAuth, async(req, res) =>{
 
 
 router.get('/all', async (req, res) => {
-  console.log("HELLO")
   try {
       let data = await Fournisseur.find({})
       res.json(data)
-      console.log("ALL")
-
   } catch (error) {
       console.log(error)
       res.status(500).send('Server error')
@@ -63,11 +60,7 @@ router.put('/:fournisseurId', auth, adminAuth, fournisseurById, async (req, res)
   if (title) fournisseur.title = title.trim();
   if (desc) fournisseur.desc = desc.trim();
   if (img) fournisseur.img = img.trim();
-  if (active) {
-    const to = fournisseur.active;
-    to = active.toString();
-    to.trim();
-  }
+
 
   try {
       fournisseur = await fournisseur.save()
