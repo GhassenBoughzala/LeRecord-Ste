@@ -65,7 +65,7 @@ const ProductDetails = ({ ...props }) => {
     <>
        <div className="widgetLg">
           <div className="text-center flex justify-between">
-            <h6 className="text-gray-800 text-xl font-bold">
+            <h6 className="text-gray-800 text-xs font-bold">
               Details par produit
             </h6>
             <div className="widgetLgAmount">

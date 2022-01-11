@@ -44,7 +44,7 @@ const CatList = (props) => {
         <thead>
           <tr className="widgetLgTr">
             <th className="widgetLgTh">ID</th>
-            <th className="widgetLgTh">Categorie</th>
+            <th className="widgetLgTh">Titre</th>
             <th className="widgetLgTh text-center"><i className='fas fa-edit w-6 -ml-2' /></th>
             <th className="widgetLgTh text-center"><i className='mt-1 fas fa-trash-alt' /></th>
           </tr>
@@ -77,19 +77,15 @@ const CatList = (props) => {
         </tbody>
 
       </table>
+
+      <AddCat {...{ currentId, setCurrentId }} />
     </div>
 
 
 
   </div>
 
-
-
-
-    <div className="w-full lg:w-4/12 px-4">
-          <AddCat {...{ currentId, setCurrentId }} />
-    </div>
-  </div>
+</div>
 
 </>
 

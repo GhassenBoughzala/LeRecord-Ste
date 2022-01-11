@@ -3,8 +3,14 @@ import { toast } from 'react-toastify';
 import { connect } from "react-redux";
 import useForm from "../useForm";
 import {addCat, updateCat} from "../../../redux/reducers/catReducer";
+import { addFou, updateFou } from "../../../redux/reducers/forReducer";
 
-const initialFieldValues = { name:"",}
+const initialFieldValues = { 
+    title:"",
+    active:"",
+    desc:""
+
+}
 
 const Add = ({ ...props }) => {
   useEffect(() => {
@@ -19,7 +25,9 @@ const Add = ({ ...props }) => {
 
   const validate = () => {
     let temp = {...errors};
-    temp.name = values.name ? "" : "This field is required.";   
+    temp.title = values.title ? "" : "This field is required.";   
+    temp.active = values.active ? "" : "This field is required.";  
+    temp.desc = values.desc ? "" : "This field is required.";  
     setErrors({...temp,});
     return Object.values(temp).every((p) => p === "");
   };
@@ -69,29 +77,52 @@ const Add = ({ ...props }) => {
             <h6 className="text-gray-800 text-xl font-bold">
               Ajouter ou Editer  
             </h6>
+     
           </div>
         </div>
         <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
           <form onSubmit={handleSubmit}>
-            <div className="flex flex-wrap">
-              <div className="w-full lg:w-12/12 px-4">
+         
+              <div className="flex flex-wrap">
+                <div className="w-full lg:w-6/12 px-4">
                 <div className="relative w-full mb-3">
                   <br></br>
                   <label
                     className="block uppercase text-gray-700 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                    Titre de categorie
+                    Nom
                   </label>
-                  <textarea
+                  <input
                     type="text"
-                    name="name"
-                    value={values.name}
+                    name="title"
+                    value={values.title}
                     onChange={handleInputChange}
                     className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
                   />
                 </div>
+                
+                </div>
+                 <div className="w-full lg:w-6/12 px-4">
+                <br></br>
+                <div className="relative w-full mb-3">
+                  <label
+                    className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                    htmlFor="grid-password"
+                  >
+                    Desctiption
+                  </label>
+                  <input
+                    type="text"
+                    name="desc"
+                    value={values.desc}
+                    onChange={handleInputChange}
+                    className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                  />
+                </div>
+             
               </div>
+
            
             </div>
             <div className="flex flex-wrap">
@@ -120,7 +151,6 @@ const Add = ({ ...props }) => {
                 </div>
               </div>
             </div>
-
           </form>
         </div>
       </div>
@@ -132,12 +162,12 @@ const Add = ({ ...props }) => {
 
 
 const mapStateToProps = (state) => ({
-    List: state.catReducer.categories,
+    List: state.forReducer.fournisseurs,
 });
 
 const mapActionToProps = {
-  create: addCat,
-  update: updateCat,
+  create: addFou,
+  update: updateFou,
 };
 
 export default connect(mapStateToProps, mapActionToProps)(Add);
