@@ -33,6 +33,7 @@ const Add = ({ ...props }) => {
 
   useEffect(() => {
     props.All();
+    props.AllF();
   }, []);
 
   useEffect(() => {
@@ -262,26 +263,14 @@ const Add = ({ ...props }) => {
                     Photo
                   </label>
                   <input 
-                      id="file"
-                      type="file" 
-                      accept=".png, .jpg, .jpeg"
-                      name="filename"
+                      type="text"
+                      name="photo"
                       value={values.photo}
                       onChange={handleInputChange}
                       className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
                   />
-                  <label
-                    className="block uppercase text-gray-700 text-xs font-bold mb-2"
-                    htmlFor="grid-password">
-                    
-                  </label>
-                  <input
-                    type="text"
-                    name="photo"
-                    value={values.photo}
-                    onChange={handleInputChange}
-                    className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
-                  />
+                 
+                  
                 </div>
               </div>
             </div>
@@ -305,7 +294,7 @@ const Add = ({ ...props }) => {
                     onClick={() => reset()}
                     className="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-1 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                   >
-                    Reset
+                    Réinitialiser
                   </button>
                 </div>
               </div>

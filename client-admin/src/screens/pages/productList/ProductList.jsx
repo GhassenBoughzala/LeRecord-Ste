@@ -21,8 +21,8 @@ const ProductList = (props) => {
     const onSuccess = () => {
       window.location.reload();
     };
-    if(window.confirm("Are you sure to delete ?"))
-      toast.info(`Deleted successfully !`);
+    if(window.confirm("Êtes-vous sûr de vouloir supprimer ?"))
+      toast.info(`Supprimé avec succès !`);
       props.DeleteProducts(id, onSuccess);
       
   };

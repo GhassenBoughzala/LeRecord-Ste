@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import useForm from "../useForm";
 import {getdetails} from "../../../redux/reducers/productReducer";
 import { getAllCat } from "../../../redux/reducers/catReducer";
+import { getAllFou  } from "../../../redux/reducers/forReducer";
 
 const initialFieldValues = {
   name:"",
@@ -65,8 +66,8 @@ const ProductDetails = ({ ...props }) => {
     <>
        <div className="widgetLg">
           <div className="text-center flex justify-between">
-            <h6 className="text-gray-800 text-xs font-bold">
-              Details par produit
+            <h6 className="text-gray-800 text-m font-bold">
+              Details
             </h6>
             <div className="widgetLgAmount">
               <div className="productListItem">
@@ -75,15 +76,20 @@ const ProductDetails = ({ ...props }) => {
             </div>
             
           </div>
-       <div className="w-full lg:w-6/12 px-4">
+
+   
+
+
+  <div className="flex flex-wrap">
+              <div className="w-full lg:w-6/12 px-4">
                 <div className="relative w-full mb-3">
                   <br></br>
-                  <h1
+                  <label
                     className="block uppercase text-gray-700 text-xs font-bold mb-2"
                     htmlFor="grid-password"
-                    onChange={handleInputChange}>
+                  >
                     Catégorie: 
-                  </h1>
+                  </label>
                   <select disabled name="category" 
                           onChange={handleInputChange}
                           value={values.category}
@@ -95,18 +101,33 @@ const ProductDetails = ({ ...props }) => {
                         );
                       })}
                   </select>  
+                </div>
+                
+              </div>
+              <div className="w-full lg:w-6/12 px-4">
+                <br></br>
+                <div className="relative w-full mb-3">
                   <label
                     className="block uppercase text-gray-700 text-xs font-bold mb-2"
                     htmlFor="grid-password"
-                    onChange={handleInputChange}>
-                    Fournisseur: {values.fournisseur}
+                  >
+                     Fournisseur:
                   </label>
-
+                  <select disabled name="fournisseur" 
+                          onChange={handleInputChange}
+                          value={values.fournisseur} 
+                          className=" block text-gray-700 text-xs font-bold mb-2 ">
+                      <option value=""></option>
+                      {props.ListFou.map((f) => {
+                        return ( 
+                          <option value={f._id}>{f.title}</option>
+                        );
+                      })}
+                  </select>  
                 </div>
-        </div>
-
-
-       </div>
+              </div>
+            </div>
+</div>
     </>
 
   );
@@ -115,10 +136,12 @@ const ProductDetails = ({ ...props }) => {
 const mapStateToProps = (state) => ({
     List: state.productsReducer.products,
     ListCat: state.catReducer.categories,
+    ListFou: state.forReducer.fournisseurs,
 });
 
 const mapActionToProps = {
   All: getAllCat,
+  AllF: getAllFou,
   Details: getdetails,
 };
 
