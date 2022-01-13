@@ -29,17 +29,98 @@ const fileFilter = (req, file, cb) => {
 
 let upload = multer({ storage, fileFilter });
 
+function deleteImages (images, mode) {
+    var basePath = path.resolve(__dirname + '../') + 'uploads';
+    console.log(basePath);
+    for (var i = 0; i < images.length; i++) {
+      let filePath = ''
+      if (mode == 'file') {
+        filePath = basePath + `${images[i].filename}`;
+      } else {
+        filePath = basePath + `${images[i]}`;
+      }
+      console.log(filePath);
+      if (fs.existsSync(filePath)) {
+        console.log("Exists image");
+    }
+      fs.unlink(filePath, (err) => {
+        if (err) {
+          return err;
+        }
+      });
+    }
+  }
+
 // @route   Post api/product/
 // @desc    Create a Product
 // @access  Private Admin
 router.post('/', auth, adminAuth,
-                upload.single('photo'), (req, res) => {
+                upload.any(), async (req, res) => {
 
     const errors = validationResult(req);
     if(!errors.isEmpty()){
       return res.status(402).json({ error: errors.array()[0].msg })
     }
 
+    let {
+        name,
+        description,
+        category,
+        fournisseur,
+        price,
+        quantity,
+        shipping,
+    } = req.body;
+    let images = req.files;
+
+    if(
+        !name | 
+        !description | 
+        !category |
+        !fournisseur |
+        !price |
+        !quantity |
+        !shipping)
+        {
+            Product.deleteImages(images, 'file');
+            return res.json({ error: "All filled must be required"})
+        }
+
+        else if (name.length > 255 || description.length > 3000){
+            Product.deleteImages(images, 'file');
+            return res.json({
+                error: "Name 255 & Description must not be 3000 charecter long",
+              });
+        } else {
+            try{
+                let allImages = [];
+                for (const img of images){
+                    allImages.push(img.filename);
+                }
+                let newProduct = new Product({
+                    photo: allImages,
+                    name,
+                    description,
+                    category,
+                    fournisseur,
+                    price,
+                    quantity,
+                    shipping,
+                });
+                let save = newProduct.save();
+                console.log("P++");
+                console.log(allImages);
+                if(save) {
+                    return res.json({ success: "Product created successfully"  })
+                    
+                }
+            }catch (err){
+                console.log(err);
+            }
+        }
+
+
+/*
     const newProduct = new Product({
       name: req.body.name,
       description: req.body.description,
@@ -59,6 +140,8 @@ router.post('/', auth, adminAuth,
         console.log(error)
         
       }
+
+*/
 });
 
 
@@ -82,10 +165,73 @@ router.delete('/:productId', auth, adminAuth, productById, async (req, res) => {
 // @desc    Update Single product
 // @access  Private Admin
 router.put('/:productId', 
-            upload.single('photo'), 
+            upload.any(), 
             auth, adminAuth, productById,
-            (req, res) => {
+            async (req, res) => {
 
+                let {
+                    ID,
+                    name,
+                    description,
+                    category,
+                    fournisseur,
+                    price,
+                    quantity,
+                    shipping,
+                } = req.body;
+                let editimages = req.files;
+
+                if(
+                    !ID |
+                    !name | 
+                    !description | 
+                    !category |
+                    !fournisseur |
+                    !price |
+                    !quantity |
+                    !shipping)
+                    {
+                        return res.json({ error: "All filled must be required"})
+                    }
+                    else if (name.length > 255 || description.length > 3000){
+                        return res.json({
+                            error: "Name 255 & Description must not be 3000 charecter long",
+                          });
+                    } else {           
+                            let editData = {
+                                name,
+                                description,
+                                category,
+                                fournisseur,
+                                price,
+                                quantity,
+                                shipping,
+                            };
+                            if (editimages.length == 2){
+                                let allEditImages = [];
+                                for (const img of editimages){
+                                    allEditImages.push(img.filename);
+                                }
+                                editData = {...editData, photo: allEditImages};
+                                Product.deleteImages(photo.split(','), 'string');
+                            }
+                        try{
+                            let editProduct = Product.findByIdAndUpdate(ID, editData);
+                            console.log("100% Updated")
+                            editProduct.exec((err) => {
+                                if (err) console.log(err);
+                                return res.json({ success: "Product edit successfully"});
+                            });
+                        }catch (err){
+                            console.log(err);
+                        }
+                    }
+
+
+
+            }) 
+
+/*
             Product.findById(req.params.id)
             .then((product) => {
               product.name= req.body.name,
@@ -100,8 +246,8 @@ router.put('/:productId',
               .save()
               .then(() => res.json("P UPDATED"))
               .catch((err) => res.json(400).json(`Error: ${err}`))
-
-            }) 
+              });
+*/
  
 /*             
         let product = req.product;
@@ -135,7 +281,7 @@ router.put('/:productId',
             res.status(500).send('Server error');
         }
 */
-});
+
 
 
 
