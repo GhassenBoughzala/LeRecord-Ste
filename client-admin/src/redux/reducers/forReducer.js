@@ -47,7 +47,7 @@ export const DLF = (id) => axios.delete(`${URLDevelopment}/api/fournisseurs/` + 
 export const getAllFou = () => (dispatch) => {
     Fetch()
     .then((res) => {
-        console.log(res);
+        
         dispatch({
             type: GET_FOURNISSEUR,
             payload: res.data,

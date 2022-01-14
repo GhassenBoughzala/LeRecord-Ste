@@ -42,7 +42,7 @@ export const DLC = (id) => axios.delete(`${URLDevelopment}/api/category/` + id);
 export const getAllCat = () => (dispatch) => {
     Fetch()
     .then((res) => {
-        console.log(res);
+        
         dispatch({
             type: GET_CAT_S,
             payload: res.data,

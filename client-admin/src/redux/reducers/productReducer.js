@@ -55,7 +55,7 @@ export const getAll =  () => (dispatch) => {
 
   Fetch()
   .then((res) => {
-    console.log(res);
+    
     dispatch({
       type: GET_PRODUCTS_S,
       payload: res.data,
@@ -162,3 +162,81 @@ export const updateProduct = (id, data) => (dispatch) => {
     PRODUCT_ERR
   );
 };
+
+
+//--------ADD-V2
+export const addProductV2 = async ({
+  name,
+  description,
+  price ,
+  quantity,
+  category,
+  fournisseur,
+  shipping,
+  photo
+}) => {
+
+  let formData = new FormData();
+  for (const file of photo) {
+    formData.append("photo", file);
+  }
+
+  formData.append("name", name);
+  formData.append("description", description);
+  formData.append("price", price);
+  formData.append("quantity", quantity);
+  formData.append("category", category);
+  formData.append("fournisseur", fournisseur);
+  formData.append("shipping", shipping);
+
+  try {
+    return (dispatch) =>{
+
+      return axios
+      .post(`${URLDevelopment}/api/products`, formData)
+      .then((res) => {
+  
+        const data = res.data;
+        console.log(data);
+        dispatch(createSuccess(data));
+  
+      }).catch((err) => 
+        console.log(err),
+        PRODUCT_ERR
+      );
+      
+    }
+
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+//--------EDIT-V2
+export const updateProductV2 = async (id, product) => {
+  console.log(product);
+  /* Most important part for updating multiple image  */
+  let formData = new FormData();
+  if (product.pEditImages) {
+    for (const file of product.pEditImages) {
+      formData.append("pEditImages", file);
+    }
+  }
+
+  formData.append("name", product.name);
+  formData.append("description", product.description);
+  formData.append("price", product.price);
+  formData.append("quantity", product.quantity);
+  formData.append("category", product.category._id);
+  formData.append("fournisseur", product.fournisseur._id);
+  formData.append("shipping", product.shipping);
+
+  try {
+    let res = UP(id,formData)
+    return res.data;
+
+  } catch (error) {
+    console.log(error);
+  }
+};
+
