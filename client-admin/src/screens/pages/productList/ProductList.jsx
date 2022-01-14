@@ -7,6 +7,7 @@ import axios from 'axios';
 import { URLDevelopment } from '../../../helpers/url';
 import { getAll, deleteProduct } from "../../../redux/reducers/productReducer";
 import NewProduct from "../newProduct/NewProduct";
+import NewPV2 from "../newProduct/AddProduct"; 
 import ProductDetails from "../product/Product"
 
 const ProductList = (props) => {
@@ -96,7 +97,7 @@ const ProductList = (props) => {
     </div>
 
     <div className="widgetLg">
-        <NewProduct {...{ currentId, setCurrentId }} />
+       <NewPV2/>
     </div>       
 
 
