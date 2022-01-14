@@ -170,7 +170,6 @@ router.put('/:productId',
             async (req, res) => {
 
                 let {
-                    ID,
                     name,
                     description,
                     category,
@@ -182,7 +181,6 @@ router.put('/:productId',
                 let editimages = req.files;
 
                 if(
-                    !ID |
                     !name | 
                     !description | 
                     !category |
@@ -216,7 +214,7 @@ router.put('/:productId',
                                 Product.deleteImages(photo.split(','), 'string');
                             }
                         try{
-                            let editProduct = Product.findByIdAndUpdate(ID, editData);
+                            let editProduct = Product.findByIdAndUpdate(req.params.id, editData);
                             console.log("100% Updated")
                             editProduct.exec((err) => {
                                 if (err) console.log(err);
