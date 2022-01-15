@@ -95,9 +95,9 @@ const ProductDetails = ({ ...props }) => {
                           value={values.category}
                           className=" block text-gray-700 text-xs font-bold mb-2 ">
                       <option value=""></option>
-                      {props.ListCat.map((cat) => {
+                      {props.ListCat.map((cat,index) => {
                         return ( 
-                          <option value={cat._id}>{cat.name}</option>
+                          <option key={index} value={cat._id}>{cat.name}</option>
                         );
                       })}
                   </select>  
@@ -118,9 +118,9 @@ const ProductDetails = ({ ...props }) => {
                           value={values.fournisseur} 
                           className=" block text-gray-700 text-xs font-bold mb-2 ">
                       <option value=""></option>
-                      {props.ListFou.map((f) => {
+                      {props.ListFou.map((f,index) => {
                         return ( 
-                          <option value={f._id}>{f.title}</option>
+                          <option key={index} value={f._id}>{f.title}</option>
                         );
                       })}
                   </select>  

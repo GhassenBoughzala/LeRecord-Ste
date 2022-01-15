@@ -51,7 +51,7 @@ export const DLP = (id) => axios.delete(`${URLDevelopment}/api/products/` + id);
 
 
 //Actions
-export const getAll =  () => (dispatch) => {
+export const getAll =  () => async(dispatch) => {
 
   Fetch()
   .then((res) => {
@@ -101,29 +101,19 @@ export const addProduct = (product) => {
     category: product.category,
     fournisseur: product.fournisseur,
     shipping: product.shipping,
-    photo: product.photo,
+    photo: product.photo.file,
   };
 
   return(dispatch) => {
-
+    console.log("!!!!");
     return axios
     .post(`${URLDevelopment}/api/products`, data)
     .then((res) => {
 
       const data = res.data;
       console.log(data);
-
-      const normalizedData = {
-        name: data.name,
-        description : data.description,
-        price : data.price,
-        quantity: data.quantity,
-        category: data.category,
-        fournisseur: data.fournisseur,
-        shipping: data.shipping,                 
-        photo: data.photo,
-      };
-      dispatch(createSuccess(normalizedData));
+      dispatch(createSuccess(data));
+      
 
     }).catch((err) => 
       console.log(err),
@@ -177,39 +167,39 @@ export const addProductV2 = async ({
 }) => {
 
   let formData = new FormData();
-  for (const file of photo) {
-    formData.append("photo", file);
-  }
+  for (const file of photo) { 
+    formData.append("photo", file); }
 
-  formData.append("name", name);
-  formData.append("description", description);
-  formData.append("price", price);
-  formData.append("quantity", quantity);
-  formData.append("category", category);
-  formData.append("fournisseur", fournisseur);
-  formData.append("shipping", shipping);
+    formData.append("name", name);
+    formData.append("description", description);
+    formData.append("price", price);
+    formData.append("quantity", quantity);
+    formData.append("category", category);
+    formData.append("fournisseur", fournisseur);
+    formData.append("shipping", shipping);
 
-  try {
     return (dispatch) =>{
-
+      
       return axios
       .post(`${URLDevelopment}/api/products`, formData)
       .then((res) => {
   
         const data = res.data;
         console.log(data);
-        dispatch(createSuccess(data));
+        dispatch({
+          type: ADDP_S,
+          payload: res.data,
+        });
   
-      }).catch((err) => 
-        console.log(err),
-        PRODUCT_ERR
-      );
+      }).catch(err => dispatch({
+          type: PRODUCT_ERR,
+          payload: err.response.data
+          })
+        );
       
     }
 
-  } catch (error) {
-    console.log(error);
-  }
+   
 };
 
 //--------EDIT-V2

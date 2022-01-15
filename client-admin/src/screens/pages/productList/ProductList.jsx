@@ -92,7 +92,7 @@ const ProductList = (props) => {
 
     </div>
 
-    <div className="widgetLg">
+    <div className="widgetSm">
         <ProductDetails {...{ currentId, setCurrentId }} />
     </div>
 

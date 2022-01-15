@@ -3,67 +3,53 @@ import "./newProduct.css";
 import { toast } from 'react-toastify';
 import { connect } from "react-redux";
 import useForm from "../useForm";
-import {addProductV2, updateProduct} from "../../../redux/reducers/productReducer";
+import {addProduct ,addProductV2, updateProduct} from "../../../redux/reducers/productReducer";
 import { getAllCat } from "../../../redux/reducers/catReducer";
 import { getAllFou  } from "../../../redux/reducers/forReducer";
 import { async } from "@firebase/util";
 
 
-const initialFieldValues = {
-  name:"",
-  description: "",
-  price : "",
-  quantity: "",
-  category: "",
-  fournisseur: "",
-  shipping: "",
-  photo: "",
-  success: false,
-  error: false
-}
-
-
 const Add = ({ ...props }) => {
 
-  const [product, setProduct] = useState(initialFieldValues);
+  const [product, setProduct] = useState({
+    name:"",
+    description: "",
+    price : "",
+    quantity: "",
+    category: "",
+    fournisseur: "",
+    shipping: "",
+    photo: null,
+    success: false,
+    error: false
+  });
 
   useEffect(() => {
     props.All();
     props.AllF();
   }, []);
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();   
-    e.target.reset();
     
     if (!product.photo) {
       setProduct({ ...product, error: "Please upload an image" });
+      toast.warn('Photo est requise !');
       setTimeout(() => {
         setProduct({ ...product, error: false });
       }, 2000);
     }
 
     try {
-      let responseData = props.createP(product);
-      if (responseData.success) {
-        setProduct({
-          ...setProduct,
-          name:"",
-          description: "",
-          price : "",
-          quantity: "",
-          category: "",
-          fournisseur: "",
-          shipping: "",
-          photo: "",
-          success: responseData.success,
-          error: false,
-        })
-        console.log(props)
+
+        props.createP(product);
+        console.log(product);
         toast.success('Ajouté avec succès');
-      }  
+       
     } catch (error) {
       console.log(error);
+      toast.error('Erreur !');
       
     }
   };
@@ -189,9 +175,9 @@ const Add = ({ ...props }) => {
                           }
                           className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150">
                       <option value="">Choisis une option</option>
-                      {props.ListFou.map((f) => {
+                      {props.ListFou.map((f, index) => {
                         return ( 
-                          <option value={f._id}>{f.title}</option>
+                          <option key={index} value={f._id}>{f.title}</option>
                         );
                       })}
                   </select>  
@@ -235,22 +221,22 @@ const Add = ({ ...props }) => {
                   >
                     Status
                   </label>
-
-                  <input
-                    type="text"
-                    placeholder="En Stock"
-                    name="shipping"
-                    value={product.shipping}
-                    onChange={(e) =>
-                      setProduct({
-                        ...product,
-                        error: false,
-                        success: false,
-                        shipping: e.target.value,
-                      })
-                    }
-                    className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
-                  />
+                  <select name="shipping" 
+                          value={product.shipping}
+                          onChange={(e) =>
+                            setProduct({
+                              ...product,
+                              error: false,
+                              success: false,
+                              shipping: e.target.value,
+                            })
+                          }
+                          className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150">
+                      <option value="">Choisis une option</option>
+                      <option value="en stock">En Stock</option>
+                      <option value="hors stock">Hors Stock</option>
+                      
+                  </select>  
                 </div>
               </div>
             </div>
@@ -295,7 +281,6 @@ const Add = ({ ...props }) => {
                       type="file"
                       name="photo"
                       accept=".jpg, .jpeg, .png"
-                      value={product.photo}
                       onChange={(e) =>
                         setProduct({
                           ...product,
@@ -343,7 +328,7 @@ const mapStateToProps = (state) => ({
 const mapActionToProps = {
   All: getAllCat,
   AllF: getAllFou,
-  createP: addProductV2,
+  createP: addProduct,
   updateP: updateProduct,
 };
 

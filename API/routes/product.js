@@ -62,25 +62,10 @@ router.post('/', auth, adminAuth,
       return res.status(402).json({ error: errors.array()[0].msg })
     }
 
-    let {
-        name,
-        description,
-        category,
-        fournisseur,
-        price,
-        quantity,
-        shipping,
-    } = req.body;
+    let { name,description, category, fournisseur, price, quantity, shipping,} = req.body;
     let images = req.files;
 
-    if(
-        !name | 
-        !description | 
-        !category |
-        !fournisseur |
-        !price |
-        !quantity |
-        !shipping)
+    if( !name | !description | !category | !fournisseur | !price | !quantity | !shipping)
         {
             Product.deleteImages(images, 'file');
             return res.json({ error: "All filled must be required"})
