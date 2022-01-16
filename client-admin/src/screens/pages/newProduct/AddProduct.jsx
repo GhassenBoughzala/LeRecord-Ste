@@ -57,8 +57,7 @@ const Add = ({ ...props }) => {
 
     try {
 
-        //props.createP(product);
-
+      //props.createP(product);
       axios.post(`${URLDevelopment}/api/products`, formData)
       .then(res => {
          console.log(res);

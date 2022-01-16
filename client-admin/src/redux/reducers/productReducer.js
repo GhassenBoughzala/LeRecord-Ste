@@ -101,11 +101,11 @@ export const addProduct = (product) => {
     category: product.category,
     fournisseur: product.fournisseur,
     shipping: product.shipping,
-    photo: product.photo.file,
+    photo: product.photo,
   };
 
   return(dispatch) => {
-    console.log("!!!!");
+    
     return axios
     .post(`${URLDevelopment}/api/products`, data)
     .then((res) => {

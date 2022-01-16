@@ -12,7 +12,7 @@ let path = require('path');
 
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
-      cb(null, path.resolve(__dirname + '../../../') + '/client-admin/src/assests/uploads');
+      cb(null, path.resolve(__dirname + '../../../') + '/client-admin/public/uploads');
   },
   filename: function(req, file, cb) {   
       cb(null, uuidv4() + '-' + Date.now() + path.extname(file.originalname));
@@ -68,12 +68,12 @@ router.post('/', auth, adminAuth,
 
     if( !name | !description | !category | !fournisseur | !price | !quantity | !shipping)
         {
-            Product.deleteImages(images, 'file');
+            
             return res.json({ error: "All filled must be required"})
         }
 
         else if (name.length > 255 || description.length > 3000){
-            Product.deleteImages(images, 'file');
+            
             return res.json({
                 error: "Name 255 & Description must not be 3000 charecter long",
               });

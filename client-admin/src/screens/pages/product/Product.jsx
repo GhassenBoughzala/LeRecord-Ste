@@ -64,23 +64,8 @@ const ProductDetails = ({ ...props }) => {
 
   return (
     <>
-       <div className="widgetLg">
-          <div className="text-center flex justify-between">
-            <h6 className="text-gray-800 text-m font-bold">
-              Details
-            </h6>
-            <div className="widgetLgAmount">
-              <div className="productListItem">
-                  <img className="productListImg" src={values.photo} alt={values.photo} /> 
-              </div>
-            </div>
-            
-          </div>
-
-   
-
-
-  <div className="flex flex-wrap">
+  <div className="widgetLg">
+    <div className="flex flex-wrap">
               <div className="w-full lg:w-6/12 px-4">
                 <div className="relative w-full mb-3">
                   <br></br>
