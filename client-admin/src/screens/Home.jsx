@@ -2,7 +2,6 @@ import React from 'react'
 import Container from '../components/container/container.component'
 import Footer from '../components/home/Footer'
 import RBG from '../assests/img/MoyR.png'
-import RR from '../assests/img/header-bg.jpg'
 import COTU from '../assests/img/cotubg.jpg'
 
 import Fournisseur from '../components/home/Fournisseur'
@@ -21,7 +20,7 @@ const Home = () => {
 					<h1 className="text-5xl font-extrabold leading-10 tracking-tight text-left text-gray-900 md:text-center sm:leading-none md:text-6xl lg:text-7xl">
 						<span className="inline md:block"></span> 
 					<span className="relative mt-2 text-transparent bg-clip-text bg-gradient-to-br from-indigo-600 to-indigo-500 md:inline-block">
-						<img src={RBG}/></span></h1>
+						<img src={RBG} alt=''/></span></h1>
 						<br />
 						<br />
 						<div className="m-0 text-xl font-normal leading-tight border-0 border-blue-300 lg:text-2xl md:text-2xl">
@@ -32,7 +31,7 @@ const Home = () => {
 				</div>
 				<div className="w-full md:text-center">
 							<div className="w-full overflow-hidden rounded-md shadow-xl sm:rounded-xl">
-								<img src={COTU} />
+								<img src={COTU} alt=''/>
 							</div>
 				</div>
 			</div>

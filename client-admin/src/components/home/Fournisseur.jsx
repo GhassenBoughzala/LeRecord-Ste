@@ -21,25 +21,25 @@ return(
         </p>
         <div className="flex flex-wrap justify-start sm:grid sm:grid-cols-4 md:grid-cols-7 gap-6 mt-8">
             <div className="h-20 w-20 bg-white rounded-2xl hover:scale-125 transition-all ease-out cursor-pointer duration-200 border border-gray-200 flex items-center justify-center">
-                <img src={SIL}/>
+                <img src={SIL} alt='' />
             </div>
             <div className="h-20 w-20 bg-white rounded-2xl hover:scale-125 transition-all ease-out cursor-pointer duration-200 border border-gray-200 flex items-center justify-center">
-                <img src={ALGO}/>
+                <img src={ALGO} alt=''/>
             </div>
             <div className="h-20 w-20 bg-white rounded-2xl hover:scale-125 transition-all ease-out cursor-pointer duration-200 border border-gray-200 flex items-center justify-center">
-                <img src={M}/>
+                <img src={M} alt=''/>
             </div>
             <div className="h-20 w-20 bg-white rounded-2xl hover:scale-125 transition-all ease-out cursor-pointer duration-200 border border-gray-200 flex items-center justify-center">
-                <img src={EA}/>
+                <img src={EA} alt=''/>
             </div>
             <div className="h-20 w-20 bg-white sm:translate-x-12 md:translate-x-0 rounded-2xl hover:scale-125 transition-all ease-out cursor-pointer duration-200 border border-gray-200 flex items-center justify-center">
-                <img src={AV}/>
+                <img src={AV} alt=''/>
             </div>
             <div className="h-20 w-20 bg-white sm:translate-x-12 md:translate-x-0 rounded-2xl hover:scale-125 transition-all ease-out cursor-pointer duration-200 border border-gray-200 flex items-center justify-center">
-                <img src={FR}/>
+                <img src={FR} alt=''/>
             </div>
             <div className="h-20 w-20 bg-white sm:translate-x-12 md:translate-x-0 rounded-2xl hover:scale-125 transition-all ease-out cursor-pointer duration-200 border border-gray-200 flex items-center justify-center">
-                <img src={EM}/>
+                <img src={EM} alt=''/>
             </div>
         </div>
     </div>

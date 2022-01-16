@@ -1,8 +1,6 @@
 import React, {} from 'react'
 import { connect } from 'react-redux';
 import UserSvg from '../assests/userprofil.svg';
-import { Redirect } from 'react-router-dom';
-import Navbar from '../components/navbar/navbar.component';
 
 const User = ({user, isAuth}) => {
 

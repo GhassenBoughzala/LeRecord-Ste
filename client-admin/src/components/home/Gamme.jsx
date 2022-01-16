@@ -12,7 +12,7 @@ return(
 
        
         <div className="box-border relative w-full max-w-md px-4 mt-5 mb-4 -ml-5 text-center bg-no-repeat bg-contain border-solid md:ml-0 md:mt-0 md:max-w-none lg:mb-0 md:w-1/2 xl:pl-10">
-           <img src={GM} />
+           <img src={GM} alt=''/>
         </div>
 
       
@@ -38,7 +38,7 @@ return(
         </div>
 
         <div className="box-border relative w-full max-w-md px-4 mt-10 mb-4 text-center bg-no-repeat bg-contain border-solid md:mt-0 md:max-w-none lg:mb-0 md:w-1/2">
-            <img src={RBG} />
+            <img src={RBG} alt=''/>
         </div>
     </div>
 </section>

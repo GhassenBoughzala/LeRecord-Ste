@@ -1,5 +1,4 @@
-import React, { useEffect, Fragment } from "react";
-import { toast } from 'react-toastify';
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import useForm from "../useForm";
 import {getdetails} from "../../../redux/reducers/productReducer";
@@ -22,7 +21,7 @@ const ProductDetails = ({ ...props }) => {
 
   useEffect(() => {
     props.All();
-  }, []);
+  });
 
   useEffect(() => {
     if (props.currentId !== 0) {
@@ -37,49 +36,27 @@ const ProductDetails = ({ ...props }) => {
   var {
     values,
     setValues,
-    errors,
     setErrors,
     handleInputChange,
-    resetForm,
   } = useForm(initialFieldValues, props.setCurrentId);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const onSuccess = () => {
-      window.location.reload();
-      resetForm();
-    };
-   
-      if (props.currentId === 0){
-          console.log(props)
 
-      } else {
-        toast.info('Mis à jour avec succés');
-        props.Details(props.currentId, values);
-        
-      }   
-
-  };
 
 
   return (
     <>
   <div className="widgetLg">
 
-  <label
-                    className="block uppercase text-gray-700 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
-                  >
-                    Cliquer sur + pour ajouter un nouveau produit
-                  </label>
+    <label className="block uppercase text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">
+      Cliquer sur + pour ajouter un nouveau produit
+    </label>
+
     <div className="flex flex-wrap">
               <div className="w-full lg:w-6/12 px-4">
                 <div className="relative w-full mb-3">
                   <br></br>
-                  <label
-                    className="block uppercase text-gray-700 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
-                  >
+                  <label className="block uppercase text-gray-700 text-xm font-bold mb-2"
+                    htmlFor="grid-password">
                     Catégorie: 
                   </label>
                   <select disabled name="category" 
@@ -99,10 +76,8 @@ const ProductDetails = ({ ...props }) => {
               <div className="w-full lg:w-6/12 px-4">
                 <br></br>
                 <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-gray-700 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
-                  >
+                  <label className="block uppercase text-gray-700 text-xm font-bold mb-2"
+                    htmlFor="grid-password">
                      Fournisseur:
                   </label>
                   <select disabled name="fournisseur" 

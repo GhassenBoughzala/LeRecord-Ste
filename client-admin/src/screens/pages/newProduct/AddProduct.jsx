@@ -31,7 +31,7 @@ const Add = ({ ...props }) => {
   useEffect(() => {
     props.All();
     props.AllF();
-  }, []);
+  });
 
 
   const handleSubmit = async (e) => {

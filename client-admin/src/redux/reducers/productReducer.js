@@ -153,55 +153,6 @@ export const updateProduct = (id, data) => (dispatch) => {
   );
 };
 
-
-//--------ADD-V2
-export const addProductV2 = async ({
-  name,
-  description,
-  price ,
-  quantity,
-  category,
-  fournisseur,
-  shipping,
-  photo
-}) => {
-
-  let formData = new FormData();
-  for (const file of photo) { 
-    formData.append("photo", file); }
-
-    formData.append("name", name);
-    formData.append("description", description);
-    formData.append("price", price);
-    formData.append("quantity", quantity);
-    formData.append("category", category);
-    formData.append("fournisseur", fournisseur);
-    formData.append("shipping", shipping);
-
-    return (dispatch) =>{
-      
-      return axios
-      .post(`${URLDevelopment}/api/products`, formData)
-      .then((res) => {
-  
-        const data = res.data;
-        console.log(data);
-        dispatch({
-          type: ADDP_S,
-          payload: res.data,
-        });
-  
-      }).catch(err => dispatch({
-          type: PRODUCT_ERR,
-          payload: err.response.data
-          })
-        );
-      
-    }
-
-   
-};
-
 //--------EDIT-V2
 export const updateProductV2 = async (id, product) => {
   console.log(product);

@@ -3,8 +3,6 @@ import "./productList.css";
 import Sidebar from "../../../components/sidebar/Sidebar";
 import { toast } from 'react-toastify';
 import { connect } from "react-redux";
-import axios from 'axios';
-import { URLDevelopment } from '../../../helpers/url';
 import { getAll, deleteProduct } from "../../../redux/reducers/productReducer";
 import ProductDetails from "../product/Product"
 import { Link } from "react-router-dom";
@@ -16,7 +14,7 @@ const ProductList = (props) => {
 
   useEffect(() => {
     props.AllProducts();
-  }, []);
+  });
 
   const onDLP = (id) => {
     const onSuccess = () => {

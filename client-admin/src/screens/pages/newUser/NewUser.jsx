@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { toast } from 'react-toastify';
 import { connect } from "react-redux";
 import useForm from "../useForm";
-import { Publish } from "@material-ui/icons";
 import {updateUser} from "../../../redux/reducers/userReducer";
 
 const initialFieldValues = {

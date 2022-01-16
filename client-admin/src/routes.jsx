@@ -15,6 +15,7 @@ import UserProfile from './screens/User';
 import UsersList from './screens/pages/userList/UserList';
 import CategoriesList from './screens/pages/category/categoryList';
 import FournisseursList from './screens/pages/fournisseur/fournisseurList';
+import Magasin from './screens/Magasin';
 
 const Routes = () => {
   return (
@@ -31,6 +32,7 @@ const Routes = () => {
         <UserRoute exact path='/dashboard/user' component={UserProfile}/>
 
         <PrivateRoute exact path='/dashboard/admin' component={AdminHome}/>
+        <PrivateRoute exact path='/dashboard/magazin' component={Magasin}/>
         <PrivateRoute exact path='/dashboard/admin/products' component={ProductsAdmin}/>
         <PrivateRoute exact path='/dashboard/admin/addproduct' component={AddProduct}/>
         <PrivateRoute exact path='/dashboard/admin/users' component={UsersList}/>

@@ -5,7 +5,6 @@ import NavItem from './navbar.item';
 import { toast } from 'react-toastify';
 import { connect } from 'react-redux';
 import { logout } from '../../redux/reducers/authReducer';
-import { Redirect } from 'react-router-dom';
 
 const NavbarList = ({ history, logout, isAuth, user }) => {
 
@@ -25,7 +24,7 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
         name='Accueil' 
         listStyle={isActive(history, '/')} />
       <NavItem 
-        link='/' 
+        link='/magazin' 
         name='Magasin'/>
       {isAuth && (
         <>

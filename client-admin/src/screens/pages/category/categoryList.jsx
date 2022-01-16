@@ -11,9 +11,8 @@ const CatList = (props) => {
   const [currentId, setCurrentId] = useState(0);
 
   useEffect(() => {
-    props.All();
-    
-  }, []);
+    props.All();  
+  });
 
   const onDLP = (id) => {
     const onSuccess = () => {

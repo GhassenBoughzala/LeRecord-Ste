@@ -12,7 +12,7 @@ const UserList = (props) => {
 
   useEffect(() => {
     props.All();
-  }, []);
+  });
 
   const onDLP = (id) => {
     const onSuccess = () => {

@@ -13,7 +13,7 @@ const FournisseurList = (props) => {
   useEffect(() => {
     props.All();
     
-  }, []);
+  });
 
   const onDLP = (id) => {
     const onSuccess = () => {

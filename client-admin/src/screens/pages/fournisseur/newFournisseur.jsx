@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { toast } from 'react-toastify';
 import { connect } from "react-redux";
 import useForm from "../useForm";
-import {addCat, updateCat} from "../../../redux/reducers/catReducer";
 import { addFou, updateFou } from "../../../redux/reducers/forReducer";
 
 const initialFieldValues = { 

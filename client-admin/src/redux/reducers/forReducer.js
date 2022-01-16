@@ -19,18 +19,16 @@ const intialState = {
 export default function (state = intialState, action){
     switch(action.type){
 
-        case GET_FOURNISSEUR: return{...state, fournisseurs:[...action.payload]}
-        case GET_FAIL:
+        case GET_FOURNISSEUR: return{...state, fournisseurs:[...action.payload]};
 
         case ADD_FOURNISSEUR: return{...state, 
-                fournisseurs:[...state.fournisseurs, action.payload]}
+                fournisseurs:[...state.fournisseurs, action.payload]};
 
         case UP_FOURNISSEUR: return{...state,
-                fournisseurs: state.fournisseurs.map(f => f._id === action.payload._id ? action.payload : f)}
+                fournisseurs: state.fournisseurs.map(f => f._id === action.payload._id ? action.payload : f)};
         case DEL_FOURNISSEUR: return{...state,
-                fournisseurs: state.fournisseurs.filter(f => f._id !== action.payload)}
-                
-        case ERR_FOURNISSEUR:
+                fournisseurs: state.fournisseurs.filter(f => f._id !== action.payload)};
+
         default:
             return state;
     }
@@ -56,7 +54,7 @@ export const getAllFou = () => (dispatch) => {
     .catch(
         (err) =>
         console.log(err),
-        ERR_FOURNISSEUR
+        GET_FAIL
     );
 };
 
