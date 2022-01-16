@@ -7,6 +7,8 @@ import {addProduct ,addProductV2, updateProduct} from "../../../redux/reducers/p
 import { getAllCat } from "../../../redux/reducers/catReducer";
 import { getAllFou  } from "../../../redux/reducers/forReducer";
 import { async } from "@firebase/util";
+import axios from 'axios';
+import { URLDevelopment } from '../../../helpers/url';
 
 
 const Add = ({ ...props }) => {
@@ -31,7 +33,19 @@ const Add = ({ ...props }) => {
 
 
   const handleSubmit = async (e) => {
-    e.preventDefault();   
+
+      e.preventDefault();
+      const formData = new FormData();
+      formData.append('photo', product.photo);
+      formData.append('name', product.name);
+      formData.append("description", product.description);
+      formData.append("price", product.price);
+      formData.append("quantity", product.quantity);
+      formData.append("category", product.category);
+      formData.append("fournisseur", product.fournisseur);
+      formData.append("shipping", product.shipping);
+
+  
     
     if (!product.photo) {
       setProduct({ ...product, error: "Please upload an image" });
@@ -43,7 +57,15 @@ const Add = ({ ...props }) => {
 
     try {
 
-        props.createP(product);
+        //props.createP(product);
+
+      axios.post(`${URLDevelopment}/api/products`, formData)
+      .then(res => {
+         console.log(res);
+      })
+      .catch(err => {
+         console.log(err);
+      });
         console.log(product);
         toast.success('Ajouté avec succès');
        
@@ -53,6 +75,16 @@ const Add = ({ ...props }) => {
       
     }
   };
+
+  const handleChange = (e) => {
+    setProduct({...product, [e.target.name]: e.target.value});
+  }
+
+  const handlePhoto = (e) => {
+    setProduct({...product, photo: e.target.files[0]});
+  }
+
+
 
   return (
     <>
@@ -65,7 +97,7 @@ const Add = ({ ...props }) => {
           </div>
         </div>
         <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
-          <form onSubmit={(e) => handleSubmit(e)} >
+          <form onSubmit={handleSubmit}>
             <div className="flex flex-wrap">
               <div className="w-full lg:w-6/12 px-4">
                 <div className="relative w-full mb-3">
@@ -80,14 +112,7 @@ const Add = ({ ...props }) => {
                     type="text"
                     name="name"
                     value={product.name}
-                    onChange={(e) =>
-                      setProduct({
-                        ...product,
-                        error: false,
-                        success: false,
-                        name: e.target.value,
-                      })
-                    }
+                    onChange={handleChange}
                     className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
                   />
                 </div>
@@ -106,14 +131,7 @@ const Add = ({ ...props }) => {
                     type="number"
                     name="quantity"
                     value={product.quantity}
-                    onChange={(e) =>
-                      setProduct({
-                        ...product,
-                        error: false,
-                        success: false,
-                        quantity: e.target.value,
-                      })
-                    }
+                    onChange={handleChange}
                     className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
                   />
                 </div>
@@ -133,14 +151,7 @@ const Add = ({ ...props }) => {
 
                   <select name="category" 
                           value={product.category}
-                          onChange={(e) =>
-                            setProduct({
-                              ...product,
-                              error: false,
-                              success: false,
-                              category: e.target.value,
-                            })
-                          }
+                          onChange={handleChange}
                           className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150">
                       <option value="">Choisis une option</option>
                       {props.ListCat.map((cat,index) => {
@@ -165,14 +176,7 @@ const Add = ({ ...props }) => {
                     
                   <select name="fournisseur" 
                           value={product.fournisseur}
-                          onChange={(e) =>
-                            setProduct({
-                              ...product,
-                              error: false,
-                              success: false,
-                              fournisseur: e.target.value,
-                            })
-                          }
+                          onChange={handleChange}
                           className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150">
                       <option value="">Choisis une option</option>
                       {props.ListFou.map((f, index) => {
@@ -200,14 +204,7 @@ const Add = ({ ...props }) => {
                     type="number"
                     name="price"
                     value={product.price}
-                    onChange={(e) =>
-                      setProduct({
-                        ...product,
-                        error: false,
-                        success: false,
-                        price: e.target.value,
-                      })
-                    }
+                    onChange={handleChange}
                     className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
                   />
                 </div>
@@ -223,14 +220,7 @@ const Add = ({ ...props }) => {
                   </label>
                   <select name="shipping" 
                           value={product.shipping}
-                          onChange={(e) =>
-                            setProduct({
-                              ...product,
-                              error: false,
-                              success: false,
-                              shipping: e.target.value,
-                            })
-                          }
+                          onChange={handleChange}
                           className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150">
                       <option value="">Choisis une option</option>
                       <option value="en stock">En Stock</option>
@@ -254,14 +244,7 @@ const Add = ({ ...props }) => {
                     type="text"
                     name="description"
                     value={product.description}
-                    onChange={(e) =>
-                      setProduct({
-                        ...product,
-                        error: false,
-                        success: false,
-                        description: e.target.value,
-                      })
-                    }
+                    onChange={handleChange}
                     className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
                   ></textarea>
                 </div>
@@ -278,17 +261,10 @@ const Add = ({ ...props }) => {
                     Photo
                   </label>
                   <input 
-                      type="file"
-                      name="photo"
-                      accept=".jpg, .jpeg, .png"
-                      onChange={(e) =>
-                        setProduct({
-                          ...product,
-                          error: false,
-                          success: false,
-                          photo: [...e.target.files],
-                        })
-                      }
+                       type="file" 
+                       accept=".png, .jpg, .jpeg"
+                       name="photo"
+                       onChange={handlePhoto}
                       className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
                   />
                  
