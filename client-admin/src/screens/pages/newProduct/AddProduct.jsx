@@ -1,31 +1,33 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from 'axios';
+import Sidebar from "../../../components/sidebar/Sidebar";
 import "./newProduct.css";
 import { toast } from 'react-toastify';
 import { connect } from "react-redux";
-import useForm from "../useForm";
-import {addProduct ,addProductV2, updateProduct} from "../../../redux/reducers/productReducer";
+import { Link, useHistory } from "react-router-dom";
+import {addProduct, updateProduct} from "../../../redux/reducers/productReducer";
 import { getAllCat } from "../../../redux/reducers/catReducer";
 import { getAllFou  } from "../../../redux/reducers/forReducer";
-import { async } from "@firebase/util";
-import axios from 'axios';
 import { URLDevelopment } from '../../../helpers/url';
 
+const initialFieldValues = {
+  name:"",
+  description: "",
+  price : "",
+  quantity: "",
+  category: "",
+  fournisseur: "",
+  shipping: "",
+  photo: null,
+  success: false,
+  error: false
+}
 
 const Add = ({ ...props }) => {
 
-  const [product, setProduct] = useState({
-    name:"",
-    description: "",
-    price : "",
-    quantity: "",
-    category: "",
-    fournisseur: "",
-    shipping: "",
-    photo: null,
-    success: false,
-    error: false
-  });
-
+  const [product, setProduct] = useState(initialFieldValues);
+  const history = useHistory()
+  
   useEffect(() => {
     props.All();
     props.AllF();
@@ -45,8 +47,6 @@ const Add = ({ ...props }) => {
       formData.append("fournisseur", product.fournisseur);
       formData.append("shipping", product.shipping);
 
-  
-    
     if (!product.photo) {
       setProduct({ ...product, error: "Please upload an image" });
       toast.warn('Photo est requise !');
@@ -67,6 +67,9 @@ const Add = ({ ...props }) => {
       });
         console.log(product);
         toast.success('Ajouté avec succès');
+        setTimeout(() => {
+          history.push('/dashboard/admin/products');
+        }, 2000);
        
     } catch (error) {
       console.log(error);
@@ -87,11 +90,15 @@ const Add = ({ ...props }) => {
 
   return (
     <>
+<div className="containerr">
+        <Sidebar />
+    <div className="productList">
+    <div className="widgetLg">
       <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-200 border-0">
         <div className="rounded-t bg-white mb-0 px-6 py-6">
           <div className="text-center flex justify-between">
             <h6 className="text-gray-800 text-xl font-bold">
-              Ajouter Produit 
+              Ajouter un Produit 
             </h6>
           </div>
         </div>
@@ -273,7 +280,7 @@ const Add = ({ ...props }) => {
             </div>
 
             <div className="flex flex-wrap">
-              <div className="w-full lg:w-12/12 px-4">
+              <div className="w-full lg:w-6/12 px-4">
                 <div className="relative w-full mb-3">
                   <button
                     type="submit"
@@ -283,10 +290,25 @@ const Add = ({ ...props }) => {
                   </button>
                 </div>
               </div>
+              <div className="w-full lg:w-6/12 px-4">
+                <div className="relative w-full mb-3">
+                <Link to="/dashboard/admin/products" className="link">
+                  <button
+                    type="submit"
+                    className="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-1 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
+                  >
+                    Retour
+                  </button>
+                </Link>
+                </div>
+              </div>
             </div>
           </form>
         </div>
       </div>
+    </div>
+    </div>
+</div>
     </>
 
   );

@@ -1,3 +1,8 @@
+.containerr{
+  display: flex;
+  margin-top: 10px;
+}
+
 .newProduct {
   flex: 4;
   margin-left: 100px;

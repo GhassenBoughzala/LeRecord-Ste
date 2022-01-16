@@ -6,9 +6,8 @@ import { connect } from "react-redux";
 import axios from 'axios';
 import { URLDevelopment } from '../../../helpers/url';
 import { getAll, deleteProduct } from "../../../redux/reducers/productReducer";
-import NewProduct from "../newProduct/NewProduct";
-import NewPV2 from "../newProduct/AddProduct"; 
 import ProductDetails from "../product/Product"
+import { Link } from "react-router-dom";
 
 
 const ProductList = (props) => {
@@ -41,6 +40,9 @@ const ProductList = (props) => {
             <h6 className="text-gray-800 text-xl font-bold">
               List des produits 
             </h6>
+            <Link to="/dashboard/admin/addproduct" className="link">
+              <i className='fas fa-plus' />
+            </Link>
           </div>
         </div>
       <br></br>
@@ -102,13 +104,8 @@ const ProductList = (props) => {
         <ProductDetails {...{ currentId, setCurrentId }} />
     </div>
 
-    <div className="widgetLg">
-       <NewPV2/>
-    </div>       
-
-
-
-  </div>
+  
+</div>
 
 
 

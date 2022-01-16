@@ -5,7 +5,6 @@ import { register } from '../redux/reducers/authReducer';
 import authSvg from '../assests/auth.svg';
 import { ToastContainer, toast } from 'react-toastify';
 import { Redirect } from 'react-router-dom';
-import Navbar from '../components/navbar/navbar.component';
 import './loading.css';
 
 const Register = ({ register, isAuth, isLoading, user }) => {

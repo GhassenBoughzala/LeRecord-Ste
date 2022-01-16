@@ -5,7 +5,6 @@ import AV from '../../assests/img/av.png'
 import EM from '../../assests/img/em.png'
 import ALGO from '../../assests/img/algo.png'
 import EA from '../../assests/img/ea.png'
-import ST from '../../assests/img/St.png'
 import FR from '../../assests/img/fr.png'
 
 function Fournisseur() {
