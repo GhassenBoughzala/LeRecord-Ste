@@ -30,28 +30,6 @@ const fileFilter = (req, file, cb) => {
 
 let upload = multer({ storage, fileFilter });
 
-function deleteImages (images, mode) {
-    var basePath = path.resolve(__dirname + '../') + 'uploads';
-    console.log(basePath);
-    for (var i = 0; i < images.length; i++) {
-      let filePath = ''
-      if (mode == 'file') {
-        filePath = basePath + `${images[i].filename}`;
-      } else {
-        filePath = basePath + `${images[i]}`;
-      }
-      console.log(filePath);
-      if (fs.existsSync(filePath)) {
-        console.log("Exists image");
-    }
-      fs.unlink(filePath, (err) => {
-        if (err) {
-          return err;
-        }
-      });
-    }
-  }
-
 // @route   Post api/product/
 // @desc    Create a Product
 // @access  Private Admin
@@ -147,126 +125,41 @@ router.delete('/:productId', auth, adminAuth, productById, async (req, res) => {
     }
 });
 
-// @route   Put api/product/:productId
-// @desc    Update Single product
-// @access  Private Admin
 router.put('/:productId', 
-            upload.any(), 
             auth, adminAuth, productById,
             async (req, res) => {
 
-                let {
+                let product = req.product;
+                const {
                     name,
                     description,
+                    price,
                     category,
                     fournisseur,
-                    price,
                     quantity,
-                    shipping,
+                    photo,
+                    shipping
                 } = req.body;
-                let editimages = req.files;
-
-                if(
-                    !name | 
-                    !description | 
-                    !category |
-                    !fournisseur |
-                    !price |
-                    !quantity |
-                    !shipping)
-                    {
-                        return res.json({ error: "All filled must be required"})
-                    }
-                    else if (name.length > 255 || description.length > 3000){
-                        return res.json({
-                            error: "Name 255 & Description must not be 3000 charecter long",
-                          });
-                    } else {           
-                            let editData = {
-                                name,
-                                description,
-                                category,
-                                fournisseur,
-                                price,
-                                quantity,
-                                shipping,
-                            };
-                            if (editimages.length == 2){
-                                let allEditImages = [];
-                                for (const img of editimages){
-                                    allEditImages.push(img.filename);
-                                }
-                                editData = {...editData, photo: allEditImages};
-                                Product.deleteImages(photo.split(','), 'string');
-                            }
-                        try{
-                            let editProduct = Product.findByIdAndUpdate(req.params.id, editData);
-                            console.log("100% Updated")
-                            editProduct.exec((err) => {
-                                if (err) console.log(err);
-                                return res.json({ success: "Product edit successfully"});
-                            });
-                        }catch (err){
-                            console.log(err);
-                        }
-                    }
-
-
-
-            }) 
-
-/*
-            Product.findById(req.params.id)
-            .then((product) => {
-              product.name= req.body.name,
-              product.description= req.body.description,
-              product.category =req.body.category,
-              product.fournisseur= req.body.fournisseur,
-              product.quantity= req.body.quantity,
-              product.photo= req.file.filename,
-              product.shipping= req.body.shipping;
-
-              product        
-              .save()
-              .then(() => res.json("P UPDATED"))
-              .catch((err) => res.json(400).json(`Error: ${err}`))
-              });
-*/
- 
-/*             
-        let product = req.product;
-        const {
-            name,
-            description,
-            price,
-            category,
-            fournisseur,
-            quantity,
-            photo,
-            shipping
-        } = req.body;
-
-        if (name) product.name = name.trim();
-        if (description) product.description = description.trim();
-        if (price) product.price = price.toString().trim();
-        if (category) product.category = category.trim();
-        if (fournisseur) product.fournisseur = fournisseur.trim();
-        if (quantity) product.quantity = quantity.toString().trim();
-        if (photo) product.photo = photo.trim();
-        if (shipping) product.shipping = shipping.trim();
-
-        try {
-            product = await product.save()
-            console.log("Update +")
-            res.json(product)
-
-        } catch (error) {
-            console.log(error.message);
-            res.status(500).send('Server error');
-        }
-*/
-
-
+        
+                if (name) product.name = name.trim();
+                if (description) product.description = description.trim();
+                if (price) product.price = price.toString().trim();
+                if (category) product.category = category.name.trim();
+                if (fournisseur) product.fournisseur = fournisseur.title.trim();
+                if (quantity) product.quantity = quantity.toString().trim();
+                if (photo) product.photo = photo.trim();
+                if (shipping) product.shipping = shipping.trim();
+        
+                try {
+                    product = await product.save()
+                    console.log("Update +")
+                    res.json(product)
+        
+                } catch (error) {
+                    console.log(error.message);
+                    res.status(500).send('Server error');
+                }
+})
 
 
 // @route   Get api/product/:productId

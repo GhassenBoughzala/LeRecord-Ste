@@ -9,6 +9,7 @@ import Register from './screens/Register';
 import AdminHome from './screens/pages/home/Home';
 import ProductsAdmin from './screens/pages/productList/ProductList';
 import AddProduct from './screens/pages/newProduct/AddProduct';
+import EditerProduct from './screens/pages/newProduct/NewProduct';
 import PrivateRoute from './routes/PrivateRoute';
 import UserRoute from './routes/UserRoute';
 import UserProfile from './screens/User';
@@ -22,7 +23,7 @@ const Routes = () => {
     <BrowserRouter>
       <ToastContainer />
       <Navbar/>
-      <br />
+        <br/>
       <Switch>
         <Route exact path='/' component={Home}/>
         
@@ -37,6 +38,7 @@ const Routes = () => {
 
         <PrivateRoute exact path='/dashboard/admin/products' component={ProductsAdmin}/>
         <PrivateRoute exact path='/dashboard/admin/addproduct' component={AddProduct}/>
+        <PrivateRoute exact path='/dashboard/admin/editerproduct' component={EditerProduct}/>
         <PrivateRoute exact path='/dashboard/admin/users' component={UsersList}/>
         <PrivateRoute exact path='/dashboard/admin/categories' component={CategoriesList}/>
         <PrivateRoute exact path='/dashboard/admin/fournisseurs' component={FournisseursList}/>

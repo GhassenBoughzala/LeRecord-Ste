@@ -3,11 +3,10 @@ import "./newProduct.css";
 import { toast } from 'react-toastify';
 import { connect } from "react-redux";
 import useForm from "../useForm";
-import { Publish } from "@material-ui/icons";
 import {addProduct, updateProduct} from "../../../redux/reducers/productReducer";
 import { getAllCat } from "../../../redux/reducers/catReducer";
 import { getAllFou  } from "../../../redux/reducers/forReducer";
-import FileBase64 from 'react-file-base64';
+
 
 const initialFieldValues = {
     name:"",
@@ -64,24 +63,22 @@ const Add = ({ ...props }) => {
   const handleSubmit = (e) => {
     e.preventDefault();    
     const onSuccess = () => {
-      window.location.reload();
       resetForm();
     };
 
     if (validate()) {
-      if (props.currentId === 0){
-
-          props.createP(values, onSuccess);
-          console.log(props)
-          toast.success('Ajouté avec succès');
-          resetForm();
-          window.location.reload();
-       
-      } else {
-
-          toast.info('Mis à jour avec succés');
+      if (props.currentId !== 0){
+          
           props.updateP(props.currentId, values, onSuccess);
-        
+          toast.info('Mis à jour avec succés');
+          resetForm();
+
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
+
+      } else {  
+        toast.error('Erreur');
       }   
 
     }else { toast.error('Warning ! '); }
@@ -96,7 +93,7 @@ const Add = ({ ...props }) => {
         <div className="rounded-t bg-white mb-0 px-6 py-6">
           <div className="text-center flex justify-between">
             <h6 className="text-gray-800 text-xl font-bold">
-              Ajouter ou Editer  
+              Editer 
             </h6>
           </div>
         </div>
@@ -157,7 +154,7 @@ const Add = ({ ...props }) => {
                           onChange={handleInputChange}
                           value={values.category}
                           className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150">
-                      <option value="">Choisis une option</option>
+                     <option value={values.category}>{values.category.name}</option>
                       {props.ListCat.map((cat) => {
                         return ( 
                           <option value={cat._id}>{cat.name}</option>
@@ -180,7 +177,7 @@ const Add = ({ ...props }) => {
                           onChange={handleInputChange}
                           value={values.fournisseur}
                           className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150">
-                      <option value="">Choisis une option</option>
+                      <option value={values.fournisseur}>{values.fournisseur.title}</option>
                       {props.ListFou.map((f) => {
                         return ( 
                           <option value={f._id}>{f.title}</option>
@@ -221,14 +218,15 @@ const Add = ({ ...props }) => {
                     Status
                   </label>
 
-                  <input
-                    type="text"
-                    placeholder="En Stock"
-                    name="shipping"
-                    value={values.shipping}
-                    onChange={handleInputChange}
-                    className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
-                  />
+                  <select name="shipping" 
+                          value={values.shipping}
+                          onChange={handleInputChange}
+                          className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150">
+                      <option value={values.shipping}>{values.shipping}</option>
+                      <option value="En stock">En Stock</option>
+                      <option value="Hors stock">Hors Stock</option>
+                      
+                  </select>  
                 </div>
               </div>
             </div>
@@ -254,28 +252,6 @@ const Add = ({ ...props }) => {
             </div>
 
             <div className="flex flex-wrap">
-              <div className="w-full lg:w-12/12 px-4">
-                <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-gray-700 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
-                  >
-                    Photo
-                  </label>
-                  <input 
-                      type="text"
-                      name="photo"
-                      value={values.photo}
-                      onChange={handleInputChange}
-                      className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
-                  />
-                 
-                  
-                </div>
-              </div>
-            </div>
-
-            <div className="flex flex-wrap">
               <div className="w-full lg:w-6/12 px-4">
                 <div className="relative w-full mb-3">
                   <button
@@ -294,7 +270,7 @@ const Add = ({ ...props }) => {
                     onClick={() => reset()}
                     className="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-1 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                   >
-                    Réinitialiser
+                    Annuler
                   </button>
                 </div>
               </div>

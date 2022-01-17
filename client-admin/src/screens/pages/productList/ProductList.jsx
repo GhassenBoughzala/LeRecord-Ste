@@ -5,7 +5,9 @@ import { toast } from 'react-toastify';
 import { connect } from "react-redux";
 import { getAll, deleteProduct } from "../../../redux/reducers/productReducer";
 import ProductDetails from "../product/Product"
+import NewProduct from "../newProduct/NewProduct";
 import { Link } from "react-router-dom";
+
 
 
 const ProductList = (props) => {
@@ -71,7 +73,7 @@ const ProductList = (props) => {
                 <td className="widgetLgAmount ">{product.shipping}</td>
                 <td className="widgetLgAmount ">
                     <div className="productListItem">
-                      <img className="productListImg" src={`/uploads/${product.photo}`} alt={product.photo} /> 
+                      <img className="productListImg hover:scale-150" src={`/uploads/${product.photo}`} alt={product.photo} /> 
                     </div>
                 </td>
                 <td className="widgetLgAmount">{product.category.name}</td>
@@ -81,7 +83,7 @@ const ProductList = (props) => {
                     type='submit'
                     onClick={() => setCurrentId(product._id)}
                     className='mt-1 tracking-wide font-semibold bg-blue-500 text-gray-100 w-full py-2 rounded-lg hover:bg-blue-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none'
-                  > Editer </button>                                       
+                  > Editer </button>                    
                 </td>
                 <td className="widgetLgStatus">
                 <button
@@ -104,6 +106,14 @@ const ProductList = (props) => {
     </label>
 
     </div>
+    
+    { currentId !== 0 && (
+        <div className="widgetLg">
+          <NewProduct {...{ currentId, setCurrentId }} />
+        </div>   
+      )
+    }
+
 
 
   

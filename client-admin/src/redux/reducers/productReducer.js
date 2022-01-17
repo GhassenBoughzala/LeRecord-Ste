@@ -23,7 +23,7 @@ export default function (state = intialState, action){
 
   switch (action.type) {
 
-      case GET_PRODUCTS_F:
+      case GET_PRODUCTS_F: return {...state, error: true}
       case GET_PRODUCTS_S: return{...state, products:[...action.payload]}
       case GETP_DETAILS: return{...state, products:[...action.payload]}
 
@@ -63,7 +63,6 @@ export const getAll =  () => async(dispatch) => {
   })
   .catch(
     (err) => 
-    console.log(err),
     GET_PRODUCTS_F
     );
 
