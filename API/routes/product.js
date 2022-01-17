@@ -390,7 +390,9 @@ router.get("/search", async (req, res) => {
         }
     }
     try {
-        let products = await Product.find({});
+        let products = await Product.find({})            
+                                    .populate('category', 'name')
+                                    .populate('fournisseur', 'title');
         res.json(products);
 
     } catch (error) {

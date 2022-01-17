@@ -45,33 +45,37 @@ const ProductList = (props) => {
         </div>
       <br></br>
       <table className="widgetLgTable">
-        <thead>
-          <tr className="widgetLgTr">
-            <th className="widgetLgTh">Nom</th>
-            <th className="widgetLgTh">Description</th>
-            <th className="widgetLgTh">Quantité</th>
-            <th className="widgetLgTh">Prix</th>
-            <th className="widgetLgTh">Status</th>
-            <th className="widgetLgTh">Image</th>
-            <th className="widgetLgTh text-center"><i className='fas fa-edit w-6 -ml-2' /></th>
-            <th className="widgetLgTh text-center"><i className='mt-1 fas fa-trash-alt' /></th>
+        <thead className="border-b border-gray-60">
+          <tr className="border-b border-gray-600  ">
+            <th className="widgetLgTh ">Nom</th>
+            <th className="widgetLgTh ">Description</th>
+            <th className="widgetLgTh ">Quantité</th>
+            <th className="widgetLgTh ">Prix</th>
+            <th className="widgetLgTh ">Status</th>
+            <th className="widgetLgTh ">Image</th>
+            <th className="widgetLgTh ">Categorie</th>
+            <th className="widgetLgTh ">Fournisseur</th>
+            <th className="widgetLgTh text-center "><i className='fas fa-edit w-6 -ml-2' /></th>
+            <th className="widgetLgTh text-center "><i className='mt-1 fas fa-trash-alt' /></th>
           </tr>
         </thead>
         <tbody>
           {props.List.map((product, index) => {
                     return (
           <Fragment key={index}>           
-              <tr className="widgetLgTr" key={product._id}>
-                <td className="widgetLgDate">{product.name}</td>
-                <td className="widgetLgDate">{product.description}</td>
-                <td className="widgetLgDate">{product.quantity}</td>
-                <td className="widgetLgDate">{product.price}</td>           
-                <td className="widgetLgAmount">{product.shipping}</td>
-                <td className="widgetLgAmount">
+              <tr className="border-b border-gray-600 " key={product._id}>
+                <td className="widgetLgDate ">{product.name}</td>
+                <td className="widgetLgDate ">{product.description}</td>
+                <td className="widgetLgDate ">{product.quantity}</td>
+                <td className="widgetLgDate ">{product.price}</td>           
+                <td className="widgetLgAmount ">{product.shipping}</td>
+                <td className="widgetLgAmount ">
                     <div className="productListItem">
                       <img className="productListImg" src={`/uploads/${product.photo}`} alt={product.photo} /> 
                     </div>
                 </td>
+                <td className="widgetLgAmount">{product.category.name}</td>
+                <td className="widgetLgAmount">{product.fournisseur.title}</td>
                 <td className="widgetLgStatus">
                   <button
                     type='submit'
@@ -93,14 +97,14 @@ const ProductList = (props) => {
         </tbody>
 
       </table>
-     
-      
+
+    <br /> 
+    <label className="block uppercase text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">
+      Cliquer sur + pour ajouter un nouveau produit
+    </label>
 
     </div>
 
-    <div className="widgetSm">
-        <ProductDetails {...{ currentId, setCurrentId }} />
-    </div>
 
   
 </div>

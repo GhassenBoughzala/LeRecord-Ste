@@ -47,9 +47,7 @@ const ProductDetails = ({ ...props }) => {
     <>
   <div className="widgetLg">
 
-    <label className="block uppercase text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">
-      Cliquer sur + pour ajouter un nouveau produit
-    </label>
+
 
     <div className="flex flex-wrap">
               <div className="w-full lg:w-6/12 px-4">
