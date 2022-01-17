@@ -24,9 +24,12 @@ const Register = ({ register, isAuth, isLoading, user }) => {
     e.preventDefault();
     console.log('submit');
     if (password !== confirmPasswrod) {
-      toast.error('Passwords do not match');
+      toast.error('Les mots de passe ne correspondent pas !');
     } else {
-      register({ name, email, password });
+        register({ name, email, password });
+        toast.success('Enregistré avec succès');
+      
+      
     }
   };
 

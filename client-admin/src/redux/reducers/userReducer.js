@@ -45,7 +45,7 @@ export const DELU = (id) => axios.delete(`${URLDevelopment}/api/users/` + id);
 export const getAllUsers = () => (dispatch) => {
     ALL()
     .then((res) => {
-        console.log(res);
+        
         dispatch({
             type: GET_ALL_USERS,
             payload: res.data,

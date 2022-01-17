@@ -22,6 +22,7 @@ const Routes = () => {
     <BrowserRouter>
       <ToastContainer />
       <Navbar/>
+      <br />
       <Switch>
         <Route exact path='/' component={Home}/>
         
