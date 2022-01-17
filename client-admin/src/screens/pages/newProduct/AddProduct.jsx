@@ -229,8 +229,8 @@ const Add = ({ ...props }) => {
                           onChange={handleChange}
                           className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150">
                       <option value="">Choisis une option</option>
-                      <option value="en stock">En Stock</option>
-                      <option value="hors stock">Hors Stock</option>
+                      <option value="En stock">En Stock</option>
+                      <option value="Hors stock">Hors Stock</option>
                       
                   </select>  
                 </div>
