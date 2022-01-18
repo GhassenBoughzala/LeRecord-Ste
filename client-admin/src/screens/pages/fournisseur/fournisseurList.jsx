@@ -31,6 +31,7 @@ const FournisseurList = (props) => {
     <div className="containerr">
         <Sidebar />
   <div className="productList">
+    <div className="homeWidgets"> 
     <div className="widgetLg">
     <div className="rounded-t bg-white mb-0 px-6 py-6">
           <div className="text-center flex justify-between">
@@ -81,7 +82,7 @@ const FournisseurList = (props) => {
       </table>
     </div>
 
-    <div className="widgetLg">
+    <div className="widgetLg ">
         <NewFo {...{ currentId, setCurrentId }} />
     </div>     
 
@@ -90,7 +91,7 @@ const FournisseurList = (props) => {
   </div>
 
 
-
+  </div>
   </div>
 
 </>

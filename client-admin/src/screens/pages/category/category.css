@@ -22,3 +22,8 @@
     color: #FFFFFF;
     background-color: #00A4BD;
   }
+
+  .homeWidgets{
+    display: flex;
+    margin: 20px;
+}

@@ -30,6 +30,7 @@ const CatList = (props) => {
     <div className="containerr">
         <Sidebar />
   <div className="productList">
+    <div className="homeWidgets"> 
     <div className="widgetLg">
     <div className="rounded-t bg-white mb-0 px-6 py-6">
           <div className="text-center flex justify-between">
@@ -52,7 +53,7 @@ const CatList = (props) => {
           {props.List.map((cat, index) => {
                     return (
           <Fragment key={index}>           
-              <tr className="widgetLgTr" key={cat._id}>
+              <tr className="widgetLgTr " key={cat._id}>
                 <td className="widgetLgDate">{cat._id}</td>
                 <td className="widgetLgDate">{cat.name}</td>
                 <td className="widgetLgStatus">
@@ -77,13 +78,17 @@ const CatList = (props) => {
 
       </table>
 
+     
+    </div>
+
+    <div className="widgetLg">
       <AddCat {...{ currentId, setCurrentId }} />
     </div>
 
 
-
   </div>
 
+</div>
 </div>
 
 </>

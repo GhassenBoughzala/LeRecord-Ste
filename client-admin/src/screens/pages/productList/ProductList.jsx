@@ -73,7 +73,7 @@ const ProductList = (props) => {
                 <td className="widgetLgAmount ">{product.shipping}</td>
                 <td className="widgetLgAmount ">
                     <div className="productListItem">
-                      <img className="productListImg hover:scale-150" src={`/uploads/${product.photo}`} alt={product.photo} /> 
+                      <img className="productListImg" src={`/uploads/${product.photo}`} alt={product.photo} /> 
                     </div>
                 </td>
                 <td className="widgetLgAmount">{product.category.name}</td>
