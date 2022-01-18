@@ -16,12 +16,10 @@ const FournisseurList = (props) => {
   });
 
   const onDLP = (id) => {
-    const onSuccess = () => {
-      window.location.reload();
-    };
+
     if(window.confirm("Êtes-vous sûr de vouloir supprimer ?"))
-      toast.info(`Supprimé avec succès !`);
-      props.Delete(id, onSuccess);
+      toast.error(`Supprimé avec succès !`);
+      props.Delete(id);
       
   };
 
@@ -44,7 +42,6 @@ const FournisseurList = (props) => {
       <table className="widgetLgTable">
         <thead>
           <tr className="widgetLgTr">
-            <th className="widgetLgTh">ID</th>
             <th className="widgetLgTh">Title</th>
             <th className="widgetLgTh">Description</th>
             <th className="widgetLgTh text-center"><i className='fas fa-edit w-6 -ml-2' /></th>
@@ -56,7 +53,6 @@ const FournisseurList = (props) => {
                     return (
             <Fragment key={index}>           
               <tr className="widgetLgTr" key={f._id}>
-              <td className="widgetLgDate">{f._id}</td>
                 <td className="widgetLgDate">{f.title}</td>
                 <td className="widgetLgDate">{f.desc}</td>
                 <td className="widgetLgStatus">

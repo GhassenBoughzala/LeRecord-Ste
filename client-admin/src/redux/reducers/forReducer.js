@@ -68,9 +68,7 @@ export const createSuccess = (data) => {
 export const addFou = (fournisseur) => {
     const data ={ 
         title : fournisseur.title,
-        desc: fournisseur.desc,
-        img: fournisseur.img,
-        active: fournisseur.active
+        desc: fournisseur.desc
      }
 
     return(dispatch) => {
@@ -82,9 +80,8 @@ export const addFou = (fournisseur) => {
 
             const ndata = { 
                 title : data.title,
-                desc: data.desc,
-                img: data.img,
-                active: data.active };
+                desc: data.desc
+            };
             dispatch(createSuccess(ndata));
         }).catch((err) =>
             console.log(err),

@@ -4,21 +4,24 @@ const Fournisseur = require("../models/Fournisseur");
 const auth = require('../middleware/auth');
 const adminAuth = require('../middleware/adminAuth');
 const fournisseurById = require('../middleware/fournisseurById');
-const { validationResult } = require('express-validator');
+const { check, validationResult } = require('express-validator');
 
 // @route   POST api/fournisseurs
 // @desc    Create fournisseur
 // @access  Private Admin
-router.post('/', auth, adminAuth, async(req, res) =>{
+router.post('/', 
+  [ check('title', 'Titre est requise').trim().not().isEmpty()],
+  [ check('desc', 'Description est requise').trim().not().isEmpty()],
+  auth, adminAuth, async(req, res) =>{
   const errors = validationResult(req);
   if(!errors.isEmpty()){
     return res.status(400).json({ error: errors.array()[0].msg })
   }
 
-  const { title, desc, img, active} = req.body
+  const { title, desc } = req.body
   try {
     let fo = await Fournisseur.findOne({
-      title, desc, img, active
+      title, desc
     })
 
     if(fo){
@@ -27,10 +30,10 @@ router.post('/', auth, adminAuth, async(req, res) =>{
       })
     }
 
-    const newF = new Fournisseur({title, desc, img, active})
+    const newF = new Fournisseur({title, desc})
     fo = await newF.save()
     res.json(fo)
-    console.log("F++")
+    console.log("F ++")
 
   } catch (error) {
     console.log(error);
@@ -55,12 +58,10 @@ router.get('/all', async (req, res) => {
 // @access  Private Admin
 router.put('/:fournisseurId', auth, adminAuth, fournisseurById, async (req, res) => {
   let fournisseur = req.fournisseur;
-  const { title, desc, img, active} = req.body
+  const { title, desc } = req.body
 
   if (title) fournisseur.title = title.trim();
   if (desc) fournisseur.desc = desc.trim();
-  if (img) fournisseur.img = img.trim();
-
 
   try {
       fournisseur = await fournisseur.save()

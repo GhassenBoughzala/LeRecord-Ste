@@ -24,8 +24,6 @@ const Add = ({ ...props }) => {
 
   const validate = () => {
     let temp = {...errors};
-    temp.title = values.title ? "" : "This field is required.";   
-    temp.active = values.active ? "" : "This field is required.";  
     temp.desc = values.desc ? "" : "This field is required.";  
     setErrors({...temp,});
     return Object.values(temp).every((p) => p === "");
@@ -42,10 +40,12 @@ const Add = ({ ...props }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     const onSuccess = () => {
       window.location.reload();
       resetForm();
     };
+
     if (validate()) {
       if (props.currentId === 0){
 
@@ -54,8 +54,8 @@ const Add = ({ ...props }) => {
           toast.success('Ajouté avec succès');
           resetForm();
          
-       
       } else {
+
         toast.info('Mis à jour avec succés');
         props.update(props.currentId, values, onSuccess);
         

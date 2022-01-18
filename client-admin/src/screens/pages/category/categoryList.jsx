@@ -43,7 +43,6 @@ const CatList = (props) => {
       <table className="widgetLgTable">
         <thead>
           <tr className="widgetLgTr">
-            <th className="widgetLgTh">ID</th>
             <th className="widgetLgTh">Titre</th>
             <th className="widgetLgTh text-center"><i className='fas fa-edit w-6 -ml-2' /></th>
             <th className="widgetLgTh text-center"><i className='mt-1 fas fa-trash-alt' /></th>
@@ -54,7 +53,6 @@ const CatList = (props) => {
                     return (
           <Fragment key={index}>           
               <tr className="widgetLgTr " key={cat._id}>
-                <td className="widgetLgDate">{cat._id}</td>
                 <td className="widgetLgDate">{cat.name}</td>
                 <td className="widgetLgStatus">
                   <button
