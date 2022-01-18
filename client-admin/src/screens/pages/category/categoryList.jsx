@@ -19,7 +19,6 @@ const CatList = (props) => {
       window.location.reload();
     };
     if(window.confirm("Êtes-vous sûr de vouloir supprimer ?"))
-      toast.info(`Supprimé avec succès !`);
       props.Delete(id, onSuccess);
       
   };

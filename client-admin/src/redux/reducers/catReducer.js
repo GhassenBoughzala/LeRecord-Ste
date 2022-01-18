@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from 'react-toastify';
 import { URLDevelopment } from '../../helpers/url';
 
 //Types
@@ -89,6 +90,7 @@ export const deleteCat = async(id, dispatch) => {
             type: DELETE_CAT,
             payload: id,
         });
+        toast.error(`Supprimé avec succès !`);
     }).catch((err) => 
         console.log(err),
         CAT_ERR

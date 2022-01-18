@@ -1,6 +1,5 @@
 import React, { useEffect, useState, Fragment } from "react";
 import Sidebar from "../../../components/sidebar/Sidebar";
-import { toast } from 'react-toastify';
 import { connect } from "react-redux";
 import { getAllFou, deleteFou  } from "../../../redux/reducers/forReducer";
 import NewFo from '../fournisseur/newFournisseur'
@@ -15,12 +14,14 @@ const FournisseurList = (props) => {
     
   });
 
+  const onSuccess = () => {
+    window.location.reload(true);
+  };
+
   const onDLP = (id) => {
 
     if(window.confirm("Êtes-vous sûr de vouloir supprimer ?"))
-      toast.error(`Supprimé avec succès !`);
-      props.Delete(id);
-      
+        props.Delete(id, onSuccess);  
   };
 
 

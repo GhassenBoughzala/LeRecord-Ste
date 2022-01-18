@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from 'react-toastify';
 import { URLDevelopment } from '../../helpers/url';
 
 //Types 
@@ -98,6 +99,7 @@ export const deleteFou = async(id, dispatch) => {
             type: DEL_FOURNISSEUR,
             payload: id,
         });
+        toast.error(`Supprimé avec succès !`);
     }).catch((err) => 
         console.log(err),
         ERR_FOURNISSEUR

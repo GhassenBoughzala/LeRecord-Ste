@@ -61,12 +61,14 @@ const Add = ({ ...props }) => {
       axios.post(`${URLDevelopment}/api/products`, formData)
       .then(res => {
          console.log(res);
+         toast.success('Ajouté avec succès');
       })
       .catch(err => {
          console.log(err);
+         toast.error('Erreur');
       });
         console.log(product);
-        toast.success('Ajouté avec succès');
+        
         setTimeout(() => {
           history.push('/dashboard/admin/products');
         }, 2000);
@@ -268,6 +270,7 @@ const Add = ({ ...props }) => {
                   </label>
                   <input 
                        type="file" 
+                       multiple
                        accept=".png, .jpg, .jpeg"
                        name="photo"
                        onChange={handlePhoto}
