@@ -16,14 +16,14 @@ const ProductList = (props) => {
 
   useEffect(() => {
     props.AllProducts();
-  });
+  }, []);
 
   const onDLP = (id) => {
     const onSuccess = () => {
       window.location.reload();
     };
     if(window.confirm("Êtes-vous sûr de vouloir supprimer ?"))
-      toast.info(`Supprimé avec succès !`);
+
       props.DeleteProducts(id, onSuccess);
       
   };
