@@ -94,7 +94,7 @@ router.post('/', auth, adminAuth,
                     shipping,
                 });
                 let save = newProduct.save();
-                console.log("P++");
+                console.log(newProduct);
                 console.log(allImages);
                 if(save) {
                     return res.json({ success: "Product created successfully"  })
@@ -143,6 +143,7 @@ router.delete('/:productId', auth, adminAuth, productById, async (req, res) => {
         res.json({
             message: `${deletedProduct.name} deleted successfully`,
         });
+        console.log("-P")
     } catch (error) {
         console.log(error);
         res.status(500).send('Server error');
@@ -163,15 +164,9 @@ router.put('/:productId',
                     category,
                     fournisseur,
                     quantity,
+                    photo,
                     shipping
                 } = req.body;
-
-                let images = req.files;
-
-                let allImages = [];
-                    for (const img of images){
-                        allImages.push(img.filename);
-                    }
         
                 if (name) product.name = name.trim();
                 if (description) product.description = description.trim();
@@ -180,30 +175,19 @@ router.put('/:productId',
                 if (fournisseur) product.fournisseur = fournisseur.trim();
                 if (quantity) product.quantity = quantity.toString().trim();
                 if (shipping) product.shipping = shipping.trim();
-
-
+                if (photo) product.photo = photo.trim();
         
                 try {
-                    let upproduct = new Product({
-                        photo: allImages,
-                        name,
-                        description,
-                        category,
-                        fournisseur,
-                        price,
-                        quantity,
-                        shipping,
-                    });
 
-                    let updated = await upproduct.save()
+                    product = await product.save()
                     console.log("Update +")
-                    console.log(allImages);
-                    res.json(updated)
+                    res.json(product)
         
                 } catch (error) {
                     console.log(error.message);
                     res.status(500).send('Server error');
                 }
+
             });
        
 

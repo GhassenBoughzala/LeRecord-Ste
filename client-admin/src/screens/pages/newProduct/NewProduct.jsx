@@ -30,6 +30,8 @@ const Add = ({ ...props }) => {
     resetForm,
   } = useForm(initialFieldValues, props.setCurrentId);
 
+  const [product, setProduct] = useState(initialFieldValues);
+
   useEffect(() => {
     props.All();
     props.AllF();
@@ -84,6 +86,9 @@ const Add = ({ ...props }) => {
     }else { toast.error('Warning ! '); }
   };
 
+  const handlePhoto = (e) => {
+    setProduct({...product, photo: e.target.files[0]});
+  }
 
   const reset = (e) => { resetForm(); }
 
@@ -154,7 +159,7 @@ const Add = ({ ...props }) => {
                           onChange={handleInputChange}
                           value={values.category}
                           className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150">
-                     <option value={values.category}>{values.category.name}</option>
+                     <option value=''>{values.category.name}</option>
                       {props.ListCat.map((cat) => {
                         return ( 
                           <option value={cat._id}>{cat.name}</option>
@@ -250,6 +255,7 @@ const Add = ({ ...props }) => {
                 </div>
               </div>
             </div>
+
 
             <div className="flex flex-wrap">
               <div className="w-full lg:w-6/12 px-4">

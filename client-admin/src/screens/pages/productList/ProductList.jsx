@@ -57,8 +57,8 @@ const ProductList = (props) => {
             <th className="widgetLgTh ">Image</th>
             <th className="widgetLgTh ">Categorie</th>
             <th className="widgetLgTh ">Fournisseur</th>
-            <th className="widgetLgTh text-center "><i className='fas fa-edit w-6 -ml-2' /></th>
-            <th className="widgetLgTh text-center "><i className='mt-1 fas fa-trash-alt' /></th>
+            <th className="widgetLgTh "></th>
+            <th className="widgetLgTh "></th>
           </tr>
         </thead>
         <tbody>
@@ -78,19 +78,13 @@ const ProductList = (props) => {
                 </td>
                 <td className="widgetLgAmount">{product.category.name}</td>
                 <td className="widgetLgAmount">{product.fournisseur.title}</td>
-                <td className="widgetLgStatus">
-                  <button
-                    type='submit'
-                    onClick={() => setCurrentId(product._id)}
-                    className='mt-1 tracking-wide font-semibold bg-blue-500 text-gray-100 w-full py-2 rounded-lg hover:bg-blue-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none'
-                  > Editer </button>                    
+                <td className="">
+                  <i onClick={() => setCurrentId(product._id)}
+                     className='fas fa-edit fa hover:text-blue-500' />                  
                 </td>
-                <td className="widgetLgStatus">
-                <button
-                    type='submit'
-                    onClick={() => onDLP(product._id)}
-                    className='mt-1 tracking-wide font-semibold bg-red-500 text-gray-100 w-full py-2 rounded-lg hover:bg-red-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none'
-                  > Supprimer </button>
+                <td className="">
+                  <i onClick={() => onDLP(product._id)}
+                     className='fas fa-trash-alt fa hover:text-red-500' /> 
                 </td>
               </tr>
             </Fragment>
