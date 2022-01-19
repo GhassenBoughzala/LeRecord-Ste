@@ -28,6 +28,28 @@ const fileFilter = (req, file, cb) => {
   }
 }
 
+const deleteImages = (images, mode)  => {
+    var basePath = path.resolve(__dirname + '../../../') + '/client-admin/public/uploads';
+    console.log(basePath);
+    for (var i = 0; i < images.length; i++) {
+      let filePath = ''
+      if (mode == 'file') {
+        filePath = basePath + `${images[i].filename}`;
+      } else {
+        filePath = basePath + `${images[i]}`;
+      }
+      console.log(filePath);
+      if (fs.existsSync(filePath)) {
+        console.log("Exists image");
+    }
+      fs.unlink(filePath, (err) => {
+        if (err) {
+          return err;
+        }
+      });
+    }
+  }
+
 let upload = multer({ storage, fileFilter });
 
 // @route   Post api/product/
@@ -46,7 +68,7 @@ router.post('/', auth, adminAuth,
 
     if( !name | !description | !category | !fournisseur | !price | !quantity | !shipping)
         {
-            
+            Product.deleteImages(images, 'file');
             return res.json({ error: "All filled must be required"})
         }
 
@@ -109,6 +131,8 @@ router.post('/', auth, adminAuth,
 });
 
 
+
+
 // @route   Delete api/product/productId
 // @desc    Delete a Product
 // @access  Private Admin
@@ -125,7 +149,9 @@ router.delete('/:productId', auth, adminAuth, productById, async (req, res) => {
     }
 });
 
+//Update Product
 router.put('/:productId', 
+            upload.any(), 
             auth, adminAuth, productById,
             async (req, res) => {
 
@@ -137,30 +163,49 @@ router.put('/:productId',
                     category,
                     fournisseur,
                     quantity,
-                    photo,
                     shipping
                 } = req.body;
+
+                let images = req.files;
+
+                let allImages = [];
+                    for (const img of images){
+                        allImages.push(img.filename);
+                    }
         
                 if (name) product.name = name.trim();
                 if (description) product.description = description.trim();
                 if (price) product.price = price.toString().trim();
-                if (category) product.category = category.name.trim();
-                if (fournisseur) product.fournisseur = fournisseur.title.trim();
+                if (category) product.category = category.trim();
+                if (fournisseur) product.fournisseur = fournisseur.trim();
                 if (quantity) product.quantity = quantity.toString().trim();
-                if (photo) product.photo = photo.trim();
                 if (shipping) product.shipping = shipping.trim();
+
+
         
                 try {
-                    product = await product.save()
+                    let upproduct = new Product({
+                        photo: allImages,
+                        name,
+                        description,
+                        category,
+                        fournisseur,
+                        price,
+                        quantity,
+                        shipping,
+                    });
+
+                    let updated = await upproduct.save()
                     console.log("Update +")
-                    res.json(product)
+                    console.log(allImages);
+                    res.json(updated)
         
                 } catch (error) {
                     console.log(error.message);
                     res.status(500).send('Server error');
                 }
-})
-
+            });
+       
 
 // @route   Get api/product/:productId
 // @desc    Get a list of products  with filter 
