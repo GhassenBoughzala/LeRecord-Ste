@@ -73,11 +73,6 @@ const Add = ({ ...props }) => {
           
           props.updateP(props.currentId, values, onSuccess);
           toast.info('Mis à jour avec succés');
-          resetForm();
-
-          setTimeout(() => {
-            window.location.reload();
-          }, 2000);
 
       } else {  
         toast.error('Erreur');
@@ -159,7 +154,7 @@ const Add = ({ ...props }) => {
                           onChange={handleInputChange}
                           value={values.category}
                           className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150">
-                     <option value=''>{values.category.name}</option>
+                     <option value={values.category._id}>{values.category.name}</option>
                       {props.ListCat.map((cat) => {
                         return ( 
                           <option value={cat._id}>{cat.name}</option>
@@ -182,7 +177,7 @@ const Add = ({ ...props }) => {
                           onChange={handleInputChange}
                           value={values.fournisseur}
                           className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150">
-                      <option value={values.fournisseur}>{values.fournisseur.title}</option>
+                      <option value={values.fournisseur._id}>{values.fournisseur.title}</option>
                       {props.ListFou.map((f) => {
                         return ( 
                           <option value={f._id}>{f.title}</option>
