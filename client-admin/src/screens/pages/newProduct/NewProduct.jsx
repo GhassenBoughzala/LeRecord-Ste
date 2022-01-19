@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 import "./newProduct.css";
 import { toast } from 'react-toastify';
 import { connect } from "react-redux";
@@ -152,12 +152,15 @@ const Add = ({ ...props }) => {
 
                   <select name="category" 
                           onChange={handleInputChange}
-                          value={values.category}
-                          className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150">
-                     <option value={values.category._id}>{values.category.name}</option>
-                      {props.ListCat.map((cat) => {
+                          value={values.category.name}
+                          className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"> 
+                          <option value="">{values.category.name}</option>
+
+                      {props.ListCat.map((cat,index) => {
                         return ( 
-                          <option value={cat._id}>{cat.name}</option>
+                          <Fragment key={index}>  
+                            <option value={cat._id}>{cat.name}</option>
+                          </Fragment>
                         );
                       })}
                   </select>  
@@ -175,12 +178,14 @@ const Add = ({ ...props }) => {
                     
                   <select name="fournisseur" 
                           onChange={handleInputChange}
-                          value={values.fournisseur}
+                          value={values.fournisseur.title}
                           className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150">
-                      <option value={values.fournisseur._id}>{values.fournisseur.title}</option>
-                      {props.ListFou.map((f) => {
+                      <option value="">{values.fournisseur.title}</option>
+                      {props.ListFou.map((f, index) => {
                         return ( 
-                          <option value={f._id}>{f.title}</option>
+                          <Fragment key={index}>  
+                            <option value={f._id}>{f.title}</option>
+                          </Fragment>
                         );
                       })}
                   </select>  
