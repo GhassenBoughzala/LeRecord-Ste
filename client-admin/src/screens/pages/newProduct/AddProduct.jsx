@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import Sidebar from "../../../components/sidebar/Sidebar";
 import "./newProduct.css";
+import { Publish } from "@material-ui/icons";
 import { toast } from 'react-toastify';
 import { connect } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
@@ -31,7 +32,7 @@ const Add = ({ ...props }) => {
   useEffect(() => {
     props.All();
     props.AllF();
-  });
+  }, []);
 
 
   const handleSubmit = async (e) => {
@@ -62,16 +63,14 @@ const Add = ({ ...props }) => {
       .then(res => {
          console.log(res);
          toast.success('Ajouté avec succès');
+         setTimeout(() => {
+          history.push('/dashboard/admin/products');
+        }, 2000);
       })
       .catch(err => {
          console.log(err);
          toast.error('Erreur');
       });
-        console.log(product);
-        
-        setTimeout(() => {
-          history.push('/dashboard/admin/products');
-        }, 2000);
        
     } catch (error) {
       console.log(error);
@@ -268,14 +267,22 @@ const Add = ({ ...props }) => {
                   >
                     Photo
                   </label>
+
+                  <div className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150">
+                      <label for="file">
+                        <Publish />
+                      </label>
+                  </div>
+                  
                   <input 
                        type="file" 
+                       id="file"
                        multiple
                        accept=".png, .jpg, .jpeg"
                        name="photo"
                        onChange={handlePhoto}
-                      className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
-                  />
+                       style={{ display: "none" }}
+                    />
                  
                   
                 </div>
