@@ -6,6 +6,7 @@ import { URLDevelopment } from '../../helpers/url';
 const GET_PRODUCTS_S = 'GET ALL PRODUCTS';
 const GET_PRODUCTS_F = 'GET PRODUCTS FAILURE';
 const GETP_DETAILS = 'PRODUCT DETAILS';
+const GETP_DETAILS_S = 'PRODUCT DETAILS SECC';
 const ADDP_S = 'ADD PRODUCT SUCCESS';
 const ADDP_F = 'ADD PRODUCT FAILURE';
 const PRODUCT_UPDATE = 'PRODUCT UPDATED';
@@ -45,7 +46,7 @@ export default function (state = intialState, action){
 }
 
 export const Fetch = () => axios.get(`${URLDevelopment}/api/products/search`);
-export const GetDetails = (id) => axios.get(`${URLDevelopment}/api/products/related/` + id);
+export const GetDetails = (id) => axios.get(`${URLDevelopment}/api/products/` + id);
 export const AddP = () => axios.post(`${URLDevelopment}/api/products`);
 export const UP = (id, updatedP) => axios.put(`${URLDevelopment}/api/products/` + id, updatedP);
 export const DLP = (id) => axios.delete(`${URLDevelopment}/api/products/` + id);
@@ -69,20 +70,21 @@ export const getAll =  () => async(dispatch) => {
 
 };
 
-export const getdetails =  (id,dispatch) => {
 
-  GetDetails(id)
-  .then((res) => {
-    console.log(res);
+export const detailsProduct = (productId) => async (dispatch) => {
+  dispatch({ type: GETP_DETAILS, payload: productId });
+  try {
+    const { data } = await axios.get(`${URLDevelopment}/api/products/${productId}`);
+    dispatch({ type: GETP_DETAILS_S, payload: data });
+  } catch (error) {
     dispatch({
-      type: GETP_DETAILS,
-      payload: res.data,
+      type: PRODUCT_ERR,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
     });
-  }).catch((err) => 
-    console.log(err),
-    GET_PRODUCTS_F
-  );
-
+  }
 };
 
 export const createSuccess = (data) => {
