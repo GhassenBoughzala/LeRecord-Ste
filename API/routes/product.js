@@ -175,7 +175,7 @@ router.put('/:productId',
                 if (fournisseur) product.fournisseur = fournisseur.toString().trim();
                 if (quantity) product.quantity = quantity.toString().trim();
                 if (shipping) product.shipping = shipping.trim();
-                if (photo) product.photo = photo.toString().trim();
+                if (photo) product.photo = photo.toString.trim();
         
                 try {
 

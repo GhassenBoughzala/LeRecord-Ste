@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import useForm from "../useForm";
-import {getdetails} from "../../../redux/reducers/productReducer";
 import { getAllCat } from "../../../redux/reducers/catReducer";
 import { getAllFou  } from "../../../redux/reducers/forReducer";
 
@@ -109,7 +108,7 @@ const mapStateToProps = (state) => ({
 const mapActionToProps = {
   All: getAllCat,
   AllF: getAllFou,
-  Details: getdetails,
+
 };
 
 export default connect(mapStateToProps, mapActionToProps)(ProductDetails);

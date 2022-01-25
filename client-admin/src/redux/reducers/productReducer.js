@@ -5,7 +5,7 @@ import { URLDevelopment } from '../../helpers/url';
 //Types
 const GET_PRODUCTS_S = 'GET ALL PRODUCTS';
 const GET_PRODUCTS_F = 'GET PRODUCTS FAILURE';
-const GETP_DETAILS = 'PRODUCT DETAILS';
+const GETP_DETAILS = 'PRODUCT DETAILS REQ ID';
 const GETP_DETAILS_S = 'PRODUCT DETAILS SECC';
 const ADDP_S = 'ADD PRODUCT SUCCESS';
 const ADDP_F = 'ADD PRODUCT FAILURE';
@@ -16,6 +16,7 @@ const PRODUCT_ERR = 'PRODUCT ERROR';
 // Intial State
 const intialState = {
   products: [],
+  product: {},
   error: null,
 };
 
@@ -27,7 +28,8 @@ export default function (state = intialState, action){
 
       case GET_PRODUCTS_F: return {...state, error: true}
       case GET_PRODUCTS_S: return{...state, products:[...action.payload]}
-      case GETP_DETAILS: return{...state, products:[...action.payload]}
+      case GETP_DETAILS: return{...state, product:action.payload}
+      case GETP_DETAILS_S: return{ product:action.payload }
 
       case ADDP_S: return{...state, products:[...state.products,action.payload ]}
       case ADDP_F:
@@ -55,27 +57,26 @@ export const DLP = (id) => axios.delete(`${URLDevelopment}/api/products/` + id);
 //Actions
 export const getAll =  () => async(dispatch) => {
 
-  Fetch()
-  .then((res) => {
-    
+  Fetch().then((res) => {
     dispatch({
       type: GET_PRODUCTS_S,
       payload: res.data,
     });
   })
-  .catch(
-    (err) => 
-    GET_PRODUCTS_F
-    );
-
+    .catch(
+      (err) => 
+        GET_PRODUCTS_F
+      );
 };
 
 
-export const detailsProduct = (productId) => async (dispatch) => {
-  dispatch({ type: GETP_DETAILS, payload: productId });
+export const detailsProduct = productId => async dispatch => {
   try {
-    const { data } = await axios.get(`${URLDevelopment}/api/products/${productId}`);
-    dispatch({ type: GETP_DETAILS_S, payload: data });
+    const res = await axios.get(`${URLDevelopment}/api/products/${productId}`);
+    dispatch({ 
+        type: GETP_DETAILS_S,
+        payload: res.data
+    });
   } catch (error) {
     dispatch({
       type: PRODUCT_ERR,
