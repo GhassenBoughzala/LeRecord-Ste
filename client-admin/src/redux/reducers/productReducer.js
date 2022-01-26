@@ -77,6 +77,7 @@ export const detailsProduct = productId => async dispatch => {
         type: GETP_DETAILS_S,
         payload: res.data
     });
+    console.log(res);
   } catch (error) {
     dispatch({
       type: PRODUCT_ERR,
