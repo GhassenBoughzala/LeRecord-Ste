@@ -12,7 +12,7 @@ const CatList = (props) => {
 
   useEffect(() => {
     props.All();  
-  });
+  }, []);
 
   const onDLP = (id) => {
     const onSuccess = () => {
