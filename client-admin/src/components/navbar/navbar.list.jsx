@@ -23,9 +23,11 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
         link='/home' 
         name='Accueil' 
         listStyle={isActive(history, '/')} />
-      <NavItem 
+      <Button 
+        isButton={false}
+        moreStyle='hover:text-blue-500'
         href='/magasin' 
-        name='Magasin'/>
+        title='Magasin'/>
       {isAuth && (
         <>
           <Button

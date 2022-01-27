@@ -1,10 +1,8 @@
 import React, { useEffect, useState, Fragment } from "react";
 import "./productList.css";
 import Sidebar from "../../../components/sidebar/Sidebar";
-import { toast } from 'react-toastify';
 import { connect } from "react-redux";
 import { getAll, deleteProduct } from "../../../redux/reducers/productReducer";
-import ProductDetails from "../product/Product"
 import NewProduct from "../newProduct/NewProduct";
 import { Link } from "react-router-dom";
 
@@ -78,7 +76,7 @@ const ProductList = (props) => {
                     </div>
                 </td>
                 <td className="widgetLgAmount">{product.category.name}</td>
-                <td className="widgetLgAmount">{product.fournisseur.title}</td>
+                <td className="widgetLgAmount item-center">{product.fournisseur.title}</td>
                 <td className="py-3 px-6 text-center">
                                     <div className="flex item-center justify-center">  
                                         <div onClick={() => setCurrentId(product._id)}

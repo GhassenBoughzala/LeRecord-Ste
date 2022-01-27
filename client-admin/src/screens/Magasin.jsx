@@ -13,7 +13,7 @@ const Magazin = (props) => {
 
     useEffect(() => {
         props.AllProducts();
-      }, []);
+      }, [props]);
 
 
     return (
@@ -25,8 +25,9 @@ const Magazin = (props) => {
         <div className="max-w-6xl px-12 mx-auto text-center">
             <div className="space-y-12 md:text-center">
                 <div className="max-w-3xl mb-20 space-y-5 sm:mx-auto sm:space-y-4">
-                    <h2 className="relative text-4xl font-extrabold tracking-tight sm:text-5xl">Our Awesome Team</h2>
-                    <p className="text-xl text-gray-500">We take pride in the people we work with. This is because we all collectively help each other become more awesome every day.</p>
+                    <h2 className="relative text-4xl font-extrabold tracking-tight sm:text-5xl">Catalogue</h2>
+                    <p className="text-xl text-gray-500"> Notre gamme comprends une large ligne de produits de confection ,dont vous trouverez les détails dans ce catalogue, étignettes de lancements, les étigueteuses, fer à repasser, une diversité des ciseaux, l’huile blanche, détacher...       
+                        </p>
                 
                     <div className="flex bg-gray-100 p-4 w-72 space-x-4 rounded-lg">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 opacity-30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -58,20 +59,19 @@ const Magazin = (props) => {
                                 <img className="w-40 h-40 mb-6" src={`/uploads/${product.photo}`} alt={product.photo}></img>
                                 <h2 className="text-lg font-medium">{product.name}</h2>
                                 <p className="font-medium text-blue-500">{product.shipping}</p>
+                                <p className="font-medium text-gray-400">{product.category.name}</p>
                             </div>
 
-                            <div className="flex border-t border-gray-200 divide-x divide-gray-200">
-                                
+                            <div className="flex border-t border-gray-200 divide-x divide-gray-200">                     
                                 
                                     <Link to={`/produit/${product._id}`} className="flex-1 block p-3 text-center text-gray-300 transition duration-200 ease-out hover:bg-blue-100 hover:text-blue-500">
                                         <i className="far fa-eye text-xl"></i>
-                                    </Link>
-                                
-                               
-                            
+                                    </Link>  
+                                     
                                 <a href="#_" className="flex-1 block p-3 text-center text-gray-300 transition duration-200 ease-out hover:bg-blue-100 hover:text-blue-500">
                                     <i className="fas fa-cart-plus text-xl "></i>
                                 </a>
+
                             </div>
                         </div>
                         </Fragment>
@@ -92,7 +92,7 @@ const Magazin = (props) => {
 
 const mapStateToProps = (state) => ({
     List: state.productsReducer.products,
-    //ListCat: state.catReducer.categories,
+    Cat: state.catReducer.categories,
     isAuth: state.auth.isAuthenticated,
   });
   

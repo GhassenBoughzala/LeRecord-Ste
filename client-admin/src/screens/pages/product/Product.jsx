@@ -20,7 +20,7 @@ const ProductDetails = ({ ...props }) => {
 
   useEffect(() => {
     props.All();
-  });
+  }, []);
 
   useEffect(() => {
     if (props.currentId !== 0) {

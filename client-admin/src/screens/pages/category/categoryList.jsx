@@ -1,6 +1,5 @@
 import React, { useEffect, useState, Fragment } from "react";
 import Sidebar from "../../../components/sidebar/Sidebar";
-import { toast } from 'react-toastify';
 import { connect } from "react-redux";
 import { getAllCat, deleteCat } from "../../../redux/reducers/catReducer";
 import AddCat from "./newCategory";

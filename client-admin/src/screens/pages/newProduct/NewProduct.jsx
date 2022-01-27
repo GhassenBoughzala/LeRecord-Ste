@@ -80,11 +80,11 @@ const Add = ({ ...props }) => {
 
     }else { toast.error('Warning ! '); }
   };
-
+/*
   const handlePhoto = (e) => {
     setProduct({...product, photo: e.target.files[0]});
   }
-
+*/
   const reset = (e) => { resetForm(); }
 
   return (
@@ -139,60 +139,6 @@ const Add = ({ ...props }) => {
               </div>
             </div>
 
-            <div className="flex flex-wrap">
-              <div className="w-full lg:w-6/12 px-4">
-                <div className="relative w-full mb-3">
-
-                  <br></br>
-                  <label
-                    className="block uppercase text-gray-700 text-xs font-bold mb-2"
-                    htmlFor="grid-password">
-                    Catégorie
-                  </label>
-
-                  <select name="category" 
-                          onChange={handleInputChange}
-                          value={values.category.name}
-                          className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"> 
-                          <option value="">{values.category.name}</option>
-
-                      {props.ListCat.map((cat,index) => {
-                        return ( 
-                          <Fragment key={index}>  
-                            <option value={cat._id}>{cat.name}</option>
-                          </Fragment>
-                        );
-                      })}
-                  </select>  
-
-                </div>
-              </div>
-              <div className="w-full lg:w-6/12 px-4">
-                <br></br>
-                <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-gray-700 text-xs font-bold mb-2"
-                    htmlFor="grid-password">
-                    Fournisseur
-                  </label>
-                    
-                  <select name="fournisseur" 
-                          onChange={handleInputChange}
-                          value={values.fournisseur.title}
-                          className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150">
-                      <option value="">{values.fournisseur.title}</option>
-                      {props.ListFou.map((f, index) => {
-                        return ( 
-                          <Fragment key={index}>  
-                            <option value={f._id}>{f.title}</option>
-                          </Fragment>
-                        );
-                      })}
-                  </select>  
-                  
-                </div>
-              </div>
-            </div>
 
             <div className="flex flex-wrap">
               <div className="w-full lg:w-6/12 px-4">
@@ -305,3 +251,61 @@ const mapActionToProps = {
 };
 
 export default connect(mapStateToProps, mapActionToProps)(Add);
+
+/*
+
+            <div className="flex flex-wrap">
+              <div className="w-full lg:w-6/12 px-4">
+                <div className="relative w-full mb-3">
+
+                  <br></br>
+                  <label
+                    className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                    htmlFor="grid-password">
+                    Catégorie
+                  </label>
+
+                  <select name="category" 
+                          onChange={handleInputChange}
+                          value={values.category.name}
+                          className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"> 
+                          <option value="">{values.category.name}</option>
+
+                      {props.ListCat.map((cat,index) => {
+                        return ( 
+                          <Fragment key={index}>  
+                            <option value={cat._id}>{cat.name}</option>
+                          </Fragment>
+                        );
+                      })}
+                  </select>  
+
+                </div>
+              </div>
+              <div className="w-full lg:w-6/12 px-4">
+                <br></br>
+                <div className="relative w-full mb-3">
+                  <label
+                    className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                    htmlFor="grid-password">
+                    Fournisseur
+                  </label>
+                    
+                  <select name="fournisseur" 
+                          onChange={handleInputChange}
+                          value={values.fournisseur.title}
+                          className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150">
+                      <option value="">{values.fournisseur.title}</option>
+                      {props.ListFou.map((f, index) => {
+                        return ( 
+                          <Fragment key={index}>  
+                            <option value={f._id}>{f.title}</option>
+                          </Fragment>
+                        );
+                      })}
+                  </select>  
+                  
+                </div>
+              </div>
+            </div>
+*/
