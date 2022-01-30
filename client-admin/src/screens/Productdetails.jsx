@@ -44,29 +44,43 @@ const ProductDetails = ({product, match, isLoading, isAuth}) => {
                     </div>
                     <h1 className="text-4xl font-bold leading-none lg:text-5xl xl:text-6xl"><a href="#_">{product.name}</a></h1>
                     <p className="text-sm text-gray-700">Quantité : {product.quantity} </p>
-                    <p className="text-sm text-gray-700">Description: {product.description} </p>
-
+                    <p className="text-sm text-gray-700">Description: {product.description} </p>                   
+              
                     <div className="flex flex-wrap">
-                    <div className="flex border-blue-200">                     
-                            <a href='/magasin'>
+                        {product.quantity > 0 &&   (
+                          <div className="flex border-blue-200">                     
+                            <select className="flex-1 border pl-3 pr-3 py-3 lg:rounded-lg block p-3 text-center text-blue-500 transition duration-200 ease-out hover:bg-blue-100 hover:text-blue-500"
+                                    value={Qty} 
+                                    onChange= {e => setQt( e.target.value )}>
+                                    {
+                                        [...Array(product.quantity).keys()].map( x => (
+                                            <option key={x+1} value={x + 1}>{x+1}</option>
+                                        ))
+                                    }
+                            </select>           
+                          </div>
+                            )}
+                        <div className="flex pl-3 border-blue-200"> 
+                            { isAuth && (
+                                
+                                <a href='/magasin'>
                                 <button type='submit'
                                     className="flex-1 border pl-3 pr-3 py-3 lg:rounded-lg block p-3 text-center text-blue-500 transition duration-200 ease-out hover:bg-blue-100 hover:text-blue-500"
-                                    > Retour
+                                    > Ajouter au Panier
                                 </button>
-                            </a>   
-                    </div>
-                    <div className="flex pl-3 border-blue-200"> 
-                        { isAuth && (
-                            
-                            <a href='/magasin'>
-                            <button type='submit'
-                                className="flex-1 border pl-3 pr-3 py-3 lg:rounded-lg block p-3 text-center text-blue-500 transition duration-200 ease-out hover:bg-blue-100 hover:text-blue-500"
-                                > Ajouter au Panier
-                            </button>
-                            </a>  
+                                </a>  
 
-                        )}                           
+                            )}                           
+                        </div>
                     </div>
+
+                    <div className="flex border-blue-200">                     
+                                <a href='/magasin'>
+                                    <button type='submit'
+                                        className="flex-1 border pl-3 pr-3 py-3 lg:rounded-lg block p-3 text-center text-blue-500 transition duration-200 ease-out hover:bg-blue-100 hover:text-blue-500"
+                                        > Retour
+                                    </button>
+                                </a>   
                     </div>
                     
                     
