@@ -1,9 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState, Fragment } from "react";
 import Container from '../components/container/container.component'
 import Footer from '../components/home/Footer'
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { getAll } from "../redux/reducers/productReducer";
+import Pagination from "../components/home/Pagination"; 
 //import { getAllCat } from "../redux/reducers/catReducer";
 
 
@@ -11,10 +13,21 @@ const Magazin = (props) => {
 
     const [Search, setSearch] = useState('');
 
-    useEffect(() => {
-        props.AllProducts();
-      }, [props]);
+    const [posts, setPosts] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage] = useState(3);
 
+    useEffect(() => {
+        setPosts(props.AllProducts()) 
+      }, []);
+
+    // Get current posts
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentPosts = posts.toString().slice(indexOfFirstPost, indexOfLastPost);
+
+    // Change page
+    const paginate = pageNumber => setCurrentPage(pageNumber);
 
     return (
 		<>
@@ -42,7 +55,7 @@ const Magazin = (props) => {
 
             </div>
 
-            <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
+            <div posts={currentPosts} className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
                 {props.List.filter((product) => {
                     if(Search === ""){
                         return product
@@ -79,6 +92,11 @@ const Magazin = (props) => {
                     })
                 }
             </div>
+            <Pagination
+                postsPerPage={postsPerPage}
+                totalPosts={posts.length}
+                paginate={paginate}
+            />
         </div>
         </section>
 
