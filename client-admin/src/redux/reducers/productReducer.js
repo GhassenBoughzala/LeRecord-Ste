@@ -1,3 +1,4 @@
+/* eslint-disable no-fallthrough */
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { URLDevelopment } from '../../helpers/url';

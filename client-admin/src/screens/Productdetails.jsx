@@ -6,7 +6,7 @@ import { detailsProduct } from "../redux/reducers/productReducer";
 import { Link } from "react-router-dom";
 import './loading.css';
 
-const ProductDetails = ({props,product, match, isLoading, isAuth}) => {
+const ProductDetails = ({props, product, match, isLoading, isAuth}) => {
 
     
     const {productId} = match.params;

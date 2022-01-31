@@ -1,4 +1,5 @@
-import React, { useEffect, useState, Fragment } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect } from "react";
 import "./newProduct.css";
 import { toast } from 'react-toastify';
 import { connect } from "react-redux";
@@ -30,7 +31,7 @@ const Add = ({ ...props }) => {
     resetForm,
   } = useForm(initialFieldValues, props.setCurrentId);
 
-  const [product, setProduct] = useState(initialFieldValues);
+  //const [product, setProduct] = useState(initialFieldValues);
 
   useEffect(() => {
     props.All();

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState, Fragment } from "react";
 import "./productList.css";
 import Sidebar from "../../../components/sidebar/Sidebar";
