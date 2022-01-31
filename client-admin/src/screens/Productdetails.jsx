@@ -3,9 +3,10 @@ import { useDispatch, connect } from 'react-redux';
 import Container from '../components/container/container.component'
 import Footer from '../components/home/Footer'
 import { detailsProduct } from "../redux/reducers/productReducer";
+import { Link } from "react-router-dom";
 import './loading.css';
 
-const ProductDetails = ({product, match, isLoading, isAuth}) => {
+const ProductDetails = ({props,product, match, isLoading, isAuth}) => {
 
     
     const {productId} = match.params;
@@ -13,11 +14,14 @@ const ProductDetails = ({product, match, isLoading, isAuth}) => {
     const [Qty, setQt] = useState(1);
    
     useEffect(() => {  
-       
         dispatch(detailsProduct(productId)) ;
-
       }, [ dispatch,productId ]);
-      
+
+      /*
+    const addToCartHandler = () => {
+        props.history.push(`/cart/${productId}?qty=${Qty}`);
+      };
+      */
 
     return (
 		<>
@@ -31,7 +35,7 @@ const ProductDetails = ({product, match, isLoading, isAuth}) => {
                  
                 <div className="bg-cover lg:rounded-lg  md:w-1/2">
                    <div className="box-border relative w-full max-w-md px-4 mt-5 mb-4 -ml-5 item-center bg-no-repeat bg-contain border-solid md:ml-0 md:mt-0 md:max-w-none lg:mb-0 lg:max-w-1/2 xl:pl-10">
-                       <img className="w-40 h-40 mb-6 animate" src={`/uploads/${product.photo}`} alt={product.photo}></img>
+                       <img className="w-40 h-40 mb-6 animate" src={`/uploads/${product.photo}`} alt={product.photo} ></img>
                    </div>
                 </div>
 
@@ -63,12 +67,13 @@ const ProductDetails = ({product, match, isLoading, isAuth}) => {
                         <div className="flex pl-3 border-blue-200"> 
                             { isAuth && (
                                 
-                                <a href='/magasin'>
-                                <button type='submit'
-                                    className="flex-1 border pl-3 pr-3 py-3 lg:rounded-lg block p-3 text-center text-blue-500 transition duration-200 ease-out hover:bg-blue-100 hover:text-blue-500"
-                                    > Ajouter au Panier
-                                </button>
-                                </a>  
+                                <Link to={`/cart/${product._id}?qty=${Qty}`} >   
+                                    <button type='submit'
+                                        //onClick={addToCartHandler}
+                                        className="flex-1 border pl-3 pr-3 py-3 lg:rounded-lg block p-3 text-center text-blue-500 transition duration-200 ease-out hover:bg-blue-100 hover:text-blue-500"
+                                        > Ajouter au Panier
+                                    </button>
+                                </Link>  
 
                             )}                           
                         </div>

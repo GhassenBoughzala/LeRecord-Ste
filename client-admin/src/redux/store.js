@@ -6,6 +6,7 @@ import auth from './reducers/authReducer'
 import userReducer from './reducers/userReducer'
 import catReducer from './reducers/catReducer'
 import forReducer from './reducers/forReducer'
+import cart from './reducers/cartReducer'
 
 const intialState = {}
 
@@ -16,7 +17,8 @@ const rootReducer = combineReducers ({
     productsReducer,
     userReducer,
     catReducer,
-    forReducer
+    forReducer,
+    cart,
 });
 
 const store = createStore(

@@ -18,6 +18,7 @@ import CategoriesList from './screens/pages/category/categoryList';
 import FournisseursList from './screens/pages/fournisseur/fournisseurList';
 import Magasin from './screens/Magasin';
 import Details from './screens/Productdetails';
+import Cart from './screens/Cart';
 
 const Routes = () => {
   return (
@@ -34,6 +35,7 @@ const Routes = () => {
         <Route exact path='/login' component={Login}/>
         <Route exact path='/magasin' component={Magasin}/>
         <Route exact path='/produit/:productId' component={Details}/>
+        <Route exact path='/cart/:productId?' component={Cart}/>
         <UserRoute exact path='/dashboard/user' component={UserProfile}/>
 
         <PrivateRoute exact path='/dashboard/admin' component={AdminHome}/>
