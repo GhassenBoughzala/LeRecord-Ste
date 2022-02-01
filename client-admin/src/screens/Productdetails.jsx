@@ -51,7 +51,7 @@ const ProductDetails = ({props, product, match, isLoading, isAuth}) => {
                     <p className="text-sm text-gray-700">Description: {product.description} </p>                   
               
                     <div className="flex flex-wrap">
-                        {product.quantity > 0 &&   (
+                        {product.quantity > 0 &&  isAuth && (
                           <div className="flex border-blue-200">                     
                             <select className="flex-1 border pl-3 pr-3 py-3 lg:rounded-lg block p-3 text-center text-blue-500 transition duration-200 ease-out hover:bg-blue-100 hover:text-blue-500"
                                     value={Qty} 
