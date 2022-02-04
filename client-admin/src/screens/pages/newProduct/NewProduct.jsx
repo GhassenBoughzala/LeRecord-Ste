@@ -1,10 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
 import "./newProduct.css";
 import { toast } from 'react-toastify';
 import { connect } from "react-redux";
 import useForm from "../useForm";
-import { Publish } from "@material-ui/icons";
 import {addProduct, updateProduct} from "../../../redux/reducers/productReducer";
+import { getAllCat } from "../../../redux/reducers/catReducer";
+import { getAllFou  } from "../../../redux/reducers/forReducer";
+
 
 const initialFieldValues = {
     name:"",
@@ -18,6 +21,23 @@ const initialFieldValues = {
 }
 
 const Add = ({ ...props }) => {
+
+  var {
+    values,
+    setValues,
+    errors,
+    setErrors,
+    handleInputChange,
+    resetForm,
+  } = useForm(initialFieldValues, props.setCurrentId);
+
+  //const [product, setProduct] = useState(initialFieldValues);
+
+  useEffect(() => {
+    props.All();
+    props.AllF();
+  }, []);
+
   useEffect(() => {
     if (props.currentId !== 0) {
       setValues({
@@ -43,42 +63,30 @@ const Add = ({ ...props }) => {
     return Object.values(temp).every((p) => p === "");
   };
 
-  var {
-    values,
-    setValues,
-    errors,
-    setErrors,
-    handleInputChange,
-    resetForm,
-  } = useForm(initialFieldValues, props.setCurrentId);
-
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault();    
     const onSuccess = () => {
-      window.location.reload();
       resetForm();
     };
-    if (validate()) {
-      if (props.currentId === 0){
 
-          props.createP(values, onSuccess);
-          console.log(props)
-          toast.success('Product added successfully');
-          resetForm();
-          window.location.reload();
-       
-      } else {
-        toast.info('Product updated successfully');
-        props.updateP(props.currentId, values, onSuccess);
-        
+    if (validate()) {
+      if (props.currentId !== 0){
+          
+          props.updateP(props.currentId, values, onSuccess);
+          toast.info('Mis à jour avec succés');
+
+      } else {  
+        toast.error('Erreur');
       }   
 
-    }else { toast.warn('Warning ! '); }
+    }else { toast.error('Warning ! '); }
   };
-
-  const reset = (e) => {
-    resetForm();
+/*
+  const handlePhoto = (e) => {
+    setProduct({...product, photo: e.target.files[0]});
   }
+*/
+  const reset = (e) => { resetForm(); }
 
   return (
     <>
@@ -86,7 +94,7 @@ const Add = ({ ...props }) => {
         <div className="rounded-t bg-white mb-0 px-6 py-6">
           <div className="text-center flex justify-between">
             <h6 className="text-gray-800 text-xl font-bold">
-              Ajouter ou Editer  
+              Editer 
             </h6>
           </div>
         </div>
@@ -110,6 +118,7 @@ const Add = ({ ...props }) => {
                     className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
                   />
                 </div>
+                
               </div>
               <div className="w-full lg:w-6/12 px-4">
                 <br></br>
@@ -130,46 +139,6 @@ const Add = ({ ...props }) => {
                 </div>
               </div>
             </div>
-
-            <div className="flex flex-wrap">
-              <div className="w-full lg:w-6/12 px-4">
-                <div className="relative w-full mb-3">
-                  <br></br>
-                  <label
-                    className="block uppercase text-gray-700 text-xs font-bold mb-2"
-                    htmlFor="grid-password">
-                    Catégorie
-                  </label>
-                  <input
-                    type="text"
-                    name="category"
-                    value={values.category}
-                    onChange={handleInputChange}
-                    className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
-                  />                 
-                </div>
-              </div>
-              <div className="w-full lg:w-6/12 px-4">
-                <br></br>
-                <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-gray-700 text-xs font-bold mb-2"
-                    htmlFor="grid-password">
-                    Fournisseur
-                  </label>
-                    
-                  <input
-                    type="text"
-                    name="fournisseur"
-                    value={values.fournisseur}
-                    onChange={handleInputChange}
-                    className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
-                  />
-                  
-                </div>
-              </div>
-            </div>
-
 
 
             <div className="flex flex-wrap">
@@ -201,14 +170,15 @@ const Add = ({ ...props }) => {
                     Status
                   </label>
 
-                  <input
-                    type="text"
-                    placeholder="En Stock"
-                    name="shipping"
-                    value={values.shipping}
-                    onChange={handleInputChange}
-                    className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
-                  />
+                  <select name="shipping" 
+                          value={values.shipping}
+                          onChange={handleInputChange}
+                          className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150">
+                      <option value={values.shipping}>{values.shipping}</option>
+                      <option value="En stock">En Stock</option>
+                      <option value="Hors stock">Hors Stock</option>
+                      
+                  </select>  
                 </div>
               </div>
             </div>
@@ -233,32 +203,6 @@ const Add = ({ ...props }) => {
               </div>
             </div>
 
-            <div className="flex flex-wrap">
-              <div className="w-full lg:w-12/12 px-4">
-                <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-gray-700 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
-                  >
-                    Photo
-                  </label>
-                  <div className="productUpload">
-                    <img alt="" className="productUploadImg" />
-                    <label for="file">
-                      <Publish />
-                    </label>
-                    <input 
-                    type="file" 
-                    name="photo"
-                    value={values.photo} 
-                    onChange={handleInputChange}
-                    id="file" 
-                    style={{ display: "none" }} />
-                  </div>
-
-                </div>
-              </div>
-            </div>
 
             <div className="flex flex-wrap">
               <div className="w-full lg:w-6/12 px-4">
@@ -279,7 +223,7 @@ const Add = ({ ...props }) => {
                     onClick={() => reset()}
                     className="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-1 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                   >
-                    Reset
+                    Annuler
                   </button>
                 </div>
               </div>
@@ -296,99 +240,73 @@ const Add = ({ ...props }) => {
 
 const mapStateToProps = (state) => ({
     List: state.productsReducer.products,
+    ListCat: state.catReducer.categories,
+    ListFou: state.forReducer.fournisseurs,
 });
 
 const mapActionToProps = {
+  All: getAllCat,
+  AllF: getAllFou,
   createP: addProduct,
   updateP: updateProduct,
 };
 
 export default connect(mapStateToProps, mapActionToProps)(Add);
 
-
 /*
-export default function NewProduct() {
 
+            <div className="flex flex-wrap">
+              <div className="w-full lg:w-6/12 px-4">
+                <div className="relative w-full mb-3">
 
-  
-  const [inputs, setInputs] = useState({});
-  const [file, setFile] = useState(null);
-  const [cat, setCat] = useState([]);
-  const dispatch = useDispatch();
+                  <br></br>
+                  <label
+                    className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                    htmlFor="grid-password">
+                    Catégorie
+                  </label>
 
-  const handleChange = (e) => {
-    setInputs((prev) => {
-      return { ...prev, [e.target.name]: e.target.value };
-    });
-  };
-  const handleCat = (e) => {
-    setCat(e.target.value.split(","));
-  };
+                  <select name="category" 
+                          onChange={handleInputChange}
+                          value={values.category.name}
+                          className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"> 
+                          <option value="">{values.category.name}</option>
 
+                      {props.ListCat.map((cat,index) => {
+                        return ( 
+                          <Fragment key={index}>  
+                            <option value={cat._id}>{cat.name}</option>
+                          </Fragment>
+                        );
+                      })}
+                  </select>  
 
-  return (
-    <div className="newProduct">
-      <h1 className="addProductTitle">New Product</h1>
-      <form className="addProductForm">
-        <div className="addProductItem">
-          <label>Image</label>
-          <input
-            type="file"
-            id="file"
-            onChange={(e) => setFile(e.target.files[0])}
-          />
-        </div>
-        <div className="addProductItem">
-          <label>Title</label>
-          <input
-            name="title"
-            type="text"
-            placeholder=""
-            onChange={handleChange}
-          />
-        </div>
-        <div className="addProductItem">
-          <label>Description</label>
-          <input
-            name="desc"
-            type="text"
-            placeholder="description..."
-            onChange={handleChange}
-          />
-        </div>
-        <div className="addProductItem">
-          <label>Price</label>
-          <input
-            name="price"
-            type="number"
-            placeholder="100"
-            onChange={handleChange}
-          />
-        </div>
-        <div className="addProductItem">
-          <label>Categories</label>
-          <select name="inStock" onChange={handleCat}>
-            <option value="Cat-1"></option>
-            <option value="Cat-1">Cat 1</option>
-            <option value="Cat-2">Cat 2</option>
-          </select>
-        </div>
-        <div className="addProductItem">
-          <label>Stock</label>
-          <select name="inStock" onChange={handleChange}>
-            <option value="true">Yes</option>
-            <option value="false">No</option>
-          </select>
-        </div>
-        <button onClick={handleClick} className="addProductButton">
-          Create
-        </button>
-      </form>
-    </div>
-    
-  );
-  // <NotificationContainer/>
-}
-
-
+                </div>
+              </div>
+              <div className="w-full lg:w-6/12 px-4">
+                <br></br>
+                <div className="relative w-full mb-3">
+                  <label
+                    className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                    htmlFor="grid-password">
+                    Fournisseur
+                  </label>
+                    
+                  <select name="fournisseur" 
+                          onChange={handleInputChange}
+                          value={values.fournisseur.title}
+                          className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150">
+                      <option value="">{values.fournisseur.title}</option>
+                      {props.ListFou.map((f, index) => {
+                        return ( 
+                          <Fragment key={index}>  
+                            <option value={f._id}>{f.title}</option>
+                          </Fragment>
+                        );
+                      })}
+                  </select>  
+                  
+                </div>
+              </div>
+            </div>
 */

@@ -3,75 +3,134 @@ const router = express.Router();
 const Product = require('../models/Product');
 const auth = require('../middleware/auth');
 const adminAuth = require('../middleware/adminAuth');
-const formidable = require('formidable');
-const fs = require('fs');
 const productById = require('../middleware/productById');
-const _ = require('lodash');
-const { send } = require('process');
 const { validationResult } = require('express-validator');
+const multer = require('multer');
+const { v4: uuidv4 } = require('uuid');
+let path = require('path');
 
+
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+      cb(null, path.resolve(__dirname + '../../../') + '/client-admin/public/uploads');
+  },
+  filename: function(req, file, cb) {   
+      cb(null, uuidv4() + '-' + Date.now() + path.extname(file.originalname));
+  }
+});
+
+const fileFilter = (req, file, cb) => {
+  const allowedFileTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+  if(allowedFileTypes.includes(file.mimetype)) {
+      cb(null, true);
+  } else {
+      cb(null, false);
+  }
+}
+
+const deleteImages = (images, mode)  => {
+    var basePath = path.resolve(__dirname + '../../../') + '/client-admin/public/uploads';
+    console.log(basePath);
+    for (var i = 0; i < images.length; i++) {
+      let filePath = ''
+      if (mode == 'file') {
+        filePath = basePath + `${images[i].filename}`;
+      } else {
+        filePath = basePath + `${images[i]}`;
+      }
+      console.log(filePath);
+      if (fs.existsSync(filePath)) {
+        console.log("Exists image");
+    }
+      fs.unlink(filePath, (err) => {
+        if (err) {
+          return err;
+        }
+      });
+    }
+  }
+
+let upload = multer({ storage, fileFilter });
 
 // @route   Post api/product/
 // @desc    Create a Product
 // @access  Private Admin
-router.post('/', auth, adminAuth, async (req, res) => {
+router.post('/', auth, adminAuth,
+                upload.any(), async (req, res) => {
 
     const errors = validationResult(req);
     if(!errors.isEmpty()){
-      return res.status(400).json({ error: errors.array()[0].msg })
+      return res.status(402).json({ error: errors.array()[0].msg })
     }
-    const {
-        name,
-        description,
-        price,
-        category,
-        fournisseur,
-        quantity,
-        photo,
-        shipping
-    } = req.body;
 
-    try {
-        let pp = await Product.findOne({
-            name,
-            description,
-            price,
-            category,
-            fournisseur,
-            quantity,
-            photo,
-            shipping
-        })
-    
-        if(pp){
-          return res.status(403).json({
-            error: 'Already exist'
-          })
+    let { name,description, category, fournisseur, price, quantity, shipping,} = req.body;
+    let images = req.files;
+
+    if( !name | !description | !category | !fournisseur | !price | !quantity | !shipping)
+        {
+            Product.deleteImages(images, 'file');
+            return res.json({ error: "All filled must be required"})
         }
-    
-        const newP = new Product({
-            name,
-            description,
-            price,
-            category,
-            fournisseur,
-            quantity,
-            photo,
-            shipping})
-        pp = await newP.save()
+
+        else if (name.length > 255 || description.length > 3000){
+            
+            return res.json({
+                error: "Name 255 & Description must not be 3000 charecter long",
+              });
+        } else {
+            try{
+                let allImages = [];
+                for (const img of images){
+                    allImages.push(img.filename);
+                }
+                let newProduct = new Product({
+                    photo: allImages,
+                    name,
+                    description,
+                    category,
+                    fournisseur,
+                    price,
+                    quantity,
+                    shipping,
+                });
+                let save = newProduct.save();
+                console.log(newProduct);
+                console.log(allImages);
+                if(save) {
+                    return res.json({ success: "Product created successfully"  })
+                    
+                }
+            }catch (err){
+                console.log(err);
+            }
+        }
+
+
+/*
+    const newProduct = new Product({
+      name: req.body.name,
+      description: req.body.description,
+      category: req.body.category,
+      fournisseur: req.body.fournisseur,
+      price: req.body.price,
+      quantity: req.body.quantity,
+      photo: req.file.filename,
+      shipping: req.body.shipping
+    });
+      try {
+        newProduct.save()
+        .then(() => res.json("P ++"))
+        console.log("PRODUCT IN BD !!")
         
-        console.log("+P");
-            res.json({
-                message: `${pp.name} IN BD !`,
-            });
-    
       } catch (error) {
-        console.log(error);
-        res.status(500).send('Server Error')
+        console.log(error)
+        
       }
 
-
+*/
 });
+
+
 
 
 // @route   Delete api/product/productId
@@ -84,50 +143,53 @@ router.delete('/:productId', auth, adminAuth, productById, async (req, res) => {
         res.json({
             message: `${deletedProduct.name} deleted successfully`,
         });
+        console.log("-P")
     } catch (error) {
         console.log(error);
         res.status(500).send('Server error');
     }
 });
 
-// @route   Put api/product/:productId
-// @desc    Update Single product
-// @access  Private Admin
-router.put('/:productId', auth, adminAuth, productById, async (req, res) => {
-        let product = req.product;
-        const {
-            name,
-            description,
-            price,
-            category,
-            fournisseur,
-            quantity,
-            photo,
-            shipping
-        } = req.body;
+//Update Product
+router.put('/:productId', 
+            upload.any(), 
+            auth, adminAuth, productById,
+            async (req, res) => {
 
-        if (name) product.name = name.trim();
-        if (description) product.description = description.trim();
-        if (price) product.price = price.toString().trim();
-        if (category) product.category = category.trim();
-        if (fournisseur) product.fournisseur = fournisseur.trim();
-        if (quantity) product.quantity = quantity.toString().trim();
-        if (photo) product.photo = photo.trim();
-        if (shipping) product.shipping = shipping.trim();
+                let product = req.product;
+                const {
+                    name,
+                    description,
+                    price,
+                    //category,
+                    //fournisseur,
+                    quantity,
+                    photo,
+                    shipping
+                } = req.body;
+        
+                if (name) product.name = name.trim();
+                if (description) product.description = description.trim();
+                if (price) product.price = price.toString().trim();
+                //if (category) product.category = category.toString().trim();
+                //if (fournisseur) product.fournisseur = fournisseur.toString().trim();
+                if (quantity) product.quantity = quantity.toString().trim();
+                if (shipping) product.shipping = shipping.trim();
+                if (photo) product.photo = photo.toString().trim();
+        
+                try {
 
-        try {
-            product = await product.save()
-            console.log("Update +")
-            res.json(product)
+                    product = await product.save()
+                    console.log("Update +")
+                    res.json(product)
+        
+                } catch (error) {
+                    console.log(error.message);
+                    res.status(500).send('Server error');
+                }
 
-        } catch (error) {
-            console.log(error.message);
-            res.status(500).send('Server error');
-        }
-
-});
-
-
+            });
+       
 
 // @route   Get api/product/:productId
 // @desc    Get a list of products  with filter 
@@ -250,7 +312,9 @@ router.get("/search", async (req, res) => {
         }
     }
     try {
-        let products = await Product.find(query).select('-photo');
+        let products = await Product.find({})            
+                                    .populate('category', 'name')
+                                    .populate('fournisseur', 'title');
         res.json(products);
 
     } catch (error) {
@@ -297,124 +361,6 @@ router.get('/:productId', productById, (req, res) => {
     return res.json(req.product);
 });
 
-
-// @desc    Get Product Stats
-// @access  Public
-router.get("/stats", async (req, res) => {
-
-  try {
-    const data = await Product.aggregate([
-      {
-        $project: {
-          quantity: { $quantity: "$quantity" },
-        },
-      },
-      {
-        $group: {
-          quantity: "$quantity",
-          total: { $sum: 1 },
-        },
-      },
-    ]);
-    console.log(data)
-    res.status(200).json(data)
-  } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
-  }
-});
-
 router.param("productId", productById);
 
 module.exports = router;
-
-
-/*
-const Product = require("../models/Product");
-const {
-  verifyToken,
-  verifyTokenAndAuthorization,
-  verifyTokenAndAdmin,
-} = require("../helpers/verifyToken");
-
-const router = require("express").Router();
-
-//CREATE
-router.post("/", verifyTokenAndAdmin, async (req, res) => {
-  const newProduct = new Product(req.body);
-    
-  try {
-    const savedProduct = await newProduct.save();
-    res.status(200).json(savedProduct);
-    console.log("Product +");
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
-//UPDATE
-router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
-  try {
-    const updatedProduct = await Product.findByIdAndUpdate(
-      req.params.id,
-      {
-        $set: req.body,
-      },
-      { new: true }
-    );
-    res.status(200).json(updatedProduct);
-    console.log("Product Updated");
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
-//DELETE
-router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
-  try {
-    await Product.findByIdAndDelete(req.params.id);
-    res.status(200).json("Product has been deleted...");
-    console.log("Product -");
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
-//GET PRODUCT
-router.get("/find/:id", async (req, res) => {
-  try {
-    const product = await Product.findById(req.params.id);
-    res.status(200).json(product);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
-//GET ALL PRODUCTS
-router.get("/", async (req, res) => {
-  const qNew = req.query.new;
-  const qCategory = req.query.category;
-  try {
-    let products;
-
-    if (qNew) {
-      products = await Product.find().sort({ createdAt: -1 }).limit(1);
-    } else if (qCategory) {
-      products = await Product.find({
-        categories: {
-          $in: [qCategory],
-        },
-      });
-    } else {
-      products = await Product.find();
-    }
-
-    res.status(200).json(products);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
-module.exports = router;
-
-*/

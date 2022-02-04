@@ -5,7 +5,6 @@ import { register } from '../redux/reducers/authReducer';
 import authSvg from '../assests/auth.svg';
 import { ToastContainer, toast } from 'react-toastify';
 import { Redirect } from 'react-router-dom';
-import Navbar from '../components/navbar/navbar.component';
 import './loading.css';
 
 const Register = ({ register, isAuth, isLoading, user }) => {
@@ -25,9 +24,12 @@ const Register = ({ register, isAuth, isLoading, user }) => {
     e.preventDefault();
     console.log('submit');
     if (password !== confirmPasswrod) {
-      toast.error('Passwords do not match');
+      toast.error('Les mots de passe ne correspondent pas !');
     } else {
-      register({ name, email, password });
+        register({ name, email, password });
+        toast.success('Enregistré avec succès');
+      
+      
     }
   };
 

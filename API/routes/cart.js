@@ -1,70 +1,117 @@
-const Cart = require("../models/Cart");
-const {
-  verifyToken,
-  verifyTokenAndAuthorization,
-  verifyTokenAndAdmin,
-} = require("../helpers/verifyToken");
+const Cart = require('../models/Cart')
+const Product = require('../models/Product')
+const auth = require('../middleware/auth');
+//const adminAuth = require('../middleware/adminAuth');
 
 const router = require("express").Router();
 
-//CREATE
-router.post("/", verifyToken, async (req, res) => {
-  const newCart = new Cart(req.body);
+function runUpdate(condition, updateData) {
+  return new Promise((resolve, reject) => {
+    //you update code here
 
-  try {
-    const savedCart = await newCart.save();
-    res.status(200).json(savedCart);
-    console.log("Cart +");
-  } catch (err) {
-    res.status(500).json(err);
-  }
+    Cart.findOneAndUpdate(condition, updateData, { upsert: true })
+      .then((result) => resolve())
+      .catch((err) => reject(err));
+  });
+}
+
+router.post('/addcart', auth, (req, res) => {
+
+    Cart.findOne({ user: req.body.user }).exec((error, cart) => {
+        if (error) return res.status(400).json({ error });
+        if (cart) {
+          //if cart already exists then update cart by quantity
+          let promiseArray = [];
+    
+          req.body.cartItems.forEach((cartItem) => {
+            const product = cartItem.product;
+            const item = cart.cartItems.find((c) => c.product == product);
+            let condition, update;
+            if (item) {
+              condition = { user: req.body.user, "cartItems.product": product };
+              update = {
+                $set: {
+                  "cartItems.$": cartItem,
+                },
+              };
+            } else {
+              condition = { user: req.body.user };
+              update = {
+                $push: {
+                  cartItems: cartItem,
+                },
+              };
+            }
+            promiseArray.push(runUpdate(condition, update));
+
+          });
+          Promise.all(promiseArray)
+            .then((response) => res.status(201).json({ response }))
+            .catch((error) => res.status(400).json({ error }));
+        } else {
+          //if cart not exist then create a new cart
+          const cart = new Cart({
+            user: req.body.user,
+            cartItems: req.body.cartItems,
+          });
+          console.log(cart)
+          cart.save((error, cart) => {
+            if (error) return res.status(400).json({ error });
+            if (cart) {
+              return res.status(201).json({ cart });
+            }
+          });
+        }
+      });
+
 });
 
-//UPDATE
-router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
-  try {
-    const updatedCart = await Cart.findByIdAndUpdate(
-      req.params.id,
+// new update remove cart items
+router.post('/removecart', auth, (req, res) => {
+  const { productId } = req.body.payload;
+  if (productId) {
+    Cart.update(
+      { user: req.body.user },
       {
-        $set: req.body,
-      },
-      { new: true }
-    );
-    res.status(200).json(updatedCart);
-  } catch (err) {
-    res.status(500).json(err);
+        $pull: {
+          cartItems: {
+            product: productId,
+          },
+        },
+      }
+    ).exec((error, result) => {
+      if (error) return res.status(400).json({ error });
+      if (result) { 
+        res.status(202).json({ result });
+      }
+    });
   }
 });
 
-//DELETE
-router.delete("/:id", verifyTokenAndAuthorization, async (req, res) => {
-  try {
-    await Cart.findByIdAndDelete(req.params.id);
-    res.status(200).json("Cart has been deleted...");
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+router.post('/', auth, async (req, res) => {
+    //const { user } = req.body.payload;
+    //if(user){
+    Cart.findOne({ user: req.body.user })
+      .populate("cartItems.product", "_id name price photo")
+      .exec((error, cart) => {
+        if (error) return res.status(400).json({ error });
+        if (cart) {
+          let cartItems = {};
+          cart.cartItems.forEach((item, index) => {
+            cartItems[item.product._id.toString()] = {
+              _id: item.product._id.toString(),
+              name: item.product.name,
+              photo: item.product.photo[0],
+              price: item.product.price,
+              qty: item.quantity,
+            };
+          });
+          res.status(200).json({ cartItems });
+        }
+      });
+    //}
+  });
 
-//GET USER CART
-router.get("/find/:userId", verifyTokenAndAuthorization, async (req, res) => {
-  try {
-    const cart = await Cart.findOne({ userId: req.params.userId });
-    res.status(200).json(cart);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
-// //GET ALL
-
-router.get("/", verifyTokenAndAdmin, async (req, res) => {
-  try {
-    const carts = await Cart.find();
-    res.status(200).json(carts);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
 
 module.exports = router;
+

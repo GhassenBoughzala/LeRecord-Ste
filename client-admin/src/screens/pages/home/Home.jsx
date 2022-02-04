@@ -5,13 +5,9 @@ import { URLDevelopment } from '../../../helpers/url';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Chart from "../../../components/chart/LineChart";
-//import FeaturedInfo from "../../../components/featuredInfo/FeaturedInfo";
-import WidgetSm from "../../../components/widgetSm/WidgetSm";
 import WidgetLg from "../../../components/widgetLg/WidgetLg";
 import { useEffect, useMemo, useState } from "react";
 import Sidebar from "../../../components/sidebar/Sidebar";
-
-
 
 const Home = () => {
 

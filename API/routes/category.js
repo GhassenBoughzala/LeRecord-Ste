@@ -18,9 +18,7 @@ router.post('/', [ check('name', 'Name is required').trim().not().isEmpty()]
 
     const { name } = req.body
     try {
-        let category = await Category.findOne({
-            name
-        })
+        let category = await Category.findOne({ name })
 
         if (category) {
             return res.status(403).json({
@@ -30,10 +28,11 @@ router.post('/', [ check('name', 'Name is required').trim().not().isEmpty()]
 
         const newCategory = new Category({ name })
         category = await newCategory.save()
+        console.log('CAT +')
         res.json(category)
     } catch (error) {
         console.log(error)
-        res.status(500).send('Server error')
+        
     }
 })
 

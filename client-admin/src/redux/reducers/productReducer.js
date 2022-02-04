@@ -1,10 +1,13 @@
+/* eslint-disable no-fallthrough */
 import axios from 'axios';
+import { toast } from 'react-toastify';
 import { URLDevelopment } from '../../helpers/url';
 
 //Types
 const GET_PRODUCTS_S = 'GET ALL PRODUCTS';
 const GET_PRODUCTS_F = 'GET PRODUCTS FAILURE';
-const GETP_DETAILS = 'GET PRODUCT DETAILS';
+const GETP_DETAILS = 'PRODUCT DETAILS REQ ID';
+const GETP_DETAILS_S = 'PRODUCT DETAILS SECC';
 const ADDP_S = 'ADD PRODUCT SUCCESS';
 const ADDP_F = 'ADD PRODUCT FAILURE';
 const PRODUCT_UPDATE = 'PRODUCT UPDATED';
@@ -14,6 +17,7 @@ const PRODUCT_ERR = 'PRODUCT ERROR';
 // Intial State
 const intialState = {
   products: [],
+  product: {},
   error: null,
 };
 
@@ -23,9 +27,10 @@ export default function (state = intialState, action){
 
   switch (action.type) {
 
-      case GET_PRODUCTS_F:
+      case GET_PRODUCTS_F: return {...state, error: true}
       case GET_PRODUCTS_S: return{...state, products:[...action.payload]}
-      case GETP_DETAILS: return{...state, products:[...action.payload]}
+      case GETP_DETAILS: return{...state, product:action.payload}
+      case GETP_DETAILS_S: return{ product:action.payload }
 
       case ADDP_S: return{...state, products:[...state.products,action.payload ]}
       case ADDP_F:
@@ -44,49 +49,45 @@ export default function (state = intialState, action){
 }
 
 export const Fetch = () => axios.get(`${URLDevelopment}/api/products/search`);
-export const GetDetails = (id) => axios.get(`${URLDevelopment}/api/products/related/` + id);
+export const GetDetails = (id) => axios.get(`${URLDevelopment}/api/products/` + id);
 export const AddP = () => axios.post(`${URLDevelopment}/api/products`);
 export const UP = (id, updatedP) => axios.put(`${URLDevelopment}/api/products/` + id, updatedP);
 export const DLP = (id) => axios.delete(`${URLDevelopment}/api/products/` + id);
 
 
 //Actions
-export const getAll =  () => (dispatch) => {
+export const getAll =  () => async(dispatch) => {
 
-  Fetch()
-  .then((res) => {
-    console.log(res);
+  Fetch().then((res) => {
     dispatch({
       type: GET_PRODUCTS_S,
       payload: res.data,
     });
   })
-  .catch(
-    (err) => 
-    console.log(err),
-    GET_PRODUCTS_F
-    );
-
+    .catch(
+      (err) => 
+        GET_PRODUCTS_F
+      );
 };
 
-export const getdetails =  async (id, product ,dispatch) => {
 
-  try{
-    // ID : 61c38a3a9494afc5b4d6a09b
-    const res = await axios.get(`${URLDevelopment}/api/products/related/${id}`);
-    dispatch({
-      type: GETP_DETAILS,
-      payload: res.data({id,product})
-    })
-    
+export const detailsProduct = productId => async dispatch => {
+  try {
+    const res = await axios.get(`${URLDevelopment}/api/products/${productId}`);
+    dispatch({ 
+        type: GETP_DETAILS_S,
+        payload: res.data
+    });
+    console.log(res);
   } catch (error) {
-    console.log(error.response)
     dispatch({
-      type: GET_PRODUCTS_F,
-    })
-    
+      type: PRODUCT_ERR,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
   }
-
 };
 
 export const createSuccess = (data) => {
@@ -109,25 +110,15 @@ export const addProduct = (product) => {
   };
 
   return(dispatch) => {
-
+    
     return axios
     .post(`${URLDevelopment}/api/products`, data)
     .then((res) => {
 
       const data = res.data;
       console.log(data);
-
-      const normalizedData = {
-        name: data.name,
-        description : data.description,
-        price : data.price,
-        quantity: data.quantity,
-        category: data.category,
-        fournisseur: data.fournisseur,
-        shipping: data.shipping,                 
-        photo: data.photo,
-      };
-      dispatch(createSuccess(normalizedData));
+      dispatch(createSuccess(data));
+      
 
     }).catch((err) => 
       console.log(err),
@@ -146,9 +137,10 @@ export const deleteProduct = async(id, dispatch) => {
       type: PRODUCT_DELETE,
       payload: id,
     });
+    toast.error(`Supprimé avec succès !`);
   }).catch((err) => 
-  console.log(err),
-  PRODUCT_ERR
+    console.log(err),
+    PRODUCT_ERR
   );
 
 };
@@ -162,7 +154,36 @@ export const updateProduct = (id, data) => (dispatch) => {
       payload: res.data,
     });
   }).catch((err) => 
-  console.log(err),
-  PRODUCT_ERR
+    console.log(err),
+    PRODUCT_ERR
   );
 };
+
+//--------EDIT-V2
+export const updateProductV2 = async (id, product) => {
+  console.log(product);
+  /* Most important part for updating multiple image  */
+  let formData = new FormData();
+  if (product.pEditImages) {
+    for (const file of product.pEditImages) {
+      formData.append("pEditImages", file);
+    }
+  }
+
+  formData.append("name", product.name);
+  formData.append("description", product.description);
+  formData.append("price", product.price);
+  formData.append("quantity", product.quantity);
+  formData.append("category", product.category._id);
+  formData.append("fournisseur", product.fournisseur._id);
+  formData.append("shipping", product.shipping);
+
+  try {
+    let res = UP(id,formData)
+    return res.data;
+
+  } catch (error) {
+    console.log(error);
+  }
+};
+

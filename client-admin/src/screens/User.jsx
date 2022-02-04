@@ -1,8 +1,6 @@
 import React, {} from 'react'
 import { connect } from 'react-redux';
 import UserSvg from '../assests/userprofil.svg';
-import { Redirect } from 'react-router-dom';
-import Navbar from '../components/navbar/navbar.component';
 
 const User = ({user, isAuth}) => {
 
@@ -31,14 +29,14 @@ const User = ({user, isAuth}) => {
                               </div>
                             </div>
             <form className='mx-auto max-w-xs relative '>
-                <h4 className='text-2xl xl:text-3xl font-normal'>Nom : 
-                    <span className='text-2xl xl:text-3xl font-semibold'> {user.name}</span>
+                <h4 className='text-2xl xl:text-xl font-normal'>Nom : 
+                    <span className='text-2xl xl:text-xl font-semibold'> {user.name}</span>
                 </h4>
-                <h4 className='text-2xl xl:text-3xl font-normal'>Email : 
-                    <span className='text-2xl xl:text-3xl font-semibold'> {user.email}</span>
+                <h4 className='text-2xl xl:text-xl font-normal'>Email : 
+                    <span className='text-2xl xl:text-xl font-semibold'> {user.email}</span>
                 </h4>
-                <h4 className='text-2xl xl:text-3xl font-normal'>Compte depuis : 
-                    <span className='text-2xl xl:text-3xl font-semibold'> {user.createdAt.substring(0, 10)}</span>
+                <h4 className='text-2xl xl:text-xl font-normal'>Compte depuis : 
+                    <span className='text-2xl xl:text-xl font-semibold'> {user.createdAt.substring(0, 10)}</span>
                 </h4>
 
             </form>

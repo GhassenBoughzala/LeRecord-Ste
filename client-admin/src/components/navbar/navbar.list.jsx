@@ -5,7 +5,6 @@ import NavItem from './navbar.item';
 import { toast } from 'react-toastify';
 import { connect } from 'react-redux';
 import { logout } from '../../redux/reducers/authReducer';
-import { Redirect } from 'react-router-dom';
 
 const NavbarList = ({ history, logout, isAuth, user }) => {
 
@@ -24,10 +23,11 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
         link='/home' 
         name='Accueil' 
         listStyle={isActive(history, '/')} />
-      <NavItem 
-        link='/' 
-        name='Magasin' 
-        listStyle={isActive(history, '/')} />
+      <Button 
+        isButton={false}
+        moreStyle='hover:text-blue-500'
+        href='/magasin' 
+        title='Magasin'/>
       {isAuth && (
         <>
           <Button
@@ -44,6 +44,11 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
             href='/dashboard/user'
             moreStyle='fas fa-user-circle fa hover:text-blue-500'
           />
+          <Button
+            isButton={false}
+            href='/cart'
+            moreStyle='fas fa-shopping-cart fa hover:text-blue-500'
+          />
         </>
       )}
       
@@ -58,11 +63,7 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
           />
         </>
       )}
-          <Button
-            isButton={false}
-            href='/cart'
-            moreStyle='fas fa-shopping-cart fa hover:text-blue-500'
-          />
+          
     </ul>
     </>
     

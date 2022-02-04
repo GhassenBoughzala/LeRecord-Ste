@@ -5,7 +5,6 @@ import {
   PermIdentity,
   Storefront,
   LocalShipping,
-  BarChart,
   Loyalty,
 } from "@material-ui/icons";
 import { Link } from "react-router-dom";
@@ -36,14 +35,18 @@ export default function Sidebar() {
                 Produits
               </li>
             </Link>
+            <Link to="/dashboard/admin/categories" className="link">
             <li className="sidebarListItem">
               <Loyalty className="sidebarIcon" />
               Categories
             </li>
+            </Link>
+            <Link to="/dashboard/admin/fournisseurs" className="link">
             <li className="sidebarListItem">
               <LocalShipping className="sidebarIcon" />
               Fournisseurs
             </li>
+            </Link>
           </ul>
         </div>
       </div>

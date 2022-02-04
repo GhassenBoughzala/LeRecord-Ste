@@ -4,7 +4,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import { Redirect } from 'react-router-dom';
 import { login } from '../redux/reducers/authReducer';
 import { connect } from 'react-redux';
-import Navbar from '../components/navbar/navbar.component';
 import Container from '../components/container/container.component';
 
 const Login = ({ login, isAuth, isLoading, user }) => {

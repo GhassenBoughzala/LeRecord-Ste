@@ -12,7 +12,7 @@ module.exports = async function(req, res, next ){
     }
 
     try {
-        console.log("IDP")
+        
         let product = await Product
                     .findById(productId)
                     .populate('category')
