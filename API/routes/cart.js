@@ -67,11 +67,11 @@ router.post('/addcart', auth, (req, res) => {
 });
 
 // new update remove cart items
-router.post('/', auth, (req, res) => {
+router.post('/removecart', auth, (req, res) => {
   const { productId } = req.body.payload;
   if (productId) {
     Cart.update(
-      { user: req.user._id },
+      { user: req.body.user },
       {
         $pull: {
           cartItems: {
@@ -81,12 +81,37 @@ router.post('/', auth, (req, res) => {
       }
     ).exec((error, result) => {
       if (error) return res.status(400).json({ error });
-      if (result) {
+      if (result) { 
         res.status(202).json({ result });
       }
     });
   }
 });
+
+router.post('/', auth, async (req, res) => {
+    //const { user } = req.body.payload;
+    //if(user){
+    Cart.findOne({ user: req.body.user })
+      .populate("cartItems.product", "_id name price photo")
+      .exec((error, cart) => {
+        if (error) return res.status(400).json({ error });
+        if (cart) {
+          let cartItems = {};
+          cart.cartItems.forEach((item, index) => {
+            cartItems[item.product._id.toString()] = {
+              _id: item.product._id.toString(),
+              name: item.product.name,
+              photo: item.product.photo[0],
+              price: item.product.price,
+              qty: item.quantity,
+            };
+          });
+          res.status(200).json({ cartItems });
+        }
+      });
+    //}
+  });
+
 
 module.exports = router;
 
