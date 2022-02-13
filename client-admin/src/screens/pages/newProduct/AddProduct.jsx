@@ -86,6 +86,9 @@ const Add = ({ ...props }) => {
 
   const handlePhoto = (e) => {
     setProduct({...product, photo: e.target.files[0]});
+    setTimeout(() => {
+      toast.info('Photo 100% ');
+    }, 1000);
   }
 
 
