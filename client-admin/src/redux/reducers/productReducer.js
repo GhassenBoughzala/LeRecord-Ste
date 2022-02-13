@@ -2,7 +2,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { URLDevelopment } from '../../helpers/url';
+//import { URLDevelopment } from '../../helpers/url';
 
 //Types
 const GET_PRODUCTS_S = 'GET ALL PRODUCTS';
@@ -49,11 +49,11 @@ export default function (state = intialState, action){
 
 }
 
-export const Fetch = () => axios.get(`${URLDevelopment}/api/products/search`);
-export const GetDetails = (id) => axios.get(`${URLDevelopment}/api/products/` + id);
-export const AddP = () => axios.post(`${URLDevelopment}/api/products`);
-export const UP = (id, updatedP) => axios.put(`${URLDevelopment}/api/products/` + id, updatedP);
-export const DLP = (id) => axios.delete(`${URLDevelopment}/api/products/` + id);
+export const Fetch = () => axios.get(`/api/products/search`);
+export const GetDetails = (id) => axios.get(`/api/products/` + id);
+export const AddP = () => axios.post(`/api/products`);
+export const UP = (id, updatedP) => axios.put(`/api/products/` + id, updatedP);
+export const DLP = (id) => axios.delete(`/api/products/` + id);
 
 
 //Actions
@@ -74,7 +74,7 @@ export const getAll =  () => async(dispatch) => {
 
 export const detailsProduct = productId => async dispatch => {
   try {
-    const res = await axios.get(`${URLDevelopment}/api/products/${productId}`);
+    const res = await axios.get(`/api/products/${productId}`);
     dispatch({ 
         type: GETP_DETAILS_S,
         payload: res.data
@@ -113,7 +113,7 @@ export const addProduct = (product) => {
   return(dispatch) => {
     
     return axios
-    .post(`${URLDevelopment}/api/products`, data)
+    .post(`/api/products`, data)
     .then((res) => {
 
       const data = res.data;

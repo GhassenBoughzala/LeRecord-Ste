@@ -55,7 +55,7 @@ export default function (state = initialState, action){
 
 //Actions
 export const addToCart = (productId, qty) => async (dispatch, getState) => {
-    const { data } = await axios.get(`${URLDevelopment}/api/products/${productId}`);
+    const { data } = await axios.get(`/api/products/${productId}`);
     const { cart: { cartItems }, } = getState();
     if (cartItems.length > 0) {
       dispatch({

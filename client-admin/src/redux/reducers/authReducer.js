@@ -1,6 +1,6 @@
 /* eslint-disable import/no-anonymous-default-export */
 import axios from 'axios';
-import { URLDevelopment } from '../../helpers/url';
+//import { URLDevelopment } from '../../helpers/url';
 import { toast } from 'react-toastify';
 import AuthToken from '../../helpers/authToken';
 
@@ -78,7 +78,7 @@ export const loadUser = () => async (dispatch) => {
     }
 
     try {
-        const res = await axios.get(`${URLDevelopment}/api/auth/getuser`);
+        const res = await axios.get(`/api/auth/getuser`);
         dispatch({
             type: USER_LOADED,
             payload: res.data
@@ -127,7 +127,7 @@ export const register = ({
     })
     try {
         // Response 
-        const res = await axios.post(`${URLDevelopment}/api/auth/register`, body, config)
+        const res = await axios.post(`/api/auth/register`, body, config)
 
         dispatch({
             type: REGISTER_SUCCESS,
@@ -168,7 +168,7 @@ export const login = ({
     })
     try {
         // Response 
-        const res = await axios.post(`${URLDevelopment}/api/auth/login`, body, config)
+        const res = await axios.post(`/api/auth/login`, body, config)
 
         dispatch({
             type: LOGIN_SUCCESS,

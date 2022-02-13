@@ -1,7 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 import axios from "axios";
 import { toast } from 'react-toastify';
-import { URLDevelopment } from '../../helpers/url';
+//import { URLDevelopment } from '../../helpers/url';
 
 //Types 
 const GET_FOURNISSEUR = 'GET ALL FOURNISSEURS'
@@ -37,9 +37,9 @@ export default function (state = intialState, action){
 }
 
 //URLS
-export const Fetch = () => axios.get(`${URLDevelopment}/api/fournisseurs/all`);
-export const UPF = (id, updated) => axios.put(`${URLDevelopment}/api/fournisseurs/` + id, updated);
-export const DLF = (id) => axios.delete(`${URLDevelopment}/api/fournisseurs/` + id);
+export const Fetch = () => axios.get(`/api/fournisseurs/all`);
+export const UPF = (id, updated) => axios.put(`/api/fournisseurs/` + id, updated);
+export const DLF = (id) => axios.delete(`/api/fournisseurs/` + id);
 
 
 
@@ -75,7 +75,7 @@ export const addFou = (fournisseur) => {
 
     return(dispatch) => {
         return axios
-        .post(`${URLDevelopment}/api/fournisseurs`, data)
+        .post(`/api/fournisseurs`, data)
         .then((res) => {
             const data = res.data;
             console.log(data);

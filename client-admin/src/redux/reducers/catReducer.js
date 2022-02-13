@@ -1,7 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 import axios from "axios";
 import { toast } from 'react-toastify';
-import { URLDevelopment } from '../../helpers/url';
+//import { URLDevelopment } from '../../helpers/url';
 
 //Types
 const GET_CAT_S = 'GET ALL CATEGORIES';
@@ -36,9 +36,9 @@ export default function (state = intialState, action){
     }
 }
 
-export const Fetch = () => axios.get(`${URLDevelopment}/api/category/all`);
-export const UPC = (id, updated) => axios.put(`${URLDevelopment}/api/category/` + id, updated);
-export const DLC = (id) => axios.delete(`${URLDevelopment}/api/category/` + id);
+export const Fetch = () => axios.get(`/api/category/all`);
+export const UPC = (id, updated) => axios.put(`/api/category/` + id, updated);
+export const DLC = (id) => axios.delete(`/api/category/` + id);
 
 //Actions
 export const getAllCat = () => (dispatch) => {
@@ -69,7 +69,7 @@ export const addCat = (category) => {
 
     return(dispatch) => {
         return axios
-        .post(`${URLDevelopment}/api/category`, data)
+        .post(`/api/category`, data)
         .then((res) => {
             const data = res.data;
             console.log(data);

@@ -1,6 +1,6 @@
 /* eslint-disable import/no-anonymous-default-export */
 import axios from 'axios';
-import { URLDevelopment } from '../../helpers/url';
+//import { URLDevelopment } from '../../helpers/url';
 
 //Types
 const GET_ALL_USERS = 'GET ALL USERS';
@@ -38,9 +38,9 @@ export default function (state = intialState, action) {
 }
 
 //URLS
-export const ALL = () => axios.get(`${URLDevelopment}/api/users`);
-export const UPS = (id, updatedUser) => axios.put(`${URLDevelopment}/api/users/` + id, updatedUser);
-export const DELU = (id) => axios.delete(`${URLDevelopment}/api/users/` + id);
+export const ALL = () => axios.get(`/api/users`);
+export const UPS = (id, updatedUser) => axios.put(`/api/users/` + id, updatedUser);
+export const DELU = (id) => axios.delete(`/api/users/` + id);
 
 //Actions
 export const getAllUsers = () => (dispatch) => {

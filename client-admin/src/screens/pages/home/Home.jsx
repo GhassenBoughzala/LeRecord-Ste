@@ -1,7 +1,7 @@
 import "./home.css";
 import React from 'react';
 import axios from 'axios';
-import { URLDevelopment } from '../../../helpers/url';
+//import { URLDevelopment } from '../../../helpers/url';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Chart from "../../../components/chart/LineChart";
@@ -34,7 +34,7 @@ const Home = () => {
   useEffect(() => {
     const getStats = async () => {
       try {
-        const res = await axios.get(`${URLDevelopment}/api/users/stats`);
+        const res = await axios.get(`/api/users/stats`);
         //const res = await userRequest.get("/users/stats");
         res.data.map((item) =>
           setUserStats((prev) => [

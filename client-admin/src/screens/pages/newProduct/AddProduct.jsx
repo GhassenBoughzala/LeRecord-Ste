@@ -10,7 +10,7 @@ import { Link, useHistory } from "react-router-dom";
 import {addProduct, updateProduct} from "../../../redux/reducers/productReducer";
 import { getAllCat } from "../../../redux/reducers/catReducer";
 import { getAllFou  } from "../../../redux/reducers/forReducer";
-import { URLDevelopment } from '../../../helpers/url';
+//import { URLDevelopment } from '../../../helpers/url';
 
 const initialFieldValues = {
   name:"",
@@ -60,7 +60,7 @@ const Add = ({ ...props }) => {
     try {
 
       //props.createP(product);
-      axios.post(`${URLDevelopment}/api/products`, formData)
+      axios.post(`/api/products`, formData)
       .then(res => {
          console.log(res);
          toast.success('Ajouté avec succès');

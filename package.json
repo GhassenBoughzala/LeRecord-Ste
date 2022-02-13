@@ -10,6 +10,9 @@
     "client": "npm start --prefix client-admin",
     "heroku-postbuild": "npm install --prefix client-admin && npm run build --prefix client-admin "
   },
+  "engines": {
+    "node": "8.9.2"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/GhassenBoughzala/Stock-Devis.git"
