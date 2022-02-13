@@ -1,10 +1,11 @@
 {
   "name": "lerecord",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "node server.js",
+    "start: dev":"nodemon server.js",
     "dev": "cross-env NODE_ENV=development nodemon server",
     "client": "npm start --prefix client-admin",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client-admin && npm run build --prefix client-admin "
