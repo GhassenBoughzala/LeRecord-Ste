@@ -13,12 +13,18 @@ let path = require('path');
 
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
-      cb(null, path.resolve(__dirname + '../../') + '/client-admin/public/uploads');
+
+        if (process.env.NODE_ENV === 'production') {
+            cb(null, path.resolve(__dirname + '../../') + '/client-admin/build/uploads');
+        }else{
+            cb(null, path.resolve(__dirname + '../../') + '/client-admin/public/uploads');
+        }
   },
   filename: function(req, file, cb) {   
       cb(null, uuidv4() + '-' + Date.now() + path.extname(file.originalname));
   }
 });
+
 
 const fileFilter = (req, file, cb) => {
   const allowedFileTypes = ['image/jpeg', 'image/jpg', 'image/png'];
