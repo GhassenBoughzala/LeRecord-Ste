@@ -89,6 +89,7 @@ const Add = ({ ...props }) => {
     setTimeout(() => {
       toast.info('Photo 100% ');
     }, 1000);
+    console.log(e.target.files[0])
   }
 
 

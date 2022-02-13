@@ -1,19 +1,19 @@
-import React, { useEffect, useState, Fragment } from "react";
+import React, { useEffect, Fragment } from "react";
 import "./userList.css";
 import Sidebar from "../../../components/sidebar/Sidebar";
-import { toast } from 'react-toastify';
+//import { toast } from 'react-toastify';
 import { connect } from "react-redux";
 import { getAllUsers, deleteUser } from "../../../redux/reducers/userReducer";
-import NewUser from "../newUser/NewUser";
+//import NewUser from "../newUser/NewUser";
 
 const UserList = (props) => {
 
-  const [currentId, setCurrentId] = useState(0);
+  //const [currentId, setCurrentId] = useState(0);
 
   useEffect(() => {
     props.All();
   });
-
+  /*
   const onDLP = (id) => {
     const onSuccess = () => {
       window.location.reload();
@@ -23,6 +23,7 @@ const UserList = (props) => {
         props.Delete(id, onSuccess);
       
   };
+  */
 
 
   return (
@@ -47,8 +48,6 @@ const UserList = (props) => {
             <th className="widgetLgTh">Role</th>
             <th className="widgetLgTh">Date Creation</th>
             <th className="widgetLgTh">Date MAJ</th>
-            <th className="widgetLgTh text-center"><i className='fas fa-edit w-6 -ml-2' /></th>
-            <th className="widgetLgTh text-center"><i className='mt-1 fas fa-trash-alt' /></th>
           </tr>
         </thead>
         <tbody>
@@ -61,20 +60,7 @@ const UserList = (props) => {
                 <td className="widgetLgDate">{user.role}</td>
                 <td className="widgetLgDate">{user.createdAt.substring(0, 10)}</td>           
                 <td className="widgetLgAmount">{user.updatedAt.substring(0, 10)}</td>
-                <td className="widgetLgStatus">
-                  <button
-                    type='submit'
-                    onClick={() => setCurrentId(user._id)}
-                    className='mt-1 tracking-wide font-semibold bg-blue-500 text-gray-100 w-full py-2 rounded-lg hover:bg-blue-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none'
-                  > Editer </button>                                       
-                </td>
-                <td className="widgetLgStatus">
-                <button
-                    type='submit'
-                    onClick={() => onDLP(user._id)}
-                    className='mt-1 tracking-wide font-semibold bg-red-500 text-gray-100 w-full py-2 rounded-lg hover:bg-red-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none'
-                  > Supprimer </button>
-                </td>
+               
               </tr>
             </Fragment>
             );
@@ -84,9 +70,7 @@ const UserList = (props) => {
       </table>
     </div>
 
-    <div className="widgetLg">
-            <NewUser {...{ currentId, setCurrentId }} />
-    </div>
+
 
     </div>
           
@@ -114,3 +98,19 @@ const mapActionToProps = {
 export default connect ( mapStateToProps, mapActionToProps )(UserList);
 
 
+/*
+                <td className="widgetLgStatus">
+                  <button
+                    type='submit'
+                    onClick={() => setCurrentId(user._id)}
+                    className='mt-1 tracking-wide font-semibold bg-blue-500 text-gray-100 w-full py-2 rounded-lg hover:bg-blue-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none'
+                  > Editer </button>                                       
+                </td>
+                <td className="widgetLgStatus">
+                <button
+                    type='submit'
+                    onClick={() => onDLP(user._id)}
+                    className='mt-1 tracking-wide font-semibold bg-red-500 text-gray-100 w-full py-2 rounded-lg hover:bg-red-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none'
+                  > Supprimer </button>
+                </td>
+*/
