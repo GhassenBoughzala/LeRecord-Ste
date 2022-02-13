@@ -36,13 +36,6 @@ app.use("/api/carts", cartRoute);
 app.use("/api/orders", orderRoute);
 app.use("/api/fournisseurs", fournisseurRoute);
 
-app.use((req, res) => {
-    res.status(404).json({
-        success: false,
-        msg: "Page not founded"
-    })
-})
-
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('../client-admin/build'))
     app.get('*', (req, res)=> {
