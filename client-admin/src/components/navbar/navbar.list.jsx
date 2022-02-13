@@ -73,5 +73,6 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
 
 const mapStateToProps = (state) => ({
   isAuth: state.auth.isAuthenticated,
+  user: state.auth.user
 });
 export default connect(mapStateToProps, { logout })(withRouter(NavbarList));

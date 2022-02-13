@@ -20,7 +20,7 @@ const intialState = {
     token: localStorage.getItem('token'),
     isAuthenticated: null,
     loading: true,
-    user: null,
+    user: 0,
     role: null,
 };
 
