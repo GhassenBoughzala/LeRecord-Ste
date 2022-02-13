@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import axios from 'axios';
 import { URLDevelopment } from '../../helpers/url';
 import { toast } from 'react-toastify';
