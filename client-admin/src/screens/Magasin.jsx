@@ -3,7 +3,7 @@
 import React, { useEffect, useState, Fragment } from "react";
 import Container from '../components/container/container.component'
 import Footer from '../components/home/Footer'
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { getAll } from "../redux/reducers/productReducer";
 import Pagination from "../components/home/Pagination"; 
@@ -76,17 +76,8 @@ const Magazin = (props) => {
                                 <p className="font-medium text-gray-400">{product.category.name}</p>
                             </div>
 
-                            <div className="flex border-t border-gray-200 divide-x divide-gray-200">                     
-                                
-                                    <Link to={`/produit/${product._id}`} className="flex-1 block p-3 text-center text-gray-300 transition duration-200 ease-out hover:bg-blue-100 hover:text-blue-500">
-                                        <i className="far fa-eye text-xl"></i>
-                                    </Link>  
-                                     
-                                <a href="#_" className="flex-1 block p-3 text-center text-gray-300 transition duration-200 ease-out hover:bg-blue-100 hover:text-blue-500">
-                                    <i className="fas fa-cart-plus text-xl "></i>
-                                </a>
+                          
 
-                            </div>
                         </div>
                         </Fragment>
                         );
@@ -122,3 +113,21 @@ const mapStateToProps = (state) => ({
   
 
 export default connect (mapStateToProps, mapActionToProps) (Magazin)
+
+
+
+/*//Product Details 
+
+  <div className="flex border-t border-gray-200 divide-x divide-gray-200">                     
+                                
+                                    <Link to={`/produit/${product._id}`} className="flex-1 block p-3 text-center text-gray-300 transition duration-200 ease-out hover:bg-blue-100 hover:text-blue-500">
+                                        <i className="far fa-eye text-xl"></i>
+                                    </Link>  
+                                     
+                                <a href="#_" className="flex-1 block p-3 text-center text-gray-300 transition duration-200 ease-out hover:bg-blue-100 hover:text-blue-500">
+                                    <i className="fas fa-cart-plus text-xl "></i>
+                                </a>
+
+                            </div>
+
+*/
