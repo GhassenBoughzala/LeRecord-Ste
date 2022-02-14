@@ -5,7 +5,7 @@ import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Chart from "../../../components/chart/LineChart";
-import WidgetLg from "../../../components/widgetLg/WidgetLg";
+//import WidgetLg from "../../../components/widgetLg/WidgetLg";
 import { useEffect, useMemo, useState } from "react";
 import Sidebar from "../../../components/sidebar/Sidebar";
 

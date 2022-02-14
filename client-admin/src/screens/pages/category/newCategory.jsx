@@ -96,7 +96,7 @@ const Add = ({ ...props }) => {
            
             </div>
             <div className="flex flex-wrap">
-                <div className="w-full lg:w-6/12 px-4">
+                <div className="w-full lg:w-6/6 px-4">
                 
                 <div className="relative w-full mb-3">
                   
@@ -109,7 +109,7 @@ const Add = ({ ...props }) => {
                 </div>
                 </div>
 
-              <div className="w-full lg:w-6/12 px-4">
+              <div className="w-full lg:w-6/6 px-4">
                 <div className="relative w-full mb-3">
                   <button
                     type="submit"

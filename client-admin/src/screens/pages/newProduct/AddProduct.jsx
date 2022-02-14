@@ -1,3 +1,4 @@
+/* eslint-disable no-sequences */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
@@ -10,6 +11,7 @@ import { Link, useHistory } from "react-router-dom";
 import {addProduct, updateProduct} from "../../../redux/reducers/productReducer";
 import { getAllCat } from "../../../redux/reducers/catReducer";
 import { getAllFou  } from "../../../redux/reducers/forReducer";
+import FileBase64 from 'react-file-base64';
 //import { URLDevelopment } from '../../../helpers/url';
 
 const initialFieldValues = {
@@ -55,35 +57,48 @@ const Add = ({ ...props }) => {
       setTimeout(() => {
         setProduct({ ...product, error: false });
       }, 2000);
+
+    }
+    
+    if(!product.category || !product.name || !product.description 
+        || !product.price || !product.quantity || !product.shipping || !product.fournisseur) {
+          toast.warn('Verifier vos champs !');
+    }
+    
+    else {
+
+      try {
+
+        //props.createP(product);
+        axios.post(`/api/products`, formData)
+        .then(res => {
+           console.log(res);
+           toast.success('Ajouté avec succès');
+           setTimeout(() => {
+            history.push('/dashboard/admin/products');
+          }, 2000);
+        })
+        .catch(err => {
+           console.log(err);
+           toast.error('Erreur');
+        });
+         
+      } catch (error) {
+        console.log(error);
+        toast.error('Erreur !');
+        
+      }
+
     }
 
-    try {
 
-      //props.createP(product);
-      axios.post(`/api/products`, formData)
-      .then(res => {
-         console.log(res);
-         toast.success('Ajouté avec succès');
-         setTimeout(() => {
-          history.push('/dashboard/admin/products');
-        }, 2000);
-      })
-      .catch(err => {
-         console.log(err);
-         toast.error('Erreur');
-      });
-       
-    } catch (error) {
-      console.log(error);
-      toast.error('Erreur !');
-      
-    }
   };
 
   const handleChange = (e) => {
     setProduct({...product, [e.target.name]: e.target.value});
   }
 
+/*
   const handlePhoto = (e) => {
     setProduct({...product, photo: e.target.files[0]});
     setTimeout(() => {
@@ -91,7 +106,7 @@ const Add = ({ ...props }) => {
     }, 1000);
     console.log(e.target.files[0])
   }
-
+*/
 
 
   return (
@@ -99,8 +114,8 @@ const Add = ({ ...props }) => {
 <div className="containerr">
         <Sidebar />
     <div className="productList">
-    <div className="widgetLg">
-      <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-200 border-0">
+    <div className="widgetLg ">
+      <div className=" rounded-lg bg-gray-200 border-0 ">
         <div className="rounded-t bg-white mb-0 px-6 py-6">
           <div className="text-center flex justify-between">
             <h6 className="text-gray-800 text-xl font-bold">
@@ -274,22 +289,30 @@ const Add = ({ ...props }) => {
                   </label>
 
                   <div className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150">
-                      <label for="file">
-                        <Publish />
+
+                      <label className="custom-file-upload ">
+                        <Publish/>
+                      <FileBase64
+                            type="file"
+                            multiple={false}
+                            accept=".png, .jpg, .jpeg"
+                            onDone={({ base64 }) => 
+                                    //setItem({ ...item, image: base64 }),
+                                    setProduct({...product, photo: base64},
+                                              setTimeout(() => {
+                                                toast.info('Photo 100% ')
+                                                }, 1000),
+                                                console.log(base64) )
+                                  }
+                          />
+
                       </label>
+                     
+
                   </div>
-                  
-                  <input 
-                       type="file" 
-                       id="file"
-                       multiple
-                       accept=".png, .jpg, .jpeg"
-                       name="photo"
-                       onChange={handlePhoto}
-                       style={{ display: "none" }}
-                    />
+                                      
                  
-                  
+
                 </div>
               </div>
             </div>

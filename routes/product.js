@@ -30,34 +30,12 @@ const fileFilter = (req, file, cb) => {
   }
 }
 
-const deleteImages = (images, mode)  => {
-    var basePath = path.resolve(__dirname + '../../') + '/client-admin/public/uploads';
-    console.log(basePath);
-    for (var i = 0; i < images.length; i++) {
-      let filePath = ''
-      if (mode == 'file') {
-        filePath = basePath + `${images[i].filename}`;
-      } else {
-        filePath = basePath + `${images[i]}`;
-      }
-      console.log(filePath);
-      if (fs.existsSync(filePath)) {
-        console.log("Exists image");
-    }
-      fs.unlink(filePath, (err) => {
-        if (err) {
-          return err;
-        }
-      });
-    }
-  }
-
 let upload = multer({ storage, fileFilter });
 
 // @route   Post api/product/
 // @desc    Create a Product
 // @access  Private Admin
-router.post('/',
+router.post('/',auth, adminAuth,
                 upload.any(), async (req, res) => {
 
     const errors = validationResult(req);
@@ -65,12 +43,12 @@ router.post('/',
       return res.status(402).json({ error: errors.array()[0].msg })
     }
 
-    let { name,description, category, fournisseur, price, quantity, shipping,} = req.body;
-    let images = req.files;
+    let { name,description, category, fournisseur, price, quantity, shipping, photo} = req.body;
+    //let images = req.files;
 
     if( !name | !description | !category | !fournisseur | !price | !quantity | !shipping)
         {
-            Product.deleteImages(images, 'file');
+            
             return res.json({ error: "All filled must be required"})
         }
 
@@ -81,12 +59,13 @@ router.post('/',
               });
         } else {
             try{
-                let allImages = [];
+                /*let allImages = [];
                 for (const img of images){
                     allImages.push(img.filename);
                 }
+                */
                 let newProduct = new Product({
-                    photo: allImages,
+                    photo,
                     name,
                     description,
                     category,
@@ -96,8 +75,7 @@ router.post('/',
                     shipping,
                 });
                 let save = newProduct.save();
-                console.log(newProduct);
-                console.log(allImages);
+                console.log("P+");
                 if(save) {
                     return res.json({ success: "Product created successfully"  })
                     

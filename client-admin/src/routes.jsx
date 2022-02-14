@@ -6,7 +6,7 @@ import Home from './screens/Home';
 import AuthHome from './screens/AuthHome';
 import Login from './screens/Login';
 import Register from './screens/Register';
-import AdminHome from './screens/pages/home/Home';
+import AdminHome from './screens/pages/productList/ProductList';
 import ProductsAdmin from './screens/pages/productList/ProductList';
 import AddProduct from './screens/pages/newProduct/AddProduct';
 import EditerProduct from './screens/pages/newProduct/NewProduct';

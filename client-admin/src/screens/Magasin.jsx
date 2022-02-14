@@ -70,7 +70,7 @@ const Magazin = (props) => {
                         <div className="w-full border border-gray-200 rounded-lg shadow-sm">
 
                             <div className="flex flex-col items-center justify-center p-10" key={product._id}>
-                                <img className="w-40 h-40 mb-6" src={`/uploads/${product.photo}`} alt={product.photo}></img>
+                                <img className="w-40 h-40 mb-6" src={product.photo} alt=""></img>
                                 <h2 className="text-lg font-medium">{product.name}</h2>
                                 <p className="font-medium text-blue-500">{product.shipping}</p>
                                 <p className="font-medium text-gray-400">{product.category.name}</p>

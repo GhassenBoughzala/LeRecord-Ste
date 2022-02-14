@@ -30,10 +30,10 @@ const ProductList = (props) => {
 
   return (
 <>
-    <div className="containerr">
+<div className="containerr">
         <Sidebar />
   <div className="productList">
-    <div className="widgetLg">
+    <div className="card">
       <div className="rounded-t bg-white mb-0 px-6 py-6">
           <div className="text-center flex justify-between">
             <h6 className="text-gray-800 text-xl font-bold">
@@ -45,7 +45,7 @@ const ProductList = (props) => {
           </div>
         </div>
       <br></br>
-      <div className="bg-white shadow-md rounded my-6"></div>
+      
       <table className="widgetLgTable">
         <thead className="border-b border-gray-60">
           <tr className="border-b border-gray-600  ">
@@ -73,7 +73,7 @@ const ProductList = (props) => {
                 <td className="widgetLgAmount ">{product.shipping}</td>
                 <td className="widgetLgAmount ">
                     <div className="productListItem">
-                      <img className="productListImg" src={`/uploads/${product.photo}`} alt={product.photo} /> 
+                      <img className="productListImg" src={product.photo}  alt="" /> 
                     </div>
                 </td>
                 <td className="widgetLgAmount">{product.category.name}</td>
@@ -102,6 +102,7 @@ const ProductList = (props) => {
         </tbody>
 
       </table>
+     
 
     <br /> 
     <label className="block uppercase text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">
@@ -111,7 +112,7 @@ const ProductList = (props) => {
     </div>
     
     { currentId !== 0 && (
-        <div className="widgetLg">
+        <div>
           <NewProduct {...{ currentId, setCurrentId }} />
         </div>   
       )

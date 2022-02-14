@@ -1,7 +1,6 @@
 import "./sidebar.css";
 import React from 'react';
 import {
-  Timeline,
   PermIdentity,
   Storefront,
   LocalShipping,
@@ -17,12 +16,7 @@ export default function Sidebar() {
           <h3 className="sidebarTitle">
           Tableau de bord Administrateur</h3>
           <ul className="sidebarList">
-            <Link to="/dashboard/admin" className="link">
-            <li className="sidebarListItem">
-              <Timeline className="sidebarIcon" />
-              Acceuil
-            </li>
-            </Link>
+           
             <Link to="/dashboard/admin/users" className="link">
               <li className="sidebarListItem">
                 <PermIdentity className="sidebarIcon" />

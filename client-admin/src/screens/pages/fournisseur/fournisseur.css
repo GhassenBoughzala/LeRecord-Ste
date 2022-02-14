@@ -2,3 +2,11 @@
     display: flex;
     margin: 20px;
 }
+
+.widgetLgTh{
+    text-align: left;
+  }
+
+  .productList{
+    flex: 4;
+  }
