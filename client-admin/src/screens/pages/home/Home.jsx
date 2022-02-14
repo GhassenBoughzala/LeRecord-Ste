@@ -62,7 +62,7 @@ const Home = () => {
         />
         <div className="homeWidgets">
           
-          <WidgetLg />
+          
         </div>
       </div>
 

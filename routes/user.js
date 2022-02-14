@@ -73,7 +73,7 @@ router.get("/", auth, adminAuth, async (req, res) => {
 });
 
 //GET USER STATS
-router.get("/stats", auth, adminAuth, async (req, res) => {
+router.get("/stats", async (req, res) => {
   const date = new Date();
   const lastYear = new Date(date.setFullYear(date.getFullYear() - 1));
 
