@@ -1,7 +1,11 @@
 const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
-  name: {
+  nom: {
+    type: String,
+    required: true,
+  },
+  prenom: {
     type: String,
     required: true,
   },
@@ -13,6 +17,7 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
+    //match: [/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/]
   },
   role: {
     // Role of user it will be (normal or admin )
