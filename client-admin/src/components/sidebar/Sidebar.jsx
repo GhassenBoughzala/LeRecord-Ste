@@ -4,16 +4,13 @@ import {
   PermIdentity,
   Storefront,
   LocalShipping,
-  Loyalty,
-  PowerOff,
-  ExitToApp,
+  Loyalty
 } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import Rimg from "../../assests/r.png";
 import NavbarToggle from "../navbar/navbar.toggle";
-import Button from "../buttons/button.component";
 import { logout } from "../../redux/reducers/authReducer";
-import { connect, useDispatch } from "react-redux";
+import { connect } from "react-redux";
 
 const Sidebar = ({ history, logout, isAuth, user }) => {
   // implent toggle state

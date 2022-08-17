@@ -1,4 +1,4 @@
-.containerr{
+.containerr {
   display: flex;
   margin-top: 10px;
 }
@@ -44,16 +44,15 @@
   cursor: pointer;
 }
 
-
 .custom-file-upload {
-
   display: inline-block;
   padding: 6px 12px;
   cursor: pointer;
 }
 
-
-
 input[type="file"] {
   display: none;
+}
+.onClick {
+  cursor: pointer;
 }

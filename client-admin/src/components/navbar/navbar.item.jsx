@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 const NavItem = ({ link, listStyle, name }) => {
   return (
     <li
-      className={`hover:text-blue-500 animate px-3 py-2 rounded-md ${listStyle}`}
+      className={`hover:text-blue-900 animate px-3 py-2 rounded-md ${listStyle}`}
     >
       <Link to={link}>
         <span>{name}</span>

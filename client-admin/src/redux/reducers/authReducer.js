@@ -90,7 +90,7 @@ export const loadUser = () => async (dispatch) => {
 };
 
 export const register =
-  ({ name, email, password }) =>
+  ({ nom, prenom, email, password }) =>
   async (dispatch) => {
     // Config header for axios
     const config = {
@@ -99,7 +99,8 @@ export const register =
       },
     };
     const body = JSON.stringify({
-      name,
+      nom,
+      prenom,
       email,
       password,
     });

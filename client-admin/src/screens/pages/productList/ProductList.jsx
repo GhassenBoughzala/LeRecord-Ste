@@ -4,11 +4,29 @@ import "./productList.css";
 import Sidebar from "../../../components/sidebar/Sidebar";
 import { connect } from "react-redux";
 import { getAll, deleteProduct } from "../../../redux/reducers/productReducer";
-import NewProduct from "../newProduct/NewProduct";
+import NewProduct from "../newProduct/EditProduct";
 import { Link } from "react-router-dom";
 import Topbar from "../../../components/topbar/Topbar";
+import { motion, AnimatePresence } from "framer-motion";
+import "../../../components/modal.css";
+import AddProduct from "../newProduct/AddProduct";
+import EditProduct from "../newProduct/EditProduct";
+const backdrop = {
+  visible: { opacity: 1 },
+  hidden: { opacity: 0 },
+};
+const modal = {
+  hidden: { y: "-100vh", opacity: 0 },
+  visible: {
+    y: "50px",
+    opacity: 1,
+    transition: { delay: 0.5 },
+  },
+};
 
 const ProductList = (props) => {
+  const [showModal, setShowModal] = useState(false);
+  const [showEditModal, setShoEditwModal] = useState(false);
   const [currentId, setCurrentId] = useState(0);
 
   useEffect(() => {
@@ -28,14 +46,18 @@ const ProductList = (props) => {
       <div className="containerr">
         <Sidebar />
         <div className="productList">
-        <Topbar/>
+          <Topbar />
           <div className="card">
-            <div className="rounded-t bg-white mb-0 px-6 py-6">
+            <div className="rounded-t bg-white mb-0 ">
               <div className="text-center flex justify-between">
                 <h6 className="text-gray-800 text-xl font-bold">
                   List des produits
                 </h6>
-                <Link to="/dashboard/admin/addproduct" className="link">
+                <Link
+                  to="#"
+                  onClick={() => setShowModal(true)}
+                  className="link"
+                >
                   <i className="fas fa-plus" />
                 </Link>
               </div>
@@ -44,17 +66,17 @@ const ProductList = (props) => {
 
             <table className="widgetLgTable">
               <thead className="border-b border-gray-60">
-                <tr className="border-b border-gray-600  ">
-                  <th className="widgetLgTh ">Nom</th>
-                  <th className="widgetLgTh ">Description</th>
-                  <th className="widgetLgTh ">Quantité</th>
-                  <th className="widgetLgTh ">Prix</th>
-                  <th className="widgetLgTh ">Status</th>
-                  <th className="widgetLgTh ">Image</th>
-                  <th className="widgetLgTh ">Categorie</th>
-                  <th className="widgetLgTh ">Fournisseur</th>
-                  <th className="widgetLgTh "></th>
-                  <th className="widgetLgTh "></th>
+                <tr className="border-b border-gray-600 text-left ">
+                  <th>Nom</th>
+                  <th>Description</th>
+                  <th>Quantité</th>
+                  <th>Prix</th>
+                  <th>Status</th>
+                  <th>Image</th>
+                  <th>Categorie</th>
+                  <th>Fournisseur</th>
+                  <th></th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -88,8 +110,11 @@ const ProductList = (props) => {
                         <td className="py-3 px-6 text-center">
                           <div className="flex item-center justify-center">
                             <div
-                              onClick={() => setCurrentId(product._id)}
-                              className="w-6 mr-2 transform hover:text-blue-500 hover:scale-110"
+                              onClick={() => {
+                                setCurrentId(product._id);
+                                setShoEditwModal(true);
+                              }}
+                              className="w-6 mr-2 transform hover:text-blue-500 hover:scale-110 onClick"
                             >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -107,7 +132,7 @@ const ProductList = (props) => {
                             </div>
                             <div
                               onClick={() => onDLP(product._id)}
-                              className="w-6 mr-2 transform hover:text-red-500 hover:scale-110"
+                              className="w-6 mr-2 transform hover:text-red-500 hover:scale-110 onClick"
                             >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -140,13 +165,56 @@ const ProductList = (props) => {
               Cliquer sur + pour ajouter un nouveau produit
             </label>
           </div>
-
-          {currentId !== 0 && (
-            <div>
-              <NewProduct {...{ currentId, setCurrentId }} />
-            </div>
-          )}
+          <AnimatePresence
+            exitBeforeEnter
+            showModal={showEditModal}
+            setShowModal={setShoEditwModal}
+          >
+            {showEditModal && (
+              <motion.div
+                className="backdrop"
+                variants={backdrop}
+                initial="hidden"
+                animate="visible"
+                exit="hidden"
+              >
+                <motion.div className="lg:w-1/3 center" variants={modal}>
+                  {currentId !== 0 && (
+                    <EditProduct
+                      {...{
+                        currentId,
+                        setCurrentId,
+                        setShoEditwModal,
+                        showEditModal,
+                      }}
+                    />
+                  )}
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
+        <AnimatePresence
+          exitBeforeEnter
+          showModal={showModal}
+          setShowModal={setShowModal}
+        >
+          {showModal && (
+            <motion.div
+              className="backdrop"
+              variants={backdrop}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+            >
+              <motion.div className="lg:w-1/3 center" variants={modal}>
+                <AddProduct
+                  {...{ currentId, setCurrentId, showModal, setShowModal }}
+                />
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </>
   );

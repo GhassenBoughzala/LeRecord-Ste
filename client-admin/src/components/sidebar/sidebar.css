@@ -2,7 +2,9 @@
   height: 100vh;
   background-color: rgb(237, 242, 246);
   position: sticky;
-
+  z-index: 1;
+  top: 0;
+  left: 0;
 }
 
 .sidebarWrapper {

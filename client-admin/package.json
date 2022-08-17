@@ -1,7 +1,15 @@
 {
-  "name": "LeRecord-Ste-Website",
-  "version": "1.1.0",
+  "name": "LeRecordSteWebsite",
+  "version": "2.0",
   "private": true,
+  "main": "index.js",
+  "homepage": ".",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
   "dependencies": {
     "@material-ui/core": "^4.11.4",
     "@material-ui/data-grid": "^4.0.0-alpha.29",
@@ -14,13 +22,14 @@
     "babel-preset-react": "^6.24.1",
     "butter-toast": "^3.3.5",
     "chart.js": "^3.7.0",
-    "faker": "^6.6.6",
+    "faker": "^5.5.3",
     "firebase": "^9.1.0",
+    "framer-motion": "^6.2.8",
     "js-cookie": "^2.2.1",
     "jsonwebtoken": "^8.5.1",
     "multer": "^1.4.4",
     "nodemon": "^2.0.15",
-    "react": "^16.13.1",
+    "react": "^17.0.2",
     "react-alice-carousel": "^2.4.0",
     "react-animate-on-scroll": "^2.1.5",
     "react-chartjs-2": "^4.0.0",
@@ -30,7 +39,7 @@
     "react-google-login": "^5.1.2",
     "react-redux": "^7.2.6",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "^5.0.0",
+    "react-scripts": "^5.0.1",
     "react-toastify": "^5.5.0",
     "reactstrap": "^9.0.1",
     "recharts": "^2.0.9",
@@ -42,12 +51,6 @@
     "timeago.js": "^4.0.2",
     "typescript": "^4.5.4",
     "web-vitals": "^1.0.1"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"

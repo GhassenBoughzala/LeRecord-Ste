@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import Navbar from "./components/navbar/navbar.component";
+//import Navbar from "./components/navbar/navbar.component";
 import Home from "./screens/Home";
 import AuthHome from "./screens/AuthHome";
 import Login from "./screens/Login";
@@ -9,7 +9,7 @@ import Register from "./screens/Register";
 import AdminHome from "./screens/pages/productList/ProductList";
 import ProductsAdmin from "./screens/pages/productList/ProductList";
 import AddProduct from "./screens/pages/newProduct/AddProduct";
-import EditerProduct from "./screens/pages/newProduct/NewProduct";
+import EditerProduct from "./screens/pages/newProduct/EditProduct";
 import PrivateRoute from "./routes/PrivateRoute";
 import UserRoute from "./routes/UserRoute";
 import UserProfile from "./screens/User";

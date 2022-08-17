@@ -10,13 +10,14 @@ import "./loading.css";
 
 const Register = ({ register, isAuth, isLoading, user }) => {
   const [data, setData] = useState({
-    name: "",
+    nom: "",
+    prenom: "",
     email: "",
     password: "",
     confirmPasswrod: "",
   });
 
-  const { name, email, password, confirmPasswrod } = data;
+  const { nom, prenom, email, password, confirmPasswrod } = data;
 
   const handleChange = (name) => (event) => {
     setData({ ...data, [name]: event.target.value });
@@ -27,7 +28,7 @@ const Register = ({ register, isAuth, isLoading, user }) => {
     if (password !== confirmPasswrod) {
       toast.error("Les mots de passe ne correspondent pas !");
     } else {
-      register({ name, email, password });
+      register({ nom, prenom, email, password });
       toast.success("Enregistré avec succès");
     }
   };
@@ -59,10 +60,18 @@ const Register = ({ register, isAuth, isLoading, user }) => {
                     className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
                     type="text"
                     placeholder="Nom"
-                    onChange={handleChange("name")}
-                    value={name}
+                    onChange={handleChange("nom")}
+                    value={nom}
                   />
+
                   <input
+                    className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+                    type="text"
+                    placeholder="Prenom"
+                    onChange={handleChange("prenom")}
+                    value={prenom}
+                  />
+                   <input
                     className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
                     type="email"
                     placeholder="Email"

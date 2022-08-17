@@ -154,6 +154,7 @@ export const updateProduct = (id, data) => (dispatch) => {
       type: PRODUCT_UPDATE,
       payload: res.data,
     });
+    toast.info("Mis à jour avec succés");
   }).catch((err) => 
     console.log(err),
     PRODUCT_ERR
