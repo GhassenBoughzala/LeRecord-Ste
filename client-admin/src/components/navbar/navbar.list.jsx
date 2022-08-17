@@ -28,6 +28,7 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
         moreStyle='hover:text-blue-500'
         href='/magasin' 
         title='Magasin'/>
+
       {isAuth && (
         <>
           <Button
@@ -44,11 +45,11 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
             href='/dashboard/user'
             moreStyle='fas fa-user-circle fa hover:text-blue-500'
           />
-          <Button
+          {/* <Button
             isButton={false}
             href='/cart'
             moreStyle='fas fa-shopping-cart fa hover:text-blue-500'
-          />
+          /> */}
         </>
       )}
       
@@ -59,7 +60,6 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
             moreStyle='hover:text-blue-500'
             isButton={false}
             href='/login'
-            listStyle={isActive(history, '/login')}
           />
         </>
       )}

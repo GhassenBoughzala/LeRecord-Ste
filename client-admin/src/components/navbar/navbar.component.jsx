@@ -14,6 +14,9 @@ const Navbar = (role) => {
   const menuState = () => {
     setActive(!active);
   };
+
+
+
   return (
     <Container>
       <nav className='navbar'>

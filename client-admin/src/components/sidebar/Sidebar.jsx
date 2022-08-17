@@ -1,5 +1,5 @@
 import "./sidebar.css";
-import React from 'react';
+import React, { useState } from "react";
 import {
   PermIdentity,
   Storefront,
@@ -7,16 +7,32 @@ import {
   Loyalty,
 } from "@material-ui/icons";
 import { Link } from "react-router-dom";
+import Rimg from "../../assests/r.png";
+import NavbarToggle from "../navbar/navbar.toggle";
+import Button from "../buttons/button.component";
+import { logout } from "../../redux/reducers/authReducer";
+import { connect, useDispatch } from "react-redux";
 
-export default function Sidebar() {
+const Sidebar = ({ history, logout, isAuth, user }) => {
+  // implent toggle state
+  const [active, setActive] = useState(false);
+  // toggle Controller
+  const menuState = () => {
+    setActive(!active);
+  };
+
   return (
     <div className="sidebar">
       <div className="sidebarWrapper">
         <div className="sidebarMenu">
-          <h3 className="sidebarTitle">
-          Tableau de bord Administrateur</h3>
+          <div className="flex justify-between w-full md:w-48 items-center">
+            <Link to="/home" className="logo w-40 ">
+              <img src={Rimg} alt="" />
+            </Link>
+            <NavbarToggle active={active} menuState={menuState} />
+          </div>
+          <h3 className="sidebarTitle">Tableau de bord Administrateur</h3>
           <ul className="sidebarList">
-           
             <Link to="/dashboard/admin/users" className="link">
               <li className="sidebarListItem">
                 <PermIdentity className="sidebarIcon" />
@@ -30,20 +46,34 @@ export default function Sidebar() {
               </li>
             </Link>
             <Link to="/dashboard/admin/categories" className="link">
-            <li className="sidebarListItem">
-              <Loyalty className="sidebarIcon" />
-              Categories
-            </li>
+              <li className="sidebarListItem">
+                <Loyalty className="sidebarIcon" />
+                Categories
+              </li>
             </Link>
             <Link to="/dashboard/admin/fournisseurs" className="link">
-            <li className="sidebarListItem">
-              <LocalShipping className="sidebarIcon" />
-              Fournisseurs
-            </li>
+              <li className="sidebarListItem">
+                <LocalShipping className="sidebarIcon" />
+                Fournisseurs
+              </li>
             </Link>
+
+            <Button
+              isButton={true}
+              title="Déconnecter"
+              moreStyle="text-red-500"
+              action={() => {
+                logout();
+              }}
+              href="/home"
+            />
           </ul>
         </div>
       </div>
     </div>
   );
-}
+};
+
+//const mapActionToProps = {};
+const mapStateToProps = (state) => ({});
+export default connect(mapStateToProps, { logout })(Sidebar);

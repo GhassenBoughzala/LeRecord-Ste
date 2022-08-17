@@ -1,9 +1,12 @@
 .sidebar {
   flex: 1;
-  height: calc(100vh - 50px);
+  height: 100vh;
   background-color: rgb(237, 242, 246);
   position: sticky;
-  top: 50px;
+  top: -50px;
+  overflow-y: scroll;
+  top: 0;
+  bottom: 0;
 }
 
 .sidebarWrapper {
@@ -38,7 +41,7 @@
   background-color: rgb(191, 195, 202);
 }
 
-.sidebarIcon{
-    margin-right: 5px;
-    font-size: 20px !important;
+.sidebarIcon {
+  margin-right: 5px;
+  font-size: 20px !important;
 }
