@@ -10,7 +10,7 @@ const NavbarAdminList = ({ history, logout, isAuth, user }) => {
 
   const isActive = (history, path) => {
     if (history.location.pathname === path) {
-      return 'text-blue-500';
+      return 'text-blue-900';
     } else {
       return '';
     }
@@ -25,7 +25,7 @@ const NavbarAdminList = ({ history, logout, isAuth, user }) => {
         listStyle={isActive(history, '/')} />
       <Button 
         isButton={false}
-        moreStyle='hover:text-blue-500'
+        moreStyle='hover:text-blue-900'
         href='/magasin' 
         title='Magasin'/>
       {isAuth && (
@@ -33,7 +33,7 @@ const NavbarAdminList = ({ history, logout, isAuth, user }) => {
           <Button
             isButton={true}
             title='Déconnecter'
-            moreStyle='hover:text-blue-500'
+            moreStyle='hover:text-blue-900'
             action={ () => {
               toast.info(`Utilisateur déconnecté !`);
               logout();}}
@@ -52,7 +52,7 @@ const NavbarAdminList = ({ history, logout, isAuth, user }) => {
         <>
           <Button
             title='Connecter'
-            moreStyle='hover:text-blue-500'
+            moreStyle='hover:text-blue-900'
             isButton={false}
             href='/login'
             listStyle={isActive(history, '/login')}

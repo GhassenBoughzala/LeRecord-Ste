@@ -5,6 +5,8 @@ import {
   Storefront,
   LocalShipping,
   Loyalty,
+  PowerOff,
+  ExitToApp,
 } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import Rimg from "../../assests/r.png";
@@ -24,49 +26,38 @@ const Sidebar = ({ history, logout, isAuth, user }) => {
   return (
     <div className="sidebar">
       <div className="sidebarWrapper">
+        <div className="flex justify-between w-full md:w-48 items-center text-center">
+          <Link to="/home" className="logo w-40 ">
+            <img src={Rimg} alt="" />
+          </Link>
+          <NavbarToggle active={active} menuState={menuState} />
+        </div>
         <div className="sidebarMenu">
-          <div className="flex justify-between w-full md:w-48 items-center">
-            <Link to="/home" className="logo w-40 ">
-              <img src={Rimg} alt="" />
-            </Link>
-            <NavbarToggle active={active} menuState={menuState} />
-          </div>
-          <h3 className="sidebarTitle">Tableau de bord Administrateur</h3>
           <ul className="sidebarList">
             <Link to="/dashboard/admin/users" className="link">
-              <li className="sidebarListItem">
+              <li className="sidebarListItem text-blue-900">
                 <PermIdentity className="sidebarIcon" />
                 Utilisateurs
               </li>
             </Link>
             <Link to="/dashboard/admin/products" className="link">
-              <li className="sidebarListItem">
+              <li className="sidebarListItem text-blue-900">
                 <Storefront className="sidebarIcon" />
                 Produits
               </li>
             </Link>
             <Link to="/dashboard/admin/categories" className="link">
-              <li className="sidebarListItem">
+              <li className="sidebarListItem text-blue-900">
                 <Loyalty className="sidebarIcon" />
                 Categories
               </li>
             </Link>
             <Link to="/dashboard/admin/fournisseurs" className="link">
-              <li className="sidebarListItem">
+              <li className="sidebarListItem text-blue-900">
                 <LocalShipping className="sidebarIcon" />
                 Fournisseurs
               </li>
             </Link>
-
-            <Button
-              isButton={true}
-              title="Déconnecter"
-              moreStyle="text-red-500"
-              action={() => {
-                logout();
-              }}
-              href="/home"
-            />
           </ul>
         </div>
       </div>

@@ -9779,8 +9779,7 @@ video {
 
 .text-blue-900 {
   --text-opacity: 1;
-  color: #2a4365;
-  color: rgba(42, 67, 101, var(--text-opacity));
+  color: #4C5BA3;
 }
 
 .text-indigo-100 {

@@ -23,7 +23,7 @@ import Magasin from "./screens/Magasin";
 const Routes = () => {
   return (
     <BrowserRouter>
-      <ToastContainer />
+      <ToastContainer position="bottom-right" />
       <Switch>
         <Route exact path="/" component={Home} />
 
