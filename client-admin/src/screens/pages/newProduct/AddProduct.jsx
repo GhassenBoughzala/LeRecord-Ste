@@ -115,6 +115,16 @@ const AddProduct = ({ ...props }) => {
               <h6 className="text-gray-800 text-xl font-bold">
                 Ajouter un produit
               </h6>
+              <div className=" text-right">
+                <span
+                  onClick={() => {
+                    props.setShowModal(false);
+                  }}
+                  className=" text-red-500 onClick"
+                >
+                  <i className="fas fa-times" />
+                </span>
+              </div>
             </div>
           </div>
           <div className="">
@@ -312,7 +322,7 @@ const AddProduct = ({ ...props }) => {
               </div>
 
               <div className="flex flex-wrap">
-                <div className="w-full lg:w-6/12 px-4">
+                <div className="w-full px-4">
                   <div className="relative w-full mb-3">
                     <button
                       type="submit"
@@ -320,18 +330,6 @@ const AddProduct = ({ ...props }) => {
                     >
                       Confirmer
                     </button>
-                  </div>
-                </div>
-                <div className="w-full lg:w-6/12 px-4">
-                  <div className="relative w-full mb-3">
-                    <Link to="/dashboard/admin/products" className="link">
-                      <button
-                        onClick={() => props.setShowModal(false)}
-                        className="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-1 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-                      >
-                        Retour
-                      </button>
-                    </Link>
                   </div>
                 </div>
               </div>

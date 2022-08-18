@@ -28,6 +28,7 @@ const ProductList = (props) => {
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShoEditwModal] = useState(false);
   const [currentId, setCurrentId] = useState(0);
+  const [currentObj, setCurrentObj] = useState({});
 
   useEffect(() => {
     props.AllProducts();
@@ -111,7 +112,7 @@ const ProductList = (props) => {
                           <div className="flex item-center justify-center">
                             <div
                               onClick={() => {
-                                setCurrentId(product._id);
+                                setCurrentObj(product);
                                 setShoEditwModal(true);
                               }}
                               className="w-6 mr-2 transform hover:text-blue-500 hover:scale-110 onClick"
@@ -179,16 +180,14 @@ const ProductList = (props) => {
                 exit="hidden"
               >
                 <motion.div className="lg:w-1/3 center" variants={modal}>
-                  {currentId !== 0 && (
-                    <EditProduct
-                      {...{
-                        currentId,
-                        setCurrentId,
-                        setShoEditwModal,
-                        showEditModal,
-                      }}
-                    />
-                  )}
+                  <EditProduct
+                    {...{
+                      currentObj,
+                      setCurrentObj,
+                      setShoEditwModal,
+                      showEditModal,
+                    }}
+                  />
                 </motion.div>
               </motion.div>
             )}

@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import "./newProduct.css";
 import { toast } from "react-toastify";
 import { connect } from "react-redux";
@@ -34,13 +34,11 @@ const EditProduct = ({ ...props }) => {
   }, []);
 
   useEffect(() => {
-    if (props.currentId !== 0) {
-      setValues({
-        ...props.List.find((p) => p._id === props.currentId),
-      });
+    if (props.currentObj !== {}) {
+      setValues(props.currentObj);
       setErrors({});
     }
-  }, [props.currentId]);
+  }, [props.currentObj]);
 
   const validate = () => {
     let temp = { ...errors };
@@ -65,7 +63,7 @@ const EditProduct = ({ ...props }) => {
 
     if (validate()) {
       if (props.currentId !== 0) {
-        props.updateP(props.currentId, values, onSuccess);
+        props.updateP(props.currentObj._id, values, onSuccess);
         props.setShoEditwModal(false);
       } else {
         toast.error("Erreur");
@@ -74,14 +72,8 @@ const EditProduct = ({ ...props }) => {
       toast.error("Warning ! ");
     }
   };
-  /*
-  const handlePhoto = (e) => {
-    setProduct({...product, photo: e.target.files[0]});
-  }
-*/
-  const reset = (e) => {
-    resetForm();
-  };
+
+  console.log(props.currentObj);
 
   return (
     <>
@@ -96,7 +88,10 @@ const EditProduct = ({ ...props }) => {
                     props.setShoEditwModal(false);
                   }}
                   className=" text-red-500 onClick"
-                > <i className="fas fa-times" /></span>
+                >
+                  {" "}
+                  <i className="fas fa-times" />
+                </span>
               </div>
             </div>
           </div>
@@ -137,6 +132,60 @@ const EditProduct = ({ ...props }) => {
                       onChange={handleInputChange}
                       className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
                     />
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap">
+                <div className="w-full lg:w-6/12 px-4">
+                  <div className="relative w-full mb-3">
+                    <br></br>
+                    <label
+                      className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                      htmlFor="grid-password"
+                    >
+                      Categorie
+                    </label>
+                    <select
+                      name="category"
+                      value={values.category.name}
+                      onChange={handleInputChange}
+                      className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                    >
+                      {props.ListCat.map((cat,index) => {
+                        return(
+                          <Fragment key={index}>
+                             <option value={cat.name}> {cat.name} </option>
+                          </Fragment>
+                        )
+                      })}
+                    </select>
+                  </div>
+                </div>
+                <div className="w-full lg:w-6/12 px-4">
+                  <br></br>
+                  <div className="relative w-full mb-3">
+                    <label
+                      className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                      htmlFor="grid-password"
+                    >
+                      Fournisseur
+                    </label>
+
+                    <select
+                      name="fournisseur"
+                      value={values.fournisseur.title}
+                      onChange={handleInputChange}
+                      className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                    >
+                     {props.ListFou.map((fo,index) => {
+                      return(
+                        <Fragment key={index}>
+                          <option value={fo.title}> {fo.title} </option>
+                        </Fragment>
+                      )
+                     })}
+                    </select>
                   </div>
                 </div>
               </div>

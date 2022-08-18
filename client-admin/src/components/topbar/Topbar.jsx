@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { connect } from "react-redux";
 import { logout } from "../../redux/reducers/authReducer";
 import { Link } from "react-router-dom";
-import { ExitToApp } from "@material-ui/icons";
+import { ExitToApp, Home } from "@material-ui/icons";
 
 const Topbar = ({ history, logout, isAuth, user }) => {
   const isActive = (history, path) => {
@@ -24,12 +24,17 @@ const Topbar = ({ history, logout, isAuth, user }) => {
         <div className="topRight">
           <div className="topbarIconContainer">
             <ul className="font-bold flex-wrap flex md:mr-5 flex-col md:flex-row text-center">
-             
               {isAuth && (
                 <>
+                  <Link to="/" className="link navbar-fixed-bottom">
+                    <li className=" text-blue-900">
+                      <Home className="sidebarIcon" />
+                      Acceuil
+                    </li>
+                  </Link>
                   <Link
                     to="/home"
-                    className="link navbar-fixed-bottom"
+                    className="link navbar-fixed-bottom mx-2"
                     onClick={() => {
                       logout();
                     }}

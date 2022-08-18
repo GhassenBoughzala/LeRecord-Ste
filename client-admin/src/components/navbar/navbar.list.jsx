@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
 import Button from "../buttons/button.component";
 import NavItem from "./navbar.item";
@@ -14,6 +14,12 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
       return "";
     }
   };
+
+  const [userLocal] = useState(() => {
+    const saved = localStorage.getItem("user");
+    const initialValue = JSON.parse(saved);
+    return initialValue || "";
+  });
 
   return (
     <>
@@ -42,12 +48,21 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
               }}
               href="/home"
             />
+           
+            {userLocal.role === 1 ? (
+              <Button
+                isButton={false}
+                href="/dashboard/admin"
+                moreStyle="fas fa-tools hover:text-blue-900"
+              />
+            ) : (
+              <Button
+                isButton={false}
+                href="/dashboard/user"
+                moreStyle="fas fa-user-circle hover:text-blue-900"
+              />
+            )}
 
-            <Button
-              isButton={false}
-              href="/dashboard/user"
-              moreStyle="fas fa-user-circle fa hover:text-blue-900"
-            />
             {/* <Button
             isButton={false}
             href='/cart'
