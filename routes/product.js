@@ -130,37 +130,33 @@ router.delete("/:productId", auth, adminAuth, productById, async (req, res) => {
     });
     console.log("-P");
   } catch (error) {
-    console.log(error);
-    res.status(500).send("Server error");
+    console.log(error.message);
+    res.status(500).json({
+      error: true,
+      msg: "Server error",
+    });
   }
 });
 
 //Update Product
-router.put(
-  "/:productId",
-  upload.any(),
-  auth,
-  adminAuth,
-  productById,
-  async (req, res) => {
-    const Pid = req.params.productId;
-
-    try {
-      const updatedProduct = Product.findByIdAndUpdate(
-        Pid,
-        {
-          $set: req.body,
-        },
-        { new: true }
-      );
-      console.log("Update +");
-      res.status(200).json(updatedProduct)
-    } catch (error) {
-      console.log(error.message);
-      res.status(500).send("Server error");
-    }
+router.put("/:productId", async (req, res) => {
+  try {
+    const updatedProduct = await Product.findByIdAndUpdate(
+      req.params.productId,
+      {
+        $set: req.body,
+      },
+      { new: true }
+    );
+    res.status(200).json(updatedProduct);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({
+      error: true,
+      msg: "Server error",
+    });
   }
-);
+});
 
 // @route   Get api/product/:productId
 // @desc    Get a list of products  with filter
