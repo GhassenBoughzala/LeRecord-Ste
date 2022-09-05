@@ -40,6 +40,8 @@ const EditProduct = ({ ...props }) => {
     }
   }, [props.currentObj]);
 
+  console.log(props.currentObj);
+
   const validate = () => {
     let temp = { ...errors };
     temp.name = values.name ? "" : "This field is required.";
@@ -73,8 +75,6 @@ const EditProduct = ({ ...props }) => {
     }
   };
 
-  console.log(props.currentObj);
-
   return (
     <>
       <div className="items-center">
@@ -89,7 +89,6 @@ const EditProduct = ({ ...props }) => {
                   }}
                   className=" text-red-500 onClick"
                 >
-                  {" "}
                   <i className="fas fa-times" />
                 </span>
               </div>
@@ -148,14 +147,14 @@ const EditProduct = ({ ...props }) => {
                     </label>
                     <select
                       name="category"
-                      value={values.category.name}
+                      value={values.category._id}
                       onChange={handleInputChange}
                       className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
                     >
                       {props.ListCat.map((cat,index) => {
                         return(
                           <Fragment key={index}>
-                             <option value={cat.name}> {cat.name} </option>
+                             <option value={cat._id}> {cat.name} </option>
                           </Fragment>
                         )
                       })}
@@ -174,14 +173,14 @@ const EditProduct = ({ ...props }) => {
 
                     <select
                       name="fournisseur"
-                      value={values.fournisseur.title}
+                      value={values.fournisseur._id}
                       onChange={handleInputChange}
                       className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
                     >
                      {props.ListFou.map((fo,index) => {
                       return(
                         <Fragment key={index}>
-                          <option value={fo.title}> {fo.title} </option>
+                          <option value={fo._id}> {fo.title} </option>
                         </Fragment>
                       )
                      })}
