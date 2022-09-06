@@ -6,7 +6,7 @@ import authSvg from "../assests/auth.svg";
 import { toast } from "react-toastify";
 import { Redirect } from "react-router-dom";
 import Navbar from "../components/navbar/navbar.component";
-import "./loading.css";
+import "../components/loading.css";
 
 const Register = ({ register, isAuth, isLoading, user }) => {
   const [data, setData] = useState({

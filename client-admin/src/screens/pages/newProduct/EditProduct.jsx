@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { Fragment, useEffect } from "react";
 import "./newProduct.css";
+import "../../../components/loading.css";
 import { toast } from "react-toastify";
 import { connect } from "react-redux";
 import useForm from "../useForm";
@@ -66,7 +67,7 @@ const EditProduct = ({ ...props }) => {
     if (validate()) {
       if (props.currentId !== 0) {
         props.updateP(props.currentObj._id, values, onSuccess);
-        props.setShoEditwModal(false);
+        //props.setShoEditwModal(false);
       } else {
         toast.error("Erreur");
       }
@@ -94,6 +95,7 @@ const EditProduct = ({ ...props }) => {
               </div>
             </div>
           </div>
+
           <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
             <form onSubmit={handleSubmit}>
               <div className="flex flex-wrap">
@@ -151,12 +153,12 @@ const EditProduct = ({ ...props }) => {
                       onChange={handleInputChange}
                       className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
                     >
-                      {props.ListCat.map((cat,index) => {
-                        return(
+                      {props.ListCat.map((cat, index) => {
+                        return (
                           <Fragment key={index}>
-                             <option value={cat._id}> {cat.name} </option>
+                            <option value={cat._id}> {cat.name} </option>
                           </Fragment>
-                        )
+                        );
                       })}
                     </select>
                   </div>
@@ -177,13 +179,13 @@ const EditProduct = ({ ...props }) => {
                       onChange={handleInputChange}
                       className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
                     >
-                     {props.ListFou.map((fo,index) => {
-                      return(
-                        <Fragment key={index}>
-                          <option value={fo._id}> {fo.title} </option>
-                        </Fragment>
-                      )
-                     })}
+                      {props.ListFou.map((fo, index) => {
+                        return (
+                          <Fragment key={index}>
+                            <option value={fo._id}> {fo.title} </option>
+                          </Fragment>
+                        );
+                      })}
                     </select>
                   </div>
                 </div>
@@ -255,12 +257,21 @@ const EditProduct = ({ ...props }) => {
               <div className="flex flex-wrap">
                 <div className="w-full px-4">
                   <div className="relative w-full mb-3">
-                    <button
-                      type="submit"
-                      className="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-1 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-                    >
-                      Confirmer
-                    </button>
+                    {props.isLoadingCreate ? (
+                      <button
+                        disabled
+                        className="bg-gray-700 text-white active:bg-gray-700 text-sm font-bold uppercase px-1 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
+                      >
+                        <div id="loadingbtn"></div>
+                      </button>
+                    ) : (
+                      <button
+                        type="submit"
+                        className="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-1 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
+                      >
+                        Confirmer
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
@@ -276,6 +287,7 @@ const mapStateToProps = (state) => ({
   List: state.productsReducer.products,
   ListCat: state.catReducer.categories,
   ListFou: state.forReducer.fournisseurs,
+  isLoadingCreate: state.productsReducer.updateLoader,
 });
 
 const mapActionToProps = {
