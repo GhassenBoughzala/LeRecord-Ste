@@ -20,7 +20,7 @@ const backdrop = {
 const modal = {
   hidden: { y: "-100vh", opacity: 0 },
   visible: {
-    y: "50px",
+    y: "0px",
     opacity: 1,
     transition: { delay: 0.5 },
   },
@@ -120,7 +120,9 @@ const ProductList = (props) => {
                             </td>
                             <td className="widgetLgDate ">{product.price}</td>
                             <td className="widgetLgAmount ">
-                              {product.shipping}
+                              {product.shipping === "Hors stock" && <p className="text-red-600">Hors stock</p>}
+                              {product.shipping === "En stock" && <p className="text-green-600">En stock</p>}
+                             
                             </td>
                             <td className="widgetLgAmount ">
                               <div className="productListItem">

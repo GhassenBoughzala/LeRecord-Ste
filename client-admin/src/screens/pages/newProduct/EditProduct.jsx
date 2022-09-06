@@ -27,8 +27,6 @@ const EditProduct = ({ ...props }) => {
   var { values, setValues, errors, setErrors, handleInputChange, resetForm } =
     useForm(initialFieldValues, props.setCurrentId);
 
-  //const [product, setProduct] = useState(initialFieldValues);
-
   useEffect(() => {
     props.All();
     props.AllF();
@@ -40,8 +38,6 @@ const EditProduct = ({ ...props }) => {
       setErrors({});
     }
   }, [props.currentObj]);
-
-  console.log(props.currentObj);
 
   const validate = () => {
     let temp = { ...errors };
@@ -99,7 +95,7 @@ const EditProduct = ({ ...props }) => {
           <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
             <form onSubmit={handleSubmit}>
               <div className="flex flex-wrap">
-                <div className="w-full lg:w-6/12 px-4">
+                <div className="w-full lg:w-12/12 px-4">
                   <div className="relative w-full mb-3">
                     <br></br>
                     <label
@@ -117,8 +113,27 @@ const EditProduct = ({ ...props }) => {
                     />
                   </div>
                 </div>
+              </div>
+
+              <div className="flex flex-wrap">
                 <div className="w-full lg:w-6/12 px-4">
-                  <br></br>
+                  <div className="relative w-full mb-3">
+                    <label
+                      className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                      htmlFor="grid-password"
+                    >
+                      Prix -
+                    </label>
+                    <input
+                      type="number"
+                      name="price"
+                      value={values.price}
+                      onChange={handleInputChange}
+                      className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                    />
+                  </div>
+                </div>
+                <div className="w-full lg:w-6/12 px-4">
                   <div className="relative w-full mb-3">
                     <label
                       className="block uppercase text-gray-700 text-xs font-bold mb-2"
@@ -140,7 +155,6 @@ const EditProduct = ({ ...props }) => {
               <div className="flex flex-wrap">
                 <div className="w-full lg:w-6/12 px-4">
                   <div className="relative w-full mb-3">
-                    <br></br>
                     <label
                       className="block uppercase text-gray-700 text-xs font-bold mb-2"
                       htmlFor="grid-password"
@@ -164,7 +178,6 @@ const EditProduct = ({ ...props }) => {
                   </div>
                 </div>
                 <div className="w-full lg:w-6/12 px-4">
-                  <br></br>
                   <div className="relative w-full mb-3">
                     <label
                       className="block uppercase text-gray-700 text-xs font-bold mb-2"
@@ -194,42 +207,56 @@ const EditProduct = ({ ...props }) => {
               <div className="flex flex-wrap">
                 <div className="w-full lg:w-6/12 px-4">
                   <div className="relative w-full mb-3">
-                    <br></br>
-                    <label
-                      className="block uppercase text-gray-700 text-xs font-bold mb-2"
-                      htmlFor="grid-password"
-                    >
-                      Prix
-                    </label>
-                    <input
-                      type="number"
-                      name="price"
-                      value={values.price}
-                      onChange={handleInputChange}
-                      className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
-                    />
-                  </div>
-                </div>
-                <div className="w-full lg:w-6/12 px-4">
-                  <br></br>
-                  <div className="relative w-full mb-3">
                     <label
                       className="block uppercase text-gray-700 text-xs font-bold mb-2"
                       htmlFor="grid-password"
                     >
                       Status
                     </label>
-
-                    <select
-                      name="shipping"
-                      value={values.shipping}
-                      onChange={handleInputChange}
-                      className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                    {values.shipping === "En stock" ? (
+                      <button
+                        disabled
+                        className="bg-green-600 text-white active:bg-gray-700 text-sm font-bold px-1 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
+                      >
+                        En stock
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() =>
+                          setValues({ ...values, shipping: "En stock" })
+                        }
+                        className="bg-gray-600 text-white active:bg-gray-700 text-sm font-bold px-1 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
+                      >
+                        En stock
+                      </button>
+                    )}
+                  </div>
+                </div>
+                <div className="w-full lg:w-6/12 px-4">
+                  <div className="relative w-full mb-3">
+                    <label
+                      className="block uppercase text-gray-700 text-xs font-bold mb-2 opacity-0"
+                      htmlFor="grid-password"
                     >
-                      <option value={values.shipping}>{values.shipping}</option>
-                      <option value="En stock">En Stock</option>
-                      <option value="Hors stock">Hors Stock</option>
-                    </select>
+                      Status
+                    </label>
+                    {values.shipping === "Hors stock" ? (
+                      <button
+                        disabled
+                        className="bg-red-600 text-white active:bg-gray-700 text-sm font-bold px-1 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
+                      >
+                        Hors stock
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() =>
+                          setValues({ ...values, shipping: "Hors stock" })
+                        }
+                        className="bg-gray-600 text-white active:bg-gray-700 text-sm font-bold px-1 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
+                      >
+                        Hors stock
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>

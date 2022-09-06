@@ -2,12 +2,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Sidebar from "../../../components/sidebar/Sidebar";
 import "./newProduct.css";
 import { Publish } from "@material-ui/icons";
 import { toast } from "react-toastify";
 import { connect } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import {
   addProduct,
   updateProduct,
