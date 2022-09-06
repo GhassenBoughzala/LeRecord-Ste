@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { Fragment, useEffect } from "react";
-import "./newProduct.css";
+import "./product.css";
 import "../../../components/loading.css";
 import { toast } from "react-toastify";
 import { connect } from "react-redux";
@@ -23,7 +23,7 @@ const initialFieldValues = {
   photo: "",
 };
 
-const EditProduct = ({ ...props }) => {
+const DetailsProduct = ({ ...props }) => {
   var { values, setValues, errors, setErrors, handleInputChange, resetForm } =
     useForm(initialFieldValues, props.setCurrentId);
 
@@ -78,11 +78,11 @@ const EditProduct = ({ ...props }) => {
         <div className=" rounded-lg bg-gray-200 border-0 ">
           <div className="rounded-t bg-white mb-0 px-6 py-6">
             <div className="text-center flex justify-between">
-              <h6 className="text-gray-800 text-xl font-bold">Editer</h6>
+              <h6 className="text-gray-800 text-xl font-bold">Details</h6>
               <div className=" text-right">
                 <span
                   onClick={() => {
-                    props.setShoEditwModal(false);
+                    props.setShowDetailsModal(false);
                   }}
                   className=" text-red-500 onClick"
                 >
@@ -102,7 +102,7 @@ const EditProduct = ({ ...props }) => {
                       className="block uppercase text-gray-700 text-xs font-bold mb-2"
                       htmlFor="grid-password"
                     >
-                      Nom
+                      Nom: {values.name}
                     </label>
                     <input
                       type="text"
@@ -122,7 +122,7 @@ const EditProduct = ({ ...props }) => {
                       className="block uppercase text-gray-700 text-xs font-bold mb-2"
                       htmlFor="grid-password"
                     >
-                      Prix - Dt
+                      Prix -
                     </label>
                     <input
                       type="number"
@@ -324,62 +324,4 @@ const mapActionToProps = {
   updateP: updateProduct,
 };
 
-export default connect(mapStateToProps, mapActionToProps)(EditProduct);
-
-/*
-
-            <div className="flex flex-wrap">
-              <div className="w-full lg:w-6/12 px-4">
-                <div className="relative w-full mb-3">
-
-                  <br></br>
-                  <label
-                    className="block uppercase text-gray-700 text-xs font-bold mb-2"
-                    htmlFor="grid-password">
-                    Catégorie
-                  </label>
-
-                  <select name="category" 
-                          onChange={handleInputChange}
-                          value={values.category.name}
-                          className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"> 
-                          <option value="">{values.category.name}</option>
-
-                      {props.ListCat.map((cat,index) => {
-                        return ( 
-                          <Fragment key={index}>  
-                            <option value={cat._id}>{cat.name}</option>
-                          </Fragment>
-                        );
-                      })}
-                  </select>  
-
-                </div>
-              </div>
-              <div className="w-full lg:w-6/12 px-4">
-                <br></br>
-                <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-gray-700 text-xs font-bold mb-2"
-                    htmlFor="grid-password">
-                    Fournisseur
-                  </label>
-                    
-                  <select name="fournisseur" 
-                          onChange={handleInputChange}
-                          value={values.fournisseur.title}
-                          className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150">
-                      <option value="">{values.fournisseur.title}</option>
-                      {props.ListFou.map((f, index) => {
-                        return ( 
-                          <Fragment key={index}>  
-                            <option value={f._id}>{f.title}</option>
-                          </Fragment>
-                        );
-                      })}
-                  </select>  
-                  
-                </div>
-              </div>
-            </div>
-*/
+export default connect(mapStateToProps, mapActionToProps)(DetailsProduct);

@@ -13,12 +13,13 @@ import AddProduct from "../newProduct/AddProduct";
 import EditProduct from "../newProduct/EditProduct";
 import usePrevious from "../../../helpers/usePrevios";
 import { toast } from "react-toastify";
+import DetailsProduct from "../newProduct/DetailsProduct";
 const backdrop = {
   visible: { opacity: 1 },
   hidden: { opacity: 0 },
 };
 const modal = {
-  hidden: { y: "-100vh", opacity: 0 },
+  hidden: { y: "100vh", opacity: 0 },
   visible: {
     y: "0px",
     opacity: 1,
@@ -29,6 +30,7 @@ const modal = {
 const ProductList = (props) => {
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShoEditwModal] = useState(false);
+  const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [currentId, setCurrentId] = useState(0);
   const [currentObj, setCurrentObj] = useState({});
 
@@ -49,7 +51,7 @@ const ProductList = (props) => {
     if (prev_loading && !props.isLoadingCreate) {
       if (props.CodeMsg === 1) {
         props.AllProducts();
-        setShoEditwModal(false)
+        setShoEditwModal(false);
         toast.info("Mis à jour avec succés");
       }
       if (props.CodeMsg === 0) {
@@ -120,14 +122,17 @@ const ProductList = (props) => {
                             </td>
                             <td className="widgetLgDate ">{product.price}</td>
                             <td className="widgetLgAmount ">
-                              {product.shipping === "Hors stock" && <p className="text-red-600">Hors stock</p>}
-                              {product.shipping === "En stock" && <p className="text-green-600">En stock</p>}
-                             
+                              {product.shipping === "Hors stock" && (
+                                <p className="text-red-600">Hors stock</p>
+                              )}
+                              {product.shipping === "En stock" && (
+                                <p className="text-green-600">En stock</p>
+                              )}
                             </td>
                             <td className="widgetLgAmount ">
                               <div className="productListItem">
                                 <img
-                                  className="productListImg"
+                                  className="productListImg hover:scale-150 onClick"
                                   src={product.photo}
                                   alt=""
                                 />
@@ -144,41 +149,27 @@ const ProductList = (props) => {
                                 <div
                                   onClick={() => {
                                     setCurrentObj(product);
-                                    setShoEditwModal(true);
+                                    setShowDetailsModal(true);
                                   }}
-                                  className="w-6 mr-2 transform hover:text-blue-500 hover:scale-110 onClick"
+                                  className="w-6 mr-2 transform hover:text-green-500 hover:scale-150 onClick border-0"
                                 >
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                  >
-                                    <path
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      strokeWidth="2"
-                                      d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-                                    />
-                                  </svg>
+                                  <i class="far fa-eye"></i>
                                 </div>
                                 <div
-                                  onClick={() => onDLP(product._id)}
-                                  className="w-6 mr-2 transform hover:text-red-500 hover:scale-110 onClick"
+                                  onClick={() => {
+                                    setCurrentObj(product);
+                                    setShoEditwModal(true);
+                                  }}
+                                  className="w-6 mr-2 transform hover:text-blue-500 hover:scale-150 onClick"
                                 >
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                  >
-                                    <path
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      strokeWidth="2"
-                                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                                    />
-                                  </svg>
+                                  <i className="far fa-edit"></i>
+                                </div>
+
+                                <div
+                                  onClick={() => onDLP(product._id)}
+                                  className="w-6 mr-2 transform hover:text-red-500 hover:scale-150 onClick border-0"
+                                >
+                                  <i class="fas fa-trash text-sm"></i>
                                 </div>
                               </div>
                             </td>
@@ -226,6 +217,33 @@ const ProductList = (props) => {
               </motion.div>
             )}
           </AnimatePresence>
+
+          <AnimatePresence
+            exitBeforeEnter
+            showModal={showDetailsModal}
+            setShowModal={setShowDetailsModal}
+          >
+            {showDetailsModal && (
+              <motion.div
+                className="backdrop"
+                variants={backdrop}
+                initial="hidden"
+                animate="visible"
+                exit="hidden"
+              >
+                <motion.div className="lg:w-1/3 center" variants={modal}>
+                  <DetailsProduct
+                    {...{
+                      currentObj,
+                      setCurrentObj,
+                      setShowDetailsModal,
+                      showDetailsModal,
+                    }}
+                  />
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
         <AnimatePresence
           exitBeforeEnter
@@ -258,7 +276,7 @@ const mapStateToProps = (state) => ({
   isAuth: state.auth.isAuthenticated,
   isLoading: state.productsReducer.ploader,
   isLoadingCreate: state.productsReducer.updateLoader,
-  CodeMsg: state.productsReducer.codemsg
+  CodeMsg: state.productsReducer.codemsg,
 });
 
 const mapActionToProps = {
