@@ -205,7 +205,7 @@ const ProductList = (props) => {
                 animate="visible"
                 exit="hidden"
               >
-                <motion.div className="lg:w-1/3 center" variants={modal}>
+                <motion.div className="lg:w-1/3 lg:h-full center overflow-y-auto" variants={modal}>
                   <EditProduct
                     {...{
                       currentObj,
@@ -232,7 +232,7 @@ const ProductList = (props) => {
                 animate="visible"
                 exit="hidden"
               >
-                <motion.div className="lg:w-1/3 center" variants={modal}>
+                <motion.div className="lg:w-1/3 lg:h-full center overflow-y-auto" variants={modal}>
                   <DetailsProduct
                     {...{
                       currentObj,
@@ -259,7 +259,7 @@ const ProductList = (props) => {
               animate="visible"
               exit="hidden"
             >
-              <motion.div className="lg:w-1/3 center overflow-auto h-100" variants={modal}>
+              <motion.div className="lg:w-1/3 lg:h-full center overflow-y-auto" variants={modal}>
                 <AddProduct
                   {...{ currentId, setCurrentId, showModal, setShowModal }}
                 />
@@ -286,21 +286,3 @@ const mapActionToProps = {
 };
 
 export default connect(mapStateToProps, mapActionToProps)(ProductList);
-
-/*
-    <div>
-    <LineCharts
-      data={proStats}
-      title="Produits Statistiques"
-      grid
-      dataKey="Quantity"
-    />
-    </div>
-
-
-                    <td className="widgetLgAmount">
-                    <div className="productListItem">
-                      <img className="productListImg" src={product.photo} alt={product.photo} /> 
-                    </div>
-                </td>
-*/

@@ -74,8 +74,6 @@ const AddProduct = ({ ...props }) => {
     setProduct({ ...product, photo: filtered });
   };
 
-  console.log(product);
-
   return (
     <>
       <div className="items-center">

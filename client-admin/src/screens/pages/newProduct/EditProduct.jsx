@@ -11,6 +11,7 @@ import {
 } from "../../../redux/reducers/productReducer";
 import { getAllCat } from "../../../redux/reducers/catReducer";
 import { getAllFou } from "../../../redux/reducers/forReducer";
+import { Publish } from "@material-ui/icons";
 
 const initialFieldValues = {
   name: "",
@@ -20,10 +21,16 @@ const initialFieldValues = {
   category: "",
   fournisseur: "",
   shipping: "",
-  photo: "",
+  photo: [],
 };
 
 const EditProduct = ({ ...props }) => {
+
+  const ImgStyle = {
+    width: "80px",
+    height: "80px",
+  };
+
   var { values, setValues, errors, setErrors, handleInputChange, resetForm } =
     useForm(initialFieldValues, props.setCurrentId);
 
@@ -72,11 +79,39 @@ const EditProduct = ({ ...props }) => {
     }
   };
 
+  const convertToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
+
+  const handleFileUpload = async (e) => {
+    const files = [...e.target.files];
+    files.forEach((file) => {
+      convertToBase64(file).then((res) => {
+        setValues({ ...values, photo: [...values.photo, res] });
+      });
+    });
+  };
+
+  const onDelete = (e) => {
+    const filtered = values.photo.filter((item, index) => index !== e);
+    setValues({ ...values, photo: filtered });
+  };
+
+
   return (
     <>
       <div className="items-center">
-        <div className=" rounded-lg bg-gray-200 border-0 ">
-          <div className="rounded-t bg-white mb-0 px-6 py-6">
+        <div className=" rounded-lg bg-gray-200 border-0">
+          <div className="rounded-t bg-white mb-0 px-6 py-6 overflow-y-auto">
             <div className="text-center flex justify-between">
               <h6 className="text-gray-800 text-xl font-bold">Editer</h6>
               <div className=" text-right">
@@ -282,6 +317,61 @@ const EditProduct = ({ ...props }) => {
               </div>
 
               <div className="flex flex-wrap">
+                <div className="w-full lg:w-12/12 px-4">
+                  <div className="relative w-full mb-3 text-center">
+                    <label
+                      className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                      htmlFor="grid-password"
+                    >
+                      Photo
+                    </label>
+                    <div className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150">
+                      <label className="custom-file-upload form-control-label btn border-info text-info">
+                        Choisir un fichier
+                        <Publish />
+                        <input
+                          className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                          type="file"
+                          multiple={true}
+                          name="photo"
+                          accept=".jpeg, .png, .jpg"
+                          onChange={(e) => handleFileUpload(e)}
+                        />
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+             <div className="flex flex-wrap">
+                  <div className="w-full lg:w-12/12 px-4 ">
+                    <div className="relative w-full mb-3 mt--6 ">
+                      <div className="px-3 py-3 placeholder-gray-400 text-gray-700 rounded text-sm focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150">
+                        <div className="grid grid-cols-4 gap-4">
+                          {values.photo?.map((img, index) => {
+                            return (
+                              <Fragment key={index}>
+                                <div className="text-center">
+                                  <i
+                                    className="btn btn-sm btn-danger shadow-none--hover shadow-none fas fa-times onClick text-red-700"
+                                    onClick={() => onDelete(index)}
+                                  ></i>
+                                  <img
+                                    style={ImgStyle}
+                                    className="img-fluid rounded shadow"
+                                    src={img}
+                                    alt=""
+                                  />
+                                </div>
+                              </Fragment>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div> 
+
+              <div className="flex flex-wrap">
                 <div className="w-full px-4">
                   <div className="relative w-full mb-3">
                     {props.isLoadingCreate ? (
@@ -302,6 +392,7 @@ const EditProduct = ({ ...props }) => {
                   </div>
                 </div>
               </div>
+              
             </form>
           </div>
         </div>
