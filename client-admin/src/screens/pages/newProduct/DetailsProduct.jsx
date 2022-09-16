@@ -20,12 +20,14 @@ const initialFieldValues = {
   category: "",
   fournisseur: "",
   shipping: "",
-  photo: "",
+  photo: [],
 };
 
 const DetailsProduct = ({ ...props }) => {
-  var { values, setValues, errors, setErrors, resetForm } =
-    useForm(initialFieldValues, props.setCurrentId);
+  var { values, setValues, errors, setErrors, resetForm } = useForm(
+    initialFieldValues,
+    props.setCurrentId
+  );
 
   useEffect(() => {
     props.All();
@@ -193,7 +195,30 @@ const DetailsProduct = ({ ...props }) => {
                       Description
                     </label>
 
-                   <p className="block text-gray-500 text-xs font-bold mb-2">{values.description}</p>
+                    <p className="block text-gray-500 text-xs font-bold mb-2">
+                      {values.description}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="w-full lg:w-12/12 px-4 ">
+                <div className="relative w-full mb-3 mt--6 ">
+                  <div className="px-3 py-3 placeholder-gray-400 text-gray-700 rounded text-sm focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150">
+                    <div className="grid grid-cols-4 gap-4">
+                      {values.photo?.map((img, index) => {
+                        return (
+                          <Fragment key={index}>
+                            <div className="transform transition duration-500 hover:scale-150">
+                              <img
+                                className="img-fluid rounded shadow"
+                                src={img}
+                                alt=""
+                              />
+                            </div>
+                          </Fragment>
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
               </div>

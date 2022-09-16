@@ -111,7 +111,7 @@ const EditProduct = ({ ...props }) => {
     <>
       <div className="items-center">
         <div className=" rounded-lg bg-gray-200 border-0">
-          <div className="rounded-t bg-white mb-0 px-6 py-6 overflow-y-auto">
+          <div className="rounded-t bg-white mb-0 px-6 py-6 ">
             <div className="text-center flex justify-between">
               <h6 className="text-gray-800 text-xl font-bold">Editer</h6>
               <div className=" text-right">

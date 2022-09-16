@@ -131,7 +131,7 @@ const ProductList = (props) => {
                               )}
                             </td>
                             <td className="widgetLgAmount ">
-                              <div className="productListItem">
+                              <div className="productListItem transform transition duration-500 hover:scale-150">
                                 <img
                                   className="productListImg hover:scale-150 onClick"
                                   src={product.photo}
@@ -152,7 +152,7 @@ const ProductList = (props) => {
                                     setCurrentObj(product);
                                     setShowDetailsModal(true);
                                   }}
-                                  className="w-6 mr-2 transform hover:text-green-500 hover:scale-150 onClick border-0"
+                                  className="w-6 mr-2 transform hover:text-green-500 hover:scale-150 ease-in duration-100 onClick border-0"
                                 >
                                   <i className="far fa-eye"></i>
                                 </div>
@@ -161,14 +161,14 @@ const ProductList = (props) => {
                                     setCurrentObj(product);
                                     setShoEditwModal(true);
                                   }}
-                                  className="w-6 mr-2 transform hover:text-blue-500 hover:scale-150 onClick"
+                                  className="w-6 mr-2 transform hover:text-blue-500 hover:scale-150 ease-in duration-100 onClick"
                                 >
                                   <i className="far fa-edit"></i>
                                 </div>
 
                                 <div
                                   onClick={() => onDLP(product._id)}
-                                  className="w-6 mr-2 transform hover:text-red-500 hover:scale-150 onClick border-0"
+                                  className="w-6 mr-2 transform hover:text-red-500 hover:scale-150 ease-in duration-100 onClick border-0"
                                 >
                                   <i className="fas fa-trash text-sm"></i>
                                 </div>
