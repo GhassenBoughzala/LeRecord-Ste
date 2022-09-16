@@ -5,42 +5,15 @@ const auth = require("../middleware/auth");
 const adminAuth = require("../middleware/adminAuth");
 const productById = require("../middleware/productById");
 const { validationResult } = require("express-validator");
-const multer = require("multer");
-const { v4: uuidv4 } = require("uuid");
-let path = require("path");
-
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(
-      null,
-      path.resolve(__dirname + "../../") + "/client-admin/public/uploads"
-    );
-  },
-  filename: function (req, file, cb) {
-    cb(null, uuidv4() + "-" + Date.now() + path.extname(file.originalname));
-  },
-});
-
-const fileFilter = (req, file, cb) => {
-  const allowedFileTypes = ["image/jpeg", "image/jpg", "image/png"];
-  if (allowedFileTypes.includes(file.mimetype)) {
-    cb(null, true);
-  } else {
-    cb(null, false);
-  }
-};
-
-let upload = multer({ storage, fileFilter });
 
 // @route   Post api/product/
 // @desc    Create a Product
 // @access  Private Admin
-router.post("/", auth, adminAuth, upload.any(), async (req, res) => {
+router.post("/", auth, adminAuth, async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(402).json({ error: errors.array()[0].msg });
+    return res.status(400).json({ error: errors.array()[0].msg });
   }
-
   let {
     name,
     description,
@@ -62,18 +35,13 @@ router.post("/", auth, adminAuth, upload.any(), async (req, res) => {
     !quantity |
     !shipping
   ) {
-    return res.json({ error: "All filled must be required" });
+    return res.status(400).json({ error: "Verifier vos champs !" });
   } else if (name.length > 255 || description.length > 3000) {
-    return res.json({
+    return res.status(400).json({
       error: "Name 255 & Description must not be 3000 charecter long",
     });
   } else {
     try {
-      /*let allImages = [];
-                for (const img of images){
-                    allImages.push(img.filename);
-                }
-                */
       let newProduct = new Product({
         photo,
         name,
@@ -93,29 +61,6 @@ router.post("/", auth, adminAuth, upload.any(), async (req, res) => {
       console.log(err);
     }
   }
-
-  /*
-    const newProduct = new Product({
-      name: req.body.name,
-      description: req.body.description,
-      category: req.body.category,
-      fournisseur: req.body.fournisseur,
-      price: req.body.price,
-      quantity: req.body.quantity,
-      photo: req.file.filename,
-      shipping: req.body.shipping
-    });
-      try {
-        newProduct.save()
-        .then(() => res.json("P ++"))
-        console.log("PRODUCT IN BD !!")
-        
-      } catch (error) {
-        console.log(error)
-        
-      }
-
-*/
 });
 
 // @route   Delete api/product/productId

@@ -49,10 +49,30 @@
   padding: 6px 12px;
   cursor: pointer;
 }
+.onClick {
+  cursor: pointer;
+}
+
+.custom-file-upload {
+
+  display: inline-block;
+
+  cursor: pointer;
+}
 
 input[type="file"] {
   display: none;
 }
-.onClick {
-  cursor: pointer;
+
+.img-wrapper{
+  overflow:hidden;
+}
+
+img.hover-zoom:hover {
+  transform: scale(1.55);
+}
+
+.uploadImges{
+  width: "10px";
+  height: "10px";
 }

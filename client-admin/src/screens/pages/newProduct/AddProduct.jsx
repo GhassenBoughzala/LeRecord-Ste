@@ -1,20 +1,15 @@
 /* eslint-disable no-sequences */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { Fragment, useEffect, useState } from "react";
 import "./newProduct.css";
 import { Publish } from "@material-ui/icons";
-import { toast } from "react-toastify";
 import { connect } from "react-redux";
-import { useHistory } from "react-router-dom";
 import {
   addProduct,
   updateProduct,
 } from "../../../redux/reducers/productReducer";
 import { getAllCat } from "../../../redux/reducers/catReducer";
 import { getAllFou } from "../../../redux/reducers/forReducer";
-import FileBase64 from "react-file-base64";
-//import { URLDevelopment } from '../../../helpers/url';
 
 const initialFieldValues = {
   name: "",
@@ -24,14 +19,18 @@ const initialFieldValues = {
   category: "",
   fournisseur: "",
   shipping: "",
-  photo: null,
+  photo: [],
   success: false,
   error: false,
 };
 
 const AddProduct = ({ ...props }) => {
   const [product, setProduct] = useState(initialFieldValues);
-  const history = useHistory();
+  const [ShowImg, setShowImg] = useState(false);
+  const ImgStyle = {
+    width: "80px",
+    height: "80px",
+  };
 
   useEffect(() => {
     props.All();
@@ -40,75 +39,47 @@ const AddProduct = ({ ...props }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("photo", product.photo);
-    formData.append("name", product.name);
-    formData.append("description", product.description);
-    formData.append("price", product.price);
-    formData.append("quantity", product.quantity);
-    formData.append("category", product.category);
-    formData.append("fournisseur", product.fournisseur);
-    formData.append("shipping", product.shipping);
-
-    if (!product.photo) {
-      setProduct({ ...product, error: "Please upload an image" });
-      toast.warn("Photo est requise !");
-      setTimeout(() => {
-        setProduct({ ...product, error: false });
-      }, 2000);
-    }
-
-    if (
-      !product.category ||
-      !product.name ||
-      !product.description ||
-      !product.price ||
-      !product.quantity ||
-      !product.shipping ||
-      !product.fournisseur
-    ) {
-      toast.warn("Verifier vos champs !");
-    } else {
-      try {
-        //props.createP(product);
-        axios
-          .post(`/api/products`, formData)
-          .then((res) => {
-            console.log(res);
-            toast.success("Ajouté avec succès");
-            setTimeout(() => {
-              history.push("/dashboard/admin/products");
-            }, 2000);
-          })
-          .catch((err) => {
-            console.log(err);
-            toast.error("Erreur");
-          });
-      } catch (error) {
-        console.log(error);
-        toast.error("Erreur !");
-      }
-    }
+    props.createP(product);
   };
 
   const handleChange = (e) => {
     setProduct({ ...product, [e.target.name]: e.target.value });
   };
 
-  /*
-  const handlePhoto = (e) => {
-    setProduct({...product, photo: e.target.files[0]});
-    setTimeout(() => {
-      toast.info('Photo 100% ');
-    }, 1000);
-    console.log(e.target.files[0])
-  }
-*/
+  const convertToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
+
+  const handleFileUpload = async (e) => {
+    const files = [...e.target.files];
+    files.forEach((file) => {
+      convertToBase64(file).then((res) => {
+        setProduct({ ...product, photo: [...product.photo, res] });
+      });
+    });
+    setShowImg(true);
+  };
+
+  const onDelete = (e) => {
+    const filtered = product.photo.filter((item, index) => index !== e);
+    setProduct({ ...product, photo: filtered });
+  };
+
+  console.log(product);
 
   return (
     <>
       <div className="items-center">
-        <div className=" rounded-lg bg-gray-200 border-0 ">
+        <div className=" rounded-lg bg-gray-200 border-0">
           <div className="rounded-t bg-white mb-0 px-6 py-6">
             <div className="text-center flex justify-between">
               <h6 className="text-gray-800 text-xl font-bold">
@@ -288,38 +259,60 @@ const AddProduct = ({ ...props }) => {
 
               <div className="flex flex-wrap">
                 <div className="w-full lg:w-12/12 px-4">
-                  <div className="relative w-full mb-3">
+                  <div className="relative w-full mb-3 text-center">
                     <label
                       className="block uppercase text-gray-700 text-xs font-bold mb-2"
                       htmlFor="grid-password"
                     >
                       Photo
                     </label>
-
                     <div className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150">
-                      <label className="custom-file-upload ">
+                      <label className="custom-file-upload form-control-label btn border-info text-info">
+                        Choisir un fichier
                         <Publish />
-                        <FileBase64
+                        <input
+                          className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
                           type="file"
-                          multiple={false}
-                          accept=".png, .jpg, .jpeg"
-                          onDone={({ base64 }) =>
-                            //setItem({ ...item, image: base64 }),
-                            setProduct(
-                              { ...product, photo: base64 },
-                              setTimeout(() => {
-                                toast.info("Photo 100% ");
-                              }, 1000),
-                              console.log(base64)
-                            )
-                          }
+                          multiple={true}
+                          name="photo"
+                          accept=".jpeg, .png, .jpg"
+                          onChange={(e) => handleFileUpload(e)}
                         />
                       </label>
                     </div>
                   </div>
                 </div>
               </div>
-
+              {ShowImg && (
+                <div className="flex flex-wrap">
+                  <div className="w-full lg:w-12/12 px-4 ">
+                    <div className="relative w-full mb-3 mt--6 ">
+                      <div className="px-3 py-3 placeholder-gray-400 text-gray-700 rounded text-sm focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150">
+                        <div className="grid grid-cols-4 gap-4">
+                          {product.photo.map((img, index) => {
+                            return (
+                              <Fragment key={index}>
+                                <div className="text-center">
+                                  <i
+                                    className="btn btn-sm btn-danger shadow-none--hover shadow-none fas fa-times onClick text-red-700"
+                                    onClick={() => onDelete(index)}
+                                  ></i>
+                                  <img
+                                    style={ImgStyle}
+                                    className="img-fluid rounded shadow avatar avatar-lg mr-2"
+                                    src={img}
+                                    alt=""
+                                  />
+                                </div>
+                              </Fragment>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
               <div className="flex flex-wrap">
                 <div className="w-full px-4">
                   <div className="relative w-full mb-3">

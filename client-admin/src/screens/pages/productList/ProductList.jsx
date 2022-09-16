@@ -52,7 +52,8 @@ const ProductList = (props) => {
       if (props.CodeMsg === 1) {
         props.AllProducts();
         setShoEditwModal(false);
-        toast.info("Mis à jour avec succés");
+        setShowModal(false)
+        toast.success("Succés");
       }
       if (props.CodeMsg === 0) {
         toast.error("Problème lors de l'ajout !");
@@ -139,10 +140,10 @@ const ProductList = (props) => {
                               </div>
                             </td>
                             <td className="widgetLgAmount">
-                              {product.category.name}
+                              {product.category?.name}
                             </td>
                             <td className="widgetLgAmount item-center">
-                              {product.fournisseur.title}
+                              {product.fournisseur?.title}
                             </td>
                             <td className="py-3 px-6 text-center">
                               <div className="flex item-center justify-center">
@@ -153,7 +154,7 @@ const ProductList = (props) => {
                                   }}
                                   className="w-6 mr-2 transform hover:text-green-500 hover:scale-150 onClick border-0"
                                 >
-                                  <i class="far fa-eye"></i>
+                                  <i className="far fa-eye"></i>
                                 </div>
                                 <div
                                   onClick={() => {
@@ -169,7 +170,7 @@ const ProductList = (props) => {
                                   onClick={() => onDLP(product._id)}
                                   className="w-6 mr-2 transform hover:text-red-500 hover:scale-150 onClick border-0"
                                 >
-                                  <i class="fas fa-trash text-sm"></i>
+                                  <i className="fas fa-trash text-sm"></i>
                                 </div>
                               </div>
                             </td>
@@ -258,7 +259,7 @@ const ProductList = (props) => {
               animate="visible"
               exit="hidden"
             >
-              <motion.div className="lg:w-1/3 center" variants={modal}>
+              <motion.div className="lg:w-1/3 center overflow-auto h-100" variants={modal}>
                 <AddProduct
                   {...{ currentId, setCurrentId, showModal, setShowModal }}
                 />

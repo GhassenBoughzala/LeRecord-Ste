@@ -10,6 +10,7 @@ const GET_PRODUCTS_S = "GET ALL PRODUCTS";
 const GET_PRODUCTS_F = "GET PRODUCTS FAILURE";
 const GETP_DETAILS = "PRODUCT DETAILS REQ ID";
 const GETP_DETAILS_S = "PRODUCT DETAILS SECC";
+const ADDP_L = "ADD PRODUCT LOADING";
 const ADDP_S = "ADD PRODUCT SUCCESS";
 const ADDP_F = "ADD PRODUCT FAILURE";
 const PRODUCT_LOADING = "ACTION LOADING";
@@ -24,6 +25,7 @@ const intialState = {
   error: null,
   ploader: false,
   updateLoader: false,
+  addLoader: false,
   codemsg: null,
 };
 
@@ -41,9 +43,20 @@ export default function (state = intialState, action) {
       return { ...state, product: action.payload };
     case GETP_DETAILS_S:
       return { product: action.payload };
+    case ADDP_L:
+      return {
+        ...state,
+        codemsg: null,
+        updateLoader: true,
+      };
 
     case ADDP_S:
-      return { ...state, products: [...state.products, action.payload] };
+      return {
+        ...state,
+        products: [...state.products, action.payload],
+        codemsg: 1,
+        updateLoader: false,
+      };
     case ADDP_F:
 
     case PRODUCT_LOADING:
@@ -117,13 +130,6 @@ export const detailsProduct = (productId) => async (dispatch) => {
   }
 };
 
-export const createSuccess = (data) => {
-  return {
-    type: ADDP_S,
-    payload: data,
-  };
-};
-
 export const addProduct = (product) => {
   const data = {
     name: product.name,
@@ -137,14 +143,17 @@ export const addProduct = (product) => {
   };
 
   return (dispatch) => {
+    dispatch({ type: ADDP_L });
     return axios
       .post(`/api/products`, data)
       .then((res) => {
-        const data = res.data;
-        console.log(data);
-        dispatch(createSuccess(data));
+        res.status !== 200 && toast.warn(res.error);
+        dispatch({
+          type: ADDP_S,
+          payload: res.data,
+        });
       })
-      .catch((err) => console.log(err), PRODUCT_ERR);
+      .catch((err) => console.log(err.status), PRODUCT_ERR, toast.warn("Verifier vos champs"));
   };
 };
 
@@ -162,7 +171,7 @@ export const deleteProduct = async (id, dispatch) => {
 };
 
 export const updateProduct = (id, data) => (dispatch) => {
-  dispatch({type: PRODUCT_LOADING})
+  dispatch({ type: PRODUCT_LOADING });
   UP(id, data)
     .then((res) => {
       console.log(res);
@@ -170,7 +179,6 @@ export const updateProduct = (id, data) => (dispatch) => {
         type: PRODUCT_UPDATE,
         payload: res.data,
       });
-      
     })
     .catch((err) => console.log(err), PRODUCT_ERR);
 };
