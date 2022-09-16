@@ -24,7 +24,7 @@ const initialFieldValues = {
 };
 
 const DetailsProduct = ({ ...props }) => {
-  var { values, setValues, errors, setErrors, handleInputChange, resetForm } =
+  var { values, setValues, errors, setErrors, resetForm } =
     useForm(initialFieldValues, props.setCurrentId);
 
   useEffect(() => {

@@ -21,7 +21,7 @@ const Sidebar = ({ history, logout, isAuth, user }) => {
   };
 
   return (
-    <div className="sidebar">
+    <div className="sidebar overflow-scroll h-100vh">
       <div className="sidebarWrapper">
         <div className="flex justify-between w-full md:w-48 items-center text-center">
           <Link to="/home" className="logo w-40 ">
