@@ -29,10 +29,13 @@ const modal = {
 
 const ProductList = (props) => {
   const [showModal, setShowModal] = useState(false);
+  const [showImage, setShowImage] = useState(false);
   const [showEditModal, setShoEditwModal] = useState(false);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [currentId, setCurrentId] = useState(0);
   const [currentObj, setCurrentObj] = useState({});
+  const [currentImg, setCurrentImg] = useState("");
+  console.log(currentImg);
 
   useEffect(() => {
     props.AllProducts();
@@ -52,7 +55,7 @@ const ProductList = (props) => {
       if (props.CodeMsg === 1) {
         props.AllProducts();
         setShoEditwModal(false);
-        setShowModal(false)
+        setShowModal(false);
         toast.success("Succés");
       }
       if (props.CodeMsg === 0) {
@@ -131,9 +134,13 @@ const ProductList = (props) => {
                               )}
                             </td>
                             <td className="widgetLgAmount ">
-                              <div className="productListItem transform transition duration-500 hover:scale-150">
+                              <div className="productListItem">
                                 <img
                                   className="productListImg hover:scale-150 onClick"
+                                  onClick={() => {
+                                    setShowImage(true);
+                                    setCurrentImg(product.photo);
+                                  }}
                                   src={product.photo}
                                   alt=""
                                 />
@@ -205,7 +212,10 @@ const ProductList = (props) => {
                 animate="visible"
                 exit="hidden"
               >
-                <motion.div className="lg:w-1/3 lg:h-full center overflow-y-auto" variants={modal}>
+                <motion.div
+                  className="lg:w-1/3 lg:h-full center overflow-y-auto"
+                  variants={modal}
+                >
                   <EditProduct
                     {...{
                       currentObj,
@@ -232,7 +242,10 @@ const ProductList = (props) => {
                 animate="visible"
                 exit="hidden"
               >
-                <motion.div className="lg:w-1/3 lg:h-full center overflow-y-auto" variants={modal}>
+                <motion.div
+                  className="lg:w-1/3 lg:h-full center overflow-y-auto"
+                  variants={modal}
+                >
                   <DetailsProduct
                     {...{
                       currentObj,
@@ -241,6 +254,50 @@ const ProductList = (props) => {
                       showDetailsModal,
                     }}
                   />
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          <AnimatePresence
+            exitBeforeEnter
+            showModal={showImage}
+            setShowModal={setShowImage}
+          >
+            {showImage && (
+              <motion.div
+                className="backdrop"
+                variants={backdrop}
+                initial="hidden"
+                animate="visible"
+                exit="hidden"
+              >
+                <motion.div
+                  className="lg:w-1/3 lg:h-full center overflow-y-auto"
+                  variants={modal}
+                >
+                  <div className="items-center">
+                    <div className=" rounded-lg bg-gray-200 border-0 ">
+                      <div className="rounded-t bg-white mb-0 px-3 py-3">
+                        <div className="text-center flex justify-between">
+                          <h6 className="text-gray-800 text-xl font-bold">
+                            Image
+                          </h6>
+                          <div className=" text-right">
+                            <span
+                              onClick={() => {
+                                setShowImage(false);
+                              }}
+                              className=" text-red-500 onClick"
+                            >
+                              <i className="fas fa-times" />
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <img src={currentImg} alt="" />
+                    </div>
+                  </div>
                 </motion.div>
               </motion.div>
             )}
@@ -259,7 +316,10 @@ const ProductList = (props) => {
               animate="visible"
               exit="hidden"
             >
-              <motion.div className="lg:w-1/3 lg:h-full center overflow-y-auto" variants={modal}>
+              <motion.div
+                className="lg:w-1/3 lg:h-full center overflow-y-auto"
+                variants={modal}
+              >
                 <AddProduct
                   {...{ currentId, setCurrentId, showModal, setShowModal }}
                 />
