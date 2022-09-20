@@ -16,8 +16,6 @@ import { Publish } from "@material-ui/icons";
 const initialFieldValues = {
   name: "",
   description: "",
-  price: "",
-  quantity: "",
   category: "",
   fournisseur: "",
   shipping: "",
@@ -25,7 +23,6 @@ const initialFieldValues = {
 };
 
 const EditProduct = ({ ...props }) => {
-
   const ImgStyle = {
     width: "80px",
     height: "80px",
@@ -50,8 +47,6 @@ const EditProduct = ({ ...props }) => {
     let temp = { ...errors };
     temp.name = values.name ? "" : "This field is required.";
     temp.description = values.description ? "" : "This field is required.";
-    temp.price = values.price ? "" : "This field is required.";
-    temp.quantity = values.quantity ? "" : "This field is required.";
     temp.category = values.category ? "" : "This field is required.";
     temp.fournisseur = values.fournisseur ? "" : "This field is required.";
     temp.shipping = values.shipping ? "" : "This field is required.";
@@ -105,7 +100,6 @@ const EditProduct = ({ ...props }) => {
     const filtered = values.photo.filter((item, index) => index !== e);
     setValues({ ...values, photo: filtered });
   };
-
 
   return (
     <>
@@ -305,34 +299,34 @@ const EditProduct = ({ ...props }) => {
                   </div>
                 </div>
               </div>
-             <div className="flex flex-wrap">
-                  <div className="w-full lg:w-12/12 px-4 ">
-                    <div className="relative w-full mb-3 mt--6 ">
-                      <div className="px-3 py-3 placeholder-gray-400 text-gray-700 rounded text-sm focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150">
-                        <div className="grid grid-cols-4 gap-4">
-                          {values.photo?.map((img, index) => {
-                            return (
-                              <Fragment key={index}>
-                                <div className="text-center">
-                                  <i
-                                    className="btn btn-sm btn-danger shadow-none--hover shadow-none fas fa-times onClick text-red-700"
-                                    onClick={() => onDelete(index)}
-                                  ></i>
-                                  <img
-                                    style={ImgStyle}
-                                    className="img-fluid rounded shadow"
-                                    src={img}
-                                    alt=""
-                                  />
-                                </div>
-                              </Fragment>
-                            );
-                          })}
-                        </div>
+              <div className="flex flex-wrap">
+                <div className="w-full lg:w-12/12 px-4 ">
+                  <div className="relative w-full mb-3 mt--6 ">
+                    <div className="px-3 py-3 placeholder-gray-400 text-gray-700 rounded text-sm focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150">
+                      <div className="grid grid-cols-4 gap-4">
+                        {values.photo?.map((img, index) => {
+                          return (
+                            <Fragment key={index}>
+                              <div className="text-center">
+                                <i
+                                  className="btn btn-sm btn-danger shadow-none--hover shadow-none fas fa-times onClick text-red-700"
+                                  onClick={() => onDelete(index)}
+                                ></i>
+                                <img
+                                  style={ImgStyle}
+                                  className="img-fluid rounded shadow"
+                                  src={img}
+                                  alt=""
+                                />
+                              </div>
+                            </Fragment>
+                          );
+                        })}
                       </div>
                     </div>
                   </div>
-                </div> 
+                </div>
+              </div>
 
               <div className="flex flex-wrap">
                 <div className="w-full px-4">
@@ -355,7 +349,6 @@ const EditProduct = ({ ...props }) => {
                   </div>
                 </div>
               </div>
-              
             </form>
           </div>
         </div>

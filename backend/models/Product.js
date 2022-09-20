@@ -15,13 +15,6 @@ const productSchema = new mongoose.Schema({
         required: true,
         maxlength: 2000
     },
-    price: {
-        type: Number,
-        trim: true,
-        required: true,
-        maxlength: 32,
-        default: 0
-    },
     category: {
         type: ObjectId,
         ref: 'Category',
@@ -31,10 +24,6 @@ const productSchema = new mongoose.Schema({
         type: ObjectId,
         ref: 'Fournisseur',
         required: true
-    },
-    quantity: {
-        type: Number,
-        default: 0
     },
     sold: {
         type: Number,

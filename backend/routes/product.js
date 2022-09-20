@@ -19,8 +19,6 @@ router.post("/", auth, adminAuth, async (req, res) => {
     description,
     category,
     fournisseur,
-    price,
-    quantity,
     shipping,
     photo,
   } = req.body;
@@ -31,9 +29,8 @@ router.post("/", auth, adminAuth, async (req, res) => {
     !description |
     !category |
     !fournisseur |
-    !price |
-    !quantity |
-    !shipping
+    !shipping |
+    ! photo
   ) {
     return res.status(400).json({ error: "Verifier vos champs !" });
   } else if (name.length > 255 || description.length > 3000) {
@@ -48,8 +45,6 @@ router.post("/", auth, adminAuth, async (req, res) => {
         description,
         category,
         fournisseur,
-        price,
-        quantity,
         shipping,
       });
       let save = newProduct.save();

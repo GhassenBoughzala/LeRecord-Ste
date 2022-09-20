@@ -101,7 +101,7 @@ const Magazin = (props) => {
                         key={product._id}
                       >
                         <img
-                          className="w-40 h-40 mb-6"
+                          className="rounded-lg w-40 h-40 mb-6"
                           src={product.photo}
                           alt=""
                         ></img>

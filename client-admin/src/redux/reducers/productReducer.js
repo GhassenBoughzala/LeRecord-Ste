@@ -145,7 +145,7 @@ export const addProduct = (product) => {
     return axios
       .post(`/api/products`, data)
       .then((res) => {
-        res.status !== 200 && toast.warn(res.error);
+       
         dispatch({
           type: ADDP_S,
           payload: res.data,
@@ -172,7 +172,7 @@ export const updateProduct = (id, data) => (dispatch) => {
   dispatch({ type: PRODUCT_LOADING });
   UP(id, data)
     .then((res) => {
-      console.log(res);
+      //console.log(res);
       dispatch({
         type: PRODUCT_UPDATE,
         payload: res.data,

@@ -19,7 +19,7 @@ const backdrop = {
   hidden: { opacity: 0 },
 };
 const modal = {
-  hidden: { y: "100vh", opacity: 0 },
+  hidden: { y: "-100vh", opacity: 0 },
   visible: {
     y: "0px",
     opacity: 1,
@@ -35,7 +35,6 @@ const ProductList = (props) => {
   const [currentId, setCurrentId] = useState(0);
   const [currentObj, setCurrentObj] = useState({});
   const [currentImg, setCurrentImg] = useState("");
-  console.log(currentImg);
 
   useEffect(() => {
     props.AllProducts();
@@ -98,9 +97,7 @@ const ProductList = (props) => {
                   <thead className="border-b border-gray-60">
                     <tr className="border-b border-gray-600 text-left ">
                       <th>Nom</th>
-                      <th>Description</th>
-                      <th>Quantité</th>
-                      <th>Prix</th>
+
                       <th>Status</th>
                       <th>Image</th>
                       <th>Categorie</th>
@@ -118,13 +115,8 @@ const ProductList = (props) => {
                             key={product._id}
                           >
                             <td className="widgetLgDate ">{product.name}</td>
-                            <td className="widgetLgDate ">
-                              {product.description}
-                            </td>
-                            <td className="widgetLgDate ">
-                              {product.quantity}
-                            </td>
-                            <td className="widgetLgDate ">{product.price}</td>
+                           
+                            
                             <td className="widgetLgAmount ">
                               {product.shipping === "Hors stock" && (
                                 <p className="text-red-600">Hors stock</p>
@@ -277,7 +269,7 @@ const ProductList = (props) => {
                   variants={modal}
                 >
                   <div className="items-center">
-                    <div className=" rounded-lg bg-gray-200 border-0 ">
+                    <div className=" rounded-lg bg-white border-0">
                       <div className="rounded-t bg-white mb-0 px-3 py-3">
                         <div className="text-center flex justify-between">
                           <h6 className="text-gray-800 text-xl font-bold">
