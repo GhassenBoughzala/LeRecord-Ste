@@ -115,8 +115,7 @@ const ProductList = (props) => {
                             key={product._id}
                           >
                             <td className="widgetLgDate ">{product.name}</td>
-                           
-                            
+
                             <td className="widgetLgAmount ">
                               {product.shipping === "Hors stock" && (
                                 <p className="text-red-600">Hors stock</p>
@@ -190,7 +189,7 @@ const ProductList = (props) => {
               </>
             )}
           </div>
-
+          {/* Edit Interface */}
           <AnimatePresence
             exitBeforeEnter
             showModal={showEditModal}
@@ -220,7 +219,7 @@ const ProductList = (props) => {
               </motion.div>
             )}
           </AnimatePresence>
-
+          {/* Show Details Interface */}
           <AnimatePresence
             exitBeforeEnter
             showModal={showDetailsModal}
@@ -250,7 +249,7 @@ const ProductList = (props) => {
               </motion.div>
             )}
           </AnimatePresence>
-
+          {/* Show Image Interface */}
           <AnimatePresence
             exitBeforeEnter
             showModal={showImage}
@@ -295,6 +294,7 @@ const ProductList = (props) => {
             )}
           </AnimatePresence>
         </div>
+        {/* Add Interface */}
         <AnimatePresence
           exitBeforeEnter
           showModal={showModal}

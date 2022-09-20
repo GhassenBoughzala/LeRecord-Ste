@@ -1,35 +1,45 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState, Fragment } from "react";
+import React, { useEffect, useState, Fragment, useMemo } from "react";
 import Container from "../components/container/container.component";
 import Footer from "../components/home/Footer";
-//import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { getAll } from "../redux/reducers/productReducer";
 import Pagination from "../components/home/Pagination";
 import Navbar from "../components/navbar/navbar.component";
-//import { getAllCat } from "../redux/reducers/catReducer";
+import { motion } from "framer-motion";
+import PaginationComponent from "../helpers/pagination";
 
 const Magazin = (props) => {
-  const [Search, setSearch] = useState("");
-
-  const [posts, setPosts] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(3);
-
   useEffect(() => {
-    setPosts(props.AllProducts());
+    props.AllProducts();
   }, []);
+  const [Search, setSearch] = useState("");
+  const [SearchCat, setSearchCat] = useState("");
+  const [pageNumber, setPageNumber] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const offresPerPage = 6;
 
-  // Get current posts
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = posts
-    .toString()
-    .slice(indexOfFirstPost, indexOfLastPost);
-
-  // Change page
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const data = props.List;
+  const productsData = useMemo(() => {
+    let computed = data;
+    if (Search) {
+      computed = computed.filter((i) =>
+        i.name.toLowerCase().includes(Search.toLowerCase())
+      );
+    }
+    if (SearchCat) {
+      computed = computed.filter((i) =>
+        i.category.name.toLowerCase().includes(SearchCat.toLowerCase())
+      );
+    }
+    setPageNumber(computed.length);
+    return computed.slice(
+      (currentPage - 1) * offresPerPage,
+      (currentPage - 1) * offresPerPage + offresPerPage
+    );
+  }, [data, currentPage, Search, SearchCat]);
 
   return (
     <>
@@ -52,77 +62,70 @@ const Magazin = (props) => {
                 </p>
 
                 <div className="flex bg-gray-100 p-4 w-72 space-x-4 rounded-lg">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6 opacity-30"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                    />
-                  </svg>
+                  <i className="fas fa-search my-2" />
                   <input
                     className="bg-gray-100 outline-none"
                     type="text"
                     placeholder="Cherchez un produit..."
                     onChange={(event) => {
                       setSearch(event.target.value);
+                      setCurrentPage(1);
                     }}
                   />
                 </div>
               </div>
             </div>
-
-            <div
-              posts={currentPosts}
-              className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3"
-            >
-              {props.List.filter((product) => {
-                if (Search === "") {
-                  return product;
-                } else if (
-                  product.name
-                    .toLowerCase()
-                    .includes(Search.toLocaleLowerCase())
-                ) {
-                  return product;
-                }
-              }).map((product, index) => {
-                return (
-                  <Fragment key={index}>
-                    <div className="w-full border border-gray-200 rounded-lg shadow-sm">
-                      <div
-                        className="flex flex-col items-center justify-center p-10"
-                        key={product._id}
-                      >
-                        <img
-                          className="rounded-lg w-40 h-40 mb-6"
-                          src={product.photo}
-                          alt=""
-                        ></img>
-                        <h2 className="text-lg font-medium">{product.name}</h2>
-                        <p className="font-medium text-blue-500">
-                          {product.shipping}
-                        </p>
-                        <p className="font-medium text-gray-400">
-                          {product.category.name}
-                        </p>
-                      </div>
-                    </div>
-                  </Fragment>
-                );
-              })}
-            </div>
-            <Pagination
-              postsPerPage={postsPerPage}
-              totalPosts={posts.length}
-              paginate={paginate}
-            />
+            {props.isLoading ? (
+              <div className="text-center my-3">
+                <div id="loading"></div>
+              </div>
+            ) : (
+              <>
+                <div
+                  posts={props.List}
+                  className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3"
+                >
+                  {productsData.map((product, index) => {
+                    return (
+                      <Fragment key={index}>
+                        <motion.div
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ duration: 1 }}
+                          className="w-full border border-gray-200 rounded-lg shadow-sm"
+                        >
+                          <div
+                            className="flex flex-col items-center justify-center p-10"
+                            key={product._id}
+                          >
+                            <img
+                              className="rounded-lg w-40 h-40 mb-6"
+                              src={product.photo}
+                              alt=""
+                            ></img>
+                            <h2 className="text-lg font-medium">
+                              {product.name}
+                            </h2>
+                            <p className="font-medium text-blue-500">
+                              {product.shipping}
+                            </p>
+                            <p className="font-medium text-gray-400">
+                              {product.category.name}
+                            </p>
+                          </div>
+                        </motion.div>
+                      </Fragment>
+                    );
+                  })}
+                </div>
+                <PaginationComponent
+                  total={pageNumber}
+                  itemsPerPage={offresPerPage}
+                  currentPage={currentPage}
+                  onPageChange={(page) => setCurrentPage(page)}
+                />
+              </>
+            )}
           </div>
         </section>
       </Container>
@@ -135,6 +138,7 @@ const mapStateToProps = (state) => ({
   List: state.productsReducer.products,
   Cat: state.catReducer.categories,
   isAuth: state.auth.isAuthenticated,
+  isLoading: state.productsReducer.ploader,
 });
 
 const mapActionToProps = {
@@ -143,19 +147,3 @@ const mapActionToProps = {
 };
 
 export default connect(mapStateToProps, mapActionToProps)(Magazin);
-
-/*//Product Details 
-
-  <div className="flex border-t border-gray-200 divide-x divide-gray-200">                     
-                                
-                                    <Link to={`/produit/${product._id}`} className="flex-1 block p-3 text-center text-gray-300 transition duration-200 ease-out hover:bg-blue-100 hover:text-blue-500">
-                                        <i className="far fa-eye text-xl"></i>
-                                    </Link>  
-                                     
-                                <a href="#_" className="flex-1 block p-3 text-center text-gray-300 transition duration-200 ease-out hover:bg-blue-100 hover:text-blue-500">
-                                    <i className="fas fa-cart-plus text-xl "></i>
-                                </a>
-
-                            </div>
-
-*/
