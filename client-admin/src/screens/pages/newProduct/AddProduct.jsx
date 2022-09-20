@@ -14,8 +14,6 @@ import { getAllFou } from "../../../redux/reducers/forReducer";
 const initialFieldValues = {
   name: "",
   description: "",
-  price: "",
-  quantity: "",
   category: "",
   fournisseur: "",
   shipping: "",
@@ -123,15 +121,18 @@ const AddProduct = ({ ...props }) => {
                       className="block uppercase text-gray-700 text-xs font-bold mb-2"
                       htmlFor="grid-password"
                     >
-                      Quantité
+                      Status
                     </label>
-                    <input
-                      type="number"
-                      name="quantity"
-                      value={product.quantity}
+                    <select
+                      name="shipping"
+                      value={product.shipping}
                       onChange={handleChange}
                       className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
-                    />
+                    >
+                      <option value="">Choisis une option</option>
+                      <option value="En stock">En Stock</option>
+                      <option value="Hors stock">Hors Stock</option>
+                    </select>
                   </div>
                 </div>
               </div>
@@ -194,45 +195,8 @@ const AddProduct = ({ ...props }) => {
               </div>
 
               <div className="flex flex-wrap">
-                <div className="w-full lg:w-6/12 px-4">
-                  <div className="relative w-full mb-3">
-                    <br></br>
-                    <label
-                      className="block uppercase text-gray-700 text-xs font-bold mb-2"
-                      htmlFor="grid-password"
-                    >
-                      Prix
-                    </label>
-                    <input
-                      type="number"
-                      name="price"
-                      value={product.price}
-                      onChange={handleChange}
-                      className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
-                    />
-                  </div>
-                </div>
-                <div className="w-full lg:w-6/12 px-4">
-                  <br></br>
-                  <div className="relative w-full mb-3">
-                    <label
-                      className="block uppercase text-gray-700 text-xs font-bold mb-2"
-                      htmlFor="grid-password"
-                    >
-                      Status
-                    </label>
-                    <select
-                      name="shipping"
-                      value={product.shipping}
-                      onChange={handleChange}
-                      className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
-                    >
-                      <option value="">Choisis une option</option>
-                      <option value="En stock">En Stock</option>
-                      <option value="Hors stock">Hors Stock</option>
-                    </select>
-                  </div>
-                </div>
+
+                
               </div>
 
               <div className="flex flex-wrap">

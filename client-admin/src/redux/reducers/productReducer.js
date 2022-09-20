@@ -134,8 +134,6 @@ export const addProduct = (product) => {
   const data = {
     name: product.name,
     description: product.description,
-    price: product.price,
-    quantity: product.quantity,
     category: product.category,
     fournisseur: product.fournisseur,
     shipping: product.shipping,
