@@ -10,10 +10,12 @@ import Pagination from "../components/home/Pagination";
 import Navbar from "../components/navbar/navbar.component";
 import { motion } from "framer-motion";
 import PaginationComponent from "../helpers/pagination";
+import { getAllCat } from "../redux/reducers/catReducer";
 
 const Magazin = (props) => {
   useEffect(() => {
     props.AllProducts();
+    props.AllCategories();
   }, []);
   const [Search, setSearch] = useState("");
   const [SearchCat, setSearchCat] = useState("");
@@ -60,21 +62,49 @@ const Magazin = (props) => {
                   étignettes de lancements, les étigueteuses, fer à repasser,
                   une diversité des ciseaux, l’huile blanche, détacher...
                 </p>
-
-                <div className="flex bg-gray-100 p-4 w-72 space-x-4 rounded-lg">
-                  <i className="fas fa-search my-2" />
-                  <input
-                    className="bg-gray-100 outline-none"
-                    type="text"
-                    placeholder="Cherchez un produit..."
-                    onChange={(event) => {
-                      setSearch(event.target.value);
-                      setCurrentPage(1);
-                    }}
-                  />
+                <div class="grid grid-cols-2 gap-4">
+                  <div className="flex bg-gray-100 p-4 w-72 space-x-4 rounded-lg">
+                    <i className="fas fa-search my-2" />
+                    <input
+                      className="bg-gray-100 outline-none"
+                      type="text"
+                      placeholder="Cherchez un produit..."
+                      onChange={(event) => {
+                        setSearch(event.target.value);
+                        setCurrentPage(1);
+                      }}
+                    />
+                  </div>
+                  <div className="flex bg-gray-100 p-4 w-72 space-x-4 rounded-lg">
+                    <i className="fas fa-filter my-2"></i>
+                    <select
+                      className="flex bg-gray-100 space-x-4 rounded-lg"
+                      onChange={(event) => {
+                        setSearchCat(event.target.value);
+                        setCurrentPage(1);
+                      }}
+                    >
+                      <option value={SearchCat}>Catégories</option>
+                      {props.ListCat.map((c, index) => {
+                        return (
+                          <Fragment key={index}>
+                            <option value={c.name}>{c.name}</option>
+                          </Fragment>
+                        );
+                      })}
+                    </select>
+                    <button
+                      className="w-6 mr-2 transform hover:text-blue-500 hover:scale-120 ease-in duration-100 onClick"
+                      onClick={() => {
+                        setSearchCat("");
+                      }}
+                    >
+                      <i className="fas fa-redo"></i>
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
+            </div>            
             {props.isLoading ? (
               <div className="text-center my-3">
                 <div id="loading"></div>
@@ -136,14 +166,14 @@ const Magazin = (props) => {
 
 const mapStateToProps = (state) => ({
   List: state.productsReducer.products,
-  Cat: state.catReducer.categories,
+  ListCat: state.catReducer.categories,
   isAuth: state.auth.isAuthenticated,
   isLoading: state.productsReducer.ploader,
 });
 
 const mapActionToProps = {
   AllProducts: getAll,
-  //AllC: getAllCat,
+  AllCategories: getAllCat,
 };
 
 export default connect(mapStateToProps, mapActionToProps)(Magazin);

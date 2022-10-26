@@ -20,7 +20,7 @@ const PaginationComponent = ({
 
     for (let i = 1; i <= totalPages; i++) {
       pages.push(
-        <li key={i} active={i === currentPage} onClick={() => onPageChange(i)}>
+        <li key={i} onClick={() => onPageChange(i)}>
           <a
             href="#"
             aria-current="page"
