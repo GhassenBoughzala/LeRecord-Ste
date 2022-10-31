@@ -1,5 +1,5 @@
-import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Fragment } from "react";
+import { Link } from "react-router-dom";
 
 /**
  * We will have to type Link and button
@@ -13,14 +13,26 @@ import { Link } from 'react-router-dom';
  * href => destnation for Link
  * moreStyle for add more style beside a default
  */
-const Button = ({ isButton = true, title = '', action, href, moreStyle, type='button' }) => {
+const Button = ({
+  isButton = true,
+  title = "",
+  action,
+  href,
+  moreStyle,
+  type = "button",
+  icon,
+}) => {
   const style = `font-bold rounded-md px-3 py-2 text-base cursor-pointer animate focus:outline-none  ${moreStyle}`;
   return (
     <Fragment>
       {isButton ? (
-        <button className={style} type={type} onClick={action}>{title}</button>
+        <button className={style} type={type} onClick={action}>
+          <i className={icon}></i>
+          {title}
+        </button>
       ) : (
         <Link to={href} className={style}>
+           <i className={icon}></i>
           {title}
         </Link>
       )}
