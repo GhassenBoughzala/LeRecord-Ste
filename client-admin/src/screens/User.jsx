@@ -6,11 +6,10 @@ import Navbar from "../components/navbar/navbar.component";
 
 const User = ({ user, isAuth }) => {
   return (
-    <>
+    <Container>
       <Navbar />
       <br />
-      <Container>
-         <div className=" bg-white-100 text-gray-900 flex justify-center">
+      <div className=" bg-white-100 text-gray-900 flex justify-center">
         <div className="max-w-screen-xl m-0 sm:m-20 bg-white shadow sm:rounded-lg flex justify-center flex-1">
           <div className="flex-1 bg-indigo-100 text-center hidden lg:flex">
             <div
@@ -63,9 +62,7 @@ const User = ({ user, isAuth }) => {
           </div>
         </div>
       </div>
-      </Container>
-     
-    </>
+    </Container>
   );
 };
 

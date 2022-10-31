@@ -5,7 +5,7 @@ function Fourniture() {
 return(
 <>
 
-<section className="py-12 sm:py-16 bg-white">
+<section className="sm:py-16 bg-white">
     <div className="max-w-7xl px-10 mx-auto sm:text-center">
         <h2 className="font-bold text-3xl sm:text-4xl lg:text-5xl mt-3 text-blue-700">Nos fournitures de confection</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 my-12 sm:my-16">

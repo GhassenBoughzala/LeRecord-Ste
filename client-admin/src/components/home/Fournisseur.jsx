@@ -11,7 +11,7 @@ function Fournisseur() {
 return(
 <>
    
-<section className="w-full py-16 overflow-hidden bg-white relative">
+<section className="w-full py-12 overflow-hidden bg-white relative">
     <div className="w-1/2 h-full bg-gray-50 md:block hidden absolute transform -translate-x-64 left-0 top-0"></div>
     <div className="w-1/2 h-full bg-gray-50 md:block hidden absolute transform -translate-x-24 -skew-x-[30deg] -skew-x-12 left-0 top-0"></div>
     <div className="max-w-6xl relative mx-auto flex sm:px-0 px-10 flex-col items-start sm:items-center justify-center">

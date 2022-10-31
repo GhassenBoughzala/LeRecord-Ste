@@ -7,7 +7,7 @@ function Gamme() {
 return(
 <>
 
-<section className="w-full bg-white pt-7 pb-7 md:pt-20 md:pb-24">
+<section className="w-full bg-white pt-7 pb-7 md:pb-24">
     <div className="box-border flex flex-col items-center content-center px-8 mx-auto leading-6 text-black border-0 border-gray-300 border-solid md:flex-row max-w-7xl lg:px-16">
 
        

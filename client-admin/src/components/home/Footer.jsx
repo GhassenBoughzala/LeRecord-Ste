@@ -1,32 +1,38 @@
-import React from 'react'
-
+import React from "react";
 
 function Footer() {
-return(
-<>
-    <section className="bg-white">
-    <div className="max-w-screen-xl px-4 py-12 mx-auto space-y-8 overflow-hidden sm:px-6 lg:px-8">
-        <nav className="flex flex-wrap justify-center -mx-5 -my-2">
-            <div className="px-3 py-1">
-                <p className="text-base leading-6 text-gray-500 hover:text-gray-900">Tel : 216 72 286 319 </p>
-            </div>
-            <div className="px-3 py-1">
-                <p className="text-base leading-6 text-gray-500 hover:text-gray-900"> Fax : 216 72 285 373</p>
-            </div>
-           
-        </nav>
-            <div className="px py">
-                <p className="text-base leading-6 text-center text-gray-500 hover:text-gray-900"> Email : le.record@planet.tn</p>
-            </div>
-        
-        <p className="mt-8 text-base leading-6 text-center text-gray-400">
-            © 2021 Le Record, Inc. All rights reserved.
-        </p>
-    </div>
-    </section>
-</>
-)
+  return (
+    <>
+      <section className="bg-blue-900">
+        <div className="max-w-screen-xl px-4 py-12 mx-auto space-y-8 overflow-hidden sm:px-6 lg:px-8 text-center">
+          <div class="grid grid-cols-3 gap-4 text-center">
+            <p className="text-base leading-6 text-white ">
+              <i class="fas fa-phone-alt mx-1"></i>
+              +216 72 286 319
+            </p>
+            <p className="text-base leading-6 text-center text-white">
+              <i className="far fa-paper-plane mx-1"></i>
+              le.record@planet.tn
+            </p>
+            <p className="text-base leading-6 text-white ">
+              <i className="fas fa-fax mx-1"></i>
+              +216 72 285 373
+            </p>
+          </div>
+          <div className="">
+            <p className="mt-8 text-base leading-6 text-center text-white">
+              <i className="fas fa-map-marker-alt mx-1"></i>
+              109, Avenue Habib Bourguiba - 8000 Nabeul
+            </p>
+          </div>
 
+          {/*  <p className="mt-8 text-base leading-6 text-center text-gray-400">
+            © 2021 Le Record, Inc. All rights reserved.
+          </p> */}
+        </div>
+      </section>
+    </>
+  );
 }
 
-export default Footer
+export default Footer;
