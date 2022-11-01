@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import authSvg from "../assests/login.svg";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { Redirect } from "react-router-dom";
 import { login } from "../redux/reducers/authReducer";
 import { connect } from "react-redux";
@@ -36,7 +36,6 @@ const Login = ({ login, isAuth, isLoading, user }) => {
       <Navbar />
       <br />
       <div className="min-h-screen bg-white text-gray-900 flex justify-center">
-        <ToastContainer />
         <div className="max-w-screen-xl m-0 sm:m-20 bg-white shadow sm:rounded-lg flex justify-center flex-1">
           <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
             <div className="mt-12 flex flex-col items-center">

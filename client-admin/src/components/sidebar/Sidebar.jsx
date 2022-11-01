@@ -31,12 +31,12 @@ const Sidebar = ({ history, logout, isAuth, user }) => {
         </div>
         <div className="sidebarMenu">
           <ul className="sidebarList">
-            <Link to="/dashboard/admin/users" className="link">
+            {/* <Link to="/dashboard/admin/users" className="link">
               <li className="sidebarListItem text-blue-900">
                 <PermIdentity className="sidebarIcon" />
                 Utilisateurs
               </li>
-            </Link>
+            </Link> */}
             <Link to="/dashboard/admin/products" className="link">
               <li className="sidebarListItem text-blue-900">
                 <Storefront className="sidebarIcon" />

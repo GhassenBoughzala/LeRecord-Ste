@@ -43,7 +43,7 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
         {isAuth && (
           <>
             <Button
-              isButton={false}
+              isButton={true}
               icon={"fas fa-sign-out-alt mx-1"}
               title="Déconnecter"
               moreStyle="hover:text-blue-900"
@@ -58,7 +58,9 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
               <Button
                 isButton={false}
                 href="/dashboard/admin"
-                moreStyle="fas fa-tools hover:text-blue-900"
+                title={"Admin"}
+                icon={"fas fa-tools mx-1"}
+                moreStyle="hover:text-blue-900"
               />
             ) : (
               <Button
@@ -69,12 +71,6 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
                 moreStyle=" text-green-500 hover:text-black"
               />
             )}
-
-            {/* <Button
-            isButton={false}
-            href='/cart'
-            moreStyle='fas fa-shopping-cart fa hover:text-blue-900'
-          /> */}
           </>
         )}
 

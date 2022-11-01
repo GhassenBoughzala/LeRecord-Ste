@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { getAllCat, deleteCat } from "../../../redux/reducers/catReducer";
 import AddCat from "./newCategory";
 import "./category.css";
+import Topbar from "../../../components/topbar/Topbar";
 
 const CatList = (props) => {
   const [currentId, setCurrentId] = useState(0);
@@ -26,6 +27,7 @@ const CatList = (props) => {
       <div className="containerr">
         <Sidebar />
         <div className="productList">
+        <Topbar />
           <div className="homeWidgets">
             <div className="widgetLg">
               <div className="rounded-t bg-white mb-0 px-6 py-6">

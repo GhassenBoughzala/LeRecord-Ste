@@ -72,7 +72,7 @@ const ProductList = (props) => {
 
           <div className="card">
             {props.isLoading || props.isLoadingCreate ? (
-              <div className="text-center my-3">
+              <div className="text-center my-3 px-32 py-32">
                 <div id="loading"></div>
               </div>
             ) : (

@@ -50,7 +50,7 @@ const Home = () => {
   return (
   <>
   
-    <div className="containerr">
+    <div className="">
         <Sidebar />
       <div className="home">
         
