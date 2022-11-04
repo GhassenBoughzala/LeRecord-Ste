@@ -1,30 +1,23 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const mongoose = require("mongoose");
+const { ObjectId } = mongoose.Schema;
 
-const OrderSchema = new Schema({
+const OrderSchema = new mongoose.Schema(
+  {
     userId: {
-        type: String,
+      type: ObjectId,
+      ref: "users",
     },
-    items: [{
-        productId: {
-            type: String,
-        },
-        name: String,
-        quantity: {
-            type: Number,
-            required: true,
-            min: [1, 'Quantity can not be less then 1.']
-        },
-        price: Number
-    }],
-    bill: {
-        type: Number,
-        required: true
+    productId: {
+      type: ObjectId,
+      ref: "products",
     },
-    date_added: {
-        type: Date,
-        default: Date.now
-    }
-})
+    quantity: {
+      type: Number,
+      required: true,
+      min: [1, "Quantity can not be less then 1."],
+    },
+  },
+  { timestamps: true }
+);
 
-module.exports = Order = mongoose.model('order',OrderSchema);
+module.exports = mongoose.model("order", OrderSchema);
