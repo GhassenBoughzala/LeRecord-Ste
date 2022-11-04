@@ -130,7 +130,7 @@ const Magazin = (props) => {
                           >
                             <img
                               className="rounded-lg w-40 h-40 mb-6"
-                              src={product.photo}
+                              src={product.photo[0]}
                               alt=""
                             ></img>
                             <h2 className="text-lg font-medium">
@@ -148,12 +148,14 @@ const Magazin = (props) => {
                     );
                   })}
                 </div>
-                <PaginationComponent
-                  total={pageNumber}
-                  itemsPerPage={offresPerPage}
-                  currentPage={currentPage}
-                  onPageChange={(page) => setCurrentPage(page)}
-                />
+                <div className="my-10">
+                  <PaginationComponent
+                    total={pageNumber}
+                    itemsPerPage={offresPerPage}
+                    currentPage={currentPage}
+                    onPageChange={(page) => setCurrentPage(page)}
+                  />
+                </div>
               </>
             )}
           </div>

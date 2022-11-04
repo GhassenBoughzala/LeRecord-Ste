@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState, Fragment } from "react";
+import React, { useEffect, useState, Fragment, useMemo } from "react";
 import "./productList.css";
 import "../../../components/loading.css";
 import "../../../components/modal.css";
@@ -14,6 +14,7 @@ import EditProduct from "../newProduct/EditProduct";
 import usePrevious from "../../../helpers/usePrevios";
 import { toast } from "react-toastify";
 import DetailsProduct from "../newProduct/DetailsProduct";
+import PaginationComponent from "../../../helpers/pagination";
 const backdrop = {
   visible: { opacity: 1 },
   hidden: { opacity: 0 },
@@ -28,17 +29,36 @@ const modal = {
 };
 
 const ProductList = (props) => {
+  useEffect(() => {
+    props.AllProducts();
+  }, []);
+
   const [showModal, setShowModal] = useState(false);
   const [showImage, setShowImage] = useState(false);
   const [showEditModal, setShoEditwModal] = useState(false);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [currentId, setCurrentId] = useState(0);
   const [currentObj, setCurrentObj] = useState({});
-  const [currentImg, setCurrentImg] = useState("");
+  const [currentImg, setCurrentImg] = useState([]);
+  const [Search, setSearch] = useState("");
+  const [pageNumber, setPageNumber] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const offresPerPage = 9;
 
-  useEffect(() => {
-    props.AllProducts();
-  }, []);
+  const data = props.List;
+  const productsData = useMemo(() => {
+    let computed = data;
+    if (Search) {
+      computed = computed.filter((i) =>
+        i.name.toLowerCase().includes(Search.toLowerCase())
+      );
+    }
+    setPageNumber(computed.length);
+    return computed.slice(
+      (currentPage - 1) * offresPerPage,
+      (currentPage - 1) * offresPerPage + offresPerPage
+    );
+  }, [data, currentPage, Search]);
 
   const onDLP = (id) => {
     const onSuccess = () => {
@@ -79,9 +99,22 @@ const ProductList = (props) => {
               <>
                 <div className="rounded-t bg-white mb-0 ">
                   <div className="text-center flex justify-between">
-                    <h6 className="text-gray-800 text-xl font-bold">
-                      List des produits
-                    </h6>
+                    <div className="flex rounded-lg pb-4">
+                      <h6 className="text-gray-800 bg-transparent text-xl font-bold">
+                        List des produits:
+                      </h6>
+                      <i className="fas fa-search my-2 mx-2" />
+                      <input
+                        className="outline-none"
+                        type="text"
+                        placeholder="Cherchez un produit..."
+                        onChange={(event) => {
+                          setSearch(event.target.value);
+                          setCurrentPage(1);
+                        }}
+                      />
+                    </div>
+
                     <Link
                       to="#"
                       onClick={() => setShowModal(true)}
@@ -97,7 +130,6 @@ const ProductList = (props) => {
                   <thead className="border-b border-gray-60">
                     <tr className="border-b border-gray-600 text-left ">
                       <th>Nom</th>
-
                       <th>Status</th>
                       <th>Image</th>
                       <th>Categorie</th>
@@ -107,7 +139,7 @@ const ProductList = (props) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {props.List.map((product, index) => {
+                    {productsData.map((product, index) => {
                       return (
                         <Fragment key={index}>
                           <tr
@@ -132,7 +164,7 @@ const ProductList = (props) => {
                                     setShowImage(true);
                                     setCurrentImg(product.photo);
                                   }}
-                                  src={product.photo}
+                                  src={product.photo[0]}
                                   alt=""
                                 />
                               </div>
@@ -179,13 +211,15 @@ const ProductList = (props) => {
                   </tbody>
                 </table>
 
-                <br />
-                <label
-                  className="block uppercase text-gray-700 text-xs font-bold mb-2"
-                  htmlFor="grid-password"
-                >
-                  Cliquer sur + pour ajouter un nouveau produit
-                </label>
+                
+                <div className="my-6 text-center">
+                    <PaginationComponent
+                      total={pageNumber}
+                      itemsPerPage={offresPerPage}
+                      currentPage={currentPage}
+                      onPageChange={(page) => setCurrentPage(page)}
+                    />
+                  </div>
               </>
             )}
           </div>
@@ -286,7 +320,13 @@ const ProductList = (props) => {
                           </div>
                         </div>
                       </div>
-                      <img src={currentImg} alt="" />
+                      {currentImg.map((img, index) => {
+                        return (
+                          <Fragment key={index}>
+                            <img src={img} alt="" />
+                          </Fragment>
+                        );
+                      })}
                     </div>
                   </div>
                 </motion.div>

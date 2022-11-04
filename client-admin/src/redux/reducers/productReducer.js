@@ -151,7 +151,7 @@ export const addProduct = (product) => {
           payload: res.data,
         });
       })
-      .catch((err) => console.log(err.status), PRODUCT_ERR, toast.warn("Verifier vos champs"));
+      .catch((err) => console.log(err.status), PRODUCT_ERR);
   };
 };
 

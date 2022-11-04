@@ -30,7 +30,7 @@ router.post("/", auth, adminAuth, async (req, res) => {
     !category |
     !fournisseur |
     !shipping |
-    ! photo
+    !photo
   ) {
     return res.status(400).json({ error: "Verifier vos champs !" });
   } else if (name.length > 255 || description.length > 3000) {
