@@ -34,7 +34,7 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
         <Button
           isButton={false}
           moreStyle="hover:text-blue-900"
-          href="/magasin"
+          href="/catalogue"
           icon="fas fa-store mx-1"
           title="Catalogue"
         >
