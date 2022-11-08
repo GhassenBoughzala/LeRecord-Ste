@@ -157,16 +157,24 @@ const ProductList = (props) => {
                               )}
                             </td>
                             <td className="widgetLgAmount ">
-                              <div className="productListItem">
-                                <img
-                                  className="productListImg hover:scale-150 onClick"
-                                  onClick={() => {
-                                    setShowImage(true);
-                                    setCurrentImg(product.photo);
-                                  }}
-                                  src={product.photo[0]}
-                                  alt=""
-                                />
+                              <div
+                                className="productListItem onClick"
+                                onClick={() => {
+                                  setShowImage(true);
+                                  setCurrentImg(product.photo);
+                                }}
+                              >
+                                {product.photo.map((img, index) => {
+                                  return (
+                                    <Fragment key={index}>
+                                      <img
+                                        className="productListImg hover:scale-150"
+                                        src={img}
+                                        alt=""
+                                      />
+                                    </Fragment>
+                                  );
+                                })}
                               </div>
                             </td>
                             <td className="widgetLgAmount">
@@ -211,15 +219,14 @@ const ProductList = (props) => {
                   </tbody>
                 </table>
 
-                
                 <div className="my-6 text-center">
-                    <PaginationComponent
-                      total={pageNumber}
-                      itemsPerPage={offresPerPage}
-                      currentPage={currentPage}
-                      onPageChange={(page) => setCurrentPage(page)}
-                    />
-                  </div>
+                  <PaginationComponent
+                    total={pageNumber}
+                    itemsPerPage={offresPerPage}
+                    currentPage={currentPage}
+                    onPageChange={(page) => setCurrentPage(page)}
+                  />
+                </div>
               </>
             )}
           </div>

@@ -14,24 +14,10 @@ router.post("/", auth, adminAuth, async (req, res) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({ error: errors.array()[0].msg });
   }
-  let {
-    name,
-    description,
-    category,
-    fournisseur,
-    shipping,
-    photo,
-  } = req.body;
+  let { name, description, category, fournisseur, shipping, photo } = req.body;
   //let images = req.files;
 
-  if (
-    !name |
-    !description |
-    !category |
-    !fournisseur |
-    !shipping |
-    !photo
-  ) {
+  if (!name | !description | !category | !fournisseur | !shipping | !photo) {
     return res.status(400).json({ error: "Verifier vos champs !" });
   } else if (name.length > 255 || description.length > 3000) {
     return res.status(400).json({
@@ -201,23 +187,21 @@ router.post("/filter", async (req, res) => {
 // @desc    Get a list products by search quey
 // @access  Public
 router.get("/search", async (req, res) => {
-  // create query object to hold search value and category value
-  const query = {};
-  // assign search value to query.name
-  if (req.query.search) {
-    query.name = {
-      $regex: req.query.search,
-      $options: "i",
-    };
-    // assigne category value to query.category
-    if (req.query.category && req.query.category != "All") {
-      query.category = req.query.category;
-    }
-  }
   try {
+    //let index = Product.createIndexes({ timestamp: 1 });
     let products = await Product.find({})
+      .sort({
+        description: 0,
+        price: 0,
+        quantity: 0,
+        createdAt: 0,
+        updatedAt: 0,
+        __v: 0,
+        sold: 0,
+      })
       .populate("category", "name")
       .populate("fournisseur", "title");
+
     res.json(products);
   } catch (error) {
     console.log(error);
