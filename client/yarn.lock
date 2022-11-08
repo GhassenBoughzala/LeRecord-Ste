@@ -7706,7 +7706,7 @@
     "dns-packet" "^5.2.2"
     "thunky" "^1.0.2"
 
-"nanoid@^3.1.30", "nanoid@^3.3.4":
+"nanoid@^3.3.4":
   "integrity" "sha512-MqBkQh/OHTS2egovRtLk45wEyNXwF+cokD+1YPf9u5VfJiRdAiRwB2froX5Co9Rh20xs4siNPm8naNotSD6RBw=="
   "resolved" "https://registry.npmjs.org/nanoid/-/nanoid-3.3.4.tgz"
   "version" "3.3.4"
@@ -8699,14 +8699,14 @@
   "resolved" "https://registry.npmjs.org/postcss-value-parser/-/postcss-value-parser-4.2.0.tgz"
   "version" "4.2.0"
 
-"postcss@^7.0.0 || ^8.0.1", "postcss@^8", "postcss@^8.0.0", "postcss@^8.0.3", "postcss@^8.0.9", "postcss@^8.1.0", "postcss@^8.1.4", "postcss@^8.1.6", "postcss@^8.2", "postcss@^8.2.14", "postcss@^8.2.15", "postcss@^8.2.2", "postcss@^8.3", "postcss@^8.3.5", "postcss@^8.4", "postcss@^8.4.4", "postcss@^8.4.5", "postcss@^8.4.6", "postcss@>= 8", "postcss@>=8":
-  "integrity" "sha512-jBDboWM8qpaqwkMwItqTQTiFikhs/67OYVvblFFTM7MrZjt6yMKd6r2kgXizEbTTljacm4NldIlZnhbjr84QYg=="
-  "resolved" "https://registry.npmjs.org/postcss/-/postcss-8.4.5.tgz"
-  "version" "8.4.5"
+"postcss@^7.0.0 || ^8.0.1", "postcss@^8", "postcss@^8.0.0", "postcss@^8.0.3", "postcss@^8.0.9", "postcss@^8.1.0", "postcss@^8.1.4", "postcss@^8.1.6", "postcss@^8.2", "postcss@^8.2.14", "postcss@^8.2.15", "postcss@^8.2.2", "postcss@^8.3", "postcss@^8.3.5", "postcss@^8.4", "postcss@^8.4.4", "postcss@^8.4.5", "postcss@^8.4.6", "postcss@^8.4.7", "postcss@>= 8", "postcss@>=8":
+  "integrity" "sha512-Wi8mWhncLJm11GATDaQKobXSNEYGUHeQLiQqDFG1qQ5UTDPTEvKw0Xt5NsTpktGTwLps3ByrWsBrG0rB8YQ9oA=="
+  "resolved" "https://registry.npmjs.org/postcss/-/postcss-8.4.18.tgz"
+  "version" "8.4.18"
   dependencies:
-    "nanoid" "^3.1.30"
+    "nanoid" "^3.3.4"
     "picocolors" "^1.0.0"
-    "source-map-js" "^1.0.1"
+    "source-map-js" "^1.0.2"
 
 "postcss@^7.0.35":
   "integrity" "sha512-yioayjNbHn6z1/Bywyb2Y4s3yvDAeXGOyxqD+LnVOinq6Mdmd++SW2wUNVzavyyHxd6+DxzWGIuosg6P1Rj8uA=="
@@ -8715,15 +8715,6 @@
   dependencies:
     "picocolors" "^0.2.1"
     "source-map" "^0.6.1"
-
-"postcss@^8.4.7":
-  "integrity" "sha512-ipHE1XBvKzm5xI7hiHCZJCSugxvsdq2mPnsq5+UF+VHCjiBvtDrlxJfMBToWaP9D5XlgNmcFGqoHmUn0EYEaRQ=="
-  "resolved" "https://registry.npmjs.org/postcss/-/postcss-8.4.16.tgz"
-  "version" "8.4.16"
-  dependencies:
-    "nanoid" "^3.3.4"
-    "picocolors" "^1.0.0"
-    "source-map-js" "^1.0.2"
 
 "prelude-ls@^1.2.1":
   "integrity" "sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g=="
