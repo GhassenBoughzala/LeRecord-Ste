@@ -6,7 +6,6 @@ import Container from "../components/container/container.component";
 import Footer from "../components/home/Footer";
 import { connect } from "react-redux";
 import { getAll } from "../redux/reducers/productReducer";
-import Pagination from "../components/home/Pagination";
 import Navbar from "../components/navbar/navbar.component";
 import { motion } from "framer-motion";
 import PaginationComponent from "../helpers/pagination";
@@ -21,7 +20,8 @@ const Magazin = (props) => {
   const [SearchCat, setSearchCat] = useState("");
   const [pageNumber, setPageNumber] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const offresPerPage = 6;
+  const [checked, setchecked] = useState([]);
+  const offresPerPage = 9;
 
   const data = props.List;
   const productsData = useMemo(() => {
@@ -43,6 +43,24 @@ const Magazin = (props) => {
     );
   }, [data, currentPage, Search, SearchCat]);
 
+  const handleCheck = (event) => {
+    var updatedList = [...checked];
+    if (event.target.checked) {
+      setSearchCat(event.target.value);
+      setchecked(true);
+      setCurrentPage(1);
+      updatedList = [...checked, event.target.value];
+    } else {
+      setSearchCat("");
+      setCurrentPage(1);
+      setchecked(false);
+      updatedList.splice(checked.indexOf(event.target.value), 1);
+    }
+    setchecked(updatedList);
+  };
+  const isChecked = (item) =>
+   checked.includes(item) ? "checked-item" : "not-checked-item";
+
   return (
     <>
       <Container>
@@ -50,58 +68,29 @@ const Magazin = (props) => {
         <br />
         <section className="w-full py-12 bg-white lg:py-6">
           <div className="max-w-6xl px-12 mx-auto text-center">
-            <div className="space-y-12 md:text-center">
-              <div className="max-w-3xl mb-20 space-y-5 sm:mx-auto sm:space-y-4">
+            <div className="space-y-12">
+              <div className="max-w-3xl mb-20 space-y-2 sm:mx-auto sm:space-y-4">
                 <h2 className="relative text-4xl font-extrabold tracking-tight sm:text-5xl">
                   Catalogue
                 </h2>
-                <p className="text-xl text-gray-500">
+                <p className="text-xl text-blue-900">
                   {" "}
                   Notre gamme comprends une large ligne de produits de
                   confection ,dont vous trouverez les détails dans ce catalogue,
                   étignettes de lancements, les étigueteuses, fer à repasser,
                   une diversité des ciseaux, l’huile blanche, détacher...
                 </p>
-                <div class="grid grid-cols-2 gap-4">
-                  <div className="flex bg-gray-100 p-4 w-72 space-x-4 rounded-lg">
-                    <i className="fas fa-search my-2" />
-                    <input
-                      className="bg-gray-100 outline-none"
-                      type="text"
-                      placeholder="Cherchez un produit..."
-                      onChange={(event) => {
-                        setSearch(event.target.value);
-                        setCurrentPage(1);
-                      }}
-                    />
-                  </div>
-                  <div className="flex bg-gray-100 p-4 w-72 space-x-4 rounded-lg">
-                    <i className="fas fa-filter my-2"></i>
-                    <select
-                      className="flex bg-gray-100 space-x-4 rounded-lg"
-                      onChange={(event) => {
-                        setSearchCat(event.target.value);
-                        setCurrentPage(1);
-                      }}
-                    >
-                      <option value={SearchCat}>Catégories</option>
-                      {props.ListCat.map((c, index) => {
-                        return (
-                          <Fragment key={index}>
-                            <option value={c.name}>{c.name}</option>
-                          </Fragment>
-                        );
-                      })}
-                    </select>
-                    <button
-                      className="w-6 mr-2 transform hover:text-blue-500 hover:scale-120 ease-in duration-100 onClick"
-                      onClick={() => {
-                        setSearchCat("");
-                      }}
-                    >
-                      <i className="fas fa-redo"></i>
-                    </button>
-                  </div>
+                <div className="flex bg-gray-100 p-4 w-72 space-x-4 rounded-lg">
+                  <i className="fas fa-search my-2" />
+                  <input
+                    className="bg-gray-100 outline-none"
+                    type="text"
+                    placeholder="Cherchez un produit..."
+                    onChange={(event) => {
+                      setSearch(event.target.value);
+                      setCurrentPage(1);
+                    }}
+                  />
                 </div>
               </div>
             </div>
@@ -110,53 +99,82 @@ const Magazin = (props) => {
                 <div id="loading"></div>
               </div>
             ) : (
-              <>
-                <div
-                  posts={props.List}
-                  className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3"
-                >
-                  {productsData.map((product, index) => {
+              <div className="grid grid-cols-12 ">
+                <div className=" col-span-3 border-r-2 border-blue-800 border-x-2 mb-3 mr-5">
+                  <h3 className=" font-semibold text-blue-900 ">Categories</h3>
+
+                  {props.ListCat.map((c, index) => {
                     return (
                       <Fragment key={index}>
-                        <motion.div
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          transition={{ duration: 1 }}
-                          className="w-full border border-gray-200 rounded-lg shadow-sm"
-                        >
-                          <div
-                            className="flex flex-col items-center justify-center p-10"
-                            key={product._id}
+                        <div class=" flex items-center mt-3 ">
+                          <input
+                            id="default-checkbox"
+                            type="checkbox"
+                            value={c.name}
+                            onChange={handleCheck}
+                            className="mx-2 w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                          ></input>
+                          <label
+                            for="default-checkbox"
+                            className="text-sm font-medium text-gray-900 dark:text-gray-300 "
                           >
-                            <img
-                              className="rounded-lg w-40 h-40 mb-6"
-                              src={product.photo[0]}
-                              alt=""
-                            ></img>
-                            <h2 className="text-lg font-medium">
-                              {product.name}
-                            </h2>
-                            <p className="font-medium text-blue-500">
-                              {product.shipping}
-                            </p>
-                            <p className="font-medium text-gray-400">
-                              {product.category.name}
-                            </p>
-                          </div>
-                        </motion.div>
+                            {c.name}
+                          </label>
+                        </div>
                       </Fragment>
                     );
                   })}
                 </div>
-                <div className="my-10">
-                  <PaginationComponent
-                    total={pageNumber}
-                    itemsPerPage={offresPerPage}
-                    currentPage={currentPage}
-                    onPageChange={(page) => setCurrentPage(page)}
-                  />
+                <div className="col-span-9">
+                  <div
+                    posts={productsData}
+                    className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
+                  >
+                    {productsData.map((product, index) => {
+                      return (
+                        <Fragment key={index}>
+                          <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 1 }}
+                            className=" border border-gray-300 rounded-lg shadow-md"
+                          >
+                            <div
+                              className="flex flex-col items-center justify-center p-10"
+                              key={product._id}
+                            >
+                              <img
+                                className="w-50 h-50 rounded-lg mb-6 min-w-45 min-h-45"
+                                src={product.photo[0]}
+                                alt=""
+                              />
+                              <h2 className="text-lg font-medium">
+                                {product.name}
+                              </h2>
+                              <p className="font-medium text-green-500">
+                                {product.shipping}
+                              </p>
+                              <p className="font-medium text-gray-500">
+                                {product.category.name}
+                              </p>
+                            </div>
+                          </motion.div>
+                        </Fragment>
+                      );
+                    })}
+                  </div>
+                  <div className="my-10">
+                    {!Search && (
+                      <PaginationComponent
+                        total={pageNumber}
+                        itemsPerPage={offresPerPage}
+                        currentPage={currentPage}
+                        onPageChange={(page) => setCurrentPage(page)}
+                      />
+                    )}
+                  </div>
                 </div>
-              </>
+              </div>
             )}
           </div>
         </section>
