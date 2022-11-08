@@ -22,7 +22,7 @@ import {FetchError} from './errors/fetch-error.js';
 import {AbortError} from './errors/abort-error.js';
 import {isRedirect} from './utils/is-redirect.js';
 import {FormData} from 'formdata-polyfill/esm.min.js';
-import {isDomainOrSubdomain} from './utils/is.js';
+import {isDomainOrSubdomain, isSameProtocol} from './utils/is.js';
 import {parseReferrerPolicyFromHeader} from './utils/referrer.js';
 import {
 	Blob,
@@ -110,7 +110,9 @@ export default async function fetch(url, options_) {
 		});
 
 		fixResponseChunkedTransferBadEnding(request_, error => {
-			response.body.destroy(error);
+			if (response && response.body) {
+				response.body.destroy(error);
+			}
 		});
 
 		/* c8 ignore next 18 */
@@ -201,7 +203,10 @@ export default async function fetch(url, options_) {
 						// that is not a subdomain match or exact match of the initial domain.
 						// For example, a redirect from "foo.com" to either "foo.com" or "sub.foo.com"
 						// will forward the sensitive headers, but a redirect to "bar.com" will not.
-						if (!isDomainOrSubdomain(request.url, locationURL)) {
+						// headers will also be ignored when following a redirect to a domain using
+						// a different protocol. For example, a redirect from "https://foo.com" to "http://foo.com"
+						// will not forward the sensitive headers
+						if (!isDomainOrSubdomain(request.url, locationURL) || !isSameProtocol(request.url, locationURL)) {
 							for (const name of ['authorization', 'www-authenticate', 'cookie', 'cookie2']) {
 								requestOptions.headers.delete(name);
 							}
@@ -387,13 +392,7 @@ function fixResponseChunkedTransferBadEnding(request, errorCallback) {
 			}
 		};
 
-		socket.prependListener('close', onSocketClose);
-
-		request.on('abort', () => {
-			socket.removeListener('close', onSocketClose);
-		});
-
-		socket.on('data', buf => {
+		const onData = buf => {
 			properLastChunkReceived = Buffer.compare(buf.slice(-5), LAST_CHUNK) === 0;
 
 			// Sometimes final 0-length chunk and end of message code are in separate packets
@@ -405,6 +404,14 @@ function fixResponseChunkedTransferBadEnding(request, errorCallback) {
 			}
 
 			previousChunk = buf;
+		};
+
+		socket.prependListener('close', onSocketClose);
+		socket.on('data', onData);
+
+		request.on('close', () => {
+			socket.removeListener('close', onSocketClose);
+			socket.removeListener('data', onData);
 		});
 	});
 }

@@ -64,11 +64,21 @@ class NodeStuffPlugin {
 										new NodeStuffInWebError(
 											dep.loc,
 											"global",
-											"The global namespace object is Node.js feature and doesn't present in browser."
+											"The global namespace object is a Node.js feature and isn't available in browsers."
 										)
 									);
 								}
 							});
+						parser.hooks.rename.for("global").tap("NodeStuffPlugin", expr => {
+							const dep = new ConstDependency(
+								RuntimeGlobals.global,
+								expr.range,
+								[RuntimeGlobals.global]
+							);
+							dep.loc = expr.loc;
+							parser.state.module.addPresentationalDependency(dep);
+							return false;
+						});
 					}
 
 					const setModuleConstant = (expressionName, fn, warning) => {
@@ -107,7 +117,7 @@ class NodeStuffPlugin {
 								setConstant(
 									"__filename",
 									"/index.js",
-									"The __filename is Node.js feature and doesn't present in browser."
+									"__filename is a Node.js feature and isn't available in browsers."
 								);
 								break;
 							case true:
@@ -134,7 +144,7 @@ class NodeStuffPlugin {
 								setConstant(
 									"__dirname",
 									"/",
-									"The __dirname is Node.js feature and doesn't present in browser."
+									"__dirname is a Node.js feature and isn't available in browsers."
 								);
 								break;
 							case true:

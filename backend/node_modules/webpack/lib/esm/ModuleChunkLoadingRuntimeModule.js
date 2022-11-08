@@ -56,14 +56,34 @@ class ModuleChunkLoadingRuntimeModule extends RuntimeModule {
 	}
 
 	/**
+	 * @private
+	 * @param {Chunk} chunk chunk
+	 * @param {string} rootOutputDir root output directory
+	 * @returns {string} generated code
+	 */
+	_generateBaseUri(chunk, rootOutputDir) {
+		const options = chunk.getEntryOptions();
+		if (options && options.baseUri) {
+			return `${RuntimeGlobals.baseURI} = ${JSON.stringify(options.baseUri)};`;
+		}
+		const {
+			compilation: {
+				outputOptions: { importMetaName }
+			}
+		} = this;
+		return `${RuntimeGlobals.baseURI} = new URL(${JSON.stringify(
+			rootOutputDir
+		)}, ${importMetaName}.url);`;
+	}
+
+	/**
 	 * @returns {string} runtime code
 	 */
 	generate() {
-		const { compilation, chunk } = this;
+		const { compilation, chunk, chunkGraph } = this;
 		const {
 			runtimeTemplate,
-			chunkGraph,
-			outputOptions: { importFunctionName, importMetaName }
+			outputOptions: { importFunctionName }
 		} = compilation;
 		const fn = RuntimeGlobals.ensureChunkHandlers;
 		const withBaseURI = this._runtimeRequirements.has(RuntimeGlobals.baseURI);
@@ -102,11 +122,7 @@ class ModuleChunkLoadingRuntimeModule extends RuntimeModule {
 
 		return Template.asString([
 			withBaseURI
-				? Template.asString([
-						`${RuntimeGlobals.baseURI} = new URL(${JSON.stringify(
-							rootOutputDir
-						)}, ${importMetaName}.url);`
-				  ])
+				? this._generateBaseUri(chunk, rootOutputDir)
 				: "// no baseURI",
 			"",
 			"// object to store loaded and loading chunks",
