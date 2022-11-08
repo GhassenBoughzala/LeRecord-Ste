@@ -26,7 +26,7 @@ if (process.env.NODE_ENV === "development") {
 }
 
 app.use(cors());
-app.use(express.json({limit: '50mb'}));
+app.use(express.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use("/api/auth", authRoute);
@@ -35,12 +35,12 @@ app.use("/api/products", productRoute);
 app.use("/api/category", catRoute);
 app.use("/api/carts", cartRoute);
 app.use("/api/orders", orderRoute);
-app.use("/api/fournisseurs", fournisseurRoute); 
+app.use("/api/fournisseurs", fournisseurRoute);
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../client-admin", "build")));
+  app.use(express.static(path.join(__dirname, "../client", "build")));
   app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../client-admin", "build", "index.html"));
+    res.sendFile(path.join(__dirname, "../client", "build", "index.html"));
   });
 }
 
