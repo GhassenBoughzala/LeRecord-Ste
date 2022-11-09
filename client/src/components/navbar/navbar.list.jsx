@@ -26,7 +26,7 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
     <>
       <ul className="font-bold flex-wrap flex md:mr-5 flex-col md:flex-row text-center">
         <NavItem
-          link="/home"
+          link="/"
           icon="fas fa-home mx-1"
           name="Accueil"
           listStyle={isActive(history, "/")}

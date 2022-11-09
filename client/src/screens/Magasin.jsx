@@ -18,7 +18,7 @@ const backdrop = {
 const modal = {
   hidden: { y: "-100vh", opacity: 0 },
   visible: {
-    y: "0px",
+    y: "100px",
     opacity: 1,
     transition: { delay: 0.5 },
   },
@@ -33,7 +33,6 @@ const Magazin = (props) => {
   const [SearchCat, setSearchCat] = useState("");
   const [pageNumber, setPageNumber] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const [checked, setchecked] = useState([]);
   const offresPerPage = 9;
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [currentObj, setCurrentObj] = useState({});
@@ -57,22 +56,6 @@ const Magazin = (props) => {
       (currentPage - 1) * offresPerPage + offresPerPage
     );
   }, [data, currentPage, Search, SearchCat]);
-
-  const handleCheck = (event) => {
-    var updatedList = [...checked];
-    if (event.target.checked) {
-      setSearchCat(event.target.value);
-      setchecked(true);
-      setCurrentPage(1);
-      updatedList = [...checked, event.target.value];
-    } else {
-      setSearchCat("");
-      setCurrentPage(1);
-      setchecked(false);
-      updatedList.splice(checked.indexOf(event.target.value), 1);
-    }
-    setchecked(updatedList);
-  };
 
   return (
     <>
@@ -101,6 +84,7 @@ const Magazin = (props) => {
                     placeholder="Cherchez un produit..."
                     onChange={(event) => {
                       setSearch(event.target.value);
+                      setSearchCat("")
                       setCurrentPage(1);
                     }}
                   />
@@ -114,25 +98,32 @@ const Magazin = (props) => {
             ) : (
               <div className="grid grid-cols-12 ">
                 <div className=" col-span-3 border-r-2 border-blue-800 border-x-2 mb-3 mr-5">
-                  <h3 className=" font-semibold text-blue-900 ">Categories</h3>
-
+                <h3 className="flex font-semibold text-blue-900 ">
+                    Categories
+                  </h3>
+                  {/* <div
+                    className="flex text-xs w-2 mr-2 transform hover:text-blue-900 hover:scale-120 ease-in duration-100 onClick"
+                    onClick={() => {
+                      setSearchCat("");
+                    }}
+                  >
+                    <i className="fas fa-redo"></i>
+                  </div> */}
                   {props.ListCat.map((c, index) => {
                     return (
                       <Fragment key={index}>
                         <div class=" flex items-center mt-3 ">
-                          <input
-                            id="default-checkbox"
-                            type="checkbox"
-                            value={c.name}
-                            onChange={handleCheck}
-                            className="mx-2 w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                          ></input>
-                          <label
-                            for="default-checkbox"
-                            className="text-sm font-medium text-gray-900 dark:text-gray-300 "
+                          <div
+                            onClick={() => {
+                              setSearch("")
+                              setSearchCat("");
+                              setSearchCat(c.name);
+                              setCurrentPage(1);
+                            }}
+                            className={`font-semibold text-gray-600 text-sm justify-center border-gray-100 hover:text-blue-900 ease-in duration-100 onClick `}
                           >
                             {c.name}
-                          </label>
+                          </div>
                         </div>
                       </Fragment>
                     );
@@ -150,7 +141,11 @@ const Magazin = (props) => {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ duration: 1 }}
-                            className=" border border-gray-300 rounded-lg shadow-md"
+                            className=" border border-gray-300 rounded-lg shadow-md hover:shadow-2xl ease-in duration-100 onClick "
+                            onClick={() => {
+                              setCurrentObj(product);
+                              setShowDetailsModal(true);
+                            }}
                           >
                             <div
                               className="flex flex-col items-center justify-center p-10"
@@ -170,7 +165,7 @@ const Magazin = (props) => {
                               {product.shipping === "En stock" && (
                                 <p className="text-green-600">En stock</p>
                               )}
-                              
+
                               <p className="font-medium text-gray-500">
                                 {product.category.name}
                               </p>
@@ -193,35 +188,35 @@ const Magazin = (props) => {
                 </div>
               </div>
             )}
-             <AnimatePresence
-            exitBeforeEnter
-            showModal={showDetailsModal}
-            setShowModal={setShowDetailsModal}
-          >
-            {showDetailsModal && (
-              <motion.div
-                className="backdrop"
-                variants={backdrop}
-                initial="hidden"
-                animate="visible"
-                exit="hidden"
-              >
+            <AnimatePresence
+              exitBeforeEnter
+              showModal={showDetailsModal}
+              setShowModal={setShowDetailsModal}
+            >
+              {showDetailsModal && (
                 <motion.div
-                  className="lg:w-1/3 lg:h-full center overflow-y-auto"
-                  variants={modal}
+                  className="backdrop"
+                  variants={backdrop}
+                  initial="hidden"
+                  animate="visible"
+                  exit="hidden"
                 >
-                  <Productdetails
-                    {...{
-                      currentObj,
-                      setCurrentObj,
-                      setShowDetailsModal,
-                      showDetailsModal,
-                    }}
-                  />
+                  <motion.div
+                    className="lg:w-1/2 lg:h-full center overflow-y-auto"
+                    variants={modal}
+                  >
+                    <Productdetails
+                      {...{
+                        currentObj,
+                        setCurrentObj,
+                        setShowDetailsModal,
+                        showDetailsModal,
+                      }}
+                    />
+                  </motion.div>
                 </motion.div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+              )}
+            </AnimatePresence>
           </div>
         </section>
       </Container>
