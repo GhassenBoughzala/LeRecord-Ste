@@ -1,9 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { useDispatch, connect } from "react-redux";
-import Container from "../components/container/container.component";
-import Footer from "../components/home/Footer";
-import { detailsProduct } from "../redux/reducers/productReducer";
-import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+
 
 import useForm from "./pages/useForm";
 const initialFieldValues = {};
