@@ -1,112 +1,188 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, connect } from 'react-redux';
-import Container from '../components/container/container.component'
-import Footer from '../components/home/Footer'
+import React, { Fragment, useEffect, useState } from "react";
+import { useDispatch, connect } from "react-redux";
+import Container from "../components/container/container.component";
+import Footer from "../components/home/Footer";
 import { detailsProduct } from "../redux/reducers/productReducer";
 import { Link } from "react-router-dom";
-import './loading.css';
 
-const ProductDetails = ({props, product, match, isLoading, isAuth}) => {
+import useForm from "./pages/useForm";
+const initialFieldValues = {};
 
-    
-    const {productId} = match.params;
-    const dispatch = useDispatch();
-    const [Qty, setQt] = useState(1);
-   
-    useEffect(() => {  
-        dispatch(detailsProduct(productId)) ;
-      }, [ dispatch,productId ]);
+const ProductDetails = ({ ...props }) => {
+  var { values, setValues, errors, setErrors, resetForm } = useForm(
+    initialFieldValues,
+    props.setCurrentId
+  );
 
-      /*
-    const addToCartHandler = () => {
-        props.history.push(`/cart/${productId}?qty=${Qty}`);
-      };
-      */
+  useEffect(() => {
+    props.All();
+    props.AllF();
+  }, []);
 
-    return (
-		<>
-		<Container>	
+  useEffect(() => {
+    if (props.currentObj !== {}) {
+      setValues(props.currentObj);
+      setErrors({});
+    }
+  }, [props.currentObj]);
 
-        <section className="w-full bg-white pt-7 pb-7 md:pt-20 md:pb-24">
-
-        <div className="flex flex-col items-center sm:px-5 md:flex-row bg-white lg:mx-8 lg:flex lg:max-w2xl lg:rounded-lg lg:shadow-lg">
-            {isLoading && <div id='loading' className='my-12 border-b text-center' />}
-                {!isLoading && (
-                 
-                <div className="bg-cover lg:rounded-lg  md:w-1/2">
-                   <div className="box-border relative w-full max-w-md px-4 mt-5 mb-4 -ml-5 item-center bg-no-repeat bg-contain border-solid md:ml-0 md:mt-0 md:max-w-none lg:mb-0 lg:max-w-1/2 xl:pl-10">
-                       <img className="w-40 h-40 mb-6 animate" src={`/uploads/${product.photo}`} alt={product.photo} ></img>
-                   </div>
-                </div>
-
-                )}
-           
-            <div className="flex flex-col items-start justify-center w-full h-full py-6 mb-6 md:mb-0 md:w-1/2">
-                <div className="flex flex-col items-start justify-center h-full space-y-3 transform md:pl-10 lg:pl-16 md:space-y-5">
-                    <div className="bg-green-500 flex items-center pl-3 pr-3 py-3 leading-none rounded-lg text-xs font-medium uppercase text-white inline-block">
-                        <span>{product.shipping}</span>
-                    </div>
-                    <h1 className="text-4xl font-bold leading-none lg:text-5xl xl:text-6xl"><a href="#_">{product.name}</a></h1>
-                    <p className="text-sm text-gray-700">Quantité : {product.quantity} </p>
-                    <p className="text-sm text-gray-700">Description: {product.description} </p>                   
-              
-                    <div className="flex flex-wrap">
-                        {product.quantity > 0 &&  isAuth && (
-                          <div className="flex border-blue-200">                     
-                            <select className="flex-1 border pl-3 pr-3 py-3 lg:rounded-lg block p-3 text-center text-blue-500 transition duration-200 ease-out hover:bg-blue-100 hover:text-blue-500"
-                                    value={Qty} 
-                                    onChange= {e => setQt( e.target.value )}>
-                                    {
-                                        [...Array(product.quantity).keys()].map( x => (
-                                            <option key={x+1} value={x + 1}>{x+1}</option>
-                                        ))
-                                    }
-                            </select>           
-                          </div>
-                            )}
-                        <div className="flex pl-3 border-blue-200"> 
-                            { isAuth && (
-                                
-                                <Link to={`/cart/${product._id}?qty=${Qty}`} >   
-                                    <button type='submit'
-                                        //onClick={addToCartHandler}
-                                        className="flex-1 border pl-3 pr-3 py-3 lg:rounded-lg block p-3 text-center text-blue-500 transition duration-200 ease-out hover:bg-blue-100 hover:text-blue-500"
-                                        > Ajouter au Panier
-                                    </button>
-                                </Link>  
-
-                            )}                           
-                        </div>
-                    </div>
-
-                    <div className="flex border-blue-200">                     
-                                <a href='/magasin'>
-                                    <button type='submit'
-                                        className="flex-1 border pl-3 pr-3 py-3 lg:rounded-lg block p-3 text-center text-blue-500 transition duration-200 ease-out hover:bg-blue-100 hover:text-blue-500"
-                                        > Retour
-                                    </button>
-                                </a>   
-                    </div>
-                    
-                    
-                </div>
+  return (
+    <div className="items-center">
+      <div className=" rounded-lg bg-gray-200 border-0 ">
+        <div className="rounded-t bg-white mb-0 px-6 py-6">
+          <div className="text-center flex justify-between">
+            <h6 className="text-gray-800 text-xl font-bold">Details</h6>
+            <div className=" text-right">
+              <span
+                onClick={() => {
+                  props.setShowDetailsModal(false);
+                }}
+                className=" text-red-500 onClick"
+              >
+                <i className="fas fa-times" />
+              </span>
             </div>
-
+          </div>
         </div>
 
-        </section>
+        <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
+          <form>
+            <div className="flex flex-wrap">
+              <div className="w-full lg:w-12/12 px-4">
+                <div className="relative w-full mb-3">
+                  <br></br>
+                  <label
+                    className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                    htmlFor="grid-password"
+                  >
+                    Nom: {values.name}
+                  </label>
+                </div>
+              </div>
+            </div>
 
-			
-		</Container>
-		<Footer/>
-		</>
+            <div className="flex flex-wrap">
+              <div className="w-full lg:w-6/12 px-4">
+                <div className="relative w-full mb-3">
+                  <label
+                    className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                    htmlFor="grid-password"
+                  >
+                    Prix: {values.price} Dt
+                  </label>
+                </div>
+              </div>
+              <div className="w-full lg:w-6/12 px-4">
+                <div className="relative w-full mb-3">
+                  <label
+                    className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                    htmlFor="grid-password"
+                  >
+                    Quantité: {values.quantity}
+                  </label>
+                </div>
+              </div>
+            </div>
 
-    )
+            <div className="flex flex-wrap">
+              <div className="w-full lg:w-6/12 px-4">
+                <div className="relative w-full mb-3">
+                  <label
+                    className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                    htmlFor="grid-password"
+                  >
+                    Categorie: {values.category.name}
+                  </label>
+                </div>
+              </div>
+              <div className="w-full lg:w-6/12 px-4">
+                <div className="relative w-full mb-3">
+                  <label
+                    className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                    htmlFor="grid-password"
+                  >
+                    Fournisseur: {values.fournisseur.title}
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap">
+              <div className="w-full lg:w-6/12 px-4">
+                <div className="relative w-full mb-3">
+                  <label
+                    className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                    htmlFor="grid-password"
+                  >
+                    Status:
+                    {values.shipping === "Hors stock" && (
+                      <p className="text-red-600">Hors stock</p>
+                    )}
+                    {values.shipping === "En stock" && (
+                      <p className="text-green-600">En stock</p>
+                    )}
+                  </label>
+                </div>
+              </div>
+              <div className="w-full lg:w-6/12 px-4">
+                <div className="relative w-full mb-3">
+                  <label
+                    className="block uppercase text-gray-700 text-xs font-bold mb-2 opacity-0"
+                    htmlFor="grid-password"
+                  >
+                    Status
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap">
+              <div className="w-full lg:w-12/12 px-4">
+                <div className="relative w-full mb-3">
+                  <label
+                    className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                    htmlFor="grid-password"
+                  >
+                    Description
+                  </label>
+
+                  <p className="block text-gray-500 text-xs font-bold mb-2">
+                    {values.description}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="w-full lg:w-12/12 px-4 ">
+              <div className="relative w-full mb-3 mt--6 ">
+                <div className="px-3 py-3 placeholder-gray-400 text-gray-700 rounded text-sm focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150">
+                  <div className="grid grid-cols-4 gap-4">
+                    {values.photo?.map((img, index) => {
+                      return (
+                        <Fragment key={index}>
+                          <div className="transform transition duration-500 hover:scale-150">
+                            <img
+                              className="img-fluid rounded shadow"
+                              src={img}
+                              alt=""
+                            />
+                          </div>
+                        </Fragment>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 const mapToStateProps = (state) => ({
-    product: state.productsReducer.product,
-    isAuth: state.auth.isAuthenticated,
-  });
+  product: state.productsReducer.product,
+  isAuth: state.auth.isAuthenticated,
+});
 
 export default connect(mapToStateProps)(ProductDetails);

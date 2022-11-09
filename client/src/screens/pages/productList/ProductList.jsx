@@ -99,7 +99,7 @@ const ProductList = (props) => {
         props.AllProducts();
         setShoEditwModal(false);
         setShowModal(false);
-        toast.success("Ajout avec Succés");
+        toast.success("Modification avec Succés");
       }
       if (props.CodeMsg === 0) {
         toast.error("Problème lors de la modification !");
@@ -115,7 +115,7 @@ const ProductList = (props) => {
           <Topbar />
 
           <div className="card">
-            {props.isLoading || props.isLoadingCreate ? (
+            {props.isLoading || props.isLoadingCreate || props.isLoadingUpdate ? (
               <div className="text-center my-3 px-32 py-32">
                 <div id="loading"></div>
               </div>
@@ -158,7 +158,7 @@ const ProductList = (props) => {
                           setCurrentPage(1);
                         }}
                       >
-                        <option >Catégories</option>
+                        <option value={""} >Catégories</option>
                         {props.ListCat.map((c, index) => {
                           return (
                             <Fragment key={index}>
@@ -200,9 +200,9 @@ const ProductList = (props) => {
                             className="border-b border-gray-200 hover:bg-gray-100"
                             key={product._id}
                           >
-                            <td className="widgetLgDate "> {product.name}</td>
+                            <td className="widgetLgDate"> {product.name}</td>
 
-                            <td className="widgetLgAmount ">
+                            <td className="widgetLgAmount">
                               {product.shipping === "Hors stock" && (
                                 <p className="text-red-600">Hors stock</p>
                               )}

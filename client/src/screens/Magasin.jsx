@@ -4,12 +4,25 @@
 import React, { useEffect, useState, Fragment, useMemo } from "react";
 import Container from "../components/container/container.component";
 import Footer from "../components/home/Footer";
+import { motion, AnimatePresence } from "framer-motion";
 import { connect } from "react-redux";
 import { getAll } from "../redux/reducers/productReducer";
 import Navbar from "../components/navbar/navbar.component";
-import { motion } from "framer-motion";
 import PaginationComponent from "../helpers/pagination";
 import { getAllCat } from "../redux/reducers/catReducer";
+import Productdetails from "./Productdetails";
+const backdrop = {
+  visible: { opacity: 1 },
+  hidden: { opacity: 0 },
+};
+const modal = {
+  hidden: { y: "-100vh", opacity: 0 },
+  visible: {
+    y: "0px",
+    opacity: 1,
+    transition: { delay: 0.5 },
+  },
+};
 
 const Magazin = (props) => {
   useEffect(() => {
@@ -22,6 +35,8 @@ const Magazin = (props) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [checked, setchecked] = useState([]);
   const offresPerPage = 9;
+  const [showDetailsModal, setShowDetailsModal] = useState(false);
+  const [currentObj, setCurrentObj] = useState({});
 
   const data = props.List;
   const productsData = useMemo(() => {
@@ -178,6 +193,35 @@ const Magazin = (props) => {
                 </div>
               </div>
             )}
+             <AnimatePresence
+            exitBeforeEnter
+            showModal={showDetailsModal}
+            setShowModal={setShowDetailsModal}
+          >
+            {showDetailsModal && (
+              <motion.div
+                className="backdrop"
+                variants={backdrop}
+                initial="hidden"
+                animate="visible"
+                exit="hidden"
+              >
+                <motion.div
+                  className="lg:w-1/3 lg:h-full center overflow-y-auto"
+                  variants={modal}
+                >
+                  <Productdetails
+                    {...{
+                      currentObj,
+                      setCurrentObj,
+                      setShowDetailsModal,
+                      showDetailsModal,
+                    }}
+                  />
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
           </div>
         </section>
       </Container>
