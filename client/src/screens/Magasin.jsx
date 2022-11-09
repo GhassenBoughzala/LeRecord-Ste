@@ -58,8 +58,6 @@ const Magazin = (props) => {
     }
     setchecked(updatedList);
   };
-  const isChecked = (item) =>
-   checked.includes(item) ? "checked-item" : "not-checked-item";
 
   return (
     <>
@@ -151,9 +149,13 @@ const Magazin = (props) => {
                               <h2 className="text-lg font-medium">
                                 {product.name}
                               </h2>
-                              <p className="font-medium text-green-500">
-                                {product.shipping}
-                              </p>
+                              {product.shipping === "Hors stock" && (
+                                <p className="text-red-600">Hors stock</p>
+                              )}
+                              {product.shipping === "En stock" && (
+                                <p className="text-green-600">En stock</p>
+                              )}
+                              
                               <p className="font-medium text-gray-500">
                                 {product.category.name}
                               </p>

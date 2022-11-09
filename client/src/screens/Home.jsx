@@ -23,12 +23,12 @@ const Home = () => {
                 <span className="relative text-transparent bg-clip-text bg-gradient-to-br from-indigo-600 to-indigo-500 md:inline-block">
                   <img src={RBG} alt="" />
                 </span>
-                <div className="m-0 text-xl font-semibold leading-tight lg:text-2xl md:text-2xl pt-6">
+                <div className="m-0 text-xl font-semibold leading-tight lg:text-2xl md:text-2xl pt-6 text-blue-900">
                   Nous avons l’honneur de tenir cette opportunité pour nous
                   présenter brièvement notre société{" "}
                 </div>
               
-                <div className="m-0 text-xl font-semibold leading-tight lg:text-2xl md:text-2xl pt-6">
+                <div className="m-0 text-xl font-semibold leading-tight lg:text-2xl md:text-2xl pt-6 text-blue-900">
                   Nous « Le Record », sommes spécialisé dans la
                   commercialisation de fournitures de confection
                 </div>

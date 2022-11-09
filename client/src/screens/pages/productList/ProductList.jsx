@@ -15,6 +15,7 @@ import usePrevious from "../../../helpers/usePrevios";
 import { toast } from "react-toastify";
 import DetailsProduct from "../newProduct/DetailsProduct";
 import PaginationComponent from "../../../helpers/pagination";
+import { getAllCat } from "../../../redux/reducers/catReducer";
 const backdrop = {
   visible: { opacity: 1 },
   hidden: { opacity: 0 },
@@ -31,6 +32,7 @@ const modal = {
 const ProductList = (props) => {
   useEffect(() => {
     props.AllProducts();
+    props.AllCategories();
   }, []);
 
   const [showModal, setShowModal] = useState(false);
@@ -43,7 +45,8 @@ const ProductList = (props) => {
   const [Search, setSearch] = useState("");
   const [pageNumber, setPageNumber] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const offresPerPage = 9;
+  const [SearchCat, setSearchCat] = useState("");
+  const offresPerPage = 10;
 
   const data = props.List;
   const productsData = useMemo(() => {
@@ -51,6 +54,11 @@ const ProductList = (props) => {
     if (Search) {
       computed = computed.filter((i) =>
         i.name.toLowerCase().includes(Search.toLowerCase())
+      );
+    }
+    if (SearchCat) {
+      computed = computed.filter((i) =>
+        i.category.name.toLowerCase().includes(SearchCat.toLowerCase())
       );
     }
     setPageNumber(computed.length);
@@ -68,20 +76,36 @@ const ProductList = (props) => {
       props.DeleteProducts(id, onSuccess);
   };
 
-  const prev_loading = usePrevious(props.isLoadingCreate);
+  const prev_loadingCreate = usePrevious(props.isLoadingCreate);
+  const prev_loadingUpdate = usePrevious(props.isLoadingUpdate);
+
   useEffect(() => {
-    if (prev_loading && !props.isLoadingCreate) {
+    if (prev_loadingCreate && !props.isLoadingCreate) {
       if (props.CodeMsg === 1) {
         props.AllProducts();
         setShoEditwModal(false);
         setShowModal(false);
-        toast.success("Succés");
+        toast.success("Ajout avec Succés");
       }
       if (props.CodeMsg === 0) {
         toast.error("Problème lors de l'ajout !");
       }
     }
   }, [props.isLoadingCreate, props.List]);
+
+  useEffect(() => {
+    if (prev_loadingUpdate && !props.isLoadingUpdate) {
+      if (props.CodeMsg === 1) {
+        props.AllProducts();
+        setShoEditwModal(false);
+        setShowModal(false);
+        toast.success("Ajout avec Succés");
+      }
+      if (props.CodeMsg === 0) {
+        toast.error("Problème lors de la modification !");
+      }
+    }
+  }, [props.isLoadingUpdate, props.List]);
 
   return (
     <>
@@ -99,29 +123,52 @@ const ProductList = (props) => {
               <>
                 <div className="rounded-t bg-white mb-0 ">
                   <div className="text-center flex justify-between">
-                    <div className="flex rounded-lg pb-4">
+                    <div className="grid grid-cols-4 gap-8">
                       <h6 className="text-gray-800 bg-transparent text-xl font-bold">
                         List des produits:
                       </h6>
-                      <i className="fas fa-search my-2 mx-2" />
-                      <input
-                        className="outline-none"
-                        type="text"
-                        placeholder="Cherchez un produit..."
-                        onChange={(event) => {
-                          setSearch(event.target.value);
-                          setCurrentPage(1);
-                        }}
-                      />
-                    </div>
+                      <div className="felx rounded-lg">
+                        <i className="fas fa-search my-2 mx-2" />
+                        <input
+                          className="outline-none"
+                          type="text"
+                          placeholder="Cherchez un produit..."
+                          onChange={(event) => {
+                            setSearch(event.target.value);
+                            setCurrentPage(1);
+                          }}
+                        />
+                      </div>
 
-                    <Link
-                      to="#"
-                      onClick={() => setShowModal(true)}
-                      className="link"
-                    >
-                      <i className="fas fa-plus" />
-                    </Link>
+                      <div className="flex bg-gray-100 w-12 rounded-lg">
+                        <i className="fas fa-filter my-2"></i>
+                        <select
+                          className="flex bg-gray-100 rounded-lg"
+                          onChange={(event) => {
+                            setSearchCat(event.target.value);
+                            setCurrentPage(1);
+                          }}
+                        >
+                          <option value={SearchCat}>Catégories</option>
+                          {props.ListCat.map((c, index) => {
+                            return (
+                              <Fragment key={index}>
+                                <option value={c.name}>{c.name}</option>
+                              </Fragment>
+                            );
+                          })}
+                        </select>
+                      </div>
+                      <div>
+                        <Link
+                          to="#"
+                          onClick={() => setShowModal(true)}
+                          className="link"
+                        >
+                          <i className="fas fa-plus" />
+                        </Link>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <br></br>
@@ -146,7 +193,7 @@ const ProductList = (props) => {
                             className="border-b border-gray-200 hover:bg-gray-100"
                             key={product._id}
                           >
-                            <td className="widgetLgDate ">{product.name}</td>
+                            <td className="widgetLgDate "> {product.name}</td>
 
                             <td className="widgetLgAmount ">
                               {product.shipping === "Hors stock" && (
@@ -373,14 +420,17 @@ const ProductList = (props) => {
 
 const mapStateToProps = (state) => ({
   List: state.productsReducer.products,
+  ListCat: state.catReducer.categories,
   isAuth: state.auth.isAuthenticated,
   isLoading: state.productsReducer.ploader,
-  isLoadingCreate: state.productsReducer.updateLoader,
+  isLoadingCreate: state.productsReducer.addLoader,
+  isLoadingUpdate: state.productsReducer.updateLoader,
   CodeMsg: state.productsReducer.codemsg,
 });
 
 const mapActionToProps = {
   AllProducts: getAll,
+  AllCategories: getAllCat,
   DeleteProducts: deleteProduct,
 };
 
