@@ -1,23 +1,7 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 
-
-import useForm from "./pages/useForm";
-const initialFieldValues = {};
-
 const ProductDetails = ({ ...props }) => {
-  var { values, setValues, errors, setErrors, resetForm } = useForm(
-    initialFieldValues,
-    props.setCurrentId
-  );
-
-  useEffect(() => {
-    if (props.currentObj !== {}) {
-      setValues(props.currentObj);
-      setErrors({});
-    }
-  }, [props.currentObj]);
-
   return (
     <>
       <div className="items-center">
@@ -42,7 +26,6 @@ const ProductDetails = ({ ...props }) => {
             <div className="grid grid-cols-2 ">
               <div className=" border-r-2 border-red-800">Hello</div>
               <div className="flex text-black">Hello</div>
-             
             </div>
           </div>
         </div>
