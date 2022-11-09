@@ -66,7 +66,7 @@ const ProductList = (props) => {
       (currentPage - 1) * offresPerPage,
       (currentPage - 1) * offresPerPage + offresPerPage
     );
-  }, [data, currentPage, Search]);
+  }, [data, currentPage, Search, SearchCat]);
 
   const onDLP = (id) => {
     const onSuccess = () => {
@@ -123,51 +123,58 @@ const ProductList = (props) => {
               <>
                 <div className="rounded-t bg-white mb-0 ">
                   <div className="text-center flex justify-between">
-                    <div className="grid grid-cols-4 gap-8">
-                      <h6 className="text-gray-800 bg-transparent text-xl font-bold">
-                        List des produits:
-                      </h6>
-                      <div className="felx rounded-lg">
-                        <i className="fas fa-search my-2 mx-2" />
-                        <input
-                          className="outline-none"
-                          type="text"
-                          placeholder="Cherchez un produit..."
-                          onChange={(event) => {
-                            setSearch(event.target.value);
-                            setCurrentPage(1);
-                          }}
-                        />
-                      </div>
+                    <h6 className="text-gray-800 bg-transparent text-xl font-bold">
+                      List des produits:
+                    </h6>
+                    <Link
+                      to="#"
+                      onClick={() => setShowModal(true)}
+                      className="link"
+                    >
+                      <i className="fas fa-plus" />
+                    </Link>
+                  </div>
+                  <div className="grid grid-cols-6 gap-4 mt-4 mb-2">
+                    <div className="felx rounded-lg col-start-1 col-end-3">
+                      <i className="fas fa-search my-2 mx-2" />
+                      <input
+                        className="outline-none"
+                        type="text"
+                        placeholder="Cherchez un produit..."
+                        onChange={(event) => {
+                          setSearch(event.target.value);
+                          setCurrentPage(1);
+                        }}
+                      />
+                    </div>
 
-                      <div className="flex bg-gray-100 w-12 rounded-lg">
-                        <i className="fas fa-filter my-2"></i>
-                        <select
-                          className="flex bg-gray-100 rounded-lg"
-                          onChange={(event) => {
-                            setSearchCat(event.target.value);
-                            setCurrentPage(1);
-                          }}
-                        >
-                          <option value={SearchCat}>Catégories</option>
-                          {props.ListCat.map((c, index) => {
-                            return (
-                              <Fragment key={index}>
-                                <option value={c.name}>{c.name}</option>
-                              </Fragment>
-                            );
-                          })}
-                        </select>
-                      </div>
-                      <div>
-                        <Link
-                          to="#"
-                          onClick={() => setShowModal(true)}
-                          className="link"
-                        >
-                          <i className="fas fa-plus" />
-                        </Link>
-                      </div>
+                    <div className="flex bg-gray-100 w-12 rounded-lg col-end-7 col-span-2">
+                      <i className="fas fa-filter my-2"></i>
+                      <select
+                        className="flex bg-gray-100 rounded-lg"
+                        value={SearchCat}
+                        onChange={(event) => {
+                          setSearchCat(event.target.value);
+                          setCurrentPage(1);
+                        }}
+                      >
+                        <option >Catégories</option>
+                        {props.ListCat.map((c, index) => {
+                          return (
+                            <Fragment key={index}>
+                              <option value={c.name}>{c.name}</option>
+                            </Fragment>
+                          );
+                        })}
+                      </select>
+                      <button
+                        className="my-2 mx-2 flex rounded-lg w-6 mr-2 transform hover:text-blue-500 hover:scale-120 ease-in duration-100 onClick"
+                        onClick={() => {
+                          setSearchCat("");
+                        }}
+                      >
+                        <i className="fas fa-redo"></i>
+                      </button>
                     </div>
                   </div>
                 </div>
