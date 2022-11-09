@@ -14,6 +14,7 @@ const ADDP_L = "ADD PRODUCT LOADING";
 const ADDP_S = "ADD PRODUCT SUCCESS";
 const ADDP_F = "ADD PRODUCT FAILURE";
 const PRODUCT_LOADING = "ACTION LOADING";
+const PRODUCT_LOADING_UP = "ACTION UPDATE LOADING";
 const PRODUCT_UPDATE = "PRODUCT UPDATED";
 const PRODUCT_DELETE = "PRODUCT DELETED";
 const PRODUCT_ERR = "PRODUCT ERROR";
@@ -47,7 +48,14 @@ export default function (state = intialState, action) {
       return {
         ...state,
         codemsg: null,
-        updateLoader: true,
+        addLoader: true,
+      };
+
+    case PRODUCT_LOADING:
+      return {
+        ...state,
+        codemsg: null,
+        addLoader: true,
       };
 
     case ADDP_S:
@@ -55,16 +63,17 @@ export default function (state = intialState, action) {
         ...state,
         products: [...state.products, action.payload],
         codemsg: 1,
-        updateLoader: false,
+        addLoader: false,
       };
     case ADDP_F:
 
-    case PRODUCT_LOADING:
+    case PRODUCT_LOADING_UP:
       return {
         ...state,
         codemsg: null,
         updateLoader: true,
       };
+
     case PRODUCT_UPDATE:
       return {
         ...state,
@@ -145,10 +154,10 @@ export const addProduct = (product) => {
     return axios
       .post(`/api/products`, data)
       .then((res) => {
-       
+        const data = res.data;
         dispatch({
           type: ADDP_S,
-          payload: res.data,
+          payload: data,
         });
       })
       .catch((err) => console.log(err.status), PRODUCT_ERR);

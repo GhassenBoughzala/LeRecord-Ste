@@ -76,8 +76,6 @@ export const addCat = (category) => {
       .post(`/api/category`, data)
       .then((res) => {
         const data = res.data;
-        console.log(data);
-
         const ndata = { name: data.name };
         dispatch(createSuccess(ndata));
       })
