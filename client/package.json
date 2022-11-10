@@ -3,7 +3,6 @@
   "version": "2.0",
   "private": true,
   "main": "index.js",
-  "homepage": ".",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
