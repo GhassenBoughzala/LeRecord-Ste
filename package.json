@@ -10,9 +10,6 @@
     "client-install": "npm install --prefix client",
     "heroku-postbuild": "npm install --force --prefix client && npm run build --prefix client"
   },
-  "engines": {
-    "node": "8.9.2"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/GhassenBoughzala/Stock-Devis.git"
