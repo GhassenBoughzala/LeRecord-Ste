@@ -152,7 +152,7 @@ router.post(
       );
       console.log("Login ++");
     } catch (error) {
-      console.log(err.message);
+      console.log(error.message);
       res.status(500).send("Server error");
     }
   }
