@@ -149,7 +149,12 @@ export const login =
     });
     try {
       // Response
-      const res = await axios.post(`/api/auth/login`, body, config);
+      const res = await axios
+        .post(`/api/auth/login`, body, config)
+        .catch(function (error) {
+          //console.log(error.response.data.msg);
+          toast.warn(error.response.data.msg);
+        });
 
       dispatch({
         type: LOGIN_SUCCESS,

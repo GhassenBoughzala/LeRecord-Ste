@@ -21,7 +21,6 @@ const Login = ({ login, isAuth, isLoading, user }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log("Login +");
     login({ email, password });
   };
 
