@@ -5,12 +5,14 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "start:dev":"nodemon server.js",
+    "start:dev": "nodemon server.js",
     "dev": "cross-env NODE_ENV=development nodemon server",
     "client-install": "npm install --prefix client",
-    "heroku": "npm install --force --prefix client && npm run build --prefix client"
+    "heroku-postbuild": "npm install --force --prefix client && npm run build --prefix client"
   },
-
+  "engines": {
+    "node": "8.9.2"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/GhassenBoughzala/Stock-Devis.git"
