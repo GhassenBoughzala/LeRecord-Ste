@@ -8,8 +8,6 @@ import Routes from "./routes";
 function App() {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
-  } else {
-    localStorage.clear();
   }
 
   useEffect(() => {
