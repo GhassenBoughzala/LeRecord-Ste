@@ -1,7 +1,6 @@
 import "./sidebar.css";
 import React, { useState } from "react";
 import {
-  PermIdentity,
   Storefront,
   LocalShipping,
   Loyalty

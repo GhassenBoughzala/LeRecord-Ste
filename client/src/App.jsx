@@ -5,7 +5,7 @@ import store from "./redux/store";
 import { loadUser } from "./redux/reducers/authReducer";
 import Routes from "./routes";
 
-function App({ history }) {
+function App() {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   } else {

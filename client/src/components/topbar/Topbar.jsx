@@ -2,7 +2,6 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import Button from "../buttons/button.component";
 import "./topbar.css";
-import { toast } from "react-toastify";
 import { connect } from "react-redux";
 import { logout } from "../../redux/reducers/authReducer";
 import { Link } from "react-router-dom";
