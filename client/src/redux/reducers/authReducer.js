@@ -155,11 +155,11 @@ export const login =
             type: LOGIN_SUCCESS,
             payload: res.data,
           });
-          //console.log(res.data);
+          console.log(res.data);
           dispatch(loadUser());
         })
         .catch((error) => {
-          console.log(error.response.data.msg);
+          console.log(error);
           //toast.warn(error.response.data.msg);
         });
     } catch (err) {
