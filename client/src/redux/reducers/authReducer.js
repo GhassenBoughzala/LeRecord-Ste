@@ -158,10 +158,6 @@ export const login =
           console.log(res.data);
           dispatch(loadUser());
         })
-        .catch((error) => {
-          console.log(error);
-          //toast.warn(error.response.data.msg);
-        });
     } catch (err) {
       const errors = err.response.data.errors;
       if (errors) {
