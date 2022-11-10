@@ -148,19 +148,20 @@ export const login =
       type: SET_LOADING,
     });
     try {
-      // Response
-      const res = await axios
+      return axios
         .post(`/api/auth/login`, body, config)
-        .catch(function (error) {
+        .then((res) => {
+          dispatch({
+            type: LOGIN_SUCCESS,
+            payload: res.data,
+          });
+          //console.log(res.data);
+          dispatch(loadUser());
+        })
+        .catch((error) => {
           console.log(error.response.data.msg);
           //toast.warn(error.response.data.msg);
         });
-
-      dispatch({
-        type: LOGIN_SUCCESS,
-        payload: res.data,
-      });
-      dispatch(loadUser());
     } catch (err) {
       const errors = err.response.data.errors;
       if (errors) {

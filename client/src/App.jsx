@@ -12,7 +12,9 @@ function App() {
 
   useEffect(() => {
     console.log("app");
-    store.dispatch(loadUser());
+    if (localStorage.token) {
+      store.dispatch(loadUser());
+    }
   }, []);
 
   return (
