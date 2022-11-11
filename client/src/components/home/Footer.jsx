@@ -5,7 +5,7 @@ function Footer() {
     <>
       <section className="bg-blue-900">
         <div className="max-w-screen-xl px-4 py-12 mx-auto space-y-8 overflow-hidden sm:px-6 lg:px-8 text-center">
-          <div className="grid grid-cols-3 gap-4 text-center">
+          <div className="grid lg:grid-cols-3 sm:grid-cols-2 gap-4 text-center">
             <p className="text-base leading-6 text-white ">
               <i className="fas fa-phone-alt mx-1"></i>
               +216 72 286 319

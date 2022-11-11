@@ -90,29 +90,23 @@ const Magazin = (props) => {
                   />
                 </div>
               </div>
+
+              
             </div>
             {props.isLoading ? (
-              <div className="text-center my-3 px-40 py-40">
+              <div className="text-center my-3 px-30 py-40">
                 <div id="loading"></div>
               </div>
             ) : (
               <div className="grid grid-cols-12 ">
-                <div className=" col-span-3 border-r-2 border-blue-800 border-x-2 mb-3 mr-5">
+                <div className="col-span-3 mb-3 mr-5">
                 <h3 className="flex font-semibold text-blue-900 ">
-                    Categories
+                    Catégories
                   </h3>
-                  {/* <div
-                    className="flex text-xs w-2 mr-2 transform hover:text-blue-900 hover:scale-120 ease-in duration-100 onClick"
-                    onClick={() => {
-                      setSearchCat("");
-                    }}
-                  >
-                    <i className="fas fa-redo"></i>
-                  </div> */}
                   {props.ListCat.map((c, index) => {
                     return (
                       <Fragment key={index}>
-                        <div class=" flex items-center mt-3 ">
+                        <div className=" flex items-center mt-3 ">
                           <div
                             onClick={() => {
                               setSearch("")

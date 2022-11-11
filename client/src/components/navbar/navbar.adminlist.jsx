@@ -20,7 +20,7 @@ const NavbarAdminList = ({ history, logout, isAuth, user }) => {
     <>
     <ul className='font-bold flex-wrap flex md:mr-5 flex-col md:flex-row text-center'>
       <NavItem 
-        link='/home' 
+        link='/accueil' 
         name='Accueil' 
         listStyle={isActive(history, '/')} />
       <Button 
@@ -37,7 +37,7 @@ const NavbarAdminList = ({ history, logout, isAuth, user }) => {
             action={ () => {
               toast.info(`Utilisateur déconnecté !`);
               logout();}}
-            href='/home'/>
+            href='/accueil'/>
           
           <Button
             isButton={false}

@@ -51,7 +51,7 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
                 toast.info(`Utilisateur déconnecté !`);
                 logout();
               }}
-              href="/home"
+              href="/accueil"
             />
 
             {userLocal.role === 1 ? (

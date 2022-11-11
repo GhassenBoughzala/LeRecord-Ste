@@ -22,7 +22,7 @@ const Navbar = (role) => {
       <nav className='navbar'>
         {/* Left Side */}
         <div className='flex justify-between w-full md:w-32 items-center'>
-          <Link to='/home' className='logo w-40 '>
+          <Link to='/accueil' className='logo w-40 '>
             <img src={Rimg} alt=''/>
           </Link>
           <NavbarToggle active={active} menuState={menuState} />

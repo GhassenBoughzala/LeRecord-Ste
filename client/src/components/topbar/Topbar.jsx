@@ -32,7 +32,7 @@ const Topbar = ({ history, logout, isAuth, user }) => {
                     </li>
                   </Link>
                   <Link
-                    to="/home"
+                    to="/accueil"
                     className="link navbar-fixed-bottom mx-2"
                     onClick={() => {
                       logout();
