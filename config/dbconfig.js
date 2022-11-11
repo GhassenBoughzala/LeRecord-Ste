@@ -1,4 +1,8 @@
+require("dotenv").config({
+  path: "./config/config.env",
+});
+
 module.exports = {
-    secret : 'secret',
-    database : 'mongodb+srv://RR:2021@cluster0.hysuw.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
-}
+  secret: process.env.SECRET,
+  database: process.env.MONGODB,
+};
