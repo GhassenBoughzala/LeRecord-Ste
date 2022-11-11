@@ -150,7 +150,7 @@ const Magazin = (props) => {
                                 src={product.photo[0]}
                                 alt=""
                               />
-                              <h2 className="text-lg font-medium">
+                              <h2 className="text-lg font-medium uppercase">
                                 {product.name}
                               </h2>
                               {product.shipping === "Hors stock" && (
@@ -161,7 +161,7 @@ const Magazin = (props) => {
                               )}
 
                               <p className="font-medium text-gray-500">
-                                {product.category.name}
+                                {product.category?.name}
                               </p>
                             </div>
                           </motion.div>
