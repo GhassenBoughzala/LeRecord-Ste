@@ -2,7 +2,6 @@ import React, { Fragment, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Carousel } from "react-responsive-carousel";
 
-
 const ProductDetails = ({ ...props }) => {
   const [values, setvalues] = useState({});
   useEffect(() => {
@@ -34,33 +33,27 @@ const ProductDetails = ({ ...props }) => {
             </div>
           </div>
 
-          <div class="md:flex items-center -mx-5 py-12 px-6">
+          <div class="md:flex items-center -mx-5 py-5 px-6">
             <div class="w-full md:w-1/2 px-5 mb-10 md:mb-0">
               <div class="relative m-3 rounded-lg">
-              <Carousel
-              autoPlay={true}
-              showThumbs={false}
-              showIndicators={true}
-              showStatus={false}
-              showArrows={false}
-              infiniteLoop={true}
-            >
-              {values.photo?.map((img, index) => {
-                  return (
-                    <Fragment key={index}>
-                      <div>
-                        <img
-                        src={img}
-                        alt=""
-                        className="w-full relative"
-                      />
-                      </div>
-                      
-                    </Fragment>
-                  );
-                })}
-            </Carousel>
-                
+                <Carousel
+                  autoPlay={true}
+                  showThumbs={false}
+                  showIndicators={true}
+                  showStatus={false}
+                  showArrows={false}
+                  infiniteLoop={true}
+                >
+                  {values.photo?.map((img, index) => {
+                    return (
+                      <Fragment key={index}>
+                        <div>
+                          <img src={img} alt="" className="w-full relative rounded-lg" />
+                        </div>
+                      </Fragment>
+                    );
+                  })}
+                </Carousel>
               </div>
             </div>
             <div class="w-full md:w-1/2 ">
@@ -69,12 +62,10 @@ const ProductDetails = ({ ...props }) => {
               </h1>
               <div class="mb-2">
                 {values.shipping === "Hors stock" && (
-                  <p className="felx font-semibold text-red-600">Hors stock</p>
+                  <p className="flex font-bold text-red-600 mx-5">Hors stock</p>
                 )}
                 {values.shipping === "En stock" && (
-                  <p className="flex font-bold text-green-600 mx-5">
-                    En stock
-                  </p>
+                  <p className="flex font-bold text-green-600 mx-5">En stock</p>
                 )}
               </div>
               <div>

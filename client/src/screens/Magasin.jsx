@@ -84,14 +84,12 @@ const Magazin = (props) => {
                     placeholder="Cherchez un produit..."
                     onChange={(event) => {
                       setSearch(event.target.value);
-                      setSearchCat("")
+                      setSearchCat("");
                       setCurrentPage(1);
                     }}
                   />
                 </div>
               </div>
-
-              
             </div>
             {props.isLoading ? (
               <div className="text-center my-3 px-30 py-40">
@@ -99,8 +97,13 @@ const Magazin = (props) => {
               </div>
             ) : (
               <div className="grid grid-cols-12 ">
-                <div className="col-span-3 mb-3 mr-5">
-                <h3 className="flex font-semibold text-blue-900 ">
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 1 }}
+                  className="col-span-3 mb-3 mr-5"
+                >
+                  <h3 className="flex font-semibold text-blue-900 ">
                     Catégories
                   </h3>
                   {props.ListCat.map((c, index) => {
@@ -109,7 +112,7 @@ const Magazin = (props) => {
                         <div className=" flex items-center mt-3 ">
                           <div
                             onClick={() => {
-                              setSearch("")
+                              setSearch("");
                               setSearchCat("");
                               setSearchCat(c.name);
                               setCurrentPage(1);
@@ -122,7 +125,7 @@ const Magazin = (props) => {
                       </Fragment>
                     );
                   })}
-                </div>
+                </motion.div>
                 <div className="col-span-9">
                   <div
                     posts={productsData}

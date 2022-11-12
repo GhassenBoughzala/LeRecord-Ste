@@ -27,7 +27,7 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
       <ul className="font-bold flex-wrap flex md:mr-5 flex-col md:flex-row text-center">
         <NavItem
           link="/"
-          icon="fas fa-home mx-1"
+          //icon="fas fa-home mx-1"
           name="Accueil"
           listStyle={isActive(history, "/")}
         />
@@ -35,7 +35,7 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
           isButton={false}
           moreStyle="hover:text-blue-900"
           href="/catalogue"
-          icon="fas fa-store mx-1"
+          //icon="fas fa-store mx-1"
           title="Catalogue"
         >
         </Button>
@@ -44,7 +44,7 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
           <>
             <Button
               isButton={true}
-              icon={"fas fa-sign-out-alt mx-1"}
+              //icon={"fas fa-sign-out-alt mx-1"}
               title="Déconnecter"
               moreStyle="hover:text-blue-900"
               action={() => {
@@ -74,7 +74,7 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
           </>
         )}
 
-        {!isAuth && (
+{/*         {!isAuth && (
           <>
             <Button
               icon={"fas fa-sign-in-alt mx-1"}
@@ -84,7 +84,7 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
               href="/login"
             />
           </>
-        )}
+        )} */}
       </ul>
     </>
   );
