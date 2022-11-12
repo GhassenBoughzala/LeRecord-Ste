@@ -19,7 +19,7 @@ const Home = () => {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1.5 }}
+            transition={{ duration: 2.5 }}
             className="mx-auto max-w-7xl"
           >
             <div className="container max-w-lg px-4 py-12 mx-auto text-left md:max-w-none md:text-center">
