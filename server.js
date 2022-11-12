@@ -13,9 +13,7 @@ const orderRoute = require("./routes/order");
 const fournisseurRoute = require("./routes/fournisseur");
 let path = require("path");
 
-require("dotenv").config({
-  path: "./config/config.env",
-});
+require("dotenv").config({});
 
 connectDB();
 
