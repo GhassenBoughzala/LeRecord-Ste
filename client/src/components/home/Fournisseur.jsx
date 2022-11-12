@@ -17,7 +17,7 @@ function Fournisseur() {
 
   const swipes2 = {
     visible: { x: 0, opacity: 1, transition: { duration: 1 } },
-    hidden: { x: -600, opacity: 0, transition: { duration: 1 } },
+    hidden: { x: -400, opacity: 0, transition: { duration: 1 } },
   };
   const control = useAnimation();
   const [ref, inView] = useInView();

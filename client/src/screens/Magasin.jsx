@@ -148,8 +148,9 @@ const Magazin = (props) => {
                               className="flex flex-col items-center justify-center p-10"
                               key={product._id}
                             >
+                              
                               <img
-                                className="w-50 h-50 rounded-lg mb-6 min-w-45 min-h-45"
+                                className="w-64 rounded-lg mb-6 min-w-45 min-h-45"
                                 src={product.photo[0]}
                                 alt=""
                               />

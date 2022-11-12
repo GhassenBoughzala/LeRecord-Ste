@@ -1,9 +1,21 @@
 import React, { Fragment, useEffect, useState } from "react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/thumbs";
 import { connect } from "react-redux";
-import { Carousel } from "react-responsive-carousel";
+//import { Carousel } from "react-responsive-carousel";
+import Magnifier from "react-magnifier";
+import "swiper/css";
+import "swiper/css/free-mode";
+import "swiper/css/navigation";
+import "swiper/css/thumbs";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import { FreeMode, Navigation, Thumbs } from "swiper";
 
 const ProductDetails = ({ ...props }) => {
   const [values, setvalues] = useState({});
+  const [thumbsSwiper, setThumbsSwiper] = useState(null);
   useEffect(() => {
     if (props.currentObj !== {}) {
       setvalues(props.currentObj);
@@ -18,7 +30,7 @@ const ProductDetails = ({ ...props }) => {
         <div className=" rounded-lg bg-gray-200 border-0 ">
           <div className="rounded-t bg-white mb-0 px-6 py-6">
             <div className="text-center flex justify-between">
-              <h1 class="font-bold text-xl text-blue-900">Détails</h1>
+              <h1 className="font-bold text-xl text-blue-900">Détails</h1>
 
               <div className=" text-right">
                 <span
@@ -33,34 +45,60 @@ const ProductDetails = ({ ...props }) => {
             </div>
           </div>
 
-          <div class="md:flex items-center -mx-5 py-5 px-6">
-            <div class="w-full md:w-1/2 px-5 mb-10 md:mb-0">
-              <div class="relative m-3 rounded-lg">
-                <Carousel
-                  autoPlay={true}
-                  showThumbs={false}
-                  showIndicators={true}
-                  showStatus={false}
-                  showArrows={false}
-                  infiniteLoop={true}
+          <div className="md:flex -mx-5 py-5 px-6">
+            <div className="w-full md:w-1/2 px-5 mb-10 md:mb-0">
+              <div className="relative m-3 rounded-lg">
+                <Swiper
+                  style={{
+                    "--swiper-navigation-color": "#fff",
+                    "--swiper-pagination-color": "#fff",
+                  }}
+                  spaceBetween={10}
+                  navigation={true}
+                  thumbs={{ swiper: thumbsSwiper }}
+                  modules={[FreeMode, Navigation, Thumbs]}
+                  className="mySwiper2"
                 >
-                  {values.photo?.map((img, index) => {
+                  {values.photo?.map((img) => {
                     return (
-                      <Fragment key={index}>
-                        <div>
-                          <img src={img} alt="" className="w-full relative rounded-lg" />
-                        </div>
-                      </Fragment>
+                      <SwiperSlide>
+                        <Magnifier
+                          src={img}
+                          alt=""
+                          className="w-full relative rounded-lg"
+                        />
+                      </SwiperSlide>
                     );
                   })}
-                </Carousel>
+                </Swiper>
+                <Swiper
+                  onSwiper={setThumbsSwiper}
+                  spaceBetween={10}
+                  slidesPerView={4}
+                  freeMode={true}
+                  watchSlidesProgress={true}
+                  modules={[FreeMode, Navigation, Thumbs]}
+                  className="mySwiper"
+                >
+                  {values.photo?.map((img) => {
+                    return (
+                      <SwiperSlide>
+                        <img
+                          src={img}
+                          alt=""
+                          className="w-full relative onClick"
+                        />
+                      </SwiperSlide>
+                    );
+                  })}
+                </Swiper>
               </div>
             </div>
-            <div class="w-full md:w-1/2 ">
-              <h1 class="flex mx-5 font-bold uppercase text-xl text-blue-900">
+            <div className="w-full md:w-1/2 px-2 py-5">
+              <h1 className="flex mx-5 font-bold uppercase text-xl text-blue-900">
                 {values.name}
               </h1>
-              <div class="mb-2">
+              <div className="mb-2">
                 {values.shipping === "Hors stock" && (
                   <p className="flex font-bold text-red-600 mx-5">Hors stock</p>
                 )}

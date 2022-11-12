@@ -11,7 +11,7 @@ function App() {
   }
 
   useEffect(() => {
-    console.log("app");
+    //console.log("app");
     if (localStorage.token) {
       store.dispatch(loadUser());
     }
