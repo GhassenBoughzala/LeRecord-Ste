@@ -1,13 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { withRouter } from "react-router-dom";
 import Button from "../buttons/button.component";
 import NavItem from "./navbar.item";
-import { toast } from "react-toastify";
+//import { toast } from "react-toastify";
 import { connect } from "react-redux";
 import { logout } from "../../redux/reducers/authReducer";
 
 const NavbarList = ({ history, logout, isAuth, user }) => {
-
   const isActive = (history, path) => {
     if (history.location.pathname === path) {
       return "text-blue-900";
@@ -16,11 +15,11 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
     }
   };
 
-  const [userLocal] = useState(() => {
+  /*   const [userLocal] = useState(() => {
     const saved = localStorage.getItem("user");
     const initialValue = JSON.parse(saved);
     return initialValue || "";
-  });
+  }); */
 
   return (
     <>
@@ -37,10 +36,9 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
           href="/catalogue"
           //icon="fas fa-store mx-1"
           title="Catalogue"
-        >
-        </Button>
+        ></Button>
 
-        {isAuth && (
+        {/*         {isAuth && (
           <>
             <Button
               isButton={true}
@@ -72,9 +70,9 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
               />
             )}
           </>
-        )}
+        )} */}
 
-{/*         {!isAuth && (
+        {/*         {!isAuth && (
           <>
             <Button
               icon={"fas fa-sign-in-alt mx-1"}
