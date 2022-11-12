@@ -22,7 +22,7 @@ function Footer() {
           <div className="">
             <p className="mt-8 text-base leading-6 text-center text-white">
               <i className="fas fa-map-marker-alt mx-1"></i>
-              109, Avenue Habib Bourguiba - 8000 Nabeul
+              Avenue Habib Bourguiba, BP: 109 - Nabeul 8000
             </p>
           </div>
 

@@ -157,12 +157,11 @@ const Magazin = (props) => {
                                 {product.name}
                               </h2>
                               {product.shipping === "Hors stock" && (
-                                <p className="text-red-600">Hors stock</p>
+                                <p className="text-red-600 font-semibold">Hors stock</p>
                               )}
                               {product.shipping === "En stock" && (
-                                <p className="text-green-600">En stock</p>
+                                <p className="text-green-600 font-semibold">En stock</p>
                               )}
-
                               <p className="font-medium text-gray-500">
                                 {product.category?.name}
                               </p>
@@ -199,7 +198,7 @@ const Magazin = (props) => {
                   exit="hidden"
                 >
                   <motion.div
-                    className="lg:w-1/2 lg:h-full center overflow-y-auto"
+                    className="lg:w-3/4 lg:h-full center overflow-y-auto"
                     variants={modal}
                   >
                     <Productdetails
