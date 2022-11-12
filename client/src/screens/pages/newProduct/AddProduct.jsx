@@ -3,6 +3,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import "./newProduct.css";
 import { Publish } from "@material-ui/icons";
+import Magnifier from "react-magnifier";
 import { connect } from "react-redux";
 import {
   addProduct,
@@ -25,10 +26,6 @@ const initialFieldValues = {
 const AddProduct = ({ ...props }) => {
   const [product, setProduct] = useState(initialFieldValues);
   const [ShowImg, setShowImg] = useState(false);
-  const ImgStyle = {
-    width: "80px",
-    height: "80px",
-  };
 
   useEffect(() => {
     props.All();
@@ -95,6 +92,45 @@ const AddProduct = ({ ...props }) => {
           </div>
           <div className="">
             <form onSubmit={handleSubmit} className="items-center">
+              <div className="flex flex-auto">
+                <div className="w-full lg:w-12/12 px-4 ">
+                  <div className="relative w-full ">
+                    <div className="px-3 py-3 placeholder-gray-400 text-gray-700 rounded text-sm focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150">
+                      {ShowImg && (
+                        <div className="grid grid-cols-2 gap-2">
+                          {product.photo?.map((img, index) => {
+                            return (
+                              <Fragment key={index}>
+                                <div className="text-center">
+                                  <i
+                                    className="btn btn-sm btn-danger shadow-none--hover shadow-none fas fa-times onClick text-red-700"
+                                    onClick={() => onDelete(index)}
+                                  ></i>
+                                  <div className=" rounded-lg">
+                                    <Magnifier src={img} width={150} />
+                                  </div>
+                                </div>
+                              </Fragment>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
+                    <label className="text-center custom-file-upload form-control-label btn border-info text-info block uppercase text-gray-700 text-xs font-bold">
+                      Choisir une image
+                      <Publish />
+                      <input
+                        className="px-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                        type="file"
+                        multiple={true}
+                        name="photo"
+                        accept=".jpeg, .png, .jpg"
+                        onChange={(e) => handleFileUpload(e)}
+                      />
+                    </label>
+                  </div>
+                </div>
+              </div>
               <div className="flex flex-wrap">
                 <div className="w-full lg:w-6/12 px-4">
                   <div className="relative w-full mb-3">
@@ -217,70 +253,23 @@ const AddProduct = ({ ...props }) => {
               </div>
 
               <div className="flex flex-wrap">
-                <div className="w-full lg:w-12/12 px-4">
-                  <div className="relative w-full mb-3 text-center">
-                    <label
-                      className="block uppercase text-gray-700 text-xs font-bold mb-2"
-                      htmlFor="grid-password"
-                    >
-                      Photo
-                    </label>
-                    <div className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150">
-                      <label className="custom-file-upload form-control-label btn border-info text-info">
-                        Choisir un fichier
-                        <Publish />
-                        <input
-                          className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
-                          type="file"
-                          multiple={true}
-                          name="photo"
-                          accept=".jpeg, .png, .jpg"
-                          onChange={(e) => handleFileUpload(e)}
-                        />
-                      </label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              {ShowImg && (
-                <div className="flex flex-wrap">
-                  <div className="w-full lg:w-12/12 px-4 ">
-                    <div className="relative w-full mb-3 mt--6 ">
-                      <div className="px-3 py-3 placeholder-gray-400 text-gray-700 rounded text-sm focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150">
-                        <div className="grid grid-cols-4 gap-4">
-                          {product.photo.map((img, index) => {
-                            return (
-                              <Fragment key={index}>
-                                <div className="text-center">
-                                  <i
-                                    className="btn btn-sm btn-danger shadow-none--hover shadow-none fas fa-times onClick text-red-700"
-                                    onClick={() => onDelete(index)}
-                                  ></i>
-                                  <img
-                                    style={ImgStyle}
-                                    className="img-fluid rounded shadow avatar avatar-lg mr-2"
-                                    src={img}
-                                    alt=""
-                                  />
-                                </div>
-                              </Fragment>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-              <div className="flex flex-wrap">
                 <div className="w-full px-4">
                   <div className="relative w-full mb-3">
-                    <button
-                      type="submit"
-                      className="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-1 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-                    >
-                      Confirmer
-                    </button>
+                    {props.isLoadingCreate ? (
+                      <button
+                        disabled
+                        className="bg-gray-700 text-white active:bg-gray-700 text-sm font-bold uppercase px-1 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
+                      >
+                        <div id="loadingbtn"></div>
+                      </button>
+                    ) : (
+                      <button
+                        type="submit"
+                        className="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-1 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
+                      >
+                        Confirmer
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
@@ -296,6 +285,7 @@ const mapStateToProps = (state) => ({
   List: state.productsReducer.products,
   ListCat: state.catReducer.categories,
   ListFou: state.forReducer.fournisseurs,
+  isLoadingCreate: state.productsReducer.addLoader,
 });
 
 const mapActionToProps = {

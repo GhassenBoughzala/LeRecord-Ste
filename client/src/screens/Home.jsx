@@ -2,7 +2,7 @@ import React from "react";
 import Container from "../components/container/container.component";
 import Footer from "../components/home/Footer";
 import RBG from "../assests/img/MoyR.png";
-import COTU from "../assests/img/couverture-articles-01.png";
+import COTU from "../assests/img/couverture-articles-mid.png";
 import Fournisseur from "../components/home/Fournisseur";
 import Fourniture from "../components/home/Fourniture";
 import Gamme from "../components/home/Gamme";

@@ -7,7 +7,6 @@ import { connect } from "react-redux";
 import { logout } from "../../redux/reducers/authReducer";
 
 const NavbarList = ({ history, logout, isAuth, user }) => {
-
   const isActive = (history, path) => {
     if (history.location.pathname === path) {
       return "text-blue-900";
@@ -37,8 +36,7 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
           href="/catalogue"
           //icon="fas fa-store mx-1"
           title="Catalogue"
-        >
-        </Button>
+        ></Button>
 
         {isAuth && (
           <>
@@ -74,7 +72,7 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
           </>
         )}
 
-{/*         {!isAuth && (
+        {!isAuth && (
           <>
             <Button
               icon={"fas fa-sign-in-alt mx-1"}
@@ -84,7 +82,7 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
               href="/login"
             />
           </>
-        )} */}
+        )}
       </ul>
     </>
   );

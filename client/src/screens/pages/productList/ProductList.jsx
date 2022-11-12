@@ -83,7 +83,6 @@ const ProductList = (props) => {
     if (prev_loadingCreate && !props.isLoadingCreate) {
       if (props.CodeMsg === 1) {
         props.AllProducts();
-        setShoEditwModal(false);
         setShowModal(false);
         toast.success("Ajout avec Succés");
       }
@@ -98,7 +97,6 @@ const ProductList = (props) => {
       if (props.CodeMsg === 1) {
         props.AllProducts();
         setShoEditwModal(false);
-        setShowModal(false);
         toast.success("Modification avec Succés");
       }
       if (props.CodeMsg === 0) {
@@ -149,7 +147,7 @@ const ProductList = (props) => {
                     </div>
 
                     <div className="flex bg-gray-100 w-12 rounded-lg col-end-7 col-span-2">
-                      <i className="fas fa-filter my-2"></i>
+                      <i className="fas fa-filter my-2 mx-2"></i>
                       <select
                         className="flex bg-gray-100 rounded-lg"
                         value={SearchCat}

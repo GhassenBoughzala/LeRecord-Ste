@@ -150,7 +150,7 @@ export const addProduct = (product) => {
   };
 
   return (dispatch) => {
-    dispatch({ type: ADDP_L });
+    dispatch({ type: PRODUCT_LOADING });
     return axios
       .post(`/api/products`, data)
       .then((res) => {
@@ -178,13 +178,14 @@ export const deleteProduct = async (id, dispatch) => {
 };
 
 export const updateProduct = (id, data) => (dispatch) => {
-  dispatch({ type: PRODUCT_LOADING });
+  dispatch({ type: PRODUCT_LOADING_UP });
   UP(id, data)
     .then((res) => {
       //console.log(res);
+      const data = res.data
       dispatch({
         type: PRODUCT_UPDATE,
-        payload: res.data,
+        payload: data,
       });
     })
     .catch((err) => console.log(err), PRODUCT_ERR);

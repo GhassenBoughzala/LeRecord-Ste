@@ -12,6 +12,7 @@ import {
 import { getAllCat } from "../../../redux/reducers/catReducer";
 import { getAllFou } from "../../../redux/reducers/forReducer";
 import { Publish } from "@material-ui/icons";
+import Magnifier from "react-magnifier";
 
 const initialFieldValues = {
   name: "",
@@ -23,11 +24,6 @@ const initialFieldValues = {
 };
 
 const EditProduct = ({ ...props }) => {
-  const ImgStyle = {
-    width: "80px",
-    height: "80px",
-  };
-
   var { values, setValues, errors, setErrors, handleInputChange, resetForm } =
     useForm(initialFieldValues, props.setCurrentId);
 
@@ -123,6 +119,44 @@ const EditProduct = ({ ...props }) => {
 
           <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
             <form onSubmit={handleSubmit}>
+             
+              <div className="flex flex-auto">
+                <div className="w-full lg:w-12/12 px-4 ">
+                  <div className="relative w-full ">
+                    <div className="px-3 py-3 placeholder-gray-400 text-gray-700 rounded text-sm focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150">
+                      <div className="grid grid-cols-2 gap-2">
+                        {values.photo?.map((img, index) => {
+                          return (
+                            <Fragment key={index}>
+                              <div className="text-center">
+                                <i
+                                  className="btn btn-sm btn-danger shadow-none--hover shadow-none fas fa-trash onClick text-red-700"
+                                  onClick={() => onDelete(index)}
+                                ></i>
+                                <div className=" rounded-lg">
+                                  <Magnifier src={img} width={150} />
+                                </div>
+                              </div>
+                            </Fragment>
+                          );
+                        })}
+                      </div>
+                    </div>
+                    <label className="text-center custom-file-upload form-control-label btn border-info text-info block uppercase text-gray-700 text-xs font-bold">
+                      Choisir une image
+                      <Publish />
+                      <input
+                        className="px-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                        type="file"
+                        multiple={true}
+                        name="photo"
+                        accept=".jpeg, .png, .jpg"
+                        onChange={(e) => handleFileUpload(e)}
+                      />
+                    </label>
+                  </div>
+                </div>
+              </div>
               <div className="flex flex-wrap">
                 <div className="w-full lg:w-12/12 px-4">
                   <div className="relative w-full mb-3">
@@ -274,61 +308,6 @@ const EditProduct = ({ ...props }) => {
               </div>
 
               <div className="flex flex-wrap">
-                <div className="w-full lg:w-12/12 px-4">
-                  <div className="relative w-full mb-3 text-center">
-                    <label
-                      className="block uppercase text-gray-700 text-xs font-bold mb-2"
-                      htmlFor="grid-password"
-                    >
-                      Photo
-                    </label>
-                    <div className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150">
-                      <label className="custom-file-upload form-control-label btn border-info text-info">
-                        Choisir un fichier
-                        <Publish />
-                        <input
-                          className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
-                          type="file"
-                          multiple={true}
-                          name="photo"
-                          accept=".jpeg, .png, .jpg"
-                          onChange={(e) => handleFileUpload(e)}
-                        />
-                      </label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="flex flex-wrap">
-                <div className="w-full lg:w-12/12 px-4 ">
-                  <div className="relative w-full mb-3 mt--6 ">
-                    <div className="px-3 py-3 placeholder-gray-400 text-gray-700 rounded text-sm focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150">
-                      <div className="grid grid-cols-4 gap-4">
-                        {values.photo?.map((img, index) => {
-                          return (
-                            <Fragment key={index}>
-                              <div className="text-center">
-                                <i
-                                  className="btn btn-sm btn-danger shadow-none--hover shadow-none fas fa-times onClick text-red-700"
-                                  onClick={() => onDelete(index)}
-                                ></i>
-                                <img
-                                  style={ImgStyle}
-                                  className="img-fluid rounded shadow"
-                                  src={img}
-                                  alt=""
-                                />
-                              </div>
-                            </Fragment>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex flex-wrap">
                 <div className="w-full px-4">
                   <div className="relative w-full mb-3">
                     {props.isLoadingCreate ? (
@@ -372,61 +351,3 @@ const mapActionToProps = {
 };
 
 export default connect(mapStateToProps, mapActionToProps)(EditProduct);
-
-/*
-
-            <div className="flex flex-wrap">
-              <div className="w-full lg:w-6/12 px-4">
-                <div className="relative w-full mb-3">
-
-                  <br></br>
-                  <label
-                    className="block uppercase text-gray-700 text-xs font-bold mb-2"
-                    htmlFor="grid-password">
-                    Catégorie
-                  </label>
-
-                  <select name="category" 
-                          onChange={handleInputChange}
-                          value={values.category.name}
-                          className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"> 
-                          <option value="">{values.category.name}</option>
-
-                      {props.ListCat.map((cat,index) => {
-                        return ( 
-                          <Fragment key={index}>  
-                            <option value={cat._id}>{cat.name}</option>
-                          </Fragment>
-                        );
-                      })}
-                  </select>  
-
-                </div>
-              </div>
-              <div className="w-full lg:w-6/12 px-4">
-                <br></br>
-                <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-gray-700 text-xs font-bold mb-2"
-                    htmlFor="grid-password">
-                    Fournisseur
-                  </label>
-                    
-                  <select name="fournisseur" 
-                          onChange={handleInputChange}
-                          value={values.fournisseur.title}
-                          className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150">
-                      <option value="">{values.fournisseur.title}</option>
-                      {props.ListFou.map((f, index) => {
-                        return ( 
-                          <Fragment key={index}>  
-                            <option value={f._id}>{f.title}</option>
-                          </Fragment>
-                        );
-                      })}
-                  </select>  
-                  
-                </div>
-              </div>
-            </div>
-*/
