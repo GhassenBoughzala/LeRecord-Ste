@@ -4,7 +4,7 @@ import M from "../../assests/img/M.png";
 import AV from "../../assests/img/av.png";
 import EM from "../../assests/img/em.png";
 import ALGO from "../../assests/img/algo.png";
-import EA from "../../assests/img/ea.png";
+import EA from "../../assests/img/ea.jpg";
 import FR from "../../assests/img/fr.png";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
