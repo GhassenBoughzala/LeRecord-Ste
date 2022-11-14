@@ -25,7 +25,7 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
     <>
       <ul className="font-bold flex-wrap flex md:mr-5 flex-col md:flex-row text-center">
         <NavItem
-          link="/"
+          link="/accueil"
           //icon="fas fa-home mx-1"
           name="Accueil"
           listStyle={isActive(history, "/")}
@@ -63,7 +63,7 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
             ) : (
               <Button
                 isButton={false}
-                icon={"fas fa-user-circle mx-1"}
+                //icon={"fas fa-user-circle mx-1"}
                 title={userLocal.nom}
                 href="/dashboard/user"
                 moreStyle=" text-green-500 hover:text-black"
@@ -75,7 +75,7 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
         {!isAuth && (
           <>
             <Button
-              icon={"fas fa-sign-in-alt mx-1"}
+              //icon={"fas fa-sign-in-alt mx-1"}
               title="Connecter"
               moreStyle="hover:text-blue-900"
               isButton={false}

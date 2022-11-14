@@ -25,7 +25,7 @@ const Routes = () => {
     <BrowserRouter>
       <ToastContainer position="bottom-right" />
       <Switch>
-        <Route exact path="/" component={Home} />
+        <Route exact path="/" component={Login} />
 
         <Route exact path="/accueil" component={Home} />
         <Route exact path="/auth" component={AuthHome} />
