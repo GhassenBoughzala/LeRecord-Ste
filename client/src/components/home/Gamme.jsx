@@ -6,32 +6,33 @@ import { useInView } from "react-intersection-observer";
 import { Link } from "react-router-dom";
 
 function Gamme() {
-  const swipes1 = {
+  /*   const swipes1 = {
     visible: { x: 0, opacity: 1, transition: { duration: 1 } },
     hidden: { x: 0, opacity: 0, transition: { duration: 1 } },
-  };
+  }; */
 
   const swipes2 = {
-    visible: { x: 0, opacity: 1, transition: { duration: 2 } },
-    hidden: { x: 0, opacity: 0, transition: { duration: 2 } },
+    visible: { x: 0, opacity: 1, transition: { duration: 1 } },
+    hidden: { x: -200, opacity: 0, transition: { duration: 1 } },
   };
   const control = useAnimation();
-  const [ref, inView] = useInView();
+  //const [ref, inView] = useInView();
   const [ref2, inView2] = useInView();
 
   useEffect(() => {
-    if (inView) {
+    /*     if (inView) {
       control.start("visible");
     } else {
       control.start("hidden");
-    }
+    } */
 
     if (inView2) {
       control.start("visible");
     } else {
       control.start("hidden");
     }
-  }, [control, inView, inView2]);
+  }, [control, inView2]);
+
   return (
     <>
       <section className="w-full bg-white pt-7 pb-7 md:pb-24">
@@ -40,13 +41,7 @@ function Gamme() {
             <img src={GM} alt="" />
           </div>
 
-          <motion.div
-            ref={ref}
-            variants={swipes1}
-            initial="hidden"
-            animate={control}
-            className="box-border order-first w-full text-black border-solid md:w-1/2 md:pl-10 md:order-none"
-          >
+          <div className="box-border order-first w-full text-black border-solid md:w-1/2 md:pl-10 md:order-none">
             <h2 className="m-0 text-xl font-semibold leading-tight border-0 border-gray-300 text-blue-700 lg:text-3xl md:text-2xl">
               La Gamme
             </h2>
@@ -70,7 +65,7 @@ function Gamme() {
                 </div>
               </button>
             </Link>
-          </motion.div>
+          </div>
         </div>
 
         <motion.div

@@ -64,7 +64,12 @@ const Magazin = (props) => {
         <br />
         <section className="w-full py-12 bg-white lg:py-6">
           <div className="max-w-6xl px-12 mx-auto text-center">
-            <div className="space-y-12">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 2 }}
+              className="space-y-12"
+            >
               <div className="max-w-3xl mb-20 space-y-2 sm:mx-auto sm:space-y-4">
                 <h2 className="relative text-4xl font-extrabold tracking-tight sm:text-5xl">
                   Catalogue
@@ -76,21 +81,23 @@ const Magazin = (props) => {
                   étignettes de lancements, les étigueteuses, fer à repasser,
                   une diversité des ciseaux, l’huile blanche, détacher...
                 </p>
-                <div className="flex bg-gray-100 p-4 w-72 space-x-4 rounded-lg">
-                  <i className="fas fa-search my-2" />
-                  <input
-                    className="bg-gray-100 outline-none"
-                    type="text"
-                    placeholder="Cherchez un produit..."
-                    onChange={(event) => {
-                      setSearch(event.target.value);
-                      setSearchCat("");
-                      setCurrentPage(1);
-                    }}
-                  />
-                </div>
+                {!props.isLoading && (
+                  <div className="flex bg-gray-100 p-4 w-72 space-x-4 rounded-lg">
+                    <i className="fas fa-search my-2" />
+                    <input
+                      className="bg-gray-100 outline-none"
+                      type="text"
+                      placeholder="Cherchez un produit..."
+                      onChange={(event) => {
+                        setSearch(event.target.value);
+                        setSearchCat("");
+                        setCurrentPage(1);
+                      }}
+                    />
+                  </div>
+                )}
               </div>
-            </div>
+            </motion.div>
             {props.isLoading ? (
               <div className="text-center my-3 px-30 py-40">
                 <div id="loading"></div>
@@ -148,7 +155,6 @@ const Magazin = (props) => {
                               className="flex flex-col items-center justify-center p-10"
                               key={product._id}
                             >
-                              
                               <img
                                 className="w-64 rounded-lg mb-6 min-w-45 min-h-45"
                                 src={product.photo[0]}
@@ -158,10 +164,14 @@ const Magazin = (props) => {
                                 {product.name}
                               </h2>
                               {product.shipping === "Hors stock" && (
-                                <p className="text-red-600 font-semibold">Hors stock</p>
+                                <p className="text-red-600 font-semibold">
+                                  Hors stock
+                                </p>
                               )}
                               {product.shipping === "En stock" && (
-                                <p className="text-green-600 font-semibold">En stock</p>
+                                <p className="text-green-600 font-semibold">
+                                  En stock
+                                </p>
                               )}
                               <p className="font-medium text-gray-500">
                                 {product.category?.name}

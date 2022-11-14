@@ -48,7 +48,9 @@ const Home = () => {
         </section>
 
         <Fournisseur />
+        <br/>
         <Fourniture />
+        <br/>
         <Gamme />
       </Container>
       <Footer />
