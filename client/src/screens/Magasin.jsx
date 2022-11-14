@@ -78,7 +78,7 @@ const Magazin = (props) => {
                   Notre gamme comprend une large ligne de produits de
                   confection, dont vous trouverez les détails dans ce catalogue,
                   étignettes de lancements, les étiqueteuses, fer à repasser,
-                  une diversité des ciseaux, l’huile blanche, détacher... 
+                  une diversité des ciseaux, l’huile blanche, détacheur... 
                   Notre but est de vos serviret de vous satisfaire.
                 </p>
                 {!props.isLoading && (
