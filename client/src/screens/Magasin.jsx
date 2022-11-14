@@ -18,7 +18,7 @@ const backdrop = {
 const modal = {
   hidden: { y: "-100vh", opacity: 0 },
   visible: {
-    y: "100px",
+    y: "0px",
     opacity: 1,
     transition: { delay: 0.5 },
   },
@@ -75,11 +75,11 @@ const Magazin = (props) => {
                   Catalogue
                 </h2>
                 <p className="text-xl text-blue-900">
-                  {" "}
-                  Notre gamme comprends une large ligne de produits de
-                  confection ,dont vous trouverez les détails dans ce catalogue,
-                  étignettes de lancements, les étigueteuses, fer à repasser,
-                  une diversité des ciseaux, l’huile blanche, détacher...
+                  Notre gamme comprend une large ligne de produits de
+                  confection, dont vous trouverez les détails dans ce catalogue,
+                  étignettes de lancements, les étiqueteuses, fer à repasser,
+                  une diversité des ciseaux, l’huile blanche, détacher... 
+                  Notre but est de vos serviret de vous satisfaire.
                 </p>
                 {!props.isLoading && (
                   <div className="flex bg-gray-100 p-4 w-72 space-x-4 rounded-lg">

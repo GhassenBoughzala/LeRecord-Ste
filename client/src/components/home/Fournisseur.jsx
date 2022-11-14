@@ -54,7 +54,7 @@ function Fournisseur() {
             <p className="text-gray-600 text-lg text-left sm:text-center max-w-lg mt-5">
               Ces fournisseurs ont été choisis en raison de leur apport en
               matière de qualité et de garantie des produits ainsi que le bon
-              rapport qualité et prix. Nous fournissons les accessoirs de chez
+              rapport qualité et prix. Nous fournissons les accessoires de chez
               de grandes marques à l’échelle internationale, telles que :
               «Meto», «Argo», «Anker-Tex», «Lyra» de l’Allemagne,
               «Stiratecnica», «Siliconi Commerciale», «Printex», de l’Italie,

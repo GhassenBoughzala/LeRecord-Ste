@@ -13,7 +13,7 @@ function Gamme() {
 
   const swipes2 = {
     visible: { x: 0, opacity: 1, transition: { duration: 1 } },
-    hidden: { x: -200, opacity: 0, transition: { duration: 1 } },
+    hidden: { x: -400, opacity: 0, transition: { duration: 1 } },
   };
   const control = useAnimation();
   //const [ref, inView] = useInView();
@@ -46,11 +46,11 @@ function Gamme() {
               La Gamme
             </h2>
             <p className="pt-4 pb-8 m-0 leading-7 text-gray-700 border-0 border-gray-300 sm:pr-12 xl:pr-32 lg:text-lg">
-              Notre gamme comprends une large ligne de produits de confection
-              ,dont vous trouverez les détails dans ce catalogue, étignettes
-              delancements, les étigueteuses, fer à repasser, une diversité
-              desciseaux, l’huile blanche, détacher... Notre but est de vous
-              serviret de vous satisfaire.{" "}
+              Notre gamme comprend une large ligne de produits de confection,
+              dont vous trouverez les détails dans ce catalogue, étignettes de
+              lancements, les étiqueteuses, fer à repasser, une diversité des
+              ciseaux, l’huile blanche, détacher... 
+              Notre but est de vos serviret de vous satisfaire.
             </p>
             <Link to={"/catalogue"}>
               <button
