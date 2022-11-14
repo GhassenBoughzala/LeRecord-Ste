@@ -4,11 +4,13 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "client": "npm start --prefix client",
     "start": "node server.js",
-    "start:dev": "nodemon server.js",
+    "server": "nodemon server.js",
     "dev": "cross-env NODE_ENV=development nodemon server",
     "client-install": "npm install --prefix client",
-    "heroku-postbuild": "npm install --force --prefix client && npm run build --prefix client"
+    "heroku-postbuild": "npm install --force --prefix client && npm run build --prefix client",
+    "mern": "concurrently \"npm run server\" \"npm run client\""
   },
   "engines": {
     "node": "v16.13.1"
@@ -53,6 +55,7 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "concurrently": "^7.5.0",
     "nodemon": "^2.0.15"
   }
 }

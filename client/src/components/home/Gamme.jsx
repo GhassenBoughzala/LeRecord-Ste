@@ -8,12 +8,12 @@ import { Link } from "react-router-dom";
 function Gamme() {
   const swipes1 = {
     visible: { x: 0, opacity: 1, transition: { duration: 1 } },
-    hidden: { x: 400, opacity: 0, transition: { duration: 1 } },
+    hidden: { x: 0, opacity: 0, transition: { duration: 1 } },
   };
 
   const swipes2 = {
-    visible: { x: 0, opacity: 1, transition: { duration: 1 } },
-    hidden: { x: -400, opacity: 0, transition: { duration: 1 } },
+    visible: { x: 0, opacity: 1, transition: { duration: 2 } },
+    hidden: { x: 0, opacity: 0, transition: { duration: 2 } },
   };
   const control = useAnimation();
   const [ref, inView] = useInView();
