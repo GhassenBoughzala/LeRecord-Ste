@@ -53,12 +53,12 @@ const ProductList = (props) => {
     let computed = data;
     if (Search) {
       computed = computed.filter((i) =>
-        i.name.toLowerCase().includes(Search.toLowerCase())
+        i.name.toLowerCase().includes(Search?.toLowerCase())
       );
     }
     if (SearchCat) {
       computed = computed.filter((i) =>
-        i.category.name.toLowerCase().includes(SearchCat.toLowerCase())
+        i.category.name.includes(SearchCat)
       );
     }
     setPageNumber(computed.length);

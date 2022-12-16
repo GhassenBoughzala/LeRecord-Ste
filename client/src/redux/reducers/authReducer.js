@@ -155,7 +155,7 @@ export const login =
             type: LOGIN_SUCCESS,
             payload: res.data,
           });
-          console.log(res.data);
+          //console.log(res.data);
           dispatch(loadUser());
         })
     } catch (err) {
