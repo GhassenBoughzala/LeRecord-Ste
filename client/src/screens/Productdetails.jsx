@@ -108,7 +108,7 @@ const ProductDetails = ({ ...props }) => {
               </div>
               <div>
                 <p className="flex mx-5 align-bottom">Description:</p>
-                <p className="flex mx-5 align-bottom font-semibold">
+                <p className="flex mx-5 text-justify font-semibold">
                   {values.description}
                 </p>
                 <p className="flex mx-5 align-bottom">Catégorie:</p>

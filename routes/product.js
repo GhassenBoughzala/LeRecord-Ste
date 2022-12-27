@@ -192,7 +192,6 @@ router.get("/allfront", async (req, res) => {
       {},
       {
         photo: { $slice: 1 },
-        description: 0,
         price: 0,
         quantity: 0,
         createdAt: 0,
@@ -214,8 +213,8 @@ router.get("/search", async (req, res) => {
     let products = await Product.find(
       {},
       {
-        photo: { $slice: 1 },
-        description: 0,
+        //photo: { $slice: 1 },
+        //description: 0,
         price: 0,
         quantity: 0,
         createdAt: 0,
