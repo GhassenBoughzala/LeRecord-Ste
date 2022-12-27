@@ -186,11 +186,12 @@ router.post("/filter", async (req, res) => {
 // @route   Get api/product/search
 // @desc    Get a list products by search quey
 // @access  Public
-router.get("/search", async (req, res) => {
+router.get("/allfront", async (req, res) => {
   try {
-    //let index = Product.createIndexes({ timestamp: 1 });
-    let products = await Product.find({})
-      .sort({
+    let products = await Product.find(
+      {},
+      {
+        photo: { $slice: 1 },
         description: 0,
         price: 0,
         quantity: 0,
@@ -198,10 +199,33 @@ router.get("/search", async (req, res) => {
         updatedAt: 0,
         __v: 0,
         sold: 0,
-      })
+      }
+    );
+    //photo: { $slice: 1 },
+    res.json(products);
+  } catch (error) {
+    res.json(error);
+  }
+});
+
+router.get("/search", async (req, res) => {
+  try {
+    //let index = Product.createIndexes({ timestamp: 1 });
+    let products = await Product.find(
+      {},
+      {
+        photo: { $slice: 1 },
+        description: 0,
+        price: 0,
+        quantity: 0,
+        createdAt: 0,
+        updatedAt: 0,
+        __v: 0,
+        sold: 0,
+      }
+    )
       .populate("category", "name")
       .populate("fournisseur", "title");
-
     res.json(products);
   } catch (error) {
     console.log(error);
