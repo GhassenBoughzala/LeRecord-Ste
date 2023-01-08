@@ -4,6 +4,7 @@
 import React, { useEffect, useState, Fragment, useMemo } from "react";
 import Container from "../components/container/container.component";
 import Footer from "../components/home/Footer";
+import "../components/modal.css"
 import { motion, AnimatePresence } from "framer-motion";
 import { connect } from "react-redux";
 import { getAll } from "../redux/reducers/productReducer";
@@ -18,7 +19,7 @@ const backdrop = {
 const modal = {
   hidden: { y: "-100vh", opacity: 0 },
   visible: {
-    y: "100px",
+    y: "0px",
     opacity: 1,
     transition: { delay: 0.5 },
   },
@@ -70,7 +71,6 @@ const Magazin = (props) => {
                   Catalogue
                 </h2>
                 <p className="text-xl text-blue-900">
-                  {" "}
                   Notre gamme comprends une large ligne de produits de
                   confection ,dont vous trouverez les détails dans ce catalogue,
                   étignettes de lancements, les étigueteuses, fer à repasser,
@@ -113,7 +113,7 @@ const Magazin = (props) => {
                       <Fragment key={index}>
                         <div className=" flex items-center mt-3">
                           <div
-                            className="font-semibold text-gray-600 text-sm justify-center hover:text-blue-900 ease-in duration-100 onClick "
+                            className="font-semibold text-gray-600 text-sm hover:text-blue-900 ease-in duration-100 cursor-pointer"
                             onClick={() => {
                               setSearch("");
                               setSearchCat("");
@@ -146,7 +146,7 @@ const Magazin = (props) => {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ duration: 1 }}
-                            className=" border border-gray-300 rounded-lg shadow-md hover:shadow-2xl ease-in duration-100 onClick "
+                            className=" border border-gray-300 rounded-lg shadow-md hover:shadow-2xl ease-in duration-100 cursor-pointer"
                             onClick={() => {
                               setCurrentObj(product);
                               setShowDetailsModal(true);

@@ -27,7 +27,7 @@ const ProductDetails = ({ ...props }) => {
   return (
     <>
       <div className="">
-        <div className=" rounded-lg bg-gray-200 border-0 ">
+        <div className="rounded-lg bg-gray-200 border-0 ">
           <div className="rounded-t bg-white mb-0 px-6 py-6">
             <div className="text-center flex justify-between">
               <h1 className="font-bold text-xl text-blue-900">Détails</h1>
@@ -59,7 +59,7 @@ const ProductDetails = ({ ...props }) => {
                   modules={[FreeMode, Navigation, Thumbs]}
                   className="mySwiper2 rounded-lg"
                 >
-                  {values.photo?.map((img,index) => {
+                  {values.photo?.map((img, index) => {
                     return (
                       <SwiperSlide key={index}>
                         <Magnifier
@@ -80,7 +80,7 @@ const ProductDetails = ({ ...props }) => {
                   modules={[FreeMode, Navigation, Thumbs]}
                   className="mySwiper"
                 >
-                  {values.photo?.map((img,index) => {
+                  {values.photo?.map((img, index) => {
                     return (
                       <SwiperSlide key={index}>
                         <img
