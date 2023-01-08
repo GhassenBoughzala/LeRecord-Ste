@@ -5,6 +5,7 @@ import React, { useEffect, useState, Fragment, useMemo } from "react";
 import Container from "../components/container/container.component";
 import Footer from "../components/home/Footer";
 import "../components/modal.css"
+import "../components/loading.css"
 import { motion, AnimatePresence } from "framer-motion";
 import { connect } from "react-redux";
 import { getAll } from "../redux/reducers/productReducer";
@@ -210,7 +211,7 @@ const Magazin = (props) => {
                   exit="hidden"
                 >
                   <motion.div
-                    className="lg:w-3/6 lg:h-full center overflow-y-auto"
+                    className="lg:w-3/5 lg:h-full center overflow-y-auto"
                     variants={modal}
                   >
                     <Productdetails
