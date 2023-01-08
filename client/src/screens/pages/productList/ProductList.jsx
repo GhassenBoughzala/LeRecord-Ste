@@ -128,7 +128,11 @@ const ProductList = (props) => {
                     </h6>
                     <Link
                       to="#"
-                      onClick={() => setShowModal(true)}
+                      onClick={() => {
+                        setShowModal(true);
+                        setSearch("");
+                        setSearchCat("");
+                      }}
                       className="link"
                     >
                       <i className="fas fa-plus" />

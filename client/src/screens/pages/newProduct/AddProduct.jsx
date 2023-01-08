@@ -34,6 +34,7 @@ const AddProduct = ({ ...props }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     props.createP(product);
   };
 
@@ -68,6 +69,7 @@ const AddProduct = ({ ...props }) => {
     const filtered = product.photo.filter((item, index) => index !== e);
     setProduct({ ...product, photo: filtered });
   };
+
 
   return (
     <>
@@ -263,12 +265,29 @@ const AddProduct = ({ ...props }) => {
                         <div id="loadingbtn"></div>
                       </button>
                     ) : (
-                      <button
-                        type="submit"
-                        className="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-1 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-                      >
-                        Confirmer
-                      </button>
+                      <>
+                        {!product.category ||
+                        !product.fournisseur ||
+                        !product.shipping ||
+                        !product.description ||
+                        !product.name ||
+                        product.photo.length === 0 ? (
+                          <button
+                            type="button"
+                            className="pointer-events-none bg-gray-200 text-orange-500 active:bg-gray-700 text-xs font-bold uppercase px-1 py-3 rounded shadow  outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150 border-0"
+                            disabled
+                          >
+                            Tous les champs sont obligatoires
+                          </button>
+                        ) : (
+                          <button
+                            type="submit"
+                            className="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-1 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
+                          >
+                            Confirmer
+                          </button>
+                        )}
+                      </>
                     )}
                   </div>
                 </div>
