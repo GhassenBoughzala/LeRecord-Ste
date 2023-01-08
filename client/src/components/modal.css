@@ -11,8 +11,11 @@
 .modal {
   max-width: 400px;
   margin: 0 auto;
-
   background: white;
   border-radius: 10px;
   text-align: center;
+}
+
+.onClick {
+  cursor: pointer;
 }

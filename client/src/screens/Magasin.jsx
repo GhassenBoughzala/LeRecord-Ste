@@ -2,15 +2,17 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState, Fragment, useMemo } from "react";
-import Container from "../components/container/container.component";
-import Footer from "../components/home/Footer";
 import { motion, AnimatePresence } from "framer-motion";
 import { connect } from "react-redux";
 import { getAll } from "../redux/reducers/productReducer";
+import { getAllCat } from "../redux/reducers/catReducer";
+import Container from "../components/container/container.component";
+import Footer from "../components/home/Footer";
 import Navbar from "../components/navbar/navbar.component";
 import PaginationComponent from "../helpers/pagination";
-import { getAllCat } from "../redux/reducers/catReducer";
 import Productdetails from "./Productdetails";
+//import "../components/modal.css";
+
 const backdrop = {
   visible: { opacity: 1 },
   hidden: { opacity: 0 },
@@ -78,8 +80,8 @@ const Magazin = (props) => {
                   Notre gamme comprend une large ligne de produits de
                   confection, dont vous trouverez les détails dans ce catalogue,
                   étignettes de lancements, les étiqueteuses, fer à repasser,
-                  une diversité des ciseaux, l’huile blanche, détacheur... 
-                  Notre but est de vos serviret de vous satisfaire.
+                  une diversité des ciseaux, l’huile blanche, détacheur... Notre
+                  but est de vos serviret de vous satisfaire.
                 </p>
                 {!props.isLoading && (
                   <div className="flex bg-gray-100 p-4 w-72 space-x-4 rounded-lg">
@@ -116,17 +118,23 @@ const Magazin = (props) => {
                   {props.ListCat.map((c, index) => {
                     return (
                       <Fragment key={index}>
-                        <div className=" flex items-center mt-3 ">
+                        <div className=" flex items-center mt-3">
                           <div
+                            className="font-semibold text-gray-600 text-sm justify-center hover:text-blue-900 ease-in duration-100 onClick "
                             onClick={() => {
                               setSearch("");
                               setSearchCat("");
                               setSearchCat(c.name);
                               setCurrentPage(1);
                             }}
-                            className={`font-semibold text-gray-600 text-sm justify-center border-gray-100 hover:text-blue-900 ease-in duration-100 onClick `}
                           >
-                            {c.name}
+                            {SearchCat === c.name ? (
+                              <p className="border-b border-blue-900 text-blue-900">
+                                {c.name}
+                              </p>
+                            ) : (
+                              c.name
+                            )}
                           </div>
                         </div>
                       </Fragment>
@@ -209,7 +217,7 @@ const Magazin = (props) => {
                   exit="hidden"
                 >
                   <motion.div
-                    className="lg:w-3/4 lg:h-full center overflow-y-auto"
+                    className="lg:w-2/3 lg:h-full overflow-y-auto justify-center"
                     variants={modal}
                   >
                     <Productdetails

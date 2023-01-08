@@ -57,11 +57,11 @@ const ProductDetails = ({ ...props }) => {
                   navigation={true}
                   thumbs={{ swiper: thumbsSwiper }}
                   modules={[FreeMode, Navigation, Thumbs]}
-                  className="mySwiper2"
+                  className="mySwiper2 rounded-lg"
                 >
-                  {values.photo?.map((img) => {
+                  {values.photo?.map((img,index) => {
                     return (
-                      <SwiperSlide>
+                      <SwiperSlide key={index}>
                         <Magnifier
                           src={img}
                           alt=""
@@ -80,9 +80,9 @@ const ProductDetails = ({ ...props }) => {
                   modules={[FreeMode, Navigation, Thumbs]}
                   className="mySwiper"
                 >
-                  {values.photo?.map((img) => {
+                  {values.photo?.map((img,index) => {
                     return (
-                      <SwiperSlide>
+                      <SwiperSlide key={index}>
                         <img
                           src={img}
                           alt=""
