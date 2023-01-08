@@ -57,9 +57,7 @@ const ProductList = (props) => {
       );
     }
     if (SearchCat) {
-      computed = computed.filter((i) =>
-        i.category.name.includes(SearchCat)
-      );
+      computed = computed.filter((i) => i.category.name.includes(SearchCat));
     }
     setPageNumber(computed.length);
     return computed.slice(
@@ -82,9 +80,11 @@ const ProductList = (props) => {
   useEffect(() => {
     if (prev_loadingCreate && !props.isLoadingCreate) {
       if (props.CodeMsg === 1) {
-        props.AllProducts();
-        setShowModal(false);
-        toast.success("Ajout avec Succés");
+        setTimeout(() => {
+          props.AllProducts();
+          setShowModal(false);
+          toast.success("Ajout avec succés");
+        }, 2000);
       }
       if (props.CodeMsg === 0) {
         toast.error("Problème lors de l'ajout !");
@@ -97,7 +97,7 @@ const ProductList = (props) => {
       if (props.CodeMsg === 1) {
         props.AllProducts();
         setShoEditwModal(false);
-        toast.success("Modification avec Succés");
+        toast.success("Modification avec succés");
       }
       if (props.CodeMsg === 0) {
         toast.error("Problème lors de la modification !");
@@ -113,7 +113,9 @@ const ProductList = (props) => {
           <Topbar />
 
           <div className="card">
-            {props.isLoading || props.isLoadingCreate || props.isLoadingUpdate ? (
+            {props.isLoading ||
+            props.isLoadingCreate ||
+            props.isLoadingUpdate ? (
               <div className="text-center my-3 px-32 py-32">
                 <div id="loading"></div>
               </div>
@@ -156,7 +158,7 @@ const ProductList = (props) => {
                           setCurrentPage(1);
                         }}
                       >
-                        <option value={""} >Catégories</option>
+                        <option value={""}>Catégories</option>
                         {props.ListCat.map((c, index) => {
                           return (
                             <Fragment key={index}>
@@ -216,7 +218,7 @@ const ProductList = (props) => {
                                   setCurrentImg(product.photo);
                                 }}
                               >
-                                {product.photo.map((img, index) => {
+                                {product.photo?.map((img, index) => {
                                   return (
                                     <Fragment key={index}>
                                       <img

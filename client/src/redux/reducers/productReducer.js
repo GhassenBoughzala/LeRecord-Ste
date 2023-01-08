@@ -61,9 +61,9 @@ export default function (state = intialState, action) {
     case ADDP_S:
       return {
         ...state,
-        products: [...state.products, action.payload],
         codemsg: 1,
         addLoader: false,
+        products: [...state.products, action.payload],
       };
     case ADDP_F:
 
