@@ -2,17 +2,15 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState, Fragment, useMemo } from "react";
+import Container from "../components/container/container.component";
+import Footer from "../components/home/Footer";
 import { motion, AnimatePresence } from "framer-motion";
 import { connect } from "react-redux";
 import { getAll } from "../redux/reducers/productReducer";
-import { getAllCat } from "../redux/reducers/catReducer";
-import Container from "../components/container/container.component";
-import Footer from "../components/home/Footer";
 import Navbar from "../components/navbar/navbar.component";
 import PaginationComponent from "../helpers/pagination";
+import { getAllCat } from "../redux/reducers/catReducer";
 import Productdetails from "./Productdetails";
-//import "../components/modal.css";
-
 const backdrop = {
   visible: { opacity: 1 },
   hidden: { opacity: 0 },
@@ -20,7 +18,7 @@ const backdrop = {
 const modal = {
   hidden: { y: "-100vh", opacity: 0 },
   visible: {
-    y: "0px",
+    y: "100px",
     opacity: 1,
     transition: { delay: 0.5 },
   },
@@ -66,40 +64,33 @@ const Magazin = (props) => {
         <br />
         <section className="w-full py-12 bg-white lg:py-6">
           <div className="max-w-6xl px-12 mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 2 }}
-              className="space-y-12"
-            >
+            <div className="space-y-12">
               <div className="max-w-3xl mb-20 space-y-2 sm:mx-auto sm:space-y-4">
                 <h2 className="relative text-4xl font-extrabold tracking-tight sm:text-5xl">
                   Catalogue
                 </h2>
                 <p className="text-xl text-blue-900">
-                  Notre gamme comprend une large ligne de produits de
-                  confection, dont vous trouverez les détails dans ce catalogue,
-                  étignettes de lancements, les étiqueteuses, fer à repasser,
-                  une diversité des ciseaux, l’huile blanche, détacheur... Notre
-                  but est de vos serviret de vous satisfaire.
+                  {" "}
+                  Notre gamme comprends une large ligne de produits de
+                  confection ,dont vous trouverez les détails dans ce catalogue,
+                  étignettes de lancements, les étigueteuses, fer à repasser,
+                  une diversité des ciseaux, l’huile blanche, détacher...
                 </p>
-                {!props.isLoading && (
-                  <div className="flex bg-gray-100 p-4 w-72 space-x-4 rounded-lg">
-                    <i className="fas fa-search my-2" />
-                    <input
-                      className="bg-gray-100 outline-none"
-                      type="text"
-                      placeholder="Cherchez un produit..."
-                      onChange={(event) => {
-                        setSearch(event.target.value);
-                        setSearchCat("");
-                        setCurrentPage(1);
-                      }}
-                    />
-                  </div>
-                )}
+                <div className="flex bg-gray-100 p-4 w-72 space-x-4 rounded-lg">
+                  <i className="fas fa-search my-2" />
+                  <input
+                    className="bg-gray-100 outline-none"
+                    type="text"
+                    placeholder="Cherchez un produit..."
+                    onChange={(event) => {
+                      setSearch(event.target.value);
+                      setSearchCat("");
+                      setCurrentPage(1);
+                    }}
+                  />
+                </div>
               </div>
-            </motion.div>
+            </div>
             {props.isLoading ? (
               <div className="text-center my-3 px-30 py-40">
                 <div id="loading"></div>
@@ -164,7 +155,7 @@ const Magazin = (props) => {
                               key={product._id}
                             >
                               <img
-                                className="w-64 rounded-lg mb-6 min-w-45 min-h-45"
+                                className="w-50 h-50 rounded-lg mb-6 min-w-45 min-h-45"
                                 src={product.photo[0]}
                                 alt=""
                               />
@@ -217,7 +208,7 @@ const Magazin = (props) => {
                   exit="hidden"
                 >
                   <motion.div
-                    className="lg:w-2/3 lg:h-full overflow-y-auto justify-center"
+                    className="lg:w-3/6 lg:h-full center overflow-y-auto"
                     variants={modal}
                   >
                     <Productdetails

@@ -67,32 +67,27 @@ function Fournisseur() {
             variants={swipes2}
             initial="hidden"
             animate={control}
-            className="flex flex-wrap justify-start sm:grid sm:grid-cols-1 lg:grid-cols-7 gap-6 mt-8"
+            className="flex flex-wrap justify-start sm:grid sm:grid-cols-3 lg:grid-cols-6 gap-6 mt-8"
           >
-            <div className="h-20 w-20 min-w-30 min-h-20 bg-white flex items-center justify-center mx-6">
+            <div className=" h-20 w-30 max-w-xs bg-white flex items-center justify-center">
               <img src={SIL} alt="" />
             </div>
-            <div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1 }}
-              className="h-20 w-30 min-w-30 min-h-20 bg-white flex items-center justify-center"
-            >
+            <div className=" h-auto max-w-xs bg-white flex items-center justify-center">
               <img src={ALGO} alt="" />
             </div>
-            <div className="h-20 w-30 min-w-30 min-h-20 bg-white flex items-center justify-center">
+            <div className=" h-auto max-w-xs bg-white flex items-center justify-center">
               <img src={M} alt="" />
             </div>
-            <div className="h-20 w-30 min-w-30 min-h-20 bg-white flex items-center justify-center">
+            <div className=" h-auto max-w-xs bg-white flex items-center justify-center">
               <img src={EA} alt="" />
             </div>
-            <div className="h-20 w-30 min-w-30 min-h-20 bg-white flex items-center justify-center">
+            <div className=" h-auto max-w-xs bg-white flex items-center justify-center">
               <img src={AV} alt="" />
             </div>
-            <div className="h-20 w-20 min-w-20 min-h-20 bg-white flex items-center justify-center mx-6">
+            {/*             <div className=" h-auto max-w-xs bg-white flex items-center justify-center">
               <img src={FR} alt="" />
-            </div>
-            <div className="h-20 w-30 min-w-30 min-h-20 bg-white flex items-center justify-center">
+            </div> */}
+            <div className=" h-auto max-w-xs bg-white flex items-center justify-center">
               <img src={EM} alt="" />
             </div>
           </motion.div>
