@@ -76,19 +76,21 @@ const Magazin = (props) => {
                   étignettes de lancements, les étigueteuses, fer à repasser,
                   une diversité des ciseaux, l’huile blanche, détacher...
                 </p>
-                <div className="flex bg-gray-100 p-4 w-72 space-x-4 rounded-lg">
-                  <i className="fas fa-search my-2" />
-                  <input
-                    className="bg-gray-100 outline-none"
-                    type="text"
-                    placeholder="Cherchez un produit..."
-                    onChange={(event) => {
-                      setSearch(event.target.value);
-                      setSearchCat("");
-                      setCurrentPage(1);
-                    }}
-                  />
-                </div>
+                {!props.isLoading && (
+                  <div className="flex bg-gray-100 p-4 w-72 space-x-4 rounded-lg">
+                    <i className="fas fa-search my-2" />
+                    <input
+                      className="bg-gray-100 outline-none"
+                      type="text"
+                      placeholder="Cherchez un produit..."
+                      onChange={(event) => {
+                        setSearch(event.target.value);
+                        setSearchCat("");
+                        setCurrentPage(1);
+                      }}
+                    />
+                  </div>
+                )}
               </div>
             </div>
             {props.isLoading ? (
