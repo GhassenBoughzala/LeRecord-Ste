@@ -8,10 +8,19 @@ import Fourniture from "../components/home/Fourniture";
 import Gamme from "../components/home/Gamme";
 import Navbar from "../components/navbar/navbar.component";
 import { motion } from "framer-motion";
+import { Helmet } from "react-helmet-async";
 
 const Home = () => {
   return (
     <>
+      <Helmet>
+        <title>Accueil</title>
+        <meta
+          name="description"
+          content="Le Record spécialisé dans la commercialisation de fournitures de confection"
+        />
+        <link rel="canonical" href="/accueil" />
+      </Helmet>
       <Container>
         <Navbar />
         <br />
@@ -48,9 +57,9 @@ const Home = () => {
         </section>
 
         <Fournisseur />
-        <br/>
+        <br />
         <Fourniture />
-        <br/>
+        <br />
         <Gamme />
       </Container>
       <Footer />

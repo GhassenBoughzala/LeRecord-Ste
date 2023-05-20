@@ -4,8 +4,8 @@
 import React, { useEffect, useState, Fragment, useMemo } from "react";
 import Container from "../components/container/container.component";
 import Footer from "../components/home/Footer";
-import "../components/modal.css"
-import "../components/loading.css"
+import "../components/modal.css";
+import "../components/loading.css";
 import { motion, AnimatePresence } from "framer-motion";
 import { connect } from "react-redux";
 import { getAll } from "../redux/reducers/productReducer";
@@ -13,6 +13,8 @@ import Navbar from "../components/navbar/navbar.component";
 import PaginationComponent from "../helpers/pagination";
 import { getAllCat } from "../redux/reducers/catReducer";
 import Productdetails from "./Productdetails";
+import { Helmet } from "react-helmet-async";
+
 const backdrop = {
   visible: { opacity: 1 },
   hidden: { opacity: 0 },
@@ -61,6 +63,14 @@ const Magazin = (props) => {
 
   return (
     <>
+      <Helmet>
+        <title>Catalogue</title>
+        <meta
+          name="description"
+          content="Notre gamme comprends une large ligne de produits de confection ,dont vous trouverez les détails dans ce catalogue, les étiqueteuses, une diversité des ciseaux..."
+        />
+        <link rel="canonical" href="/catalogue" />
+      </Helmet>
       <Container>
         <Navbar />
         <br />
@@ -74,7 +84,7 @@ const Magazin = (props) => {
                 <p className="text-xl text-blue-900">
                   Notre gamme comprends une large ligne de produits de
                   confection ,dont vous trouverez les détails dans ce catalogue,
-                  étignettes de lancements, les étigueteuses, fer à repasser,
+                  étignettes de lancements, les étiqueteuses, fer à repasser,
                   une diversité des ciseaux, l’huile blanche, détacher...
                 </p>
                 {!props.isLoading && (

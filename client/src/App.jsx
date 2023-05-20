@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Provider } from "react-redux";
+import { HelmetProvider } from "react-helmet-async";
 import setAuthToken from "./helpers/authToken";
 import store from "./redux/store";
 import { loadUser } from "./redux/reducers/authReducer";
@@ -11,7 +12,6 @@ function App() {
   }
 
   useEffect(() => {
-    //console.log("app");
     if (localStorage.token) {
       store.dispatch(loadUser());
     }
@@ -19,7 +19,10 @@ function App() {
 
   return (
     <Provider store={store}>
-      <Routes />
+      <HelmetProvider>
+        <Routes />
+      </HelmetProvider>
+      
     </Provider>
   );
 }
