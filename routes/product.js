@@ -186,8 +186,10 @@ router.post("/filter", async (req, res) => {
 // @route   Get api/product/search
 // @desc    Get a list products by search quey
 // @access  Public
-router.get("/allfront", async (req, res) => {
+router.get("/all", async (req, res) => {
   try {
+    const page = req.query.page;
+    const size = req.query.size;
     let products = await Product.find(
       {},
       {
@@ -199,7 +201,11 @@ router.get("/allfront", async (req, res) => {
         __v: 0,
         sold: 0,
       }
-    );
+    )
+      .skip(page)
+      .limit(size)
+      .populate("category", "name")
+      .populate("fournisseur", "title");
     //photo: { $slice: 1 },
     res.json(products);
   } catch (error) {
@@ -209,11 +215,11 @@ router.get("/allfront", async (req, res) => {
 
 router.get("/search", async (req, res) => {
   try {
-    //let index = Product.createIndexes({ timestamp: 1 });
+    const text = req.query.text;
     let products = await Product.find(
-      {},
+      { $text: { $search: text } },
       {
-        //photo: { $slice: 1 },
+        photo: { $slice: 1 },
         //description: 0,
         price: 0,
         quantity: 0,
@@ -225,12 +231,14 @@ router.get("/search", async (req, res) => {
     )
       .populate("category", "name")
       .populate("fournisseur", "title");
+
     res.json(products);
   } catch (error) {
     console.log(error);
     res.status(500).send("Error to get products");
   }
 });
+
 // @route   Get api/product/:productId
 // @desc    Get a list related to  product
 // @access  Public
