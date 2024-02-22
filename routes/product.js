@@ -188,7 +188,7 @@ router.post("/filter", async (req, res) => {
 // @access  Public
 router.get("/all", async (req, res) => {
   try {
-    const page = req.query.page;
+    const page = req.query.page || 1;
     const size = req.query.size;
     const limit = parseInt(size);
     const skip = (page - 1) * size;
@@ -207,14 +207,19 @@ router.get("/all", async (req, res) => {
         sold: 0,
       }
     )
-      .skip(page)
-      .limit(size)
+      .skip(size * page - size)
+      .limit(limit)
       .populate("category", "name")
       .populate("fournisseur", "title");
 
-    res.send({ products: products, pages: next_pages });
+    res.send({
+      products: products,
+      pages: next_pages,
+      previous: previous_pages,
+    });
   } catch (error) {
-    res.json(error);
+    console.log(error);
+    res.status(500).json(error);
   }
 });
 
