@@ -6,8 +6,11 @@ import { toast } from "react-toastify";
 
 //Types
 const GET_PRODUCTS = "PRODUCTS LOADING";
+const SEARCH_LOADING = "SEARCH LOADING";
 const GET_PRODUCTS_S = "GET ALL PRODUCTS";
 const GET_PRODUCTS_F = "GET PRODUCTS FAILURE";
+const SEARCH_PRODUCTS_S = "SEARCH PRODUCTS DONE";
+const SEARCH_PRODUCTS_F = "SEARCH PRODUCTS FAILURE";
 const GETP_DETAILS = "PRODUCT DETAILS REQ ID";
 const GETP_DETAILS_S = "PRODUCT DETAILS SECC";
 const ADDP_L = "ADD PRODUCT LOADING";
@@ -22,6 +25,8 @@ const PRODUCT_ERR = "PRODUCT ERROR";
 // Intial State
 const intialState = {
   products: [],
+  searchedProducts: [],
+  pages: 0,
   product: {},
   error: null,
   ploader: false,
@@ -34,10 +39,26 @@ const intialState = {
 export default function (state = intialState, action) {
   switch (action.type) {
     case GET_PRODUCTS:
-      return { ...state, products: [], ploader: true };
+      return { ...state, products: [], pages: 0, ploader: true };
     case GET_PRODUCTS_S:
-      return { ...state, products: [...action.payload], ploader: false };
+      return {
+        ...state,
+        products: [...action.payload.products],
+        pages: action.payload.pages,
+        ploader: false,
+      };
     case GET_PRODUCTS_F:
+      return { ...state, error: true };
+
+    case SEARCH_LOADING:
+      return { ...state, searchedProducts: [], pages: 0, ploader: true };
+    case SEARCH_PRODUCTS_S:
+      return {
+        ...state,
+        searchedProducts: [...action.payload.products],
+        ploader: false,
+      };
+    case SEARCH_PRODUCTS_F:
       return { ...state, error: true };
 
     case GETP_DETAILS:
@@ -101,16 +122,30 @@ export default function (state = intialState, action) {
   }
 }
 
-export const Fetch = () => axios.get(`/api/products/search`);
+export const Fetch = (page, size) =>
+  axios.get(`/api/products/all?page=${page}&size=${size}`);
+export const Search = (text) => axios.get(`/api/products/search?text=${text}`);
 export const GetDetails = (id) => axios.get(`/api/products/` + id);
 export const AddP = () => axios.post(`/api/products`);
 export const UP = (id, updatedP) => axios.put(`/api/products/` + id, updatedP);
 export const DLP = (id) => axios.delete(`/api/products/` + id);
 
 //Actions
-export const getAll = () => async (dispatch) => {
+export const getAll = (page, size) => async (dispatch) => {
   dispatch({ type: GET_PRODUCTS });
-  Fetch()
+  Fetch(page, size)
+    .then((res) => {
+      dispatch({
+        type: GET_PRODUCTS_S,
+        payload: res.data,
+      });
+    })
+    .catch((err) => GET_PRODUCTS_F);
+};
+
+export const searchByText = (text) => async (dispatch) => {
+  dispatch({ type: GET_PRODUCTS });
+  Search(text)
     .then((res) => {
       dispatch({
         type: GET_PRODUCTS_S,

@@ -8,7 +8,7 @@ import "../components/modal.css";
 import "../components/loading.css";
 import { motion, AnimatePresence } from "framer-motion";
 import { connect } from "react-redux";
-import { getAll } from "../redux/reducers/productReducer";
+import { getAll, searchByText } from "../redux/reducers/productReducer";
 import Navbar from "../components/navbar/navbar.component";
 import PaginationComponent from "../helpers/pagination";
 import { getAllCat } from "../redux/reducers/catReducer";
@@ -29,37 +29,32 @@ const modal = {
 };
 
 const Magazin = (props) => {
-  useEffect(() => {
-    props.AllProducts();
-    props.AllCategories();
-  }, []);
   const [Search, setSearch] = useState("");
   const [SearchCat, setSearchCat] = useState("");
-  const [pageNumber, setPageNumber] = useState(0);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const offresPerPage = 9;
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [currentObj, setCurrentObj] = useState({});
 
+  useEffect(() => {
+    props.AllProducts(pageNumber, offresPerPage);
+    props.AllCategories();
+    setTotalPages(props.nbPages);
+  }, []);
+
   const data = props.List;
+  const filteredData = props.SearchList;
   const productsData = useMemo(() => {
     let computed = data;
+    let filter = filteredData;
     if (Search) {
-      computed = computed.filter((i) =>
-        i.name.toLowerCase().includes(Search.toLowerCase())
-      );
+      return filter;
+    } else {
+      return computed;
     }
-    if (SearchCat) {
-      computed = computed.filter((i) =>
-        i.category.name.toLowerCase().includes(SearchCat.toLowerCase())
-      );
-    }
-    setPageNumber(computed.length);
-    return computed.slice(
-      (currentPage - 1) * offresPerPage,
-      (currentPage - 1) * offresPerPage + offresPerPage
-    );
-  }, [data, currentPage, Search, SearchCat]);
+  }, [data, filteredData, currentPage, Search, SearchCat]);
 
   return (
     <>
@@ -98,6 +93,7 @@ const Magazin = (props) => {
                         setSearch(event.target.value);
                         setSearchCat("");
                         setCurrentPage(1);
+                        props.Search(Search);
                       }}
                     />
                   </div>
@@ -197,7 +193,7 @@ const Magazin = (props) => {
                   <div className="my-10">
                     {!Search && (
                       <PaginationComponent
-                        total={pageNumber}
+                        total={totalPages}
                         itemsPerPage={offresPerPage}
                         currentPage={currentPage}
                         onPageChange={(page) => setCurrentPage(page)}
@@ -246,6 +242,8 @@ const Magazin = (props) => {
 
 const mapStateToProps = (state) => ({
   List: state.productsReducer.products,
+  SearchList: state.productsReducer.searchedProducts,
+  nbPages: state.productsReducer.pages,
   ListCat: state.catReducer.categories,
   isAuth: state.auth.isAuthenticated,
   isLoading: state.productsReducer.ploader,
@@ -254,6 +252,7 @@ const mapStateToProps = (state) => ({
 const mapActionToProps = {
   AllProducts: getAll,
   AllCategories: getAllCat,
+  Search: searchByText,
 };
 
 export default connect(mapStateToProps, mapActionToProps)(Magazin);
