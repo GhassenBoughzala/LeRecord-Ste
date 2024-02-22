@@ -190,7 +190,12 @@ router.get("/all", async (req, res) => {
   try {
     const page = req.query.page;
     const size = req.query.size;
-    let products = await Product.find(
+    const limit = parseInt(size);
+    const skip = (page - 1) * size;
+    const total = await Product.count();
+    const previous_pages = page - 1;
+    const next_pages = Math.ceil((total - skip) / size);
+    const products = await Product.find(
       {},
       {
         photo: { $slice: 1 },
@@ -206,8 +211,8 @@ router.get("/all", async (req, res) => {
       .limit(size)
       .populate("category", "name")
       .populate("fournisseur", "title");
-    //photo: { $slice: 1 },
-    res.json(products);
+
+    res.send({ products: products, pages: next_pages });
   } catch (error) {
     res.json(error);
   }
@@ -216,7 +221,7 @@ router.get("/all", async (req, res) => {
 router.get("/search", async (req, res) => {
   try {
     const text = req.query.text;
-    let products = await Product.find(
+    const products = await Product.find(
       { $text: { $search: text } },
       {
         photo: { $slice: 1 },
@@ -232,7 +237,7 @@ router.get("/search", async (req, res) => {
       .populate("category", "name")
       .populate("fournisseur", "title");
 
-    res.json(products);
+    res.json({ products: products });
   } catch (error) {
     console.log(error);
     res.status(500).send("Error to get products");
