@@ -226,7 +226,7 @@ router.get("/all", async (req, res) => {
 router.get("/search", async (req, res) => {
   try {
     const text = req.query.text;
-    const products = await Product.find(
+    /*     const products = await Product.find(
       { $text: { $search: text } },
       {
         photo: { $slice: 1 },
@@ -240,7 +240,31 @@ router.get("/search", async (req, res) => {
       }
     )
       .populate("category", "name")
-      .populate("fournisseur", "title");
+      .populate("fournisseur", "title"); */
+
+    const products = await Product.aggregate([
+      { $match: { $text: { $search: text } } },
+      {
+        $lookup: {
+          from: "fournisseurs",
+          localField: "fournisseur",
+          foreignField: "_id",
+          as: "fournisseur",
+        },
+      },
+      {
+        $lookup: {
+          from: "categories",
+          localField: "category",
+          foreignField: "_id",
+          as: "category",
+        },
+      },
+      //cancel some attribute to displays :
+      { $project: { fournisseur: { __v: 0, createdAt: 0, updatedAt: 0 } } },
+      { $project: { category: { __v: 0, createdAt: 0, updatedAt: 0 } } },
+      { $project: { photo: 0, __v: 0 } },
+    ]);
 
     res.json({ products: products });
   } catch (error) {
