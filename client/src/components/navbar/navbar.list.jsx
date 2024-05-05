@@ -76,7 +76,7 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
           <>
             <Button
               icon={"fas fa-sign-in-alt mx-1"}
-              title="Connecter"
+              title="Se Connecter"
               moreStyle="hover:text-blue-900"
               isButton={false}
               href="/login"

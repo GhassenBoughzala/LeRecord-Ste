@@ -19,6 +19,10 @@ import EditerProduct from "./screens/pages/newProduct/EditProduct";
 import UsersList from "./screens/pages/userList/UserList";
 import CategoriesList from "./screens/pages/category/categoryList";
 import FournisseursList from "./screens/pages/fournisseur/fournisseurList";
+import Login from "./screens/Login";
+import Register from "./screens/Register";
+import AuthHome from "./screens/AuthHome";
+
 
 const Routes = () => {
   return (
@@ -28,6 +32,9 @@ const Routes = () => {
         <Route exact path="/" component={Home} />
         <Route exact path="/accueil" component={Home} />
         <Route exact path="/catalogue" component={Magasin} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/auth" component={AuthHome} />
+        <Route exact path="/register" component={Register} />
 
         <UserRoute exact path="/dashboard/user" component={UserProfile} />
 

@@ -51,7 +51,7 @@ const NavbarAdminList = ({ history, logout, isAuth, user }) => {
       {!isAuth && (
         <>
           <Button
-            title='Connecter'
+            title='Se Connecter'
             moreStyle='hover:text-blue-900'
             isButton={false}
             href='/login'
