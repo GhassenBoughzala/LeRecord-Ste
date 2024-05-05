@@ -1,15 +1,13 @@
-import {} from "react";
-import "@mantine/core/styles.css";
 import "./App.css";
 
-import { MantineProvider } from "@mantine/core";
+import { MantineProvider, createTheme } from "@mantine/core";
+import Routes from "./routes";
 
 function App() {
+  const theme = createTheme();
   return (
     <MantineProvider>
-      <div className="App">
-        <header className="App-header">Hello</header>
-      </div>
+      <Routes />
     </MantineProvider>
   );
 }
