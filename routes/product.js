@@ -191,7 +191,7 @@ router.get("/all", async (req, res) => {
     const page = req.query.page || 1;
     const size = req.query.size;
     const limit = parseInt(size);
-    const skip = (page - 1) * size;
+    const skip = size * page - size;
     const total = await Product.count();
     const previous_pages = page - 1;
     const next_pages = Math.ceil((total - skip) / size);
@@ -207,9 +207,8 @@ router.get("/all", async (req, res) => {
         sold: 0,
       }
     )
-      .skip(size * page - size)
+      .skip(skip)
       .limit(limit)
-      .populate("category", "name")
       .populate("fournisseur", "title");
 
     res.send({
@@ -226,24 +225,19 @@ router.get("/all", async (req, res) => {
 router.get("/search", async (req, res) => {
   try {
     const text = req.query.text;
-    /*     const products = await Product.find(
-      { $text: { $search: text } },
-      {
-        photo: { $slice: 1 },
-        //description: 0,
-        price: 0,
-        quantity: 0,
-        createdAt: 0,
-        updatedAt: 0,
-        __v: 0,
-        sold: 0,
-      }
-    )
-      .populate("category", "name")
-      .populate("fournisseur", "title"); */
+    const page = req.query.page || 1;
+    const size = req.query.size;
+    const limit = parseInt(size);
 
     const products = await Product.aggregate([
-      { $match: { $text: { $search: text } } },
+      {
+        $match: {
+          $or: [
+            { name: { $regex: text, $options: "i" } },
+            { cat: { $regex: text, $options: "i" } },
+          ],
+        },
+      },
       {
         $lookup: {
           from: "fournisseurs",
@@ -252,21 +246,14 @@ router.get("/search", async (req, res) => {
           as: "fournisseur",
         },
       },
-      {
-        $lookup: {
-          from: "categories",
-          localField: "category",
-          foreignField: "_id",
-          as: "category",
-        },
-      },
       //cancel some attribute to displays :
       { $project: { fournisseur: { __v: 0, createdAt: 0, updatedAt: 0 } } },
-      { $project: { category: { __v: 0, createdAt: 0, updatedAt: 0 } } },
-      { $project: { photo: 0, __v: 0 } },
-    ]);
+      { $project: { __v: 0 } },
+    ])
+      .skip(size * page - size)
+      .limit(limit);
 
-    res.json({ products: products });
+    res.status(200).json({ products: products });
   } catch (error) {
     console.log(error);
     res.status(500).send("Error to get products");

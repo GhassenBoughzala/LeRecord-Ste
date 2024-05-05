@@ -13,9 +13,6 @@ const productSchema = new mongoose.Schema(
       type: String,
       maxlength: 2000,
     },
-    cat: {
-      type: String,
-    },
     category: {
       type: ObjectId,
       ref: "Category",
