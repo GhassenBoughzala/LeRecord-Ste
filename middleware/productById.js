@@ -1,5 +1,6 @@
 const mongoose  = require ('mongoose');
-const Product = require('../models/Product');
+//const Product = require('../models/Product');
+const ProductLow = require('../models/ProductLow');
 
 module.exports = async function(req, res, next ){
 
@@ -13,7 +14,7 @@ module.exports = async function(req, res, next ){
 
     try {
         
-        let product = await Product
+        let product = await ProductLow
                     .findById(productId)
                     .populate('category')
                     .populate('fournisseur')
