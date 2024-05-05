@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
 import Button from "../buttons/button.component";
 import NavItem from "./navbar.item";
-//import { toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { connect } from "react-redux";
 import { logout } from "../../redux/reducers/authReducer";
 
@@ -15,11 +15,11 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
     }
   };
 
-  /*   const [userLocal] = useState(() => {
+    const [userLocal] = useState(() => {
     const saved = localStorage.getItem("user");
     const initialValue = JSON.parse(saved);
     return initialValue || "";
-  }); */
+  });
 
   return (
     <>
@@ -38,7 +38,7 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
           title="Catalogue"
         ></Button>
 
-        {/*         {isAuth && (
+        {isAuth && (
           <>
             <Button
               isButton={true}
@@ -70,9 +70,9 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
               />
             )}
           </>
-        )} */}
+        )}
 
-        {/*         {!isAuth && (
+        {!isAuth && (
           <>
             <Button
               icon={"fas fa-sign-in-alt mx-1"}
@@ -82,7 +82,7 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
               href="/login"
             />
           </>
-        )} */}
+        )}
       </ul>
     </>
   );

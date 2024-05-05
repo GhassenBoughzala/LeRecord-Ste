@@ -14,7 +14,7 @@ const Home = () => {
   return (
     <>
       <Helmet>
-        <title>Accueil</title>
+        <title>Le Record</title>
         <meta
           name="description"
           content="LE RECORD spécialisée dans la commercialisation de fournitures de confection - Entreprises Export - Textile - Accessoires - Avenue Habib Bourguiba, Nabeul 8000"
