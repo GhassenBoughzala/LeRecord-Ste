@@ -211,9 +211,10 @@ router.get("/all", async (req, res) => {
       .limit(limit)
       .populate("fournisseur", "title");
 
-    res.send({
+    res.status(200).send({
       products: products,
-      pages: next_pages,
+      next: next_pages,
+      current: parseInt(page),
       previous: previous_pages,
     });
   } catch (error) {
@@ -228,6 +229,10 @@ router.get("/search", async (req, res) => {
     const page = req.query.page || 1;
     const size = req.query.size;
     const limit = parseInt(size);
+    const skip = size * page - size;
+    const total = await Product.count();
+    const previous_pages = page - 1;
+    const next_pages = Math.ceil((total - skip) / size);
 
     const products = await Product.aggregate([
       {
@@ -253,7 +258,12 @@ router.get("/search", async (req, res) => {
       .skip(size * page - size)
       .limit(limit);
 
-    res.status(200).json({ products: products });
+    res.status(200).send({
+      products: products,
+      next: next_pages,
+      current: parseInt(page),
+      previous: previous_pages,
+    });
   } catch (error) {
     console.log(error);
     res.status(500).send("Error to get products");
