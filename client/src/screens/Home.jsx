@@ -6,7 +6,7 @@ import COTU from "../assests/img/couverture-articles-01.png";
 import Fournisseur from "../components/home/Fournisseur";
 import Fourniture from "../components/home/Fourniture";
 import Gamme from "../components/home/Gamme";
-import Navbar from "../components/navbar/navbar.component";
+import Navbar from "../components/Navbar";
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet-async";
 
@@ -18,7 +18,7 @@ const Home = () => {
         <meta
           name="description"
           content="LE RECORD spécialisée dans la commercialisation de fournitures de confection - Entreprises Export - Textile - Accessoires - Avenue Habib Bourguiba, Nabeul 8000"
-          />
+        />
         <link rel="canonical" href="/accueil" />
       </Helmet>
       <Container>
@@ -38,11 +38,13 @@ const Home = () => {
                   <img src={RBG} alt="" />
                 </span>
                 <h1 className="m-0 text-xl font-semibold leading-tight lg:text-2xl md:text-2xl pt-6 text-blue-900">
-                  Nous avons l’honneur de tenir cette opportunité pour nous présenter brièvement notre société
+                  Nous avons l’honneur de tenir cette opportunité pour nous
+                  présenter brièvement notre société
                 </h1>
 
                 <div className="m-0 text-xl font-semibold leading-tight lg:text-2xl md:text-2xl pt-6 text-blue-900">
-                  Nous « Le Record », sommes spécialisé dans la commercialisation de fournitures de confection
+                  Nous « Le Record », sommes spécialisé dans la
+                  commercialisation de fournitures de confection
                 </div>
               </div>
             </div>

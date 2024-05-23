@@ -27,7 +27,6 @@ import FournisseursList from "./screens/pages/fournisseur/fournisseurList";
 import Login from "./screens/Login";
 import Register from "./screens/Register";
 import AuthHome from "./screens/AuthHome";
-import Test from "./screens/Test";
 import "./app.css";
 
 function App() {
@@ -47,7 +46,7 @@ function App() {
         <BrowserRouter>
           <ToastContainer position="bottom-right" />
           <Routes>
-            <Route exact path="/" element={<Test />} />
+            <Route exact path="/" element={<Home />} />
             <Route exact path="*" element={<PageNotFound />} />
             <Route exact path="/accueil" element={<Home />} />
             <Route exact path="/catalogue" element={<Magasin />} />
