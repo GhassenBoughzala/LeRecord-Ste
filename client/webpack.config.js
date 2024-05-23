@@ -44,8 +44,12 @@ const config = {
         },
       },
       {
-        test: /\.css$/i,
-        use: [stylesHandler, "css-loader"],
+        test: /\.css$/,
+        use: [
+          stylesHandler,
+          { loader: "css-loader", options: { importLoaders: 1 } },
+          "postcss-loader",
+        ],
       },
       {
         test: /\.(pdf)$/i,
