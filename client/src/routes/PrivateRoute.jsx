@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Redirect } from "react-router-dom";
+import { Route, Navigate } from "react-router-dom";
 import { connect } from 'react-redux';
 
 
@@ -17,7 +17,7 @@ const PrivateRoute = ({
                 isAuthenticated === true && user.role === 1 ? (
                     <Component {...props} />
                 ) : (
-                        <Redirect to="/dashboard/admin" />
+                        <Navigate to="/dashboard/admin" />
                     )
                 
             }

@@ -1,5 +1,4 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import Button from '../buttons/button.component';
 import NavItem from './navbar.item';
 import { toast } from 'react-toastify';
@@ -71,4 +70,4 @@ const mapStateToProps = (state) => ({
   isAuth: state.auth.isAuthenticated,
   user: state.auth.user
 });
-export default connect(mapStateToProps, { logout })(withRouter(NavbarAdminList));
+export default connect(mapStateToProps, { logout })((NavbarAdminList));

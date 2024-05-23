@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import authSvg from "../assests/login.svg";
 import { toast } from "react-toastify";
-import { Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { login } from "../redux/reducers/authReducer";
 import { connect } from "react-redux";
 import Container from "../components/container/container.component";
@@ -27,8 +27,8 @@ const Login = ({ login, isAuth, isLoading, user }) => {
   if (isAuth && user) {
     const { role } = user;
     toast.success(`Bienvenue `);
-    if (role === 0) return <Redirect to="/dashboard/user" />;
-    if (role === 1) return <Redirect to="/dashboard/admin" />;
+    if (role === 0) return <Navigate to="/dashboard/user" />;
+    if (role === 1) return <Navigate to="/dashboard/admin" />;
   }
   return (
     <Container>

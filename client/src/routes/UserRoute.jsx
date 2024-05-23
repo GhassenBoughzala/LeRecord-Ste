@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Redirect } from "react-router-dom";
+import { Route, Navigate } from "react-router-dom";
 import { connect } from 'react-redux';
 
 
@@ -17,7 +17,7 @@ const UserRoute = ({
                 isAuthenticated === true && user.role === 0 ? (
                     <Component {...props} />
                 ) : (
-                        <Redirect to="/dashboard/user" />
+                        <Navigate to="/dashboard/user" />
                     )
                 
             }

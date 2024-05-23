@@ -1,5 +1,4 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
 import Button from "../buttons/button.component";
 import "./topbar.css";
 import { connect } from "react-redux";
@@ -68,4 +67,4 @@ const mapStateToProps = (state) => ({
   isAuth: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps, { logout })(withRouter(Topbar));
+export default connect(mapStateToProps, { logout })(Topbar);

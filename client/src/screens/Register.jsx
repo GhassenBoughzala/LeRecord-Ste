@@ -4,7 +4,7 @@ import Container from "../components/container/container.component";
 import { register } from "../redux/reducers/authReducer";
 import authSvg from "../assests/auth.svg";
 import { toast } from "react-toastify";
-import { Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import Navbar from "../components/navbar/navbar.component";
 import "../components/loading.css";
 
@@ -35,8 +35,8 @@ const Register = ({ register, isAuth, isLoading, user }) => {
 
   if (isAuth && user) {
     const { role } = user;
-    if (role === 0) return <Redirect to="/" />;
-    if (role === 1) return <Redirect to="" />;
+    if (role === 0) return <Navigate to="/" />;
+    if (role === 1) return <Navigate to="" />;
   }
 
   return (

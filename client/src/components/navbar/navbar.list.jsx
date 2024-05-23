@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { withRouter } from "react-router-dom";
 import Button from "../buttons/button.component";
 import NavItem from "./navbar.item";
 import { toast } from "react-toastify";
@@ -7,15 +6,15 @@ import { connect } from "react-redux";
 import { logout } from "../../redux/reducers/authReducer";
 
 const NavbarList = ({ history, logout, isAuth, user }) => {
-  const isActive = (history, path) => {
+/*   const isActive = (history, path) => {
     if (history.location.pathname === path) {
       return "text-blue-900";
     } else {
       return "";
     }
-  };
+  }; */
 
-    const [userLocal] = useState(() => {
+  const [userLocal] = useState(() => {
     const saved = localStorage.getItem("user");
     const initialValue = JSON.parse(saved);
     return initialValue || "";
@@ -28,7 +27,7 @@ const NavbarList = ({ history, logout, isAuth, user }) => {
           link="/accueil"
           //icon="fas fa-home mx-1"
           name="Accueil"
-          listStyle={isActive(history, "/")}
+          //listStyle={isActive(history, "/")}
         />
         <Button
           isButton={false}
@@ -92,4 +91,4 @@ const mapStateToProps = (state) => ({
   isAuth: state.auth.isAuthenticated,
   user: state.auth.user,
 });
-export default connect(mapStateToProps, { logout })(withRouter(NavbarList));
+export default connect(mapStateToProps, { logout })(NavbarList);
