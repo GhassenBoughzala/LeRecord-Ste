@@ -107,7 +107,7 @@ const config = {
     new webpack.optimize.AggressiveMergingPlugin(),
     new CompressionPlugin({
       algorithm: "gzip",
-      test: /\.js$|\.jsx$|\.css$|\.html$/,
+      test: /\.js$|\.jsx$|\.svg$|\.css$|\.html$/,
       threshold: 10240,
       minRatio: 0.8,
     }),
@@ -123,6 +123,7 @@ const config = {
     },
     compress: true,
     port: 3000,
+    historyApiFallback: true,
     proxy: {
       context: () => true,
       target: "http://localhost:5500",
