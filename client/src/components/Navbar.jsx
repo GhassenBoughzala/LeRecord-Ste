@@ -42,7 +42,7 @@ export const Navbar = () => {
               <ul className="menu menu-horizontal">
                 {/* Navbar menu content here */}
                 <li>
-                  <Link to="/acceuil">
+                  <Link to="/accueil">
                     <b className=" text-blue-900">Acceuil</b>
                   </Link>
                 </li>
@@ -67,7 +67,7 @@ export const Navbar = () => {
           <ul className="menu p-4 w-80 min-h-full bg-base-200">
             {/* Sidebar content here */}
             <li>
-              <Link to="/acceuil">
+              <Link to="/accueil">
                 <b className=" text-blue-900">Acceuil</b>
               </Link>
             </li>
@@ -76,7 +76,7 @@ export const Navbar = () => {
                 <b className=" text-blue-900">Catalogue</b>
               </Link>
             </li>
-            <li>
+            <li className=" text-right">
               <Theme />
             </li>
           </ul>
