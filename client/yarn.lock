@@ -3366,7 +3366,7 @@ axios@^0.24.0:
   resolved "https://registry.npmjs.org/axios/-/axios-0.24.0.tgz"
   integrity sha512-Q6cWsys88HoPgAaFAVUb0WpPk0O8iTeisR9IMqy9G8AbO4NlpVknrnQS03zzF9PGAWgO3cgletO3VjV/P7VztA==
   dependencies:
-    follow-Navigates "^1.14.4"
+    follow-redirects "^1.14.4"
 
 axobject-query@^3.2.1:
   version "3.2.1"
@@ -5761,12 +5761,7 @@ flatted@^3.2.9:
   resolved "https://registry.npmjs.org/flatted/-/flatted-3.3.1.tgz"
   integrity sha512-X8cqMLLie7KsNUDSdzeN8FYK9rEt4Dt67OsG/DNGnYTSDBG4uFAJFBnUeiV+zCVAvwFy56IjM9sH51jVaEhNxw==
 
-follow-Navigates@^1.0.0, follow-Navigates@^1.14.4:
-  version "1.15.6"
-  resolved "https://registry.npmjs.org/follow-Navigates/-/follow-Navigates-1.15.6.tgz"
-  integrity sha512-wWN62YITEaOpSK584EZXJafH1AGpO8RVgElfkuXbTOrPX4fIfOyEpW/CsiNd8JdYrAoOvafRTOEnvsO++qCqFA==
-
-follow-redirects@^1.15.6:
+follow-redirects@^1.0.0, follow-redirects@^1.14.4, follow-redirects@^1.15.6:
   version "1.15.6"
   resolved "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.15.6.tgz"
   integrity sha512-wWN62YITEaOpSK584EZXJafH1AGpO8RVgElfkuXbTOrPX4fIfOyEpW/CsiNd8JdYrAoOvafRTOEnvsO++qCqFA==
@@ -5888,11 +5883,6 @@ fs.realpath@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz"
   integrity sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==
-
-fsevents@^2.3.2, fsevents@~2.3.2:
-  version "2.3.3"
-  resolved "https://registry.npmjs.org/fsevents/-/fsevents-2.3.3.tgz"
-  integrity sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==
 
 function-bind@^1.1.2:
   version "1.1.2"
@@ -6299,7 +6289,7 @@ http-proxy@^1.18.1:
   integrity sha512-7mz/721AbnJwIVbnaSv1Cz3Am0ZLT/UBwkC92VlxhXv/k/BBQfM2fXElQNC27BVGr0uwUpplYPQM9LnaBMR5NQ==
   dependencies:
     eventemitter3 "^4.0.0"
-    follow-Navigates "^1.0.0"
+    follow-redirects "^1.0.0"
     requires-port "^1.0.0"
 
 https-proxy-agent@^5.0.0:
